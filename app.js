@@ -4,10 +4,10 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var multer = require('multer');
 var findRemoveSync = require('find-remove');
-var AlchemyAPI = require('./alchemyapi');
-var iandc = require('./node_modules/interpret_and_control/interpret_and_control.js')
+//var AlchemyAPI = require('./alchemyapi');
+var iandc = require('drone_interpret_and_control')
 
-var alchemyapi = new AlchemyAPI();
+//var alchemyapi = new AlchemyAPI();
 
 var storage = multer.diskStorage({
 	destination: function (req, file, cb) {
@@ -59,6 +59,7 @@ for (var svcName in services) {
   	}
 }
 
+/////////////// Initialise services ///////////
 var username = cloudantCreds.username;
 var password = cloudantCreds.password;
 var cloudant = Cloudant({account:username, password:password});
@@ -91,17 +92,15 @@ var toneAnaysis = watson.tone_analyzer({
 });
 console.log("Tone Analysis: " + username + " " + password);
 
-mqttCreds.id = 'drone-nodes';
+mqttCreds.id = 'drone_nodes';
+mqttCreds.type = 'application';
 var IandC = new iandc(mqttCreds, cloudant);
 console.log("IandC : " + mqttCreds.org);
 
-var words = {"Fire" : 0444};
-IandC.imageKeywords(words);
-
-
-// cloudant.db.list(function(err, allDbs) {
-//   console.log('All my databases: %s', allDbs.join(', '))
-// });
+var words = {name:"Fire" , score:0.7};
+var docID = (new Date()).getTime().toString()
+IandC.imageKeywords(words, docID, {lat: "0.1", lon:"0.2"} );
+////////////////////////////////////////////////////
 
 
 // serve the files out of ./public as our main files?
@@ -109,7 +108,7 @@ app.use(express.static(__dirname + '/public'));
 
 
 
-// REST FUNCTIONS
+////////// REST FUNCTIONS ////////////////////
 
 app.get('/latest', function (req, res){
 	retrieveLatestImage(res);
@@ -127,8 +126,9 @@ app.get('/getLabels', function(req, res){
 })
 
 app.post('/image', upload.single('image'), function (req, res){
-    console.log("Received file");
-	insertImage(req.file.originalname, req.file.buffer, res);
+    console.log("Received file " + req.file.originalname);
+	insertImageIntoDatabase(req.file.originalname, req.file.path, res);
+	classifyUploadedImage(req.file.originalname, req.file.path);
 });
 
 app.post('/classifyImage', upload.single('toClassify'), function (req, res){
@@ -143,38 +143,41 @@ app.get('/toneAnalysis', function(req, res){
 	analyseTone(req, res);
 });
 
-app.get('/bum', function(req, res){
-	alchemyapi.image_keywords('url', 'http://drone-nodes.eu-gb.mybluemix.net/latest', {}, function(response){
-		console.log(response);
-		console.log(response.imageKeywords);
-		res.send(response.imageKeywords);
-	});
-});
+// app.get('/bum', function(req, res){
+// 	alchemyapi.image_keywords('url', 'http://drone-nodes.eu-gb.mybluemix.net/latest', {}, function(response){
+// 		console.log(response);
+// 		console.log(response.imageKeywords);
+// 		res.send(response.imageKeywords);
+// 	});
+// });
+
+/////////////////////////////////////////////////////
 
 // start server on the specified port and binding host
-appEnv.port = 6002;
-app.listen(appEnv.port, '0.0.0.0', function() {
-    console.log("server starting on " + appEnv.url);
+
+var port = process.env.VCAP_APP_PORT || 8080;
+app.listen(port, function() {
+    console.log("server starting on " + appEnv.url + " port " + port);
 });
-
-
 
 // Clean up uploads
 setInterval(function() {
-	console.log("Checking");
-    var removed = findRemoveSync(__dirname + '/../uploads', {age: {seconds: 3600}});
-    if (removed.length > 0)
-      console.log('removed:', removed);
-  }, 3600000);
+	console.log("Checking "+ __dirname + '/uploads');
+    var removed = findRemoveSync(__dirname + '/uploads', {age: {seconds: 3600}});
+}, 3600000);
 
 
+// Internal Functions //
 
+function insertImageIntoDatabase(imageName, imagePath, res){
 
-function insertImage(imageName, imageData, res){
+	// Read from uploads
+	imageData = fs.readFileSync(imagePath);
+	images = cloudant.use('test');
 
-    var images = cloudant.use('test');
 	var attach = [{name: "image", data: imageData, content_type: 'image/jpeg'}];
-	var docID = (new Date()).getTime().toString()
+	var docID = (new Date()).getTime().toString();
+
 	images.multipart.insert({name: imageName}, attach, docID, function(err, body) {
 		if (err) {
 			console.log('[images.insert] ', err.message);
@@ -184,6 +187,24 @@ function insertImage(imageName, imageData, res){
 		}
     });
 
+}
+
+function classifyUploadedImage(imageName, imagePath){
+	var file = fs.createReadStream(imagePath);
+
+	var params = {
+		images_file: file
+	};
+
+	imageRecognition.classify(params, function(err, results){
+		if(err){
+			return err;
+		}else{
+			var labels = results.images[0].scores;
+			var anyLabel = IandC.imageKeywords(labels, imageName, {lat: "0.1", lon:"0.2"} );
+			console.log("Recognised: " + anyLabel);
+		}
+	});
 }
 
 function retrieveLatestImage(res){
