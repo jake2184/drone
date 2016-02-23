@@ -11,10 +11,10 @@
     "cloudant": "^1.4.0",
     "drone_interpret_and_control": "^1.0.0",
     "express": "4.12.x",
-    "find-remove": "^0.2.8",
+    "find-remove": "~0.2.10",
     "ibmiotf": "^0.2.2",
     "multer": "^1.1.0",
-    "watson-developer-cloud": "^1.1.2"
+    "watson-developer-cloud": "~1.2.3"
   },
   "repository": {},
   "engines": {
