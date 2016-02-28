@@ -9,6 +9,7 @@ var Cloudant = require('cloudant');
 var watson = require('watson-developer-cloud');
 var cfenv = require('cfenv');
 var iandc = require('drone_interpret_and_control')
+var auth = require('basic-auth')
 
 //var AlchemyAPI = require('./alchemyapi');
 //var alchemyapi = new AlchemyAPI();
@@ -46,13 +47,14 @@ app.upload = upload;
 var appEnv = cfenv.getAppEnv();
 
 
-
 /////////////// Load Service Details //////////
 var services;
 if (process.env.VCAP_SERVICES) {
+	console.log("Cloud Detected");
 	services = JSON.parse(process.env.VCAP_SERVICES);
 } else {
 	try{
+		console.log("Local Detected");
 		services = require('./node_modules/vcap_services/VCAP_SERVICES.json');
 	} catch (e){
 		console.error(e);
@@ -170,6 +172,21 @@ app.post('/imageUpload', upload.single('image'), function (req, res){
 	console.log("Received image: " + req.file.originalname);
 	res.status(200).send("File uploaded successfully.\n");
 	// Check security/validity of the file
+	//classifyUploadedImage(req.file.originalname, req.file.path);
+	//insertImageIntoDatabase(req.file.originalname, req.file.path);
+});
+
+app.post('/imageUploadSecure', upload.single('image'), function (req, res){
+	var credentials = auth(req);
+	if (!credentials || credentials.name !== 'Drone' || credentials.pass !== 'Pi') {
+    	res.statusCode = 401;
+    	res.setHeader('WWW-Authenticate', 'Basic realm="Bluemix"');
+    	res.end('Access denied');
+		return;
+  	}
+	console.log("Received image: " + req.file.originalname);
+	res.status(200).send("File uploaded successfully.\n");
+	// Check security/validity of the file
 	classifyUploadedImage(req.file.originalname, req.file.path);
 	insertImageIntoDatabase(req.file.originalname, req.file.path);
 });
@@ -181,8 +198,11 @@ app.post('/classifyImage', upload.single('toClassify'), function (req, res){
 
 // Upload a speech file to the server from the drone
 app.post('/speechUpload', upload.single('toRecognise'), function (req, res){
-	insertSpeechIntoDatabase(req.file.originalname, req.file.path, res);
+	console.log("Received sound: " + req.file.originalname);
+	res.status(200).send("File uploaded successfully.\n");
+	// Check security/validity of the file
 	speechRecognition(req, res);
+	insertSpeechIntoDatabase(req.file.originalname, req.file.path, res);
 });
 
 
