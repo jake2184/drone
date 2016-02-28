@@ -149,7 +149,7 @@ app.use(express.static(__dirname + '/public'));
 ////////// REST FUNCTIONS ////////////////////
 
 // Retrieves the latest image from the database - adapt to get from server?
-app.get('/latest', function (req, res){
+app.get('/getLatestImage', function (req, res){
 	retrieveLatestImage(res);
 });
 
@@ -254,11 +254,12 @@ function classifyUploadedImage(imageName, imagePath){
 	var params = {
 		images_file: file
 	};
-
+	var start = (new Date()).getTime();
 	imageRecognition.classify(params, function(err, results){
 		if(err){
-			console.log('[image.recognise]: ' + error);
+			console.log('[image.recognise]: ' + err);
 		}else{
+			console.log("Recognition Duration: " + ((new Date()).getTime() - start));
 			var labels = results.images[0].scores;
 			var anyLabel = IandC.imageKeywords(labels, imageName, {lat: "0.1", lon:"0.2"} );
 			console.log("Image Recognised: " + anyLabel);
