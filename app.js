@@ -14,9 +14,11 @@ var auth = require('basic-auth')
 //var AlchemyAPI = require('./alchemyapi');
 //var alchemyapi = new AlchemyAPI();
 
+var uploadDir = "uploads/";
+
 var storage = multer.diskStorage({
 	destination: function (req, file, cb) {
-	  cb(null, './uploads/');
+	  cb(null, uploadDir );
 	},
 	filename: function (req, file, cb) {
 	  cb(null, Date.now() + '-' + file.originalname);
@@ -28,17 +30,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 var upload = multer({
 	 storage: storage
-	// ,
-	// onFileUploadComplete: function(file, req, res ){
-	// 	console.log("Received File");
-	// 	res.send("Hi");
-	// 	res.status(200).send("boo");
-	// 	if(file.error){
-	// 		res.send(file.error);
-	// 	}else{
-	// 		res.status(200).send("File uploaded successfully.")
-	// 	}
-	// }
 });
 app.upload = upload;
 
@@ -160,10 +151,13 @@ app.get('/getLabels', function(req, res){
 	var params = {
 		'verbose': 1
 	};
-	imageRecognition.listClassifiers(params, function(err, results){
-		console.log(err);
-		console.log(results);
-		fs.writeFile("here.txt", JSON.stringify(results));
+	imageRecognition.listClassifiers(params, function(err, labels){
+		if(err){
+			console.error(err);
+			res.status(500).send();
+		} else {
+			res.status(200).send(JSON.stringify(labels));
+		}
 	});
 })
 
@@ -221,14 +215,15 @@ app.post('/speechUpload', upload.single('toRecognise'), function (req, res){
 ////////////// Caching/Performance Improvement ///
 
 var latestImage = ""; //TODO - replace with checking latest in uploads folder
+var latestSound = ""; //TODO - is it ever needed?
 
 
 
 // Clean up uploads
 setInterval(function() {
-	console.log("Checking "+ __dirname + '/uploads');
-    var removed = findRemoveSync(__dirname + '/uploads', {age: {seconds: 3600}});
-}, 3600/*000*/);
+	console.log("Checking "+ __dirname + '/' + uploadDir);
+    var removed = findRemoveSync(__dirname + '/' + uploadDir, {age: {seconds: 3600}});
+}, 3600000);
 
 
 // Start server on the specified port and binding host
@@ -250,7 +245,7 @@ function insertImageIntoDatabase(imageName, imagePath, res){
 
 	images.multipart.insert({name: imageName}, attach, docID, function(err, body) {
 		if (err) {
-			console.log('[images.insert]: ', err.message);
+			console.error('[images.insert]: ', err.message);
 		} else{
 			console.log("Saved image to database successfully.");
 		}
@@ -268,7 +263,7 @@ function insertSpeechIntoDatabase(speechfileName, speechfilePath, res){
 
 	speechDB.multipart.insert({name: speechfileName}, attach, docID, function(err, body) {
 		if (err) {
-			console.log('[speech.insert]: ', err.message);
+			console.error('[speech.insert]: ', err.message);
 		} else{
 			console.log("Saved speech to database successfully.");
 		}
@@ -278,10 +273,9 @@ function insertSpeechIntoDatabase(speechfileName, speechfilePath, res){
 function classifyUploadedImage(imageName, imagePath){
 	var file = fs.createReadStream(imagePath);
 
-	var params = {
-		images_file: file
-	};
+	var params = { images_file: file };
 	var start = (new Date()).getTime();
+
 	imageRecognition.classify(params, function(err, results){
 		if(err){
 			console.error('[image.recognise]: ' + err);
@@ -322,8 +316,13 @@ function retrieveLatestImage(res){
 					res.set('Content-Type', 'image/jpeg');
 					res.send(body);
 					// Cache response - need to append original filename?
-					fs.writeFile("uploads/"+filename, body);
-					latestImage = filename;
+					fs.writeFile(uploadDir+filename, body, function(err){
+						if(err){
+							console.error(err);
+						}else{
+							latestImage = filename + ".jpg";
+						}
+					});
 				}
 			});
 		}
