@@ -172,6 +172,7 @@ app.post('/imageUpload', upload.single('image'), function (req, res){
 	console.log("Received image: " + req.file.originalname);
 	res.status(200).send("File uploaded successfully.\n");
 	// Check security/validity of the file
+	latestImage = req.file.path;
 	//classifyUploadedImage(req.file.originalname, req.file.path);
 	//insertImageIntoDatabase(req.file.originalname, req.file.path);
 });
@@ -187,6 +188,7 @@ app.post('/imageUploadSecure', upload.single('image'), function (req, res){
 	console.log("Received image: " + req.file.originalname);
 	res.status(200).send("File uploaded successfully.\n");
 	// Check security/validity of the file
+	latestImage = req.file.path;
 	classifyUploadedImage(req.file.originalname, req.file.path);
 	insertImageIntoDatabase(req.file.originalname, req.file.path);
 });
@@ -216,19 +218,24 @@ app.post('/speechUpload', upload.single('toRecognise'), function (req, res){
 
 /////////////////////////////////////////////////////
 
-// start server on the specified port and binding host
+////////////// Caching/Performance Improvement ///
 
-var port = process.env.VCAP_APP_PORT || 8080;
-app.listen(port, function() {
-    console.log("server starting on " + appEnv.url + " port " + port);
-});
+var latestImage = ""; //TODO - replace with checking latest in uploads folder
+
+
 
 // Clean up uploads
 setInterval(function() {
 	console.log("Checking "+ __dirname + '/uploads');
     var removed = findRemoveSync(__dirname + '/uploads', {age: {seconds: 3600}});
-}, 3600000);
+}, 3600/*000*/);
 
+
+// Start server on the specified port and binding host
+var port = process.env.VCAP_APP_PORT || 8080;
+app.listen(port, function() {
+	console.log("server starting on " + appEnv.url + " port " + port);
+});
 
 /////////////////// Internal Functions ////////
 
@@ -257,7 +264,7 @@ function insertSpeechIntoDatabase(speechfileName, speechfilePath, res){
 	speechDB = cloudant.use('speech');
 
 	var attach = [{name: "speech", data: speechData, content_type: 'image/jpeg'}];
-	var docID = (new Date()).getTime().toString();
+	var docID = (new Date()).getTime().toString(); // Append original file name?
 
 	speechDB.multipart.insert({name: speechfileName}, attach, docID, function(err, body) {
 		if (err) {
@@ -288,20 +295,30 @@ function classifyUploadedImage(imageName, imagePath){
 }
 
 function retrieveLatestImage(res){
+	if(latestImage != ""){
+		var imageData = fs.readFileSync(latestImage);
+		res.set('Content-Type', 'image/jpeg');
+		res.send(imageData);
+		return;
+	}
+
 	var images = cloudant.use('test');
 	images.list({"descending": true, "include_docs": true, "limit": 1}, function(err, body){
 		if(err){
-			console.log(err);
+			console.error(err);
 			res.status(404).send(err.message);
 		}else{
-			images.attachment.get(body.rows[0].id, "image", function(err, body){
+			var filename = body.rows[0].id;
+			images.attachment.get(filename, "image", function(err, body){
 				if(err){
-					console.log(err);
+					console.error(err);
 					res.status(404).send(err.message);
 				}else{
-					console.log(body);
 					res.set('Content-Type', 'image/jpeg');
 					res.send(body);
+					// Cache response - need to append original filename?
+					fs.writeFile("uploads/"+filename, body);
+					latestImage = filename;
 				}
 			});
 		}
