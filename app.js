@@ -310,20 +310,9 @@ function retrieveLatestImage(res){
 
 function classifyImage(req, res){
 	var file;
-	if (req.file) {
-		// file image
 		console.log(req.file.path);
 		file = fs.createReadStream(req.file.path);
-	} else if (req.body.url && validator.isURL(req.body.url)) {
-		// web image
-		file = request(req.body.url.split('?')[0]);
-	} else if (req.body.url && req.body.url.indexOf('images') === 0) {
-		// local image
-		file = fs.createReadStream(path.join('public', req.body.url));
-	} else {
-		// malformed url
-		return { error: 'Malformed URL', code: 400 };
-	}
+
 
 	var params = {
 		images_file: file
