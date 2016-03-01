@@ -284,7 +284,7 @@ function classifyUploadedImage(imageName, imagePath){
 	var start = (new Date()).getTime();
 	imageRecognition.classify(params, function(err, results){
 		if(err){
-			console.log('[image.recognise]: ' + err);
+			console.error('[image.recognise]: ' + err);
 		}else{
 			console.log("Recognition Duration: " + ((new Date()).getTime() - start));
 			var labels = results.images[0].scores;
@@ -296,10 +296,15 @@ function classifyUploadedImage(imageName, imagePath){
 
 function retrieveLatestImage(res){
 	if(latestImage != ""){
-		var imageData = fs.readFileSync(latestImage);
-		res.set('Content-Type', 'image/jpeg');
-		res.send(imageData);
-		return;
+		try{
+			var imageData = fs.readFileSync(latestImage);
+			res.set('Content-Type', 'image/jpeg');
+			res.send(imageData);
+			return;
+		} catch (e){
+			console.log("Image Cache Miss.");
+			latestImage = "";
+		}
 	}
 
 	var images = cloudant.use('test');
@@ -339,6 +344,7 @@ function classifyImage(req, res){
 		console.log(err);
 		console.log(results.images[0].scores);
 		if(err){
+			console.error(err);
 			return err;
 		}else{
 			res.send(results);
@@ -357,7 +363,7 @@ function speechRecognition(req, res){
 
 	speechToText.recognize(params, function(err, results){
 		if(err){
-			console.log('[speech.recognise]: ' + err);
+			console.error('[speech.recognise]: ' + err);
 		}else{
 			var transcript = results.results[0].alternatives[0].transcript;
 			var speechRecognised = IandC.speechTranscript(transcript);
@@ -376,7 +382,7 @@ function analyseTone(transcript){
 
 	toneAnaysis.tone(params, function(err, results){
 		if(err){
-			console.log('[speech.toneAnalysis]: ' + err);
+			console.error('[speech.toneAnalysis]: ' + err);
 		}else{
 			console.log(results.children);
 		}
