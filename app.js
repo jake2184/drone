@@ -10,6 +10,8 @@ var watson = require('watson-developer-cloud');
 var cfenv = require('cfenv');
 var iandc = require('drone_interpret_and_control')
 var auth = require('basic-auth')
+var readChunk = require('read-chunk')
+var imageType = require('image-type')
 
 //var AlchemyAPI = require('./alchemyapi');
 //var alchemyapi = new AlchemyAPI();
@@ -120,7 +122,7 @@ var toneAnaysis = watson.tone_analyzer({
 });
 //console.log("Tone Analysis: " + username + " " + password);
 
-mqttCreds.id = 'drone_nodes';
+mqttCreds.id = 'drone-nodes';
 mqttCreds.type = 'application';
 var IandC = new iandc(mqttCreds, cloudant);
 //console.log("IandC : " + mqttCreds.org);
@@ -146,6 +148,11 @@ app.get('/getLatestImage', function (req, res){
 	retrieveLatestImage(res);
 });
 
+app.get('/getLatestGPS', function(req, res){
+	var latlon = {lat: 51.485138, lon: -0.187755};
+	res.status(200).send(JSON.stringify(latlon));
+});
+
 // Retrieves the image recognition label set
 app.get('/getLabels', function(req, res){
 	var params = {
@@ -166,6 +173,8 @@ app.post('/imageUpload', upload.single('image'), function (req, res){
 	console.log("Received image: " + req.file.originalname);
 	res.status(200).send("File uploaded successfully.\n");
 	// Check security/validity of the file
+	var valid = validateJPEG(req.file.path);
+	console.log(valid);
 	latestImage = req.file.path;
 	//classifyUploadedImage(req.file.originalname, req.file.path);
 	//insertImageIntoDatabase(req.file.originalname, req.file.path);
@@ -386,4 +395,17 @@ function analyseTone(transcript){
 			console.log(results.children);
 		}
 	});
+}
+
+function validateJPEG(filePath){
+	var buffer = readChunk.sync(filePath, 0, 12);
+	var type = imageType(buffer);
+
+	if( (type.ext == 'jpg'||type.ext == 'jpeg') && type.mime == 'image/jpeg' ){
+		return true;
+	} else {
+		console.log("Invalid file: " + filePath);
+		return false;
+	}
+
 }
