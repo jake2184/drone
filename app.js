@@ -12,7 +12,7 @@ var iandc = require('drone_interpret_and_control')
 var auth = require('basic-auth')
 var readChunk = require('read-chunk')
 var imageType = require('image-type')
-var mqtt = require('./mqttHandler')
+var mqtt = require('./lib/mqttHandler')
 
 
 var uploadDir = "uploads/";
@@ -123,7 +123,9 @@ var toneAnaysis = watson.tone_analyzer({
 
 mqttCreds.id = 'drone-nodes';
 mqttCreds.type = 'application';
-var MQTT = new mqttHandler(mqttCreds);
+
+var devices = { "Android":"phone", "pi":"dronepi"};
+var MQTT = new mqttHandler(mqttCreds, devices);
 var IandC = new iandc(MQTT, cloudant);
 //console.log("IandC : " + mqttCreds.org);
 
@@ -232,6 +234,9 @@ var port = process.env.VCAP_APP_PORT || 8080;
 app.listen(port, function() {
 	console.log("server starting on " + appEnv.url + " port " + port);
 });
+
+
+
 
 /////////////////// Internal Functions ////////
 
