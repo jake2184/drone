@@ -13,8 +13,6 @@ var auth = require('basic-auth')
 var readChunk = require('read-chunk')
 var imageType = require('image-type')
 
-//var AlchemyAPI = require('./alchemyapi');
-//var alchemyapi = new AlchemyAPI();
 
 var uploadDir = "uploads/";
 
@@ -209,15 +207,6 @@ app.post('/speechUpload', upload.single('toRecognise'), function (req, res){
 	speechRecognition(req, res);
 	insertSpeechIntoDatabase(req.file.originalname, req.file.path, res);
 });
-
-
-// app.get('/bum', function(req, res){
-// 	alchemyapi.image_keywords('url', 'http://drone-nodes.eu-gb.mybluemix.net/latest', {}, function(response){
-// 		console.log(response);
-// 		console.log(response.imageKeywords);
-// 		res.send(response.imageKeywords);
-// 	});
-// });
 
 /////////////////////////////////////////////////////
 
