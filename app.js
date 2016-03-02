@@ -12,6 +12,7 @@ var iandc = require('drone_interpret_and_control')
 var auth = require('basic-auth')
 var readChunk = require('read-chunk')
 var imageType = require('image-type')
+var mqtt = require('./mqttHandler')
 
 
 var uploadDir = "uploads/";
@@ -122,14 +123,16 @@ var toneAnaysis = watson.tone_analyzer({
 
 mqttCreds.id = 'drone-nodes';
 mqttCreds.type = 'application';
-var IandC = new iandc(mqttCreds, cloudant);
+var MQTT = new mqttHandler(mqttCreds);
+var IandC = new iandc(MQTT, cloudant);
 //console.log("IandC : " + mqttCreds.org);
 
 
 // Testing IandC //
-var words = [ {name:"Fire" , score:0.7 }, {name:"Whut", score:0.6} ];
+var words = [ {name:"Fire" , score:0.7 }, {name:"Whut", score:0.6} , {name:"Person", score:0.8}];
 var docID = (new Date()).getTime().toString()
 IandC.imageKeywords(words, docID, {lat: "0.1", lon:"0.2"} );
+//IandC.imageKeywordsDetermineMode(words);
 ////////////////////////////////////////////////////
 
 
