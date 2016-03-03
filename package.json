@@ -9,7 +9,7 @@
     "body-parser": "^1.14.2",
     "cfenv": "1.0.x",
     "cloudant": "^1.4.0",
-    "drone_interpret_and_control": "^1.0.0",
+    "drone_interpret_and_control": "^1.0.2",
     "express": "4.12.x",
     "find-remove": "~0.2.10",
     "ibmiotf": "^0.2.2",

@@ -125,16 +125,29 @@ mqttCreds.id = 'drone-nodes';
 mqttCreds.type = 'application';
 
 var devices = { "Android":"phone", "pi":"dronepi"};
-var MQTT = new mqttHandler(mqttCreds, devices);
+
+
+
+var MQTT = new mqttHandler(mqttCreds, devices, deviceStatusCallback);
+
+
+
 var IandC = new iandc(MQTT, cloudant);
-//console.log("IandC : " + mqttCreds.org);
 
 
-// Testing IandC //
+
+
+//TEMP TESTING VARIABLES
 var words = [ {name:"Fire" , score:0.7 }, {name:"Whut", score:0.6} , {name:"Person", score:0.8}];
 var docID = (new Date()).getTime().toString()
-IandC.imageKeywords(words, docID, {lat: "0.1", lon:"0.2"} );
+
+// Testing IandC //var latlon = {lat: 51.485138, lon: -0.187755};
+IandC.imageKeywords(words, docID, {lat: 51.49, lon: -0.19} );
 //IandC.imageKeywordsDetermineMode(words);
+
+
+
+
 ////////////////////////////////////////////////////
 
 
@@ -405,4 +418,14 @@ function validateJPEG(filePath){
 		return false;
 	}
 
+}
+
+function deviceStatusCallback(deviceType, deviceId, payload, topic){
+	if(deviceId == "dronepi"){
+		processDroneUpdate(payload, topic);
+	}
+}
+
+function processDroneUpdate(payload, topic){
+	// Depends on format of data we get etcccc
 }
