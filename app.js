@@ -8,11 +8,11 @@ var fs = require ('fs');
 var Cloudant = require('cloudant');
 var watson = require('watson-developer-cloud');
 var cfenv = require('cfenv');
-var iandc = require('drone_interpret_and_control')
-var auth = require('basic-auth')
-var readChunk = require('read-chunk')
-var imageType = require('image-type')
-var mqtt = require('./lib/mqttHandler')
+var iandc = require('drone_interpret_and_control');
+var auth = require('basic-auth');
+var readChunk = require('read-chunk');
+var imageType = require('image-type');
+var mqtt = require('./lib/mqttHandler');
 
 
 var uploadDir = "uploads/";
@@ -274,8 +274,8 @@ function insertImageIntoDatabase(imageName, imagePath, res){
 function insertSpeechIntoDatabase(speechfileName, speechfilePath, res){
 
 	// Read from uploads
-	speechData = fs.readFileSync(speechfilePath);
-	speechDB = cloudant.use('speech');
+	var speechData = fs.readFileSync(speechfilePath);
+	var speechDB = cloudant.use('speech');
 
 	var attach = [{name: "speech", data: speechData, content_type: 'image/jpeg'}];
 	var docID = (new Date()).getTime().toString(); // Append original file name?
