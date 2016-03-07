@@ -256,8 +256,8 @@ app.listen(port, function() {
 function insertImageIntoDatabase(imageName, imagePath, res){
 
 	// Read from uploads
-	imageData = fs.readFileSync(imagePath);
-	images = cloudant.use('test'); //images
+	var imageData = fs.readFileSync(imagePath);
+	var images = cloudant.use('test'); //images
 
 	var attach = [{name: "image", data: imageData, content_type: 'image/jpeg'}];
 	var docID = (new Date()).getTime().toString();
