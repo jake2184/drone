@@ -3,3 +3,4 @@ uploads/*.jpg
 .cfignore
 .project
 .config.json
+.gitignore
