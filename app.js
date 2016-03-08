@@ -8,11 +8,12 @@ var fs = require ('fs');
 var Cloudant = require('cloudant');
 var watson = require('watson-developer-cloud');
 var cfenv = require('cfenv');
-var iandc = require('drone_interpret_and_control');
+var iandc = require('./lib/drone_interpret_and_control');
 var auth = require('basic-auth');
 var readChunk = require('read-chunk');
 var imageType = require('image-type');
 var mqtt = require('./lib/mqttHandler');
+
 
 
 var uploadDir = "uploads/";
