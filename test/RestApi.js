@@ -14,7 +14,7 @@ describe('Routing', function(){
                  if(err){
                      throw err;
                  }
-                 res.statusCode.should.be.exactly(200);
+                 res.should.have.status(200);
                  done();
              });
      });
@@ -41,8 +41,9 @@ describe('Routing', function(){
                     if (err) {
                         throw err;
                     }
+                    res.should.have.status(200);
                     var response = JSON.parse(res.text);
-                    response.should.have.propert("lat");
+                    response.should.have.property("lat");
                     response.should.have.property("lon");
                     done();
                 });
