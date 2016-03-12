@@ -4,7 +4,8 @@ var assert = require('assert');
 var request = require('supertest');
 
 describe('Routing', function(){
-   var url = 'http://localhost:8080';
+    var url = 'http://localhost:8080';
+    var url = 'http://drone-nodes.eu-gb.mybluemix.net';
 
     describe("Website", function (){
     it('should return index.html', function(done){
