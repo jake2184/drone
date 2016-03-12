@@ -30,6 +30,7 @@ var storage = multer.diskStorage({
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 var upload = multer({
 	 storage: storage
 });
@@ -188,13 +189,17 @@ app.get('/getLabels', function(req, res){
 // Upload an image to the server from the drone. Saved to database and classified
 app.post('/imageUpload', upload.single('image'), function (req, res){
 	console.log("Received image: " + req.file.originalname);
-	res.status(200).send("File uploaded successfully.\n");
+
 	// Check security/validity of the file
 	var valid = validateJPEG(req.file.path);
-	console.log(valid);
-	latestImage = req.file.path;
-	//classifyUploadedImage(req.file.originalname, req.file.path);
-	//insertImageIntoDatabase(req.file.originalname, req.file.path);
+	if(!valid){
+		res.status(400).send("Invalid file type - not jpeg.\n");
+	} else {
+		res.status(200).send("File uploaded successfully.\n");
+		latestImage = req.file.path;
+		//classifyUploadedImage(req.file.originalname, req.file.path);
+		//insertImageIntoDatabase(req.file.originalname, req.file.path);
+	}
 });
 
 app.post('/imageUploadSecure', upload.single('image'), function (req, res){
@@ -411,11 +416,14 @@ function analyseTone(transcript){
 function validateJPEG(filePath){
 	var buffer = readChunk.sync(filePath, 0, 12);
 	var type = imageType(buffer);
-
+	if(type == null){
+		console.log("Not an image type: " + filePath);
+		return false;
+	}
 	if( (type.ext == 'jpg'||type.ext == 'jpeg') && type.mime == 'image/jpeg' ){
 		return true;
 	} else {
-		console.log("Invalid file: " + filePath);
+		console.log("Invalid image type: " + filePath);
 		return false;
 	}
 
