@@ -23,7 +23,7 @@ var storage = multer.diskStorage({
 	  cb(null, uploadDir );
 	},
 	filename: function (req, file, cb) {
-	  cb(null, Date.now() + '-' + file.originalname);
+	  cb(null, file.originalname);
 	}
 });
 
@@ -123,8 +123,8 @@ var toneAnaysis = watson.tone_analyzer({
 });
 //console.log("Tone Analysis: " + username + " " + password);
 
-mqttCreds.id = 'drone-nodes';
-mqttCreds.type = 'application';
+mqttCreds.id = 'drone_nodes';
+//mqttCreds.type = 'application';
 
 var devices = { "Android":"phone", "pi":"dronepi"};
 
@@ -141,7 +141,7 @@ var IandC = new iandc(MQTT, cloudant);
 
 //TEMP TESTING VARIABLES
 var words = [ {name:"Fire" , score:0.7 }, {name:"Whut", score:0.6} , {name:"Person", score:0.8}];
-var docID = (new Date()).getTime().toString()
+var docID = (new Date()).getTime().toString();
 
 // Testing IandC //var latlon = {lat: 51.485138, lon: -0.187755};
 IandC.imageKeywords(words, docID, {lat: 51.49, lon: -0.19} );
@@ -184,7 +184,7 @@ app.get('/getLabels', function(req, res){
 			res.status(200).send(JSON.stringify(labels));
 		}
 	});
-})
+});
 
 // Upload an image to the server from the drone. Saved to database and classified
 app.post('/imageUpload', upload.single('image'), function (req, res){
@@ -194,11 +194,12 @@ app.post('/imageUpload', upload.single('image'), function (req, res){
 	var valid = validateJPEG(req.file.path);
 	if(!valid){
 		res.status(400).send("Invalid file type - not jpeg.\n");
+		fs.unlink(req.file.path);
 	} else {
 		res.status(200).send("File uploaded successfully.\n");
 		latestImage = req.file.path;
 		//classifyUploadedImage(req.file.originalname, req.file.path);
-		//insertImageIntoDatabase(req.file.originalname, req.file.path);
+		insertImageIntoDatabase(req.file.originalname, req.file.path, req.body);
 	}
 });
 
@@ -229,7 +230,7 @@ app.post('/speechUpload', upload.single('toRecognise'), function (req, res){
 	res.status(200).send("File uploaded successfully.\n");
 	// Check security/validity of the file
 	speechRecognition(req, res);
-	insertSpeechIntoDatabase(req.file.originalname, req.file.path, res);
+	insertSpeechIntoDatabase(req.file.originalname, req.file.path, req.body);
 });
 
 /////////////////////////////////////////////////////
@@ -259,16 +260,16 @@ app.listen(port, function() {
 
 /////////////////// Internal Functions ////////
 
-function insertImageIntoDatabase(imageName, imagePath, res){
+function insertImageIntoDatabase(imageName, imagePath, body){
 
 	// Read from uploads
 	var imageData = fs.readFileSync(imagePath);
-	var images = cloudant.use('test'); //images
+	var images = cloudant.use('drone_images');
 
 	var attach = [{name: "image", data: imageData, content_type: 'image/jpeg'}];
-	var docID = (new Date()).getTime().toString();
+	//var docID = (new Date()).getTime().toString();
 
-	images.multipart.insert({name: imageName}, attach, docID, function(err, body) {
+	images.multipart.insert({name: imageName, time:body.time, location:body.location}, attach, imageName, function(err, body) {
 		if (err) {
 			console.error('[images.insert]: ', err.message);
 		} else{
@@ -277,16 +278,16 @@ function insertImageIntoDatabase(imageName, imagePath, res){
     });
 }
 
-function insertSpeechIntoDatabase(speechfileName, speechfilePath, res){
+function insertSpeechIntoDatabase(speechfileName, speechfilePath, body){
 
 	// Read from uploads
 	var speechData = fs.readFileSync(speechfilePath);
-	var speechDB = cloudant.use('speech');
+	var speechDB = cloudant.use('drone_speech');
 
 	var attach = [{name: "speech", data: speechData, content_type: 'image/jpeg'}];
-	var docID = (new Date()).getTime().toString(); // Append original file name?
+	//ar docID = (new Date()).getTime().toString(); // Append original file name?
 
-	speechDB.multipart.insert({name: speechfileName}, attach, docID, function(err, body) {
+	speechDB.multipart.insert({name: speechfileName, time:body.time, location:body.location}, attach, speechfileName, function(err, body) {
 		if (err) {
 			console.error('[speech.insert]: ', err.message);
 		} else{
@@ -295,7 +296,7 @@ function insertSpeechIntoDatabase(speechfileName, speechfilePath, res){
     });
 }
 
-function classifyUploadedImage(imageName, imagePath){
+function classifyUploadedImage(imageName, imagePath, body){
 	var file = fs.createReadStream(imagePath);
 
 	var params = { images_file: file };
@@ -307,8 +308,8 @@ function classifyUploadedImage(imageName, imagePath){
 		}else{
 			console.log("Recognition Duration: " + ((new Date()).getTime() - start));
 			var labels = results.images[0].scores;
-			var anyLabel = IandC.imageKeywords(labels, imageName, {lat: "0.1", lon:"0.2"} );
-			console.log("Image Recognised: " + anyLabel);
+			var anyLabel = IandC.imageKeywords(labels,  body.time, body.location);
+			//console.log("Image Recognised: " + anyLabel);
 		}
 	});
 }
@@ -321,20 +322,24 @@ function retrieveLatestImage(res){
 			res.send(imageData);
 			return;
 		} catch (e){
-			console.log("Image Cache Miss.");
+			console.error("Image Cache Error.");
 			latestImage = "";
 		}
 	}
 
-	var images = cloudant.use('test');
+	var images = cloudant.use('drone_images');
 	images.list({"descending": true, "include_docs": true, "limit": 1}, function(err, body){
 		if(err){
 			console.error(err);
 			res.status(404).send(err.message);
 		}else{
+			if(body.rows[0] == undefined){
+				res.status(404).send("No images found in database");
+				return;
+			}
 			var filename = body.rows[0].id;
 			images.attachment.get(filename, "image", function(err, body){
-				if(err){
+				if(err){ // Would reflect data input error
 					console.error(err);
 					res.status(404).send(err.message);
 				}else{
@@ -355,10 +360,8 @@ function retrieveLatestImage(res){
 }
 
 function classifyImage(req, res){
-	var file;
-		console.log(req.file.path);
-		file = fs.createReadStream(req.file.path);
 
+	var file = fs.createReadStream(req.file.path);
 
 	var params = {
 		images_file: file
