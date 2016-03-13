@@ -12,7 +12,7 @@ var iandc = require('./lib/drone_interpret_and_control');
 var auth = require('basic-auth');
 var readChunk = require('read-chunk');
 var imageType = require('image-type');
-var mqtt = require('./lib/mqttHandler');
+var mqtt = require('./lib/MqttHandler');
 
 
 
@@ -144,9 +144,9 @@ var words = [ {name:"Fire" , score:0.7 }, {name:"Whut", score:0.6} , {name:"Pers
 var docID = (new Date()).getTime().toString();
 
 // Testing IandC //var latlon = {lat: 51.485138, lon: -0.187755};
-IandC.imageKeywords(words, docID, {lat: 51.49, lon: -0.19} );
+//IandC.imageKeywords(words, docID, {lat: 51.49, lon: -0.19} );
 //IandC.imageKeywordsDetermineMode(words);
-
+IandC.processImageLabels(words, docID, {lat: 51.49, lon: -0.19});
 
 
 
