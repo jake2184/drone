@@ -42,7 +42,7 @@ describe('Routing', function(){
        it('/imageUpload should accept valid image', function (done){
            request(url)
                .post('/imageUpload')
-               .attach('image', 'test/testImage.jpg')
+               .attach('image', 'test/sampleFiles/testImage.jpg')
                .expect(200)
                .end(function (err, res){
                    if(err){
@@ -60,7 +60,7 @@ describe('Routing', function(){
                   if (err) {
                       throw err;
                   }
-                  var file = fs.readFileSync('test/testImage.jpg');
+                  var file = fs.readFileSync('test/sampleFiles/testImage.jpg');
                   var equal = buffEq(res.body, file);
                   should(equal).ok;
                   done();
@@ -70,7 +70,7 @@ describe('Routing', function(){
        it('should reject invalid file upload', function(done){
            request(url)
                .post('/imageUpload')
-               .attach('image', 'test/testInvalidImage.txt')
+               .attach('image', 'test/sampleFiles/testInvalidImage.txt')
                .expect(400)
                .end(function (err, res){
                    if(err){

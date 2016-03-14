@@ -126,7 +126,7 @@ var toneAnaysis = watson.tone_analyzer({
 mqttCreds.id = 'drone_nodes';
 //mqttCreds.type = 'application';
 
-var devices = { "Android":"phone", "pi":"dronepi"};
+var devices = { "Android":"phone", "pi":"drone"};
 
 
 
@@ -296,6 +296,7 @@ function insertSpeechIntoDatabase(speechfileName, speechfilePath, body){
     });
 }
 
+
 function classifyUploadedImage(imageName, imagePath, body){
 	var file = fs.createReadStream(imagePath);
 
@@ -359,6 +360,7 @@ function retrieveLatestImage(res){
 	});
 }
 
+// LEGACY
 function classifyImage(req, res){
 
 	var file = fs.createReadStream(req.file.path);
@@ -432,12 +434,25 @@ function validateJPEG(filePath){
 
 }
 
-function deviceStatusCallback(deviceType, deviceId, payload, topic){
-	if(deviceId == "dronepi"){
-		processDroneUpdate(payload, topic);
+function deviceStatusCallback(deviceType, deviceId, eventType, format, payload){
+	if(deviceId == "drone"){
+		processDroneUpdate(eventType, payload);
 	}
 }
 
-function processDroneUpdate(payload, topic){
+function processDroneUpdate(eventType, payload){
 	// Depends on format of data we get etcccc
+	switch(eventType){
+		case "temperature":
+			IandC.updateTemp(payload);
+			break;
+		case "airPurity":
+			IandC.updateAirPurity(payload);
+			break;
+		case "position":
+			IandC.updatePosition(payload);
+			break;
+		default:
+			console.log("Unknown eventType from drone: " + eventType);
+	}
 }
