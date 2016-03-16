@@ -12,6 +12,7 @@ var iandc = require('./lib/drone_interpret_and_control');
 var auth = require('basic-auth');
 var readChunk = require('read-chunk');
 var imageType = require('image-type');
+var dashDB = require('ibm_db');
 var mqtt = require('./lib/MqttHandler');
 
 
@@ -57,7 +58,7 @@ if (process.env.VCAP_SERVICES) {
 
 
 /////////////// Load Credentials //////////////
-var cloudantCreds, imageRecognitionCreds, speechToTextCreds, toneAnalysisCreds, mqttCreds;
+var cloudantCreds, imageRecognitionCreds, speechToTextCreds, toneAnalysisCreds, mqttCreds, dashDBCreds;
 for (var svcName in services) {
 	if (svcName.match(/^cloudant/)) {
 		cloudantCreds = services[svcName][0]['credentials'];
@@ -69,24 +70,29 @@ for (var svcName in services) {
 	  	toneAnalysisCreds = services[svcName][0]['credentials'];
   	}else if (svcName.match(/^iotf/)) {
 	  	mqttCreds = services[svcName][0]['credentials'];
-  	}
+  	}else if (svcName.match(/^dashDB/)) {
+		dashDBCreds = services[svcName][0]['credentials'];
+	}
 }
 
 /////////////// Test Credential Existance /////
 if(typeof cloudantCreds === "undefined"){
-	console.log("No Cloudant credentials supplied in VCAP_SERVICES.");
+	console.error("No Cloudant credentials supplied in VCAP_SERVICES.");
 	process.exit(1);
 } else if(typeof imageRecognitionCreds === "undefined"){
-	console.log("No Image Recognition credentials supplied in VCAP_SERVICES.");
+	console.error("No Image Recognition credentials supplied in VCAP_SERVICES.");
 	process.exit(1);
 } else if(typeof speechToTextCreds === "undefined"){
-	console.log("No Speech to Text credentials supplied in VCAP_SERVICES.");
+	console.error("No Speech to Text credentials supplied in VCAP_SERVICES.");
 	process.exit(1);
 } else if(typeof toneAnalysisCreds === "undefined"){
-	console.log("No Tone Analysis credentials supplied in VCAP_SERVICES.");
+	console.error("No Tone Analysis credentials supplied in VCAP_SERVICES.");
 	process.exit(1);
 }else if(typeof mqttCreds === "undefined"){
-	console.log("No IoT credentials supplied in VCAP_SERVICES.");
+	console.error("No IoT credentials supplied in VCAP_SERVICES.");
+	process.exit(1);
+}else if(typeof dashDBCreds === "undefined"){
+	console.error("No dashDB credentials supplied in VCAP_SERVICES.");
 	process.exit(1);
 }
 
@@ -102,7 +108,8 @@ var imageRecognition = watson.visual_recognition({
 	version:'v2-beta',
   	version_date:'2015-12-02',
 	username:username,
-	password:password});
+	password:password
+});
 //console.log("Recognition: " + username + " " + password);
 
 username = speechToTextCreds.username;
@@ -123,20 +130,15 @@ var toneAnaysis = watson.tone_analyzer({
 });
 //console.log("Tone Analysis: " + username + " " + password);
 
-mqttCreds.id = 'drone_nodes';
+
+mqttCreds.id = 'drone-nodes';
 //mqttCreds.type = 'application';
 
-var devices = { "Android":"phone", "pi":"drone"};
 
 
-
-var MQTT = new mqttHandler(mqttCreds, devices, deviceStatusCallback);
-
-
+var MQTT = new mqttHandler(mqttCreds, deviceStatusCallback);
 
 var IandC = new iandc(MQTT, cloudant);
-
-
 
 
 //TEMP TESTING VARIABLES
@@ -146,9 +148,9 @@ var docID = (new Date()).getTime().toString();
 // Testing IandC //var latlon = {lat: 51.485138, lon: -0.187755};
 //IandC.imageKeywords(words, docID, {lat: 51.49, lon: -0.19} );
 //IandC.imageKeywordsDetermineMode(words);
-IandC.processImageLabels(words, docID, {lat: 51.49, lon: -0.19});
+//IandC.processImageLabels(words, docID, {lat: 51.49, lon: -0.19});
 
-
+checkUserCredentials({username:"jake", password:"pass"});
 
 ////////////////////////////////////////////////////
 
@@ -156,7 +158,7 @@ IandC.processImageLabels(words, docID, {lat: 51.49, lon: -0.19});
 // serve the files out of ./public as our static files
 app.use(express.static(__dirname + '/public'));
 
-
+/*
 app.enable('trust proxy');
 
 // Add a handler to inspect the req.secure flag (see
@@ -175,7 +177,7 @@ app.use (function (req, res, next) {
 		res.redirect('https://' + req.headers.host + req.url);
 	}
 });
-
+*/
 ////////// REST FUNCTIONS ////////////////////
 
 // Retrieves the latest image from the database - adapt to get from server?
@@ -472,4 +474,68 @@ function processDroneUpdate(eventType, payload){
 		default:
 			console.log("Unknown eventType from drone: " + eventType);
 	}
+}
+
+function checkUserCredentials(credentials){
+	dashDB.open(dashDBCreds.ssldsn, function(err, connection){
+		if(err){
+			console.error("Error connecting to SQL database");
+			console.error(err.message);
+			return false;
+		}
+		var query = "SELECT * FROM USERS WHERE \"username\" = ? AND \"password\" = ?";
+		connection.query(query, [credentials.username, credentials.password], function(err, response){
+			if(err){
+				console.error(err.message);
+				return false;
+			}
+			if(response.length == 0){
+				console.log("Invalid username or password");
+			} else {
+				console.log("User " + credentials.username + " found");
+				return true;
+			}
+		});
+
+	});
+}
+
+function insertUserCredentials(credentials){
+	dashDB.open(dashDBCreds.ssldsn, function(err, connection){
+		if(err){
+			console.error("Error connecting to SQL database");
+			console.error(err.message);
+			return false;
+		}
+		var query = "INSERT INTO USERS VALUES (?, ?, ?, ?)";
+		connection.query(query, [credentials.username, credentials.password, credentials.first_name, credentials.last_name], function(err){
+			if(err) {
+				console.error("Couldn't insert user: " + credentials.username);
+			} else{
+				console.log("User: " + credentials.username + " successfully added to database");
+				return true;
+			}
+		});
+
+	});
+}
+
+function insertDroneCredentials(credentials){
+	dashDB.open(dashDBCreds.ssldsn, function(err, connection){
+		if(err){
+			console.error("Error connecting to SQL database");
+			console.error(err.message);
+			return false;
+		}
+		var query = "INSERT INTO DRONE VALUES (?, ?, ?)";
+		connection.query(query, [credentials.number, credentials.name, credentials.owner], function(err){
+			if(err) {
+				console.error("Couldn't insert drone: " + credentials.name);
+			} else{
+				console.log("Drone: " + credentials.number + ":" + credentials.name + " successfully added to database");
+				return true;
+			}
+		});
+
+	});
 }
