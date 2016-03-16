@@ -157,7 +157,24 @@ IandC.processImageLabels(words, docID, {lat: 51.49, lon: -0.19});
 app.use(express.static(__dirname + '/public'));
 
 
+app.enable('trust proxy');
 
+// Add a handler to inspect the req.secure flag (see
+// http://expressjs.com/api#req.secure). This allows us
+// to know whether the request was via http or https.
+app.use (function (req, res, next) {
+	if (req.secure) {
+		// request was via https, so do no special handling
+		console.log("hi");
+		next();
+	} else {
+		// request was via http, so redirect to https
+		console.log("hi2");
+		var x = 'https://' + req.headers.host + req.url;
+		console.log(x);
+		res.redirect('https://' + req.headers.host + req.url);
+	}
+});
 
 ////////// REST FUNCTIONS ////////////////////
 
