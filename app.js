@@ -158,7 +158,7 @@ checkUserCredentials({username:"jake", password:"pass"});
 // serve the files out of ./public as our static files
 app.use(express.static(__dirname + '/public'));
 
-/*
+
 app.enable('trust proxy');
 
 // Add a handler to inspect the req.secure flag (see
@@ -177,7 +177,7 @@ app.use (function (req, res, next) {
 		res.redirect('https://' + req.headers.host + req.url);
 	}
 });
-*/
+
 ////////// REST FUNCTIONS ////////////////////
 
 // Retrieves the latest image from the database - adapt to get from server?
