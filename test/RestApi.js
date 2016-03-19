@@ -7,11 +7,11 @@ var sizeof = require('object-sizeof');
 var buffEq = require ('buffer-equal');
 
 describe('Routing', function(){
-    var url = 'http://localhost:8080';
-    //var url = 'http://drone-nodes.eu-gb.mybluemix.net';
+    //var url = 'http://localhost:8080';
+    var url = 'http://drone-nodes.eu-gb.mybluemix.net';
 
     describe("Website", function (){
-    it('should return index.html', function(done){
+        it(url +  ' should return index.html', function(done){
          request(url)
              .get('/')
              .expect(200)
