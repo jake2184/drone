@@ -13,6 +13,7 @@ var auth = require('basic-auth');
 var readChunk = require('read-chunk');
 var imageType = require('image-type');
 var dashDB = require('ibm_db');
+var session = require('client-sessions');
 var mqtt = require('./lib/MqttHandler');
 
 
@@ -131,7 +132,7 @@ var toneAnaysis = watson.tone_analyzer({
 //console.log("Tone Analysis: " + username + " " + password);
 
 
-mqttCreds.id = 'drone-nodes';
+mqttCreds.id = 'drone_nodes';
 //mqttCreds.type = 'application';
 
 
@@ -150,13 +151,24 @@ var docID = (new Date()).getTime().toString();
 //IandC.imageKeywordsDetermineMode(words);
 //IandC.processImageLabels(words, docID, {lat: 51.49, lon: -0.19});
 
-checkUserCredentials({username:"jake", password:"pass"});
+
+
 
 ////////////////////////////////////////////////////
 
 
 // serve the files out of ./public as our static files
 app.use(express.static(__dirname + '/public'));
+
+app.use(session({
+	cookieName: 'session',
+	secret: 'random_string_goes_here',
+	duration: 30 * 60 * 1000,
+	activeDuration: 5 * 60 * 1000
+}));
+
+
+
 
 /*
 app.enable('trust proxy');
@@ -182,6 +194,12 @@ app.use (function (req, res, next) {
 
 // Retrieves the latest image from the database - adapt to get from server?
 app.get('/getLatestImage', function (req, res){
+
+	retrieveLatestImage(res);
+
+});
+
+app.get('/getLatestImageSecure', requireLogin, function(req,res){
 	retrieveLatestImage(res);
 });
 
@@ -207,7 +225,6 @@ app.get('/getLabels', function(req, res){
 
 // Upload an image to the server from the drone. Saved to database and classified
 app.post('/imageUpload', upload.single('image'), function (req, res){
-	console.log("Received image: " + req.file.originalname);
 
 	// Check security/validity of the file
 	var valid = validateJPEG(req.file.path);
@@ -222,15 +239,7 @@ app.post('/imageUpload', upload.single('image'), function (req, res){
 	}
 });
 
-app.post('/imageUploadSecure', upload.single('image'), function (req, res){
-	var credentials = auth(req);
-	if (!credentials || credentials.name !== 'Drone' || credentials.pass !== 'Pi') {
-    	res.statusCode = 401;
-    	res.setHeader('WWW-Authenticate', 'Basic realm="Bluemix"');
-    	res.end('Access denied');
-		return;
-  	}
-	console.log("Received image: " + req.file.originalname);
+app.post('/imageUploadSecure', upload.single('image'), requireLogin, function (req, res){
 	res.status(200).send("File uploaded successfully.\n");
 	// Check security/validity of the file
 	latestImage = req.file.path;
@@ -252,13 +261,29 @@ app.post('/speechUpload', upload.single('toRecognise'), function (req, res){
 	insertSpeechIntoDatabase(req.file.originalname, req.file.path, req.body);
 });
 
+app.post('/login', function(req, res){
+	var creds = auth(res);
+	if(!creds){
+		res.status(403).send("Please provide username and password.\n");
+	} else {
+		checkUserCredentials(creds, function(found){
+			if(found){
+				req.session.user = creds.name;
+				res.status(200).send("Logged in successfully.\n");
+			}else if (found == null){
+				res.status(500).send("Please try again later.");
+			} else{
+				res.status(403).send("Invalid username or password\n");
+			}
+		});
+	}
+});
 /////////////////////////////////////////////////////
 
 ////////////// Caching/Performance Improvement ///
 
 var latestImage = ""; //TODO - replace with checking latest in uploads folder
 var latestSound = ""; //TODO - is it ever needed?
-
 
 
 // Clean up uploads
@@ -343,6 +368,7 @@ function retrieveLatestImage(res){
 			return;
 		} catch (e){
 			console.error("Image Cache Error.");
+			console.error(e.message);
 			latestImage = "";
 		}
 	}
@@ -370,7 +396,7 @@ function retrieveLatestImage(res){
 						if(err){
 							console.error(err);
 						}else{
-							latestImage = filename + ".jpg";
+							latestImage = uploadDir+filename;
 						}
 					});
 				}
@@ -389,8 +415,6 @@ function classifyImage(req, res){
 	};
 
 	imageRecognition.classify(params, function(err, results){
-		console.log(err);
-		console.log(results.images[0].scores);
 		if(err){
 			console.error(err);
 			return err;
@@ -476,27 +500,31 @@ function processDroneUpdate(eventType, payload){
 	}
 }
 
-function checkUserCredentials(credentials){
+function checkUserCredentials(credentials, callback){
 	dashDB.open(dashDBCreds.ssldsn, function(err, connection){
+		var error;
 		if(err){
-			console.error("Error connecting to SQL database");
-			console.error(err.message);
-			return false;
+			console.error("[users.connect] " + err.message);
+			error = false;
+			callback(error);
+			return;
 		}
 		var query = "SELECT * FROM USERS WHERE \"username\" = ? AND \"password\" = ?";
-		connection.query(query, [credentials.username, credentials.password], function(err, response){
+
+		connection.query(query, [credentials.name.replace(/\W/g, ''), credentials.pass.replace(/\W/g, '')], function(err, response){
 			if(err){
-				console.error(err.message);
-				return false;
+				console.error("[users.select] " + err.message);
+				error = false;
 			}
 			if(response.length == 0){
-				console.log("Invalid username or password");
+				//console.log("Invalid username or password");
+				error =  false;
 			} else {
-				console.log("User " + credentials.username + " found");
-				return true;
+				//console.log("User " + credentials.name + " found");
+				error = true;
 			}
+			callback(error);
 		});
-
 	});
 }
 
@@ -511,6 +539,7 @@ function insertUserCredentials(credentials){
 		connection.query(query, [credentials.username, credentials.password, credentials.first_name, credentials.last_name], function(err){
 			if(err) {
 				console.error("Couldn't insert user: " + credentials.username);
+				return false;
 			} else{
 				console.log("User: " + credentials.username + " successfully added to database");
 				return true;
@@ -531,6 +560,7 @@ function insertDroneCredentials(credentials){
 		connection.query(query, [credentials.number, credentials.name, credentials.owner], function(err){
 			if(err) {
 				console.error("Couldn't insert drone: " + credentials.name);
+				return false;
 			} else{
 				console.log("Drone: " + credentials.number + ":" + credentials.name + " successfully added to database");
 				return true;
@@ -539,3 +569,11 @@ function insertDroneCredentials(credentials){
 
 	});
 }
+
+function requireLogin (req, res, next) {
+	if (!req.session.user) {
+		res.redirect('/login');
+	} else {
+		next();
+	}
+};

@@ -7,8 +7,8 @@ var sizeof = require('object-sizeof');
 var buffEq = require ('buffer-equal');
 
 describe('Routing', function(){
-    //var url = 'http://localhost:8080';
-    var url = 'http://drone-nodes.eu-gb.mybluemix.net';
+    var url = 'http://localhost:8080';
+    //var url = 'http://drone-nodes.eu-gb.mybluemix.net';
 
     describe("Website", function (){
         it(url +  ' should return index.html', function(done){
@@ -97,6 +97,59 @@ describe('Routing', function(){
                 });
        });
    });
+
+    describe("Security", function(){
+        var cookie;
+        it('should be prevented from using secure URIs before login', function(done){
+           request(url)
+               .get('/getLatestImageSecure')
+               .expect(302)
+               .end(function(err){
+                    if(err){throw err;}
+                    done();
+               });
+        });
+        it('should not allow invalid login', function(done){
+            request(url)
+                .post('/login')
+                .auth('pink','trees')
+                .expect(403)
+                .end(function(err){
+                    if(err){
+                        throw err;
+                    }
+                    done();
+                });
+        });
+
+        it('should allow valid login', function(done){
+            request(url)
+                .post('/login')
+                .auth('jake','pass')
+                .expect(200)
+                .end(function(err, res){
+                    if(err){
+                        throw err;
+                    }
+                    cookie = res.headers['set-cookie'].pop().split(';')[0];
+                    done();
+                });
+        });
+        it('should allow acces to secure URIs post login', function(done){
+            var req = request(url).get('/getLatestImageSecure');
+            req.cookies = cookie;
+            req
+                .expect(200)
+                .expect('Content-Type', 'image/jpeg')
+                .end(function (err) {
+                    if (err) {
+                        throw err;
+                    }
+                    done();
+                });
+        })
+
+    });
 
 
 });
