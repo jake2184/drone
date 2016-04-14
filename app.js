@@ -253,7 +253,7 @@ app.post('/classifyImage', upload.single('toClassify'), function (req, res){
 });
 
 // Upload a speech file to the server from the drone
-app.post('/speechUpload', upload.single('toRecognise'), function (req, res){
+app.post('/speechUpload', upload.single('audio'), function (req, res){
 	console.log("Received sound: " + req.file.originalname);
 	res.status(200).send("File uploaded successfully.\n");
 	// Check security/validity of the file
@@ -437,8 +437,12 @@ function speechRecognition(req, res){
 		if(err){
 			console.error('[speech.recognise]: ' + err);
 		}else{
+			console.log(results);
+			if(results.result_index == 0){
+				return;
+			}
 			var transcript = results.results[0].alternatives[0].transcript;
-			var speechRecognised = IandC.speechTranscript(transcript);
+			var speechRecognised = IandC.processSpeechTranscript(transcript);
 			console.log("Speech Recognised: " + speechRecognised);
 			if(speechRecognised){
 				analyseTone(transcript);
@@ -486,6 +490,9 @@ function deviceStatusCallback(deviceType, deviceId, eventType, format, payload){
 function processDroneUpdate(eventType, payload){
 	// Depends on format of data we get etcccc
 	switch(eventType){
+		case "sensors":
+			IandC.updateSensorReadings(JSON.parse(payload));
+			break;
 		case "temperature":
 			IandC.updateTemp(payload);
 			break;
@@ -494,6 +501,8 @@ function processDroneUpdate(eventType, payload){
 			break;
 		case "position":
 			IandC.updatePosition(payload);
+			break;
+		case "ping":
 			break;
 		default:
 			console.log("Unknown eventType from drone: " + eventType);
