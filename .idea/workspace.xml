@@ -6,9 +6,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d29ee594-5367-4f8e-8370-d3d13e0b5770" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/sampleFiles/testAudio.wav" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/node_modules.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/drone.iml" afterPath="$PROJECT_DIR$/drone.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/RestApi.js" afterPath="$PROJECT_DIR$/test/RestApi.js" />
     </list>
     <ignored path="drone.iws" />
@@ -43,18 +44,18 @@
       <file leaf-file-name="avoidance.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/avoidance.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="40" selection-start-line="2" selection-start-column="40" selection-end-line="2" selection-end-column="40" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RestApi.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="RestApi.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/RestApi.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="613">
-              <caret line="175" column="34" selection-start-line="175" selection-start-column="34" selection-end-line="175" selection-end-column="34" />
+            <state relative-caret-position="1106">
+              <caret line="161" column="30" selection-start-line="161" selection-start-column="30" selection-end-line="161" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -63,9 +64,13 @@
       <file leaf-file-name="UnitTesting.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/UnitTesting.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="32" column="16" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="16" />
-              <folding />
+            <state relative-caret-position="170">
+              <caret line="29" column="24" selection-start-line="29" selection-start-column="24" selection-end-line="29" selection-end-column="24" />
+              <folding>
+                <marker date="1460716454910" expanded="true" signature="265:1995" placeholder="{...}" />
+                <marker date="1460716454910" expanded="true" signature="398:1852" placeholder="{...}" />
+                <marker date="1460716454910" expanded="true" signature="1612:1845" placeholder="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -73,8 +78,18 @@
       <file leaf-file-name="Scenarios.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/Scenarios.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="137">
-              <caret line="12" column="23" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
+            <state relative-caret-position="180">
+              <caret line="27" column="20" selection-start-line="27" selection-start-column="20" selection-end-line="27" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Services.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/Services.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="29" column="24" selection-start-line="29" selection-start-column="24" selection-end-line="29" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -102,21 +117,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="base.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/base.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-459">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="567">
-              <caret line="666" column="16" selection-start-line="666" selection-start-column="16" selection-end-line="666" selection-end-column="16" />
+            <state relative-caret-position="136">
+              <caret line="225" column="0" selection-start-line="225" selection-start-column="0" selection-end-line="225" selection-end-column="0" />
               <folding>
                 <element signature="e#699#845#0" expanded="false" />
                 <element signature="e#740#769#0" expanded="false" />
@@ -159,11 +164,8 @@
                 <element signature="e#8758#9193#0" expanded="false" />
                 <element signature="e#9052#9111#0" expanded="false" />
                 <element signature="e#9116#9182#0" expanded="false" />
-                <element signature="e#9233#9311#0" expanded="false" />
                 <element signature="e#9814#9960#0" expanded="false" />
                 <element signature="e#10103#10174#0" expanded="false" />
-                <element signature="n#!!block;n#insertImageIntoDatabase#0" expanded="false" />
-                <element signature="e#10657#10800#0" expanded="false" />
                 <element signature="e#10670#10727#0" expanded="false" />
                 <element signature="e#10732#10794#0" expanded="false" />
                 <element signature="n#!!block;n#insertSpeechIntoDatabase#0" expanded="false" />
@@ -171,7 +173,6 @@
                 <element signature="e#11308#11365#0" expanded="false" />
                 <element signature="e#11370#11433#0" expanded="false" />
                 <element signature="n#!!block;n#classifyUploadedImage#0" expanded="false" />
-                <element signature="n#!!block;n#speechRecognition#0" expanded="false" />
                 <element signature="n#!!block;n#retrieveLatestImage#0" expanded="false" />
                 <element signature="n#!!block;n#analyseTone#0" expanded="false" />
                 <element signature="n#!!block;n#deviceStatusCallback#0" expanded="false" />
@@ -179,7 +180,19 @@
                 <element signature="n#!!block;n#insertUserCredentials#0" expanded="false" />
                 <element signature="n#!!block;n#insertDroneCredentials#0" expanded="false" />
                 <element signature="n#!!block;n#classifyImage#0" expanded="false" />
+                <marker date="1460744742194" expanded="false" signature="9233:9311" placeholder="{...}" />
+                <marker date="1460744742194" expanded="false" signature="12070:12698" placeholder="{...}" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/stylesheets/style.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -225,8 +238,8 @@
         <option value="$PROJECT_DIR$/test/UnitTesting.js" />
         <option value="$PROJECT_DIR$/test/Services.js" />
         <option value="$PROJECT_DIR$/lib/drone_interpret_and_control/drone_interpret_and_control.js" />
-        <option value="$PROJECT_DIR$/test/RestApi.js" />
         <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/test/RestApi.js" />
       </list>
     </option>
   </component>
@@ -403,14 +416,14 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="nodejs_interpreter_path" value="/usr/bin/node" />
-    <property name="javascript.nodejs.core.library.configured.version" value="0.10.25" />
+    <property name="nodejs_interpreter_path" value="C:\Program Files\nodejs\node" />
+    <property name="javascript.nodejs.core.library.configured.version" value="4.4.3" />
     <property name="js-jscs-nodeInterpreter" value="/usr/bin/node" />
-    <property name="last_opened_file_path" value="C:/Program Files/nodejs/npm" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/node_modules" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.appearance" />
+    <property name="settings.editor.selected.configurable" value="JavaScript.Libraries" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
   </component>
@@ -642,6 +655,7 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3379092" sideWeight="0.5078125" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39915523" sideWeight="0.49595687" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49703503" sideWeight="0.506993" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" show_stripe_button="true" weight="0.3379092" sideWeight="0.4921875" order="2" side_tool="false" content_ui="tabs" x="2029" y="17" width="733" height="971" />
@@ -656,7 +670,6 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32879582" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.49595687" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32901832" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
@@ -684,7 +697,8 @@
     <MESSAGE value="Added safety condition on determineMode" />
     <MESSAGE value="Added file validity checks and a secure version of audioUpload&#10;" />
     <MESSAGE value="Added test for audio service" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added test for audio service" />
+    <MESSAGE value="Added test for image service" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added test for image service" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -700,14 +714,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/avoidance.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/fire.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -802,11 +808,8 @@
             <element signature="e#8758#9193#0" expanded="false" />
             <element signature="e#9052#9111#0" expanded="false" />
             <element signature="e#9116#9182#0" expanded="false" />
-            <element signature="e#9233#9311#0" expanded="false" />
             <element signature="e#9814#9960#0" expanded="false" />
             <element signature="e#10103#10174#0" expanded="false" />
-            <element signature="n#!!block;n#insertImageIntoDatabase#0" expanded="false" />
-            <element signature="e#10657#10800#0" expanded="false" />
             <element signature="e#10670#10727#0" expanded="false" />
             <element signature="e#10732#10794#0" expanded="false" />
             <element signature="n#!!block;n#insertSpeechIntoDatabase#0" expanded="false" />
@@ -814,7 +817,6 @@
             <element signature="e#11308#11365#0" expanded="false" />
             <element signature="e#11370#11433#0" expanded="false" />
             <element signature="n#!!block;n#classifyUploadedImage#0" expanded="false" />
-            <element signature="n#!!block;n#speechRecognition#0" expanded="false" />
             <element signature="n#!!block;n#retrieveLatestImage#0" expanded="false" />
             <element signature="n#!!block;n#analyseTone#0" expanded="false" />
             <element signature="n#!!block;n#deviceStatusCallback#0" expanded="false" />
@@ -822,6 +824,8 @@
             <element signature="n#!!block;n#insertUserCredentials#0" expanded="false" />
             <element signature="n#!!block;n#insertDroneCredentials#0" expanded="false" />
             <element signature="n#!!block;n#classifyImage#0" expanded="false" />
+            <marker date="1460744742194" expanded="false" signature="9233:9311" placeholder="{...}" />
+            <marker date="1460744742194" expanded="false" signature="12070:12698" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -928,11 +932,8 @@
             <element signature="e#8758#9193#0" expanded="false" />
             <element signature="e#9052#9111#0" expanded="false" />
             <element signature="e#9116#9182#0" expanded="false" />
-            <element signature="e#9233#9311#0" expanded="false" />
             <element signature="e#9814#9960#0" expanded="false" />
             <element signature="e#10103#10174#0" expanded="false" />
-            <element signature="n#!!block;n#insertImageIntoDatabase#0" expanded="false" />
-            <element signature="e#10657#10800#0" expanded="false" />
             <element signature="e#10670#10727#0" expanded="false" />
             <element signature="e#10732#10794#0" expanded="false" />
             <element signature="n#!!block;n#insertSpeechIntoDatabase#0" expanded="false" />
@@ -940,7 +941,6 @@
             <element signature="e#11308#11365#0" expanded="false" />
             <element signature="e#11370#11433#0" expanded="false" />
             <element signature="n#!!block;n#classifyUploadedImage#0" expanded="false" />
-            <element signature="n#!!block;n#speechRecognition#0" expanded="false" />
             <element signature="n#!!block;n#retrieveLatestImage#0" expanded="false" />
             <element signature="n#!!block;n#analyseTone#0" expanded="false" />
             <element signature="n#!!block;n#deviceStatusCallback#0" expanded="false" />
@@ -948,6 +948,8 @@
             <element signature="n#!!block;n#insertUserCredentials#0" expanded="false" />
             <element signature="n#!!block;n#insertDroneCredentials#0" expanded="false" />
             <element signature="n#!!block;n#classifyImage#0" expanded="false" />
+            <marker date="1460744742194" expanded="false" signature="9233:9311" placeholder="{...}" />
+            <marker date="1460744742194" expanded="false" signature="12070:12698" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -1027,11 +1029,8 @@
             <element signature="e#8758#9193#0" expanded="false" />
             <element signature="e#9052#9111#0" expanded="false" />
             <element signature="e#9116#9182#0" expanded="false" />
-            <element signature="e#9233#9311#0" expanded="false" />
             <element signature="e#9814#9960#0" expanded="false" />
             <element signature="e#10103#10174#0" expanded="false" />
-            <element signature="n#!!block;n#insertImageIntoDatabase#0" expanded="false" />
-            <element signature="e#10657#10800#0" expanded="false" />
             <element signature="e#10670#10727#0" expanded="false" />
             <element signature="e#10732#10794#0" expanded="false" />
             <element signature="n#!!block;n#insertSpeechIntoDatabase#0" expanded="false" />
@@ -1039,7 +1038,6 @@
             <element signature="e#11308#11365#0" expanded="false" />
             <element signature="e#11370#11433#0" expanded="false" />
             <element signature="n#!!block;n#classifyUploadedImage#0" expanded="false" />
-            <element signature="n#!!block;n#speechRecognition#0" expanded="false" />
             <element signature="n#!!block;n#retrieveLatestImage#0" expanded="false" />
             <element signature="n#!!block;n#analyseTone#0" expanded="false" />
             <element signature="n#!!block;n#deviceStatusCallback#0" expanded="false" />
@@ -1047,6 +1045,8 @@
             <element signature="n#!!block;n#insertUserCredentials#0" expanded="false" />
             <element signature="n#!!block;n#insertDroneCredentials#0" expanded="false" />
             <element signature="n#!!block;n#classifyImage#0" expanded="false" />
+            <marker date="1460744742194" expanded="false" signature="9233:9311" placeholder="{...}" />
+            <marker date="1460744742194" expanded="false" signature="12070:12698" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -1159,22 +1159,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/Scenarios.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="12" column="23" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/Services.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/base.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-459">
@@ -1201,22 +1185,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/avoidance.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="40" selection-start-line="2" selection-start-column="40" selection-end-line="2" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/UnitTesting.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="32" column="16" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/MqttHandler.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="52">
@@ -1225,10 +1193,62 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/test/Scenarios.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="27" column="20" selection-start-line="27" selection-start-column="20" selection-end-line="27" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/Services.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="29" column="24" selection-start-line="29" selection-start-column="24" selection-end-line="29" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/UnitTesting.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="29" column="24" selection-start-line="29" selection-start-column="24" selection-end-line="29" selection-end-column="24" />
+          <folding>
+            <marker date="1460716454910" expanded="true" signature="265:1995" placeholder="{...}" />
+            <marker date="1460716454910" expanded="true" signature="398:1852" placeholder="{...}" />
+            <marker date="1460716454910" expanded="true" signature="1612:1845" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/RestApi.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1106">
+          <caret line="161" column="30" selection-start-line="161" selection-start-column="30" selection-end-line="161" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/stylesheets/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/avoidance.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="666" column="16" selection-start-line="666" selection-start-column="16" selection-end-line="666" selection-end-column="16" />
+        <state relative-caret-position="136">
+          <caret line="225" column="0" selection-start-line="225" selection-start-column="0" selection-end-line="225" selection-end-column="0" />
           <folding>
             <element signature="e#699#845#0" expanded="false" />
             <element signature="e#740#769#0" expanded="false" />
@@ -1271,11 +1291,8 @@
             <element signature="e#8758#9193#0" expanded="false" />
             <element signature="e#9052#9111#0" expanded="false" />
             <element signature="e#9116#9182#0" expanded="false" />
-            <element signature="e#9233#9311#0" expanded="false" />
             <element signature="e#9814#9960#0" expanded="false" />
             <element signature="e#10103#10174#0" expanded="false" />
-            <element signature="n#!!block;n#insertImageIntoDatabase#0" expanded="false" />
-            <element signature="e#10657#10800#0" expanded="false" />
             <element signature="e#10670#10727#0" expanded="false" />
             <element signature="e#10732#10794#0" expanded="false" />
             <element signature="n#!!block;n#insertSpeechIntoDatabase#0" expanded="false" />
@@ -1283,7 +1300,6 @@
             <element signature="e#11308#11365#0" expanded="false" />
             <element signature="e#11370#11433#0" expanded="false" />
             <element signature="n#!!block;n#classifyUploadedImage#0" expanded="false" />
-            <element signature="n#!!block;n#speechRecognition#0" expanded="false" />
             <element signature="n#!!block;n#retrieveLatestImage#0" expanded="false" />
             <element signature="n#!!block;n#analyseTone#0" expanded="false" />
             <element signature="n#!!block;n#deviceStatusCallback#0" expanded="false" />
@@ -1291,15 +1307,9 @@
             <element signature="n#!!block;n#insertUserCredentials#0" expanded="false" />
             <element signature="n#!!block;n#insertDroneCredentials#0" expanded="false" />
             <element signature="n#!!block;n#classifyImage#0" expanded="false" />
+            <marker date="1460744742194" expanded="false" signature="9233:9311" placeholder="{...}" />
+            <marker date="1460744742194" expanded="false" signature="12070:12698" placeholder="{...}" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/RestApi.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="613">
-          <caret line="175" column="34" selection-start-line="175" selection-start-column="34" selection-end-line="175" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
