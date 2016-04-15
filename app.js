@@ -273,7 +273,7 @@ app.post('/speechUpload', upload.single('audio'), function (req, res){
 	} else {
 		res.status(200).send("File uploaded successfull.\n");
 		latestAudio = req.file.path;
-		speechRecognition();
+		speechRecognition(req.file.originalname, req.file.path);
 		insertSpeechIntoDatabase(req.file.originalname, req.file.path, req.body);
 	}
 
@@ -289,7 +289,7 @@ app.post('/speechUploadSecure', upload.single('audio'), requireLogin, function (
 	} else {
 		res.status(200).send("File uploaded successfull.\n");
 		latestAudio = req.file.path;
-		speechRecognition();
+		speechRecognition(req.file.originalname, req.file.path, req.body);
 		insertSpeechIntoDatabase(req.file.originalname, req.file.path, req.body);
 	}
 });
@@ -314,6 +314,11 @@ app.post('/login', function(req, res){
 
 app.get('/login', function(req, res){
 	res.status(200).send("Please login by POSTing username and password.\n");
+});
+
+
+app.get('/testAudio', function(req, res){
+	testSpeechRecognition('test/sampleFiles/testAudio.wav', res);
 });
 /////////////////////////////////////////////////////
 
@@ -396,6 +401,33 @@ function classifyUploadedImage(imageName, imagePath, body){
 	});
 }
 
+function speechRecognition(audiofileName, audiofilePath, body){
+	var file  = fs.createReadStream(audiofilePath);
+
+	var params = {
+		audio: file,
+		content_type:"audio/wav",
+		model:"en-US_BroadbandModel"
+	};
+
+	speechToText.recognize(params, function(err, results){
+		if(err){
+			console.error('[speech.recognise]: ' + err);
+		}else{
+			console.log(results);
+			if(! results.results){
+				return;
+			}
+			var transcript = results.results[0].alternatives[0].transcript;
+			var speechRecognised = IandC.processSpeechTranscript(transcript, body.time, body.location);
+			console.log("Speech Recognised: " + speechRecognised);
+			if(speechRecognised){
+				analyseTone(transcript);
+			}
+		}
+	});
+}
+
 function retrieveLatestImage(res){
 	if(latestImage != ""){
 		try{
@@ -442,33 +474,6 @@ function retrieveLatestImage(res){
 	});
 }
 
-function speechRecognition(req, res){
-	var file  = fs.createReadStream(req.file.path);
-
-	var params = {
-		audio: file,
-		content_type:"audio/wav",
-		model:"en-US_BroadbandModel"
-	};
-
-	speechToText.recognize(params, function(err, results){
-		if(err){
-			console.error('[speech.recognise]: ' + err);
-		}else{
-			console.log(results);
-			if(results.result_index == 0){
-				return;
-			}
-			var transcript = results.results[0].alternatives[0].transcript;
-			var speechRecognised = IandC.processSpeechTranscript(transcript);
-			console.log("Speech Recognised: " + speechRecognised);
-			if(speechRecognised){
-				analyseTone(transcript);
-			}
-		}
-	});
-}
-
 function analyseTone(transcript){
 	var params = {
 		text: transcript
@@ -506,10 +511,10 @@ function validateWAV(filePath){
 		console.log("Not a known file type: " + filePath);
 		return false;
 	}
-	if( type.ext == 'wav' && type.mim == 'audio/wav'){
+	if( type.ext == 'wav' && (type.mime == 'audio/wav' || type.mime == 'audio/x-wav')){
 		return true;
 	} else {
-		console.log("Invalid audio type: " + filePath);
+		console.log("Invalid audio type: " + filePath + " " + type.mime);
 		return false;
 	}
 }
@@ -619,7 +624,35 @@ function requireLogin (req, res, next) {
 	} else {
 		next();
 	}
-};
+}
+
+
+// Test service directly
+
+function testSpeechRecognition(fileName, res){
+	var file  = fs.createReadStream(fileName);
+
+	var params = {
+		audio: file,
+		content_type:"audio/wav",
+		model:"en-US_BroadbandModel"
+	};
+
+	speechToText.recognize(params, function(err, results){
+		if(err){
+			console.error('[speech.recognise]: ' + err);
+		}else{
+			console.log(results);
+			if(! results.results){
+				return;
+			}
+			var transcript = results.results[0].alternatives[0].transcript;
+			console.log(fileName + ": " + transcript);
+			res.status(200).send(transcript);
+		}
+	});
+}
+
 
 // LEGACY
 function classifyImage(req, res){

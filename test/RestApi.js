@@ -135,7 +135,7 @@ describe('Routing', function(){
                     done();
                 });
         });
-        it('should allow acces to secure URIs post login', function(done){
+        it('should allow access to secure URIs post login', function(done){
             var req = request(url).get('/getLatestImageSecure');
             req.cookies = cookie;
             req
@@ -149,6 +149,22 @@ describe('Routing', function(){
                 });
         })
 
+    });
+
+    describe("Direct services", function(){
+        this.timeout(20000);
+        it('/testAudio should return correct transcript', function(done){
+            request(url)
+                .get('/testAudio')
+                .expect(200)
+                .end(function(err, res) {
+                    if (err) {
+                        throw err;
+                    }
+                    assert.equal(res.text, 'can you hear what I am saying ');
+                    done();
+                });
+        });
     });
 
 
