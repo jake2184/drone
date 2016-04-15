@@ -35,7 +35,7 @@ describe('Scenario Testing', function(){
             assert.equal(IandC.getModeName(), "Fire");
 
             IandC.setMode("Normal");
-            IandC.updateTemp({temperature:10, time: 10, location: 10});
+            IandC.updateTemp({'temperature':10, 'time': 10, 'location': [10,10]});
             //assert.equal(IandC.getModeName(), "Fire");
             done();
         })
