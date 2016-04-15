@@ -12,6 +12,7 @@ var iandc = require('./lib/drone_interpret_and_control');
 var auth = require('basic-auth');
 var readChunk = require('read-chunk');
 var imageType = require('image-type');
+var fileType = require('file-type');
 var dashDB = require('ibm_db');
 var session = require('client-sessions');
 var mqtt = require('./lib/MqttHandler');
@@ -240,11 +241,19 @@ app.post('/imageUpload', upload.single('image'), function (req, res){
 });
 
 app.post('/imageUploadSecure', upload.single('image'), requireLogin, function (req, res){
-	res.status(200).send("File uploaded successfully.\n");
+
 	// Check security/validity of the file
-	latestImage = req.file.path;
-	classifyUploadedImage(req.file.originalname, req.file.path);
-	insertImageIntoDatabase(req.file.originalname, req.file.path);
+	var valid = validateJPEG(req.file.path);
+	if(!valid){
+		res.status(400).send("Invalid file type - not jpeg.\n");
+		fs.unlink(req.file.path);
+	} else {
+		res.status(200).send("File uploaded successfully.\n");
+		latestImage = req.file.path;
+		//classifyUploadedImage(req.file.originalname, req.file.path);
+		insertImageIntoDatabase(req.file.originalname, req.file.path, req.body);
+	}
+
 });
 
 // To classify a single image. Unused
@@ -255,10 +264,34 @@ app.post('/classifyImage', upload.single('toClassify'), function (req, res){
 // Upload a speech file to the server from the drone
 app.post('/speechUpload', upload.single('audio'), function (req, res){
 	console.log("Received sound: " + req.file.originalname);
-	res.status(200).send("File uploaded successfully.\n");
+
 	// Check security/validity of the file
-	speechRecognition(req, res);
-	insertSpeechIntoDatabase(req.file.originalname, req.file.path, req.body);
+	var valid = validateWAV(req.file.path);
+	if(!valid){
+		res.status(400).send("Invalid file type - not wav.\n");
+		fs.unlink(req.file.path);
+	} else {
+		res.status(200).send("File uploaded successfull.\n");
+		latestAudio = req.file.path;
+		speechRecognition();
+		insertSpeechIntoDatabase(req.file.originalname, req.file.path, req.body);
+	}
+
+});
+
+app.post('/speechUploadSecure', upload.single('audio'), requireLogin, function (req, res){
+
+	// Check security/validity of the file
+	var valid = validateWAV(req.file.path);
+	if(!valid){
+		res.status(400).send("Invalid file type - not wav.\n");
+		fs.unlink(req.file.path);
+	} else {
+		res.status(200).send("File uploaded successfull.\n");
+		latestAudio = req.file.path;
+		speechRecognition();
+		insertSpeechIntoDatabase(req.file.originalname, req.file.path, req.body);
+	}
 });
 
 app.post('/login', function(req, res){
@@ -278,12 +311,16 @@ app.post('/login', function(req, res){
 		});
 	}
 });
+
+app.get('/login', function(req, res){
+	res.status(200).send("Please login by POSTing username and password.\n");
+});
 /////////////////////////////////////////////////////
 
 ////////////// Caching/Performance Improvement ///
 
 var latestImage = ""; //TODO - replace with checking latest in uploads folder
-var latestSound = ""; //TODO - is it ever needed?
+var latestAudio = ""; //TODO - is it ever needed?
 
 
 // Clean up uploads
@@ -405,25 +442,6 @@ function retrieveLatestImage(res){
 	});
 }
 
-// LEGACY
-function classifyImage(req, res){
-
-	var file = fs.createReadStream(req.file.path);
-
-	var params = {
-		images_file: file
-	};
-
-	imageRecognition.classify(params, function(err, results){
-		if(err){
-			console.error(err);
-			return err;
-		}else{
-			res.send(results);
-		}
-	});
-}
-
 function speechRecognition(req, res){
 	var file  = fs.createReadStream(req.file.path);
 
@@ -481,6 +499,21 @@ function validateJPEG(filePath){
 
 }
 
+function validateWAV(filePath){
+	var buffer = readChunk.sync(filePath, 0, 262);
+	var type = fileType(buffer);
+	if(type == null){
+		console.log("Not a known file type: " + filePath);
+		return false;
+	}
+	if( type.ext == 'wav' && type.mim == 'audio/wav'){
+		return true;
+	} else {
+		console.log("Invalid audio type: " + filePath);
+		return false;
+	}
+}
+
 function deviceStatusCallback(deviceType, deviceId, eventType, format, payload){
 	if(deviceId == "drone"){
 		processDroneUpdate(eventType, payload);
@@ -509,6 +542,7 @@ function processDroneUpdate(eventType, payload){
 	}
 }
 
+// Security
 function checkUserCredentials(credentials, callback){
 	dashDB.open(dashDBCreds.ssldsn, function(err, connection){
 		var error;
@@ -586,3 +620,22 @@ function requireLogin (req, res, next) {
 		next();
 	}
 };
+
+// LEGACY
+function classifyImage(req, res){
+
+	var file = fs.createReadStream(req.file.path);
+
+	var params = {
+		images_file: file
+	};
+
+	imageRecognition.classify(params, function(err, results){
+		if(err){
+			console.error(err);
+			return err;
+		}else{
+			res.send(results);
+		}
+	});
+}
