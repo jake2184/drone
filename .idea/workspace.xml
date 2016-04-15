@@ -6,10 +6,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d29ee594-5367-4f8e-8370-d3d13e0b5770" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/Services.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/sampleFiles/testAudio.wav" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/drone_interpret_and_control/drone_interpret_and_control.js" afterPath="$PROJECT_DIR$/lib/drone_interpret_and_control/drone_interpret_and_control.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/RestApi.js" afterPath="$PROJECT_DIR$/test/RestApi.js" />
     </list>
     <ignored path="drone.iws" />
@@ -34,7 +33,7 @@
       <file leaf-file-name="MqttHandler.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/MqttHandler.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-166">
+            <state relative-caret-position="52">
               <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
               <folding />
             </state>
@@ -54,8 +53,8 @@
       <file leaf-file-name="RestApi.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/RestApi.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="788">
-              <caret line="170" column="3" selection-start-line="170" selection-start-column="3" selection-end-line="170" selection-end-column="3" />
+            <state relative-caret-position="613">
+              <caret line="175" column="34" selection-start-line="175" selection-start-column="34" selection-end-line="175" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -84,8 +83,8 @@
       <file leaf-file-name="normal.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/normal.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" column="27" selection-start-line="21" selection-start-column="27" selection-end-line="21" selection-end-column="27" />
+            <state relative-caret-position="527">
+              <caret line="31" column="22" selection-start-line="31" selection-start-column="22" selection-end-line="31" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -94,8 +93,8 @@
       <file leaf-file-name="drone_interpret_and_control.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/drone_interpret_and_control.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="35">
-              <caret line="106" column="0" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
+            <state relative-caret-position="-1036">
+              <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
               <folding>
                 <element signature="e#873#912#0" expanded="false" />
               </folding>
@@ -103,11 +102,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="base.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/base.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-459">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="281" column="57" selection-start-line="281" selection-start-column="57" selection-end-line="281" selection-end-column="57" />
+            <state relative-caret-position="567">
+              <caret line="666" column="16" selection-start-line="666" selection-start-column="16" selection-end-line="666" selection-end-column="16" />
               <folding>
                 <element signature="e#699#845#0" expanded="false" />
                 <element signature="e#740#769#0" expanded="false" />
@@ -151,18 +160,18 @@
                 <element signature="e#9052#9111#0" expanded="false" />
                 <element signature="e#9116#9182#0" expanded="false" />
                 <element signature="e#9233#9311#0" expanded="false" />
-                <element signature="e#9705#9851#0" expanded="false" />
-                <element signature="e#9994#10065#0" expanded="false" />
+                <element signature="e#9814#9960#0" expanded="false" />
+                <element signature="e#10103#10174#0" expanded="false" />
                 <element signature="n#!!block;n#insertImageIntoDatabase#0" expanded="false" />
-                <element signature="e#10548#10691#0" expanded="false" />
-                <element signature="e#10561#10618#0" expanded="false" />
-                <element signature="e#10623#10685#0" expanded="false" />
+                <element signature="e#10657#10800#0" expanded="false" />
+                <element signature="e#10670#10727#0" expanded="false" />
+                <element signature="e#10732#10794#0" expanded="false" />
                 <element signature="n#!!block;n#insertSpeechIntoDatabase#0" expanded="false" />
-                <element signature="e#11186#11330#0" expanded="false" />
-                <element signature="e#11199#11256#0" expanded="false" />
-                <element signature="e#11261#11324#0" expanded="false" />
-                <element signature="e#11585#11637#0" expanded="false" />
-                <element signature="e#11641#11890#0" expanded="false" />
+                <element signature="e#11295#11439#0" expanded="false" />
+                <element signature="e#11308#11365#0" expanded="false" />
+                <element signature="e#11370#11433#0" expanded="false" />
+                <element signature="n#!!block;n#classifyUploadedImage#0" expanded="false" />
+                <element signature="n#!!block;n#speechRecognition#0" expanded="false" />
                 <element signature="n#!!block;n#retrieveLatestImage#0" expanded="false" />
                 <element signature="n#!!block;n#analyseTone#0" expanded="false" />
                 <element signature="n#!!block;n#deviceStatusCallback#0" expanded="false" />
@@ -214,10 +223,10 @@
         <option value="$PROJECT_DIR$/node_modules/vcap_services/VCAP_SERVICES.json" />
         <option value="$PROJECT_DIR$/test/Scenarios.js" />
         <option value="$PROJECT_DIR$/test/UnitTesting.js" />
-        <option value="$PROJECT_DIR$/lib/drone_interpret_and_control/drone_interpret_and_control.js" />
         <option value="$PROJECT_DIR$/test/Services.js" />
-        <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/lib/drone_interpret_and_control/drone_interpret_and_control.js" />
         <option value="$PROJECT_DIR$/test/RestApi.js" />
+        <option value="$PROJECT_DIR$/app.js" />
       </list>
     </option>
   </component>
@@ -635,7 +644,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49703503" sideWeight="0.506993" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" show_stripe_button="true" weight="0.3379092" sideWeight="0.4921875" order="2" side_tool="false" content_ui="tabs" x="2029" y="17" width="733" height="971" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" show_stripe_button="true" weight="0.3379092" sideWeight="0.4921875" order="2" side_tool="false" content_ui="tabs" x="2029" y="17" width="733" height="971" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2078125" sideWeight="0.493007" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946146" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -674,7 +683,8 @@
     <MESSAGE value="Added more data handlers in IandC/modes.&#10;Added initial unit testing" />
     <MESSAGE value="Added safety condition on determineMode" />
     <MESSAGE value="Added file validity checks and a secure version of audioUpload&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added file validity checks and a secure version of audioUpload&#10;" />
+    <MESSAGE value="Added test for audio service" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added test for audio service" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -690,76 +700,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="334" column="22" selection-start-line="334" selection-start-column="22" selection-end-line="334" selection-end-column="22" />
-          <folding>
-            <element signature="e#699#845#0" expanded="false" />
-            <element signature="e#740#769#0" expanded="false" />
-            <element signature="e#807#843#0" expanded="false" />
-            <element signature="e#971#993#0" expanded="false" />
-            <element signature="e#1192#1278#0" expanded="false" />
-            <element signature="e#1284#1436#0" expanded="false" />
-            <element signature="e#1290#1400#0" expanded="false" />
-            <element signature="e#1410#1434#0" expanded="false" />
-            <element signature="e#1621#2211#0" expanded="false" />
-            <element signature="e#1656#1717#0" expanded="false" />
-            <element signature="e#1752#1823#0" expanded="false" />
-            <element signature="e#1858#1925#0" expanded="false" />
-            <element signature="e#1958#2025#0" expanded="false" />
-            <element signature="e#2058#2117#0" expanded="false" />
-            <element signature="e#2152#2209#0" expanded="false" />
-            <element signature="e#2301#2392#0" expanded="false" />
-            <element signature="e#2446#2546#0" expanded="false" />
-            <element signature="e#2596#2693#0" expanded="false" />
-            <element signature="e#2743#2839#0" expanded="false" />
-            <element signature="e#2880#2966#0" expanded="false" />
-            <element signature="e#3009#3098#0" expanded="false" />
-            <element signature="e#3483#3575#0" expanded="false" />
-            <element signature="e#3758#3816#0" expanded="false" />
-            <element signature="e#3998#4069#0" expanded="false" />
-            <element signature="e#4477#4542#0" expanded="false" />
-            <element signature="e#4897#5018#0" expanded="false" />
-            <element signature="e#5026#5576#0" expanded="false" />
-            <element signature="e#5747#5779#0" expanded="false" />
-            <element signature="e#5847#5877#0" expanded="false" />
-            <element signature="e#5924#6022#0" expanded="false" />
-            <element signature="e#6111#6344#0" expanded="false" />
-            <element signature="e#6127#6146#0" expanded="false" />
-            <element signature="e#6211#6340#0" expanded="false" />
-            <element signature="e#6222#6277#0" expanded="false" />
-            <element signature="e#6283#6337#0" expanded="false" />
-            <element signature="e#7562#7591#0" expanded="false" />
-            <element signature="e#7717#8195#0" expanded="false" />
-            <element signature="e#8288#8717#0" expanded="false" />
-            <element signature="e#8758#9193#0" expanded="false" />
-            <element signature="e#9052#9111#0" expanded="false" />
-            <element signature="e#9116#9182#0" expanded="false" />
-            <element signature="e#9233#9311#0" expanded="false" />
-            <element signature="e#9705#9851#0" expanded="false" />
-            <element signature="e#9994#10065#0" expanded="false" />
-            <element signature="n#!!block;n#insertImageIntoDatabase#0" expanded="false" />
-            <element signature="e#10548#10691#0" expanded="false" />
-            <element signature="e#10561#10618#0" expanded="false" />
-            <element signature="e#10623#10685#0" expanded="false" />
-            <element signature="n#!!block;n#insertSpeechIntoDatabase#0" expanded="false" />
-            <element signature="e#11186#11330#0" expanded="false" />
-            <element signature="e#11199#11256#0" expanded="false" />
-            <element signature="e#11261#11324#0" expanded="false" />
-            <element signature="e#11585#11637#0" expanded="false" />
-            <element signature="e#11641#11890#0" expanded="false" />
-            <element signature="n#!!block;n#retrieveLatestImage#0" expanded="false" />
-            <element signature="n#!!block;n#analyseTone#0" expanded="false" />
-            <element signature="n#!!block;n#deviceStatusCallback#0" expanded="false" />
-            <element signature="n#!!block;n#processDroneUpdate#0" expanded="false" />
-            <element signature="n#!!block;n#insertUserCredentials#0" expanded="false" />
-            <element signature="n#!!block;n#insertDroneCredentials#0" expanded="false" />
-            <element signature="n#!!block;n#classifyImage#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/avoidance.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -863,18 +803,18 @@
             <element signature="e#9052#9111#0" expanded="false" />
             <element signature="e#9116#9182#0" expanded="false" />
             <element signature="e#9233#9311#0" expanded="false" />
-            <element signature="e#9705#9851#0" expanded="false" />
-            <element signature="e#9994#10065#0" expanded="false" />
+            <element signature="e#9814#9960#0" expanded="false" />
+            <element signature="e#10103#10174#0" expanded="false" />
             <element signature="n#!!block;n#insertImageIntoDatabase#0" expanded="false" />
-            <element signature="e#10548#10691#0" expanded="false" />
-            <element signature="e#10561#10618#0" expanded="false" />
-            <element signature="e#10623#10685#0" expanded="false" />
+            <element signature="e#10657#10800#0" expanded="false" />
+            <element signature="e#10670#10727#0" expanded="false" />
+            <element signature="e#10732#10794#0" expanded="false" />
             <element signature="n#!!block;n#insertSpeechIntoDatabase#0" expanded="false" />
-            <element signature="e#11186#11330#0" expanded="false" />
-            <element signature="e#11199#11256#0" expanded="false" />
-            <element signature="e#11261#11324#0" expanded="false" />
-            <element signature="e#11585#11637#0" expanded="false" />
-            <element signature="e#11641#11890#0" expanded="false" />
+            <element signature="e#11295#11439#0" expanded="false" />
+            <element signature="e#11308#11365#0" expanded="false" />
+            <element signature="e#11370#11433#0" expanded="false" />
+            <element signature="n#!!block;n#classifyUploadedImage#0" expanded="false" />
+            <element signature="n#!!block;n#speechRecognition#0" expanded="false" />
             <element signature="n#!!block;n#retrieveLatestImage#0" expanded="false" />
             <element signature="n#!!block;n#analyseTone#0" expanded="false" />
             <element signature="n#!!block;n#deviceStatusCallback#0" expanded="false" />
@@ -989,18 +929,18 @@
             <element signature="e#9052#9111#0" expanded="false" />
             <element signature="e#9116#9182#0" expanded="false" />
             <element signature="e#9233#9311#0" expanded="false" />
-            <element signature="e#9705#9851#0" expanded="false" />
-            <element signature="e#9994#10065#0" expanded="false" />
+            <element signature="e#9814#9960#0" expanded="false" />
+            <element signature="e#10103#10174#0" expanded="false" />
             <element signature="n#!!block;n#insertImageIntoDatabase#0" expanded="false" />
-            <element signature="e#10548#10691#0" expanded="false" />
-            <element signature="e#10561#10618#0" expanded="false" />
-            <element signature="e#10623#10685#0" expanded="false" />
+            <element signature="e#10657#10800#0" expanded="false" />
+            <element signature="e#10670#10727#0" expanded="false" />
+            <element signature="e#10732#10794#0" expanded="false" />
             <element signature="n#!!block;n#insertSpeechIntoDatabase#0" expanded="false" />
-            <element signature="e#11186#11330#0" expanded="false" />
-            <element signature="e#11199#11256#0" expanded="false" />
-            <element signature="e#11261#11324#0" expanded="false" />
-            <element signature="e#11585#11637#0" expanded="false" />
-            <element signature="e#11641#11890#0" expanded="false" />
+            <element signature="e#11295#11439#0" expanded="false" />
+            <element signature="e#11308#11365#0" expanded="false" />
+            <element signature="e#11370#11433#0" expanded="false" />
+            <element signature="n#!!block;n#classifyUploadedImage#0" expanded="false" />
+            <element signature="n#!!block;n#speechRecognition#0" expanded="false" />
             <element signature="n#!!block;n#retrieveLatestImage#0" expanded="false" />
             <element signature="n#!!block;n#analyseTone#0" expanded="false" />
             <element signature="n#!!block;n#deviceStatusCallback#0" expanded="false" />
@@ -1088,18 +1028,18 @@
             <element signature="e#9052#9111#0" expanded="false" />
             <element signature="e#9116#9182#0" expanded="false" />
             <element signature="e#9233#9311#0" expanded="false" />
-            <element signature="e#9705#9851#0" expanded="false" />
-            <element signature="e#9994#10065#0" expanded="false" />
+            <element signature="e#9814#9960#0" expanded="false" />
+            <element signature="e#10103#10174#0" expanded="false" />
             <element signature="n#!!block;n#insertImageIntoDatabase#0" expanded="false" />
-            <element signature="e#10548#10691#0" expanded="false" />
-            <element signature="e#10561#10618#0" expanded="false" />
-            <element signature="e#10623#10685#0" expanded="false" />
+            <element signature="e#10657#10800#0" expanded="false" />
+            <element signature="e#10670#10727#0" expanded="false" />
+            <element signature="e#10732#10794#0" expanded="false" />
             <element signature="n#!!block;n#insertSpeechIntoDatabase#0" expanded="false" />
-            <element signature="e#11186#11330#0" expanded="false" />
-            <element signature="e#11199#11256#0" expanded="false" />
-            <element signature="e#11261#11324#0" expanded="false" />
-            <element signature="e#11585#11637#0" expanded="false" />
-            <element signature="e#11641#11890#0" expanded="false" />
+            <element signature="e#11295#11439#0" expanded="false" />
+            <element signature="e#11308#11365#0" expanded="false" />
+            <element signature="e#11370#11433#0" expanded="false" />
+            <element signature="n#!!block;n#classifyUploadedImage#0" expanded="false" />
+            <element signature="n#!!block;n#speechRecognition#0" expanded="false" />
             <element signature="n#!!block;n#retrieveLatestImage#0" expanded="false" />
             <element signature="n#!!block;n#analyseTone#0" expanded="false" />
             <element signature="n#!!block;n#deviceStatusCallback#0" expanded="false" />
@@ -1211,30 +1151,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/MqttHandler.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-166">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/avoidance.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="40" selection-start-line="2" selection-start-column="40" selection-end-line="2" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/normal.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="27" selection-start-line="21" selection-start-column="27" selection-end-line="21" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/vcap_services/VCAP_SERVICES.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="859">
@@ -1259,10 +1175,60 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/base.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-459">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/normal.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="31" column="22" selection-start-line="31" selection-start-column="22" selection-end-line="31" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/drone_interpret_and_control.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1036">
+          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding>
+            <element signature="e#873#912#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/avoidance.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="40" selection-start-line="2" selection-start-column="40" selection-end-line="2" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/UnitTesting.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="32" column="16" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/MqttHandler.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="52">
+          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="281" column="57" selection-start-line="281" selection-start-column="57" selection-end-line="281" selection-end-column="57" />
+        <state relative-caret-position="567">
+          <caret line="666" column="16" selection-start-line="666" selection-start-column="16" selection-end-line="666" selection-end-column="16" />
           <folding>
             <element signature="e#699#845#0" expanded="false" />
             <element signature="e#740#769#0" expanded="false" />
@@ -1306,18 +1272,18 @@
             <element signature="e#9052#9111#0" expanded="false" />
             <element signature="e#9116#9182#0" expanded="false" />
             <element signature="e#9233#9311#0" expanded="false" />
-            <element signature="e#9705#9851#0" expanded="false" />
-            <element signature="e#9994#10065#0" expanded="false" />
+            <element signature="e#9814#9960#0" expanded="false" />
+            <element signature="e#10103#10174#0" expanded="false" />
             <element signature="n#!!block;n#insertImageIntoDatabase#0" expanded="false" />
-            <element signature="e#10548#10691#0" expanded="false" />
-            <element signature="e#10561#10618#0" expanded="false" />
-            <element signature="e#10623#10685#0" expanded="false" />
+            <element signature="e#10657#10800#0" expanded="false" />
+            <element signature="e#10670#10727#0" expanded="false" />
+            <element signature="e#10732#10794#0" expanded="false" />
             <element signature="n#!!block;n#insertSpeechIntoDatabase#0" expanded="false" />
-            <element signature="e#11186#11330#0" expanded="false" />
-            <element signature="e#11199#11256#0" expanded="false" />
-            <element signature="e#11261#11324#0" expanded="false" />
-            <element signature="e#11585#11637#0" expanded="false" />
-            <element signature="e#11641#11890#0" expanded="false" />
+            <element signature="e#11295#11439#0" expanded="false" />
+            <element signature="e#11308#11365#0" expanded="false" />
+            <element signature="e#11370#11433#0" expanded="false" />
+            <element signature="n#!!block;n#classifyUploadedImage#0" expanded="false" />
+            <element signature="n#!!block;n#speechRecognition#0" expanded="false" />
             <element signature="n#!!block;n#retrieveLatestImage#0" expanded="false" />
             <element signature="n#!!block;n#analyseTone#0" expanded="false" />
             <element signature="n#!!block;n#deviceStatusCallback#0" expanded="false" />
@@ -1329,28 +1295,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/drone_interpret_and_control.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="35">
-          <caret line="106" column="0" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
-          <folding>
-            <element signature="e#873#912#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/UnitTesting.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="32" column="16" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/RestApi.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="788">
-          <caret line="170" column="3" selection-start-line="170" selection-start-column="3" selection-end-line="170" selection-end-column="3" />
+        <state relative-caret-position="613">
+          <caret line="175" column="34" selection-start-line="175" selection-start-column="34" selection-end-line="175" selection-end-column="34" />
           <folding />
         </state>
       </provider>

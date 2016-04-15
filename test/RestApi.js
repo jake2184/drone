@@ -153,6 +153,7 @@ describe('Routing', function(){
 
     describe("Direct services", function(){
         this.timeout(20000);
+        /*
         it('/testAudio should return correct transcript', function(done){
             request(url)
                 .get('/testAudio')
@@ -165,6 +166,22 @@ describe('Routing', function(){
                     done();
                 });
         });
+        */
+        it('/testImage should return correct labels', function(done){
+            request(url)
+                .get('/testImage')
+                .expect(200)
+                .end(function(err, res) {
+                    if (err) {
+                        throw err;
+                    }
+                    console.log(res.body);
+                    console.log(typeof(res.body));
+                    assert.equal(res.body.name, 'Baby');
+                    done();
+                });
+
+        })
     });
 
 
