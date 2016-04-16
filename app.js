@@ -16,6 +16,7 @@ var fileType = require('file-type');
 var dashDB = require('ibm_db');
 var session = require('client-sessions');
 var mqtt = require('./lib/MqttHandler');
+//var lame = require ('lame');
 
 
 
@@ -351,7 +352,7 @@ app.listen(port, function() {
 /////////////////// Internal Functions ////////
 
 function insertImageIntoDatabase(imageName, imagePath, body){
-
+	console.log("Recieved " + imageName);
 	// Read from uploads
 	var imageData = fs.readFileSync(imagePath);
 	var images = cloudant.use('drone_images');
@@ -406,7 +407,15 @@ function classifyUploadedImage(imageName, imagePath, body){
 }
 
 function speechRecognition(audiofileName, audiofilePath, body){
-	var file  = fs.createReadStream(audiofilePath);
+	console.log("Received " + audiofileName);
+
+
+	if(audiofilePath.endsWith(".mp3")){
+		convertMP3toWAV(audiofilePath);
+		audiofilePath.replace(".wav", ".mp3");
+	}
+
+
 
 	var params = {
 		audio: file,
@@ -414,12 +423,15 @@ function speechRecognition(audiofileName, audiofilePath, body){
 		model:"en-US_BroadbandModel"
 	};
 
+
+	var file  = fs.createReadStream(audiofilePath);
+
+
 	speechToText.recognize(params, function(err, results){
 		if(err){
 			console.error('[speech.recognise]: ' + err);
 		}else{
-			console.log(results);
-			if(! results.results){
+			if(typeof results.results[0] == "undefined"){
 				return;
 			}
 			var transcript = results.results[0].alternatives[0].transcript;
@@ -515,7 +527,10 @@ function validateWAV(filePath){
 		console.log("Not a known file type: " + filePath);
 		return false;
 	}
-	if( type.ext == 'wav' && (type.mime == 'audio/wav' || type.mime == 'audio/x-wav')){
+	if( type.ext == 'wav' && (type.mime == 'audio/wav' || type.mime == 'audio/x-wav')) {
+		return true;
+	} else if (type.ext == 'mp3') {
+		console.log(type.mime);
 		return true;
 	} else {
 		console.log("Invalid audio type: " + filePath + " " + type.mime);
@@ -629,6 +644,29 @@ function requireLogin (req, res, next) {
 		next();
 	}
 }
+
+/*
+function convertMP3toWAV(mp3File){
+	var encoder = new lame.Encoder({
+		// in
+		channels: 1,
+		bitDepth: 1,
+		sampleRate: 44100,
+
+		// out
+		bitRate: 128,
+		outSampleRate: 22050,
+		mode: lame.MONO
+	});
+
+	var mp3FileStream = fs.createReadStream(mp3File);
+	var wavFileStream = fs.createWriteStream(mp3File.replace(".mp3",".wav"));
+	mp3FileStream.pipe(encoder);
+	encoder.pipe(wavFileStream);
+
+}
+*/
+
 
 
 // Test service directly
