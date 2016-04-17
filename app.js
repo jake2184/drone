@@ -261,11 +261,6 @@ app.post('/imageUploadSecure', upload.single('image'), requireLogin, function (r
 
 });
 
-// To classify a single image. Unused
-app.post('/classifyImage', upload.single('toClassify'), function (req, res){
-	classifyImage(req, res);
-});
-
 // Upload a speech file to the server from the drone
 app.post('/speechUpload', upload.single('audio'), function (req, res){
 	console.log("Received sound: " + req.file.originalname);
@@ -334,7 +329,7 @@ app.get('/testImage', function(req, res){
 ////////////// Caching/Performance Improvement ///
 
 var latestImage = ""; //TODO - replace with checking latest in uploads folder
-var latestAudio = ""; //TODO - is it ever needed?
+var latestAudio = "";
 
 
 // Clean up uploads
@@ -769,22 +764,3 @@ function testImageRecognition(imagePath, res, body){
 	});
 }
 
-
-// LEGACY
-function classifyImage(req, res){
-
-	var file = fs.createReadStream(req.file.path);
-
-	var params = {
-		images_file: file
-	};
-
-	imageRecognition.classify(params, function(err, results){
-		if(err){
-			console.error(err);
-			return err;
-		}else{
-			res.send(results);
-		}
-	});
-}
