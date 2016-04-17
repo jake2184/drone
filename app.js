@@ -8,7 +8,7 @@ var fs = require ('fs');
 var Cloudant = require('cloudant');
 var watson = require('watson-developer-cloud');
 var cfenv = require('cfenv');
-var iandc = require('./lib/drone_interpret_and_control');
+var iandc = require('./lib/drone_interpret_and_control/drone_interpret_and_control');
 var auth = require('basic-auth');
 var readChunk = require('read-chunk');
 var imageType = require('image-type');
@@ -16,7 +16,8 @@ var fileType = require('file-type');
 var dashDB = require('ibm_db');
 var session = require('client-sessions');
 var mqtt = require('./lib/MqttHandler');
-//var lame = require ('lame');
+var lame = require ('lame');
+var wav = require('wav');
 
 
 
@@ -288,10 +289,10 @@ app.post('/speechUploadSecure', upload.single('audio'), requireLogin, function (
 		res.status(400).send("Invalid file type - not wav.\n");
 		fs.unlink(req.file.path);
 	} else {
-		res.status(200).send("File uploaded successfull.\n");
+		res.status(200).send("File uploaded successfully.\n");
 		latestAudio = req.file.path;
 		speechRecognition(req.file.originalname, req.file.path, req.body);
-		insertSpeechIntoDatabase(req.file.originalname, req.file.path, req.body);
+		//insertSpeechIntoDatabase(req.file.originalname, req.file.path, req.body);
 	}
 });
 
@@ -406,19 +407,19 @@ function classifyUploadedImage(imageName, imagePath, body){
 	});
 }
 
+/*
 function speechRecognition(audiofileName, audiofilePath, body){
-	console.log("Received " + audiofileName);
-
+	console.log("Received " + audiofilePath);
 
 	if(audiofilePath.endsWith(".mp3")){
 		convertMP3toWAV(audiofilePath);
-		audiofilePath.replace(".wav", ".mp3");
+		audiofilePath = audiofilePath.replace(".mp3", ".wav");
 	}
 
-
+	console.log(audiofilePath);
 
 	var params = {
-		audio: file,
+		audio: "file",
 		content_type:"audio/wav",
 		model:"en-US_BroadbandModel"
 	};
@@ -426,10 +427,57 @@ function speechRecognition(audiofileName, audiofilePath, body){
 
 	var file  = fs.createReadStream(audiofilePath);
 
+	console.log(file);
 
 	speechToText.recognize(params, function(err, results){
 		if(err){
 			console.error('[speech.recognise]: ' + err);
+		}else{
+			if(typeof results.results[0] == "undefined"){
+				return;
+			} 
+			var transcript = results.results[0].alternatives[0].transcript;
+			var speechRecognised = IandC.processSpeechTranscript(transcript, body.time, body.location);
+			console.log("Speech Recognised: " + speechRecognised);
+			if(speechRecognised){
+				analyseTone(transcript);
+			}
+		}
+	});
+}
+*/
+
+function speechRecognition(audiofileName, audiofilePath, body) {
+	console.log("Received " + audiofilePath);
+
+	if (audiofilePath.endsWith(".mp3")) {
+		convertMP3toWAV(audiofilePath, body, sendToSpeechRecognition);
+		//audiofilePath = audiofilePath.replace(".mp3", ".wav");
+	} else {
+		sendToSpeechRecognition(audiofilePath, body)
+	}
+
+	//console.log(audiofilePath);
+
+
+
+
+}
+
+function sendToSpeechRecognition(audiofilePath, body) {
+	var file  = fs.createReadStream(audiofilePath);
+
+	var params = {
+		audio: file,
+		content_type: "audio/wav",
+		model: "en-US_BroadbandModel"
+	};
+
+	console.log("Sending.. " + file.path);
+
+	speechToText.recognize(params, function(err, results){
+		if(err){
+			console.error('[speech.recognise2]: ' + err);
 		}else{
 			if(typeof results.results[0] == "undefined"){
 				return;
@@ -529,8 +577,7 @@ function validateWAV(filePath){
 	}
 	if( type.ext == 'wav' && (type.mime == 'audio/wav' || type.mime == 'audio/x-wav')) {
 		return true;
-	} else if (type.ext == 'mp3') {
-		console.log(type.mime);
+	} else if (type.ext == 'mp3' && type.mime == 'audio/mpeg') {
 		return true;
 	} else {
 		console.log("Invalid audio type: " + filePath + " " + type.mime);
@@ -645,33 +692,41 @@ function requireLogin (req, res, next) {
 	}
 }
 
-/*
-function convertMP3toWAV(mp3File){
-	var encoder = new lame.Encoder({
-		// in
-		channels: 1,
-		bitDepth: 1,
-		sampleRate: 44100,
 
-		// out
-		bitRate: 128,
-		outSampleRate: 22050,
-		mode: lame.MONO
-	});
+function convertMP3toWAV(mp3File, body, sendToSpeechRecognition){
+
+	var decoder = new lame.Decoder();
+	decoder.on('format', onFormat);
 
 	var mp3FileStream = fs.createReadStream(mp3File);
 	var wavFileStream = fs.createWriteStream(mp3File.replace(".mp3",".wav"));
-	mp3FileStream.pipe(encoder);
-	encoder.pipe(wavFileStream);
+
+	mp3FileStream.pipe(decoder);
+
+	decoder.on('finish', onFinish);
+
+	function onFormat(format){
+		console.log("MP3 format: %j" ,format);
+		var writer = new wav.Writer(format);
+		decoder.pipe(writer).pipe(wavFileStream);
+	}
+
+	function onFinish(){
+		console.log("Done")
+		sendToSpeechRecognition(mp3File.replace(".mp3",".wav"), body);
+	}
 
 }
-*/
+
+
+
 
 
 
 // Test service directly
 
 function testSpeechRecognition(fileName, res){
+
 	var file  = fs.createReadStream(fileName);
 
 	var params = {

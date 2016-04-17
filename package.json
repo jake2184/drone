@@ -18,10 +18,12 @@
     "ibm_db": "0.0.19",
     "ibmiotf": "^0.2.2",
     "image-type": "~2.1.0",
+    "lame": "^1.2.3",
     "multer": "^1.1.0",
     "read-chunk": "~1.0.1",
     "unit.js": "^2.0.0",
-    "watson-developer-cloud": "~1.2.3"
+    "watson-developer-cloud": "~1.2.3",
+    "wav": "^1.0.0"
   },
   "repository": {},
   "engines": {
