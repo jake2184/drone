@@ -126,13 +126,13 @@ var speechToText = watson.speech_to_text({
 });
 //console.log("speechToText: " + username + " " + password);
 
-username = toneAnalysisCreds.username;
-password = toneAnalysisCreds.password;
-var toneAnalysis = watson.tone_analyzer({
-	version: "v2-experimental",
-	username:username,
-	password:password
-});
+// username = toneAnalysisCreds.username;
+// password = toneAnalysisCreds.password;
+// var toneAnalysis = watson.tone_analyzer({
+// 	version: "v2-experimental",
+// 	username:username,
+// 	password:password
+// });
 //console.log("Tone Analysis: " + username + " " + password);
 
 
