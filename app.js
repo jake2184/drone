@@ -91,7 +91,7 @@ if(typeof cloudantCreds === "undefined"){
 	process.exit(1);
 } else if(typeof toneAnalysisCreds === "undefined"){
 	console.error("No Tone Analysis credentials supplied in VCAP_SERVICES.");
-	process.exit(1);
+	//process.exit(1);
 }else if(typeof mqttCreds === "undefined"){
 	console.error("No IoT credentials supplied in VCAP_SERVICES.");
 	process.exit(1);
@@ -376,7 +376,7 @@ function insertSpeechIntoDatabase(speechfileName, speechfilePath, body){
 	var speechData = fs.readFileSync(speechfilePath);
 	var speechDB = cloudant.use('drone_speech');
 
-	var attach = [{name: "speech", data: speechData, content_type: 'image/jpeg'}];
+	var attach = [{name: "speech", data: speechData, content_type: 'image/jpeg'}]; //FIX
 	//ar docID = (new Date()).getTime().toString(); // Append original file name?
 
 	speechDB.multipart.insert({name: speechfileName, time:body.time, location:body.location}, attach, speechfileName, function(err, body) {
