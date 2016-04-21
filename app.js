@@ -136,7 +136,7 @@ var speechToText = watson.speech_to_text({
 //console.log("Tone Analysis: " + username + " " + password);
 
 
-mqttCreds.id = 'drone_nodes';
+mqttCreds.id = 'drone-nodes';
 //mqttCreds.type = 'application';
 
 
@@ -316,6 +316,11 @@ app.get('/login', function(req, res){
 	res.status(200).send("Please login by POSTing username and password.\n");
 });
 
+app.get('/test', function(req, res){
+	console.log("Testing")
+	IandC.test();
+	res.sendStatus(200);
+});
 
 app.get('/testAudio', function(req, res){
 	testSpeechRecognition('test/sampleFiles/testAudio.wav', res);
