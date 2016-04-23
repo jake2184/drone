@@ -240,7 +240,7 @@ app.post('/imageUpload', upload.single('image'), function (req, res){
 	} else {
 		res.status(200).send("File uploaded successfully.\n");
 		latestImage = req.file.path;
-		classifyImage(req.file.originalname, req.file.path);
+		classifyImage(req.file.originalname, req.file.path, req.body);
 		insertImageIntoDatabase(req.file.originalname, req.file.path, req.body);
 	}
 });
@@ -255,7 +255,7 @@ app.post('/imageUploadSecure', upload.single('image'), requireLogin, function (r
 	} else {
 		res.status(200).send("File uploaded successfully.\n");
 		latestImage = req.file.path;
-		classifyImage(req.file.originalname, req.file.path);
+		classifyImage(req.file.originalname, req.file.path, req.body);
 		insertImageIntoDatabase(req.file.originalname, req.file.path, req.body);
 	}
 
@@ -329,6 +329,26 @@ app.get('/testAudio', function(req, res){
 app.get('/testImage', function(req, res){
 	testImageRecognition('test/sampleFiles/testImage.jpg', res);
 });
+
+app.get('/getSensorData', function(req, res){
+
+	// Get data from the databaseeee
+
+	var data = [];
+	var time = new Date().getTime();
+
+	for (var i =0; i<10; i++){
+		data[i] = {
+			time : time + i * 100,
+			readingType : "temperature",
+			readingValue: (i*4.5),
+			readingLocation : [51.485138+i/100,-0.187755+i/100]
+		}
+
+	}
+	res.status(200).send(data)
+
+});
 /////////////////////////////////////////////////////
 
 ////////////// Caching/Performance Improvement ///
@@ -382,7 +402,7 @@ function insertSpeechIntoDatabase(speechfileName, speechfilePath, body){
 	var speechDB = cloudant.use('drone_speech');
 
 	var attach = [{name: "speech", data: speechData, content_type: 'image/jpeg'}]; //FIX
-	//ar docID = (new Date()).getTime().toString(); // Append original file name?
+	//var docID = (new Date()).getTime().toString(); // Append original file name?
 
 	speechDB.multipart.insert({name: speechfileName, time:body.time, location:body.location}, attach, speechfileName, function(err, body) {
 		if (err) {
@@ -453,7 +473,7 @@ function classifyImage(imageName, imagePath, body){
 		}else{
 			console.log("Recognition Duration: " + ((new Date()).getTime() - start));
 			var labels = results.images[0].scores;
-			var anyLabel = IandC.imageKeywords(labels,  body.time, body.location);
+			var anyLabel = IandC.processImageLabels(labels,  body.time, body.location);
 			//console.log("Image Recognised: " + anyLabel);
 		}
 	});

@@ -150,7 +150,7 @@ describe('Routing', function(){
         })
 
     });
-
+/*
     describe("Direct services", function(){
         this.timeout(20000);
 
@@ -182,6 +182,6 @@ describe('Routing', function(){
 
         })
     });
-
+*/
 
 });
