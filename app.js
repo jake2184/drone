@@ -318,8 +318,54 @@ app.get('/login', function(req, res){
 
 app.get('/test', function(req, res){
 	console.log("Testing")
-	IandC.test();
-	res.sendStatus(200);
+	//IandC.test();
+	var event = cloudant.use('eventlog');
+
+	event.index(function(er, result) {
+		if (er) {
+			throw er;
+		}
+
+		console.log('The database has %d indexes', result.indexes.length);
+		for (var i = 0; i < result.indexes.length; i++) {
+			console.log('  %s (%s): %j', result.indexes[i].name, result.indexes[i].type, result.indexes[i].def);
+		}
+
+	});
+	var type = {name:'typeIndex', type:'json', index:{fields:['eventType']}};
+
+	event.index(type, function(er, response){
+		if (er) {
+			throw er;
+		}
+
+		console.log('Index creation result: %s', response.result);
+	});
+
+	event.find({
+		selector:{
+			//_id : {"$gt": 1457000000000},
+			//_id : '1457900280837',
+			_id : {"$gt" : "1457000000000"},
+			eventType:'Fire'
+		}
+	}, function(er, result) {
+		if (er) {
+			throw er;
+		}
+
+		console.log('Found %d documents with name Alice', result.docs.length);
+
+		result.docs.forEach(function(e){
+			e.time = e._id;
+			delete e._id;
+			delete e._rev;
+		});
+		var data = JSON.stringify(result.docs);
+		console.log(data);
+	});
+
+	res.status(200).send();
 });
 
 app.get('/testAudio', function(req, res){
@@ -332,21 +378,67 @@ app.get('/testImage', function(req, res){
 
 app.get('/getSensorData', function(req, res){
 
-	// Get data from the databaseeee
+	// Get data from the database
 
-	var data = [];
-	var time = new Date().getTime();
+	var fromTime = req.param("fromTime") || 0;
+	var untilTime = req.param("untilTime") || new Date().getTime().toString();
 
-	for (var i =0; i<10; i++){
-		data[i] = {
-			time : time + i * 100,
-			readingType : "temperature",
-			readingValue: (i*4.5),
-			readingLocation : [51.485138+i/100,-0.187755+i/100]
-		}
+	var type = req.param("type");
+	var query;
+	if(type === undefined) {
+		query = {
+			selector: {
+				"$and" : [
+					{_id: {"$gt": fromTime.toString()}},
+					{_id: {"$lt": untilTime.toString()}}]
+			}
+		};
+	} else {
+		query = {
+			selector: {
+				"$and" : [
+					{_id: {"$gt": fromTime.toString()}},
+					{_id: {"$lt": untilTime.toString()}},
+					{eventType: type.toString()}]
+			}
+		};
 
 	}
-	res.status(200).send(data)
+	//console.log(JSON.stringify(query));
+	cloudant.use("sensorlog").find(query, function(err, result){
+		if(err){
+			console.error("[sensors.request] " + err);
+			console.error(query);
+			res.status(500).send();
+			return;
+		}
+		if(result === undefined){
+			res.status(204).send();
+			return;
+		}
+		result.docs.forEach(function(doc){
+			doc.time = doc._id;
+			delete doc._id;
+			delete doc._rev;
+		});
+		var data = JSON.stringify(result.docs);
+		res.status(200).send(data);
+	});
+
+
+	// var data = [];
+	// var time = new Date().getTime();
+    //
+	// for (var i =0; i<10; i++){
+	// 	data[i] = {
+	// 		time : time + i * 100,
+	// 		readingType : "temperature",
+	// 		readingValue: (i*4.5),
+	// 		readingLocation : [51.485138+i/100,-0.187755+i/100]
+	// 	}
+    //
+	// }
+	// res.status(200).send(data)
 
 });
 /////////////////////////////////////////////////////
