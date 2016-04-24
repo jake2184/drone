@@ -317,53 +317,9 @@ app.get('/login', function(req, res){
 });
 
 app.get('/test', function(req, res){
-	console.log("Testing")
+	console.log("Testing");
 	//IandC.test();
-	var event = cloudant.use('eventlog');
 
-	event.index(function(er, result) {
-		if (er) {
-			throw er;
-		}
-
-		console.log('The database has %d indexes', result.indexes.length);
-		for (var i = 0; i < result.indexes.length; i++) {
-			console.log('  %s (%s): %j', result.indexes[i].name, result.indexes[i].type, result.indexes[i].def);
-		}
-
-	});
-	var type = {name:'typeIndex', type:'json', index:{fields:['eventType']}};
-
-	event.index(type, function(er, response){
-		if (er) {
-			throw er;
-		}
-
-		console.log('Index creation result: %s', response.result);
-	});
-
-	event.find({
-		selector:{
-			//_id : {"$gt": 1457000000000},
-			//_id : '1457900280837',
-			_id : {"$gt" : "1457000000000"},
-			eventType:'Fire'
-		}
-	}, function(er, result) {
-		if (er) {
-			throw er;
-		}
-
-		console.log('Found %d documents with name Alice', result.docs.length);
-
-		result.docs.forEach(function(e){
-			e.time = e._id;
-			delete e._id;
-			delete e._rev;
-		});
-		var data = JSON.stringify(result.docs);
-		console.log(data);
-	});
 
 	res.status(200).send();
 });
@@ -376,14 +332,36 @@ app.get('/testImage', function(req, res){
 	testImageRecognition('test/sampleFiles/testImage.jpg', res);
 });
 
+app.get('/createIndexes', function (req, res) {
+	var sensorLog = cloudant.use("sensorlog");
+
+	var index = {
+		name : 'sensors',
+		type : 'json',
+		ddoc : 'indexDesignDoc',
+		index : {
+			fields : ['temperature', 'airPurity', 'altitude']
+		}
+	};
+
+	sensorLog.index(index, function(err, response){
+		if(err){
+			console.error("Error " + err);
+			return;
+		}
+		console.log(response.result)
+	});
+	res.send(200)
+});
+
 app.get('/getSensorData', function(req, res){
 
 	// Get data from the database
 
-	var fromTime = req.param("fromTime") || 0;
-	var untilTime = req.param("untilTime") || new Date().getTime().toString();
+	var fromTime = req.query.fromTime || 0;
+	var untilTime = req.query.untilTime || new Date().getTime().toString();
 
-	var type = req.param("type");
+	var type = req.query.type;
 	var query;
 	if(type === undefined) {
 		query = {
