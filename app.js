@@ -155,7 +155,48 @@ var docID = (new Date()).getTime().toString();
 //IandC.imageKeywordsDetermineMode(words);
 //IandC.processImageLabels(words, docID, {lat: 51.49, lon: -0.19});
 
+//////////////////////// Router //////////////////////
 
+var router = express.Router();
+
+// Retrieve all sensor data
+router.get('/sensors', function(req, res){
+	serveSensorDataRouter(req, res);
+});
+// Retrieve sensor data, docs from time a to now
+router.get('/sensors/:timeFrom', function(req, res){
+	serveSensorDataRouter(req, res);
+});
+// Retrieve sensor data, docs from time a to b
+router.get('/sensors/:timeFrom/:timeUntil', function(req, res){
+	serveSensorDataRouter(req, res);
+});
+// Retrieve a type of sensor data, docs from time a to b
+router.get('/sensors/:type/:timeFrom/:timeUntil', function(req, res){
+	serveSensorDataRouter(req, res);
+});
+
+// Retrieve gps (position) data from time a to b
+router.get('/gps', function(req, res){
+	serveGPSData(req, res);
+});
+// Retrieve gps (position) data from time a to now
+router.get('/gps/:timeFrom/', function(req, res){
+	serveGPSData(req, res);
+});
+// Retrieve gps (position) data from time a to b
+router.get('/gps/:timeFrom/:timeUntil', function(req, res){
+	serveGPSData(req, res);
+});
+
+// Retrieve list of image metadata
+router.get('/images', function(req, res){
+	serveImagesInformation(req, res);
+});
+// Retrieve image from docID (requires .jpg atm)
+router.get('/images/:docID', function(req, res){
+	serveImage(req, res);
+});
 
 
 ////////////////////////////////////////////////////
@@ -171,7 +212,7 @@ app.use(session({
 	activeDuration: 5 * 60 * 1000
 }));
 
-
+app.use('/api/', router);
 
 
 /*
@@ -334,26 +375,9 @@ app.get('/testImage', function(req, res){
 	testImageRecognition('test/sampleFiles/testImage.jpg', res);
 });
 
-app.get('/createIndexes', function (req, res) {
-	var sensorLog = cloudant.use("sensorlog");
-
-	var index = {
-		name : 'altitude',
-		type : 'json',
-		ddoc : 'indexDesignDoc',
-		index : {
-			fields : ['altitude']
-		}
-	};
-
-	sensorLog.index(index, function(err, response){
-		if(err){
-			console.error("Error " + err);
-			return;
-		}
-		console.log(response.result)
-	});
-	res.send(200)
+app.get('/createIndex', function(req, res){
+	createIndexes(req.query.name, req.query.field);
+	res.sendStatus(200);
 });
 
 app.get('/getSensorData', function(req, res){
@@ -444,7 +468,7 @@ function retrieveLatestImage(res){
 	images.list({"descending": true, "include_docs": true, "limit": 1}, function(err, body){
 		if(err){
 			console.error(err);
-			res.status(404).send(err.message);
+			res.status(404).send("Internal error");
 		}else{
 			if(body.rows[0] == undefined){
 				res.status(404).send("No images found in database");
@@ -470,6 +494,64 @@ function retrieveLatestImage(res){
 			});
 		}
 	});
+}
+
+function serveSensorDataRouter(req, res) {
+
+	// Get data from the database
+
+	var timeFrom = parseInt(req.params.timeFrom) || 0;
+	var timeUntil = parseInt(req.params.timeUntil) || new Date().getTime();
+
+	var returnAll = true;
+	var query = {
+		selector: {
+			"$and": [
+				{time: {"$gt": timeFrom}},
+				{time: {"$lt": timeUntil}}]
+		}
+	};
+
+	var type = req.params.type;
+	if (type != undefined) {
+		returnAll = false;
+		query.fields = ['time', 'location', type];
+
+		var minVal = req.query.minVal;
+		if (minVal != undefined) {
+			query.selector.$and.push({[type]: {"$gt": parseFloat(minVal)}})
+		}
+
+		var maxVal = req.query.maxVal;
+		if (maxVal != undefined) {
+			query.selector.$and.push({[type]: {"$lt": parseFloat(maxVal)}})
+		}
+	}
+
+
+	console.log(JSON.stringify(query));
+	cloudant.use("sensorlog").find(query, function(err, result){
+		if(err){
+			console.error("[sensors.request] " + err);
+			console.error(JSON.stringify(query));
+			res.status(500).send("Request error. Malformed?");
+			return;
+		}
+		if(result === undefined){
+			res.status(204).send("Empty return");
+			return;
+		}
+		if(returnAll) {
+			result.docs.forEach(function (doc) {
+				delete doc._id;
+				delete doc._rev;
+
+			});
+		}
+		var data = JSON.stringify(result.docs);
+		res.status(200).send(data);
+	});
+
 }
 
 function serveSensorData(req, res) {
@@ -526,6 +608,70 @@ function serveSensorData(req, res) {
 		res.status(200).send(data);
 	});
 
+}
+
+function serveGPSData(req, res){
+	// Get data from the database
+
+	var timeFrom = parseInt(req.params.timeFrom) || 0;
+	var timeUntil = parseInt(req.params.timeUntil) || new Date().getTime();
+
+	var query = {
+		selector: {
+			"$and": [
+				{time: {"$gt": timeFrom}},
+				{time: {"$lt": timeUntil}}]
+		}
+	};
+
+	console.log(JSON.stringify(query));
+	cloudant.use("positionlog").find(query, function(err, result){
+		if(err){
+			console.error("[position.request] " + err);
+			console.error(JSON.stringify(query));
+			res.status(500).send("Request error. Malformed?");
+			return;
+		}
+		if(result === undefined){
+			res.status(204).send("Empty return");
+			return;
+		}
+		result.docs.forEach(function (doc) {
+				delete doc._id;
+				delete doc._rev;
+
+		});
+
+		var data = JSON.stringify(result.docs);
+		res.status(200).send(data);
+	});
+
+}
+
+function serveImagesInformation(req, res){
+	cloudant.use('drone_images').list({}, function(err, response){
+		if(err){
+			console.error(err);
+			res.status(500).send("Internal error.");
+		} else {
+			response.rows.forEach(function(row){
+				delete row.value;
+				delete row.key;
+			});
+			res.status(200).send(response.rows);
+		}
+	});
+}
+
+function serveImage(req, res){
+	cloudant.use('drone_images').attachment.get(req.params.docID, "image", function(err, image){
+		if(err){
+			console.error(err.description);
+			res.status(404).send("No image found");
+		} else {
+			res.set('Content-Type', 'image/jpeg').status(200).send(image);
+		}
+	});
 }
 
 
@@ -858,3 +1004,23 @@ function testImageRecognition(imagePath, res, body){
 	});
 }
 
+function createIndexes(databaseName, field) {
+	var database = cloudant.use(databaseName);
+
+	var index = {
+		name : field,
+		type : 'json',
+		ddoc : 'indexDesignDoc',
+		index : {
+			fields : [field]
+		}
+	};
+
+	database.index(index, function(err, response){
+		if(err){
+			console.error("Error " + err);
+			return;
+		}
+		console.log(response.result)
+	});
+};
