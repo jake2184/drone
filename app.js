@@ -240,6 +240,7 @@ app.post('/imageUpload', upload.single('image'), function (req, res){
 	} else {
 		res.status(200).send("File uploaded successfully.\n");
 		latestImage = req.file.path;
+		IandC.sendImageAlert();
 		classifyImage(req.file.originalname, req.file.path, req.body);
 		insertImageIntoDatabase(req.file.originalname, req.file.path, req.body);
 	}
@@ -255,6 +256,7 @@ app.post('/imageUploadSecure', upload.single('image'), requireLogin, function (r
 	} else {
 		res.status(200).send("File uploaded successfully.\n");
 		latestImage = req.file.path;
+		IandC.sendImageAlert();
 		classifyImage(req.file.originalname, req.file.path, req.body);
 		insertImageIntoDatabase(req.file.originalname, req.file.path, req.body);
 	}
@@ -336,11 +338,11 @@ app.get('/createIndexes', function (req, res) {
 	var sensorLog = cloudant.use("sensorlog");
 
 	var index = {
-		name : 'sensors',
+		name : 'altitude',
 		type : 'json',
 		ddoc : 'indexDesignDoc',
 		index : {
-			fields : ['temperature', 'airPurity', 'altitude']
+			fields : ['altitude']
 		}
 	};
 
@@ -357,66 +359,7 @@ app.get('/createIndexes', function (req, res) {
 app.get('/getSensorData', function(req, res){
 
 	// Get data from the database
-
-	var fromTime = req.query.fromTime || 0;
-	var untilTime = req.query.untilTime || new Date().getTime().toString();
-
-	var type = req.query.type;
-	var query;
-	if(type === undefined) {
-		query = {
-			selector: {
-				"$and" : [
-					{_id: {"$gt": fromTime.toString()}},
-					{_id: {"$lt": untilTime.toString()}}]
-			}
-		};
-	} else {
-		query = {
-			selector: {
-				"$and" : [
-					{_id: {"$gt": fromTime.toString()}},
-					{_id: {"$lt": untilTime.toString()}},
-					{eventType: type.toString()}]
-			}
-		};
-
-	}
-	//console.log(JSON.stringify(query));
-	cloudant.use("sensorlog").find(query, function(err, result){
-		if(err){
-			console.error("[sensors.request] " + err);
-			console.error(query);
-			res.status(500).send();
-			return;
-		}
-		if(result === undefined){
-			res.status(204).send();
-			return;
-		}
-		result.docs.forEach(function(doc){
-			doc.time = doc._id;
-			delete doc._id;
-			delete doc._rev;
-		});
-		var data = JSON.stringify(result.docs);
-		res.status(200).send(data);
-	});
-
-
-	// var data = [];
-	// var time = new Date().getTime();
-    //
-	// for (var i =0; i<10; i++){
-	// 	data[i] = {
-	// 		time : time + i * 100,
-	// 		readingType : "temperature",
-	// 		readingValue: (i*4.5),
-	// 		readingLocation : [51.485138+i/100,-0.187755+i/100]
-	// 	}
-    //
-	// }
-	// res.status(200).send(data)
+	serveSensorData(req, res);
 
 });
 /////////////////////////////////////////////////////
@@ -527,6 +470,62 @@ function retrieveLatestImage(res){
 			});
 		}
 	});
+}
+
+function serveSensorData(req, res) {
+
+	// Get data from the database
+
+	var timeFrom = req.query.timeFrom || 0;
+	var timeUntil = req.query.timeUntil || new Date().getTime().toString();
+	var returnAll = true;
+	var query = {
+		selector: {
+			"$and": [
+				{_id: {"$gt": timeFrom.toString()}},
+				{_id: {"$lt": timeUntil.toString()}}]
+		}
+	};
+
+	var type = req.query.type;
+	if (type != undefined) {
+		returnAll = false;
+		query.fields = ['time', 'location', type];
+
+		var minVal = req.query.minVal;
+		if (minVal != undefined) {
+			query.selector.$and.push({[type]: {"$gt": parseFloat(minVal)}})
+		}
+
+		var maxVal = req.query.maxVal;
+		if (maxVal != undefined) {
+			query.selector.$and.push({[type]: {"$lt": parseFloat(maxVal)}})
+		}
+	}
+
+
+	console.log(JSON.stringify(query));
+	cloudant.use("sensorlog").find(query, function(err, result){
+		if(err){
+			console.error("[sensors.request] " + err);
+			console.error(JSON.stringify(query));
+			res.status(500).send();
+			return;
+		}
+		if(result === undefined){
+			res.status(204).send("Empty return");
+			return;
+		}
+		if(returnAll) {
+			result.docs.forEach(function (doc) {
+				delete doc._id;
+				delete doc._rev;
+			});
+		}
+		var data = JSON.stringify(result.docs);
+		res.status(200).send(data);
+	});
+
 }
 
 
