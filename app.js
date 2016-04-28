@@ -18,6 +18,8 @@ var session = require('client-sessions');
 var mqtt = require('./lib/MqttHandler');
 var lame = require ('lame');
 var wav = require('wav');
+var crypto = require('crypto');
+var hash = crypto.createHash('sha256');
 
 
 
@@ -196,6 +198,12 @@ router.get('/images', function(req, res){
 // Retrieve image from docID (requires .jpg atm)
 router.get('/images/:docID', function(req, res){
 	serveImage(req, res);
+});
+
+router.all('/users/*', requireLogin);
+
+router.get('/users/:username', function(req, res){
+	serveUserInformation(req, res);
 });
 
 
@@ -818,7 +826,7 @@ function processDroneUpdate(eventType, payload){
 	}
 }
 
-/////////////////// Security ////////////////////////
+/////////////////// DashDB ////////////////////////
 function checkUserCredentials(credentials, callback){
 	dashDB.open(dashDBCreds.ssldsn, function(err, connection){
 		var error;
@@ -847,6 +855,52 @@ function checkUserCredentials(credentials, callback){
 	});
 }
 
+function checkUserCredentials2(credentials, callback){
+	dashDB.open(dashDBCreds.ssldsn, function(err, connection){
+		var error;
+		if(err){
+			console.error("[users.connect] " + err.message);
+			callback(null);
+			return;
+		}
+		var query = "SELECT * FROM USERS WHERE \"username\" = ?";
+		credentials.pass.replace(/\W/g, '')
+
+		connection.query(query, [credentials.name.replace(/\W/g, '')], function(err, response){
+			if(err){
+				console.error("[users.select] " + err.message);
+				callback(false);
+			}
+			if(response.length == 0){
+				console.log("Invalid username or password");
+				callback(false);
+			} else { // only a single row
+				console.log("User " + credentials.name + " found");
+				// Test password
+				var salt = response[0].salt; //.salt
+				hash.update(credentials.pass + salt);
+
+				var toCheck = hash.digest('hex');
+
+				if(response[0].password == toCheck){
+					callback(true);
+				} else {
+					callback(false);
+				}
+
+
+
+
+				error = true;
+			}
+			//callback(error);
+		});
+
+
+
+	});
+}
+
 function insertUserCredentials(credentials){
 	dashDB.open(dashDBCreds.ssldsn, function(err, connection){
 		if(err){
@@ -862,6 +916,28 @@ function insertUserCredentials(credentials){
 			} else{
 				console.log("User: " + credentials.username + " successfully added to database");
 				return true;
+			}
+		});
+
+	});
+}
+
+function insertUserCredentials2(credentials, callback){
+	dashDB.open(dashDBCreds.ssldsn, function(err, connection){
+		if(err){
+			console.error("Error connecting to SQL database");
+			console.error(err.message);
+			callback(null);
+		}
+		var query = "INSERT INTO USERS VALUES (?, ?, ?, ?, ?)";
+		var salt = crypto.randomBytes(4).toString('hex'); //string of length 8
+		connection.query(query, [credentials.username, credentials.password, salt, credentials.first_name, credentials.last_name], function(err){
+			if(err) {
+				console.error("Couldn't insert user: " + credentials.username);
+				callback(false);
+			} else{
+				console.log("User: " + credentials.username + " successfully added to database");
+				callback(true);
 			}
 		});
 
@@ -897,7 +973,27 @@ function requireLogin (req, res, next) {
 	}
 }
 
-
+function serveUserInformation(req, res){
+	dashDB.open(dashDBCreds.ssldsn, function(err, connection){
+		var error;
+		if(err){
+			console.error("[users.connect] " + err.message);
+			res.status(500).send("Server connection error");
+			return;
+		}
+		var query = "SELECT \"first_name\", \"last_name\", \"username\" FROM USERS WHERE \"username\" = ?";
+		connection.query(query, [req.params.username.replace(/\W/g, '')], function(err, response){
+			if(err){
+				console.error("[users.select] " + err.message);
+				res.status(500).send("Server connection error");
+			} else if(response.length == 0){
+				res.status(404).send("User not found");
+			} else {
+				res.status(200).send(response[0]);
+			}
+		});
+	});
+}
 
 ///////////   File Functions //////////////////
 function validateJPEG(filePath){
