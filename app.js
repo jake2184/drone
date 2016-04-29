@@ -158,7 +158,7 @@ var docID = (new Date()).getTime().toString();
 //IandC.processImageLabels(words, docID, {lat: 51.49, lon: -0.19});
 
 //////////////////////// Router //////////////////////
-
+//TODO fix access issues of routing
 var router = express.Router();
 
 // Retrieve all sensor data
@@ -204,6 +204,26 @@ router.all('/users/*', requireLogin);
 
 router.get('/users/:username', function(req, res){
 	serveUserInformation(req, res);
+});
+
+router.post('/users', function(req, res){
+	insertUserCredentials2(req, res);
+});
+
+
+router.param('timeFrom', function(req, res, next, timeFrom){
+	if(/^\d+$/.test(timeFrom)){
+		next();
+	} else {
+		res.status(400).send("timeFrom is not a number.");
+	}
+});
+router.param('timeUntil', function(req, res, next, timeUntil){
+	if(/^\d+$/.test(timeUntil)){
+		next();
+	} else {
+		res.status(400).send("timeUntil is not a number.");
+	}
 });
 
 
@@ -350,9 +370,10 @@ app.post('/login', function(req, res){
 	if(!creds){
 		res.status(403).send("Please provide username and password.\n");
 	} else {
-		checkUserCredentials(creds, function(found){
+		checkUserCredentials2(creds, function(found){
 			if(found){
 				req.session.user = creds.name;
+				// TODO load permissions
 				res.status(200).send("Logged in successfully.\n");
 			}else if (found == null){
 				res.status(500).send("Please try again later.");
@@ -393,6 +414,20 @@ app.get('/getSensorData', function(req, res){
 	// Get data from the database
 	serveSensorData(req, res);
 
+});
+
+app.get('/insertUsers', function (req,res){
+	var creds = auth(res);
+	insertUserCredentials2(creds, function(found){
+		if(found){
+			req.session.user = creds.name;
+			res.status(200).send("Logged in successfully.\n");
+		}else if (found == null){
+			res.status(500).send("Please try again later.");
+		} else{
+			res.status(403).send("Invalid username or password\n");
+		}
+	});
 });
 /////////////////////////////////////////////////////
 
@@ -922,22 +957,37 @@ function insertUserCredentials(credentials){
 	});
 }
 
-function insertUserCredentials2(credentials, callback){
+function insertUserCredentials2(req, res){
+
+	var username = req.body.username;
+	var password = req.body.password;
+	var first_name = req.body.first_name || null;
+	var last_name = req.body.last_name || null;
+
+	if (username === undefined || password === undefined){
+		res.send(400).send("Please POST 'username' and 'password' in JSON format")
+		return;
+	}
+
 	dashDB.open(dashDBCreds.ssldsn, function(err, connection){
 		if(err){
 			console.error("Error connecting to SQL database");
 			console.error(err.message);
-			callback(null);
+			res.status(500).send("Database error");
 		}
 		var query = "INSERT INTO USERS VALUES (?, ?, ?, ?, ?)";
 		var salt = crypto.randomBytes(4).toString('hex'); //string of length 8
-		connection.query(query, [credentials.username, credentials.password, salt, credentials.first_name, credentials.last_name], function(err){
+		hash.update(password + salt);
+		var toAdd = hash.digest('hex');
+
+		connection.query(query, [username, first_name, last_name, salt, toAdd], function(err){
 			if(err) {
-				console.error("Couldn't insert user: " + credentials.username);
-				callback(false);
+				console.error("Couldn't insert user: " + username);
+				console.error(err.message);
+				res.status(400).send("Couldn't add user");
 			} else{
-				console.log("User: " + credentials.username + " successfully added to database");
-				callback(true);
+				console.log("User: " + username + " successfully added to database");
+				res.status(200).send("User " + username + " was successfully added");
 			}
 		});
 
