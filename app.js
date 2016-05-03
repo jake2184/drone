@@ -160,6 +160,15 @@ var docID = (new Date()).getTime().toString();
 //TODO fix access issues of routing
 var router = express.Router();
 
+router.post('/*', function(req, res, next){
+	if(req.session.role >= RoleEnum.USER){
+		next();
+	} else {
+		res.status(401).send("Insufficient permission to POST");
+	}
+});
+
+
 // Retrieve all sensor data
 router.get('/sensors', function(req, res){
 	serveSensorDataRouter(req, res);
@@ -199,6 +208,16 @@ router.get('/images/:docID', function(req, res){
 	serveImage(req, res);
 });
 
+// Retrieve list of audio metadata
+router.get('/audio', function(req, res){
+	serveAudioInformation(req, res);
+});
+// Retrieve audio from docID
+router.get('/audio/:docID', function(req, res){
+	serveAudio(req, res);
+});
+
+
 router.post('/images', upload.single('image'), function(req, res){
 	var valid = validateJPEG(req.file.path);
 	if(!valid){
@@ -212,18 +231,25 @@ router.post('/images', upload.single('image'), function(req, res){
 		insertImageIntoDatabase(req.file.originalname, req.file.path, req.body);
 	}
 });
-
-
-
-//router.all('/users/*', requireLogin);
-//TODO make all api requireLogin
-
-router.get('/users/:username', function(req, res){
-	serveUserInformation(req, res);
+router.post('/audio', upload.single('audio'), function(res, req){
+	var valid = validateAudioFile(req.file.path);
+	if(!valid){
+		res.status(400).send("Invalid file type - not wav.\n");
+		fs.unlink(req.file.path);
+	} else {
+		res.status(200).send("File uploaded successfully.\n");
+		latestAudio = req.file.path;
+		speechRecognition(req.file.originalname, req.file.path, req.body);
+		insertSpeechIntoDatabase(req.file.originalname, req.file.path, req.body);
+	}
 });
+
 
 router.post('/users', function(req, res){
 	insertUserCredentials2(req, res);
+});
+router.get('/users/:username', function(req, res){
+	serveUserInformation(req, res);
 });
 
 
@@ -241,6 +267,10 @@ router.param('timeUntil', function(req, res, next, timeUntil){
 		res.status(400).send("timeUntil is not a number.");
 	}
 });
+
+//router.all('/users/*', requireLogin);
+
+//TODO make all api requireLogin
 
 
 ////////////////////////////////////////////////////
@@ -734,6 +764,31 @@ function serveImage(req, res){
 	});
 }
 
+function serveAudioInformation(req, res){
+	cloudant.use('drone_audio').list({}, function(err, response){
+		if(err){
+			console.error(err);
+			res.status(500).send("Internal error.");
+		} else {
+			response.rows.forEach(function(row){
+				delete row.value;
+				delete row.key;
+			});
+			res.status(200).send(response.rows);
+		}
+	});
+}
+
+function serveAudio(req, res){
+	cloudant.use('drone_audio').attachment.get(req.params.docID, "audio", function(err, audio){
+		if(err){
+			console.error(err.description);
+			res.status(404).send("No audio found");
+		} else {
+			res.set('Content-Type', 'audio/x-wav').status(200).send(audio);
+		}
+	});
+}
 
 //////////////// IBM Service Functionality //////////////
 function classifyImage(imageName, imagePath, body){
