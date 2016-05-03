@@ -161,13 +161,19 @@ var docID = (new Date()).getTime().toString();
 var router = express.Router();
 
 router.post('/*', function(req, res, next){
-	if(req.session.role >= RoleEnum.USER){
+	if(req.session.role <= RoleEnum.USER){
 		next();
 	} else {
 		res.status(401).send("Insufficient permission to POST");
 	}
 });
-
+router.get('/*', function (req, res, next) {
+	if(req.session.role <= RoleEnum.GUEST){
+		next();
+	} else {
+		res.status(401).send("Insufficient permission to GET");
+	}
+});
 
 // Retrieve all sensor data
 router.get('/sensors', function(req, res){
@@ -265,6 +271,13 @@ router.param('timeUntil', function(req, res, next, timeUntil){
 		next();
 	} else {
 		res.status(400).send("timeUntil is not a number.");
+	}
+});
+router.param('docID', function(req, res, next, docID){
+	if(docID == "latest"){
+		retrieveLatestImage(res);
+	} else {
+		next();
 	}
 });
 
@@ -372,8 +385,8 @@ app.post('/imageUploadSecure', upload.single('image'), requireLogin, function (r
 		res.status(200).send("File uploaded successfully.\n");
 		latestImage = req.file.path;
 		IandC.sendImageAlert();
-		classifyImage(req.file.originalname, req.file.path, req.body);
-		insertImageIntoDatabase(req.file.originalname, req.file.path, req.body);
+		//classifyImage(req.file.originalname, req.file.path, req.body);
+		//insertImageIntoDatabase(req.file.originalname, req.file.path, req.body);
 	}
 
 });
@@ -545,6 +558,7 @@ function retrieveLatestImage(res){
 		try{
 			var imageData = fs.readFileSync(latestImage);
 			res.set('Content-Type', 'image/jpeg');
+			console.log("Sending 1 ");
 			res.send(imageData);
 			return;
 		} catch (e){
@@ -572,6 +586,7 @@ function retrieveLatestImage(res){
 				}else{
 					res.set('Content-Type', 'image/jpeg');
 					res.send(body);
+					console.log("Sending 2 ");
 					// Cache response - need to append original filename?
 					fs.writeFile(uploadDir+filename, body, function(err){
 						if(err){
@@ -803,7 +818,7 @@ function classifyImage(imageName, imagePath, body){
 		}else{
 			console.log("Recognition Duration: " + ((new Date()).getTime() - start));
 			var labels = results.images[0].scores;
-			var anyLabel = IandC.processImageLabels(labels,  body.time, body.location);
+			var anyLabel = IandC.processImageLabels(labels,  body.time, {latitude:body.latitude, longitude:body.longitude});
 			//console.log("Image Recognised: " + anyLabel);
 		}
 	});
