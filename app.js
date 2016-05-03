@@ -19,7 +19,6 @@ var mqtt = require('./lib/MqttHandler');
 var lame = require ('lame');
 var wav = require('wav');
 var crypto = require('crypto');
-var hash = crypto.createHash('sha256');
 
 
 
@@ -200,7 +199,24 @@ router.get('/images/:docID', function(req, res){
 	serveImage(req, res);
 });
 
-router.all('/users/*', requireLogin);
+router.post('/images', upload.single('image'), function(req, res){
+	var valid = validateJPEG(req.file.path);
+	if(!valid){
+		res.status(400).send("Invalid file type - not jpeg.\n");
+		fs.unlink(req.file.path);
+	} else {
+		res.status(200).send("File uploaded successfully.\n");
+		latestImage = req.file.path;
+		IandC.sendImageAlert();
+		classifyImage(req.file.originalname, req.file.path, req.body);
+		insertImageIntoDatabase(req.file.originalname, req.file.path, req.body);
+	}
+});
+
+
+
+//router.all('/users/*', requireLogin);
+//TODO make all api requireLogin
 
 router.get('/users/:username', function(req, res){
 	serveUserInformation(req, res);
@@ -235,7 +251,7 @@ app.use(express.static(__dirname + '/public'));
 
 app.use(session({
 	cookieName: 'session',
-	secret: 'random_string_goes_here',
+	secret: 'JFuqTUOPdRNtYHc0c4Yx',
 	duration: 30 * 60 * 1000,
 	activeDuration: 5 * 60 * 1000
 }));
@@ -370,13 +386,14 @@ app.post('/login', function(req, res){
 	if(!creds){
 		res.status(403).send("Please provide username and password.\n");
 	} else {
-		checkUserCredentials2(creds, function(found){
-			if(found){
-				req.session.user = creds.name;
-				// TODO load permissions
-				res.status(200).send("Logged in successfully.\n");
-			}else if (found == null){
+		checkUserCredentials2(creds, function(response){
+			if(response == null){
 				res.status(500).send("Please try again later.");
+
+			}else if (response.valid){
+				req.session.user = response.username;
+				req.session.role = response.role;
+				res.status(200).send("Logged in successfully.\n");
 			} else{
 				res.status(403).send("Invalid username or password\n");
 			}
@@ -458,7 +475,7 @@ app.listen(port, function() {
 
 //////////////// Cloudant Database ////////////////////
 function insertImageIntoDatabase(imageName, imagePath, body){
-	console.log("Recieved " + imageName);
+	//console.log("Received " + imageName);
 	// Read from uploads
 	var imageData = fs.readFileSync(imagePath);
 	var images = cloudant.use('drone_images');
@@ -862,6 +879,15 @@ function processDroneUpdate(eventType, payload){
 }
 
 /////////////////// DashDB ////////////////////////
+
+var RoleEnum = Object.freeze({
+	ADMIN : 1,
+	USER : 2,
+	GUEST : 3
+});
+
+
+
 function checkUserCredentials(credentials, callback){
 	dashDB.open(dashDBCreds.ssldsn, function(err, connection){
 		var error;
@@ -900,27 +926,30 @@ function checkUserCredentials2(credentials, callback){
 		}
 		var query = "SELECT * FROM USERS WHERE \"username\" = ?";
 		credentials.pass.replace(/\W/g, '')
-
+		var toReturn = {};
+		toReturn.valid = false;
 		connection.query(query, [credentials.name.replace(/\W/g, '')], function(err, response){
 			if(err){
 				console.error("[users.select] " + err.message);
-				callback(false);
+				callback(toReturn);
 			}
 			if(response.length == 0){
 				console.log("Invalid username or password");
-				callback(false);
+				callback(toReturn);
 			} else { // only a single row
 				console.log("User " + credentials.name + " found");
 				// Test password
 				var salt = response[0].salt; //.salt
-				hash.update(credentials.pass + salt);
 
-				var toCheck = hash.digest('hex');
+				var toCheck = crypto.createHash('sha256').update(credentials.pass + salt).digest('hex');
 
 				if(response[0].password == toCheck){
-					callback(true);
+					toReturn.valid = true;
+					toReturn.username = response[0].username;
+					toReturn.role = response[0].role;
+					callback(toReturn);
 				} else {
-					callback(false);
+					callback(toReturn);
 				}
 
 
@@ -963,6 +992,7 @@ function insertUserCredentials2(req, res){
 	var password = req.body.password;
 	var first_name = req.body.first_name || null;
 	var last_name = req.body.last_name || null;
+	var role = req.body.role || RoleEnum.GUEST;
 
 	if (username === undefined || password === undefined){
 		res.send(400).send("Please POST 'username' and 'password' in JSON format")
@@ -975,12 +1005,13 @@ function insertUserCredentials2(req, res){
 			console.error(err.message);
 			res.status(500).send("Database error");
 		}
-		var query = "INSERT INTO USERS VALUES (?, ?, ?, ?, ?)";
+		var query = "INSERT INTO USERS VALUES (?, ?, ?, ?, ?, ?)";
 		var salt = crypto.randomBytes(4).toString('hex'); //string of length 8
-		hash.update(password + salt);
-		var toAdd = hash.digest('hex');
+		//hash.update(password + salt);
+		//var toAdd = hash.digest('hex');
 
-		connection.query(query, [username, first_name, last_name, salt, toAdd], function(err){
+		var toAdd = crypto.createHash('sha256').update(password + salt).digest('hex');
+		connection.query(query, [username, first_name, last_name, salt, toAdd, role], function(err){
 			if(err) {
 				console.error("Couldn't insert user: " + username);
 				console.error(err.message);
