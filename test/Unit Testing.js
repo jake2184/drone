@@ -4,6 +4,7 @@ require('should-http');
 var assert = require('assert');
 var sinon = require('sinon');
 require("unit.js");
+var server = require('../app.js');
 var iandc = require('../lib/drone_interpret_and_control/drone_interpret_and_control.js');
 
 describe('Unit Testing', function(){
@@ -34,6 +35,11 @@ describe('Unit Testing', function(){
             assert.equal(IandC.getModeName(), "Normal");
             IandC.setMode("Fire");
             assert.equal(IandC.getModeName(), "Fire");
+            IandC.setMode("Interact");
+            assert.equal(IandC.getModeName(), "Interact");
+            IandC.setMode("Avoidance");
+            assert.equal(IandC.getModeName(), "Avoidance");
+
             IandC.setMode("Normal");
             assert.equal(IandC.getModeName(), "Normal");
             done();
@@ -44,7 +50,7 @@ describe('Unit Testing', function(){
             var sensorReadings = {
                 time: new Date().getTime(),
                 temperature: 40,
-                airpurity: 200,
+                airPurity: 200,
                 altitude: 100,
                 location: [51.485138, -0.18775]
             };

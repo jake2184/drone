@@ -163,6 +163,14 @@
 
 	router.all('/', requireLogin);
 
+	router.delete('/*', function(req, res, next){
+		if(req.session.role <= RoleEnum.USER){
+			next();
+		} else {
+			res.status(401).send("Insufficient permission to DELETE");
+		}
+	});
+
 	router.post('/*', function(req, res, next){
 		if(req.session.role <= RoleEnum.USER){
 			next();
@@ -228,7 +236,7 @@
 	});
 
 
-	router.post('/images', upload.single('image'), function(req, res){
+	router.post('/images/:docID', upload.single('image'), function(req, res){
 		var valid = validateJPEG(req.file.path);
 		if(!valid){
 			res.status(400).send("Invalid file type - not jpeg.\n");
@@ -238,9 +246,13 @@
 			latestImage = req.file.path;
 			IandC.sendImageAlert();
 			//classifyImage(req.file.originalname, req.file.path, req.body);
-			//insertImageIntoDatabase(req.file.originalname, req.file.path, req.body);
+			insertImageIntoDatabase(req.file.originalname, req.file.path, req);
 		}
 	});
+	router.delete('/images/:docID', function(req, res){
+		deleteImageFromDatabase(req, res);
+	});
+
 	router.post('/audio', upload.single('audio'), function(res, req){
 		var valid = validateAudioFile(req.file.path);
 		if(!valid){
@@ -255,11 +267,14 @@
 	});
 
 
-	router.post('/users', function(req, res){
+	router.post('/users/:username', function(req, res){
 		insertUserCredentials(req, res);
 	});
 	router.get('/users/:username', function(req, res){
 		serveUserInformation(req, res);
+	});
+	router.delete('/users/:username', function(req, res){
+		deleteUserCredentials(req, res);
 	});
 
 
@@ -284,10 +299,14 @@
 			next();
 		}
 	});
+	router.param('username', function(req, res, next, username){
+		if(req.session.role <= RoleEnum.ADMIN || req.session.username == username){
+			next();
+		} else {
+			res.status(404).send("Unauthorised to edit user information");
+		}
+	})
 
-	//router.all('/users/*', requireLogin);
-
-	//TODO make all api requireLogin
 
 
 	////////////////////////////////////////////////////
@@ -431,7 +450,7 @@
 	app.post('/login', function(req, res){
 		var creds = auth(res);
 		if(!creds){
-			res.status(403).send("Please provide username and password.\n");
+			res.status(400).send("Please provide username and password.\n");
 		} else {
 			checkUserCredentials(creds, function(response){
 				if(response == null){
@@ -515,27 +534,37 @@
 	});
 
 
-
+	module.exports = app;
 
 	/////////////////// Internal Functions /////////////
 
 
 	//////////////// Cloudant Database ////////////////////
-	function insertImageIntoDatabase(imageName, imagePath, body){
+	function insertImageIntoDatabase(imageName, imagePath, req){
 		//logger.info("Received " + imageName);
 		// Read from uploads
 		var imageData = fs.readFileSync(imagePath);
 		var images = cloudant.use('drone_images');
 
 		var attach = [{name: "image", data: imageData, content_type: 'image/jpeg'}];
-		//var docID = (new Date()).getTime().toString();
 
-		images.multipart.insert({name: imageName, time:body.time, location:body.location}, attach, imageName, function(err, body) {
+		images.multipart.insert({name: imageName, time:req.body.time, location:req.body.location}, attach, req.params.docID, function(err, body) {
 			if (err) {
 				logger.error('[images.insert]: ', err.message);
 			} else{
 				logger.info("Saved image to database successfully.");
 			}
+		});
+	}
+
+	function deleteImageFromDatabase(req, res){
+		// TODO fix this. text runs it instantly after insert
+		cloudant.use('drone_images').get(req.params.docID, function(err, document){
+			console.log(err)
+			console.log(document)
+			
+
+			res.status(200).send()
 		});
 	}
 
@@ -989,7 +1018,7 @@
 				if(err) {
 					logger.error("Couldn't insert user: " + username);
 					logger.error(err.message);
-					res.status(400).send("Couldn't add user");
+					res.status(400).send("Couldn't add user, username not unique?");
 				} else{
 					logger.info("User: " + username + " successfully added to database");
 					res.status(200).send("User " + username + " was successfully added");
@@ -997,6 +1026,31 @@
 			});
 
 		});
+	}
+
+	function deleteUserCredentials(req, res){
+		var username = req.params.username;
+
+		dashDB.open(dashDBCreds.ssldsn, function(err, connection){
+			if(err){
+				logger.error("Error connecting to SQL database");
+				logger.error(err.message);
+				res.status(500).send("Database error");
+			}
+			var query = "DELETE FROM USERS WHERE \"username\" = ?";
+			connection.query(query, [username], function(err){
+				if(err) {
+					logger.error("Couldn't delete user: " + username);
+					logger.error(err.message);
+					res.status(400).send("Couldn't delete user, username not found?");
+				} else{
+					logger.info("User: " + username + " successfully deleted from database");
+					res.status(200).send("User " + username + " was successfully deleted");
+				}
+			});
+
+		});
+
 	}
 
 	function insertDroneCredentials(credentials){

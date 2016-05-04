@@ -6,33 +6,40 @@ var fs = require('fs');
 var sizeof = require('object-sizeof');
 var buffEq = require ('buffer-equal');
 
+var server = require('../app.js');
+
+
 describe('Routing', function(){
 
 
     this.timeout(5000);
-    var url = 'http://localhost:8080';
-    //var url = 'http://drone-nodes.eu-gb.mybluemix.net';
 
     var cookie;
 
     describe("Website", function (){
-        it(url +  ' should return index.html', function(done){
-         request(url)
+        it('should return index.html', function(done){
+         request(server)
              .get('/')
              .expect(200)
-             .end(function(err, res){
-                 if(err){
-                     throw err;
-                 }
+             .end(function(err){
+                 if(err){throw err;}
                  done();
              });
-     });
-   });
+        });
+        it('should return /login', function(done){
+            request(server)
+                .get('/login')
+                .expect(200)
+                .end(function(err){
+                    if(err){throw err;}
+                    done();
+                });
+        })
+    });
 
     describe("Security", function(){
-
         it('should be prevented from using secure URIs before login', function(done){
-            request(url)
+            request(server)
                 .get('/api/')
                 .expect(302)
                 .end(function(err){
@@ -40,21 +47,28 @@ describe('Routing', function(){
                     done();
                 });
         });
+        it('should not allow empty login', function(done){
+            request(server)
+                .post('/login')
+                .expect(400)
+                .end(function(err){
+                    if(err){throw err;}
+                    done();
+                });
+        });
         it('should not allow invalid login', function(done){
-            request(url)
+            request(server)
                 .post('/login')
                 .auth('pink','trees')
                 .expect(403)
                 .end(function(err){
-                    if(err){
-                        throw err;
-                    }
+                    if(err){throw err;}
                     done();
                 });
         });
 
         it('should allow valid login', function(done){
-            request(url)
+            request(server)
                 .post('/login')
                 .auth('jake','pass')
                 .expect(200)
@@ -67,7 +81,7 @@ describe('Routing', function(){
                 });
         });
         it('should allow access to secure URIs post login', function(done){
-            request(url)
+            request(server)
                 .get('/api/sensors/' + new Date().getTime())
                 .set('cookie', cookie)
                 .expect(200)
@@ -80,39 +94,80 @@ describe('Routing', function(){
         })
 
     });
-    
-   describe("Image Endpoints", function() {
-       this.timeout(5000);
-       it('/api/images/latest should return image', function (done) {
-           request(url)
-               .get('/api/images/latest')
-               .set('cookie', cookie)
-               .expect(200)
-               .expect('Content-Type', 'image/jpeg')
-               .end(function (err, res) {
-                   if (err) {
-                       throw err;
-                   }
-                   done();
-               });
-       });
 
-       it('/api/images should accept valid image', function (done){
-           request(url)
-               .post('/api/images')
+    describe("Path param checking", function(){
+       it('should detect when timeFrom is not a number', function(done) {
+            request(server)
+                .get('/api/sensors/' + "notANumber")
+                .set('cookie', cookie)
+                .expect(400, done);
+        });
+        it('should detect when timeTill is not a number', function(done) {
+            request(server)
+                .get('/api/sensors/' + (new Date().getTime() - 10000) + "/" + "notANumber")
+                .set('cookie', cookie)
+                .expect(400, done);
+        });
+    });
+
+    describe("Sensor Endpoints", function(){
+        it('should return data from a set point', function(done){
+            request(server)
+                .get('/api/sensors/' + (new Date().getTime() - 10000))
+                .set('cookie', cookie)
+                .expect(200, done);
+        });
+        it('should return data between two points', function(done){
+            request(server)
+                .get('/api/sensors/' + (new Date().getTime() - 10000) + "/" + new Date().getTime())
+                .set('cookie', cookie)
+                .expect(200, done);
+        });
+        it('should return data between two points with a type', function(done){
+            request(server)
+                .get('/api/sensors/' + (new Date().getTime() - 10000) + "/" + new Date().getTime() + "/" + "temperature")
+                .set('cookie', cookie)
+                .expect(200, done);
+        });
+    });
+
+    describe("Image Endpoints", function() {
+        var time = new Date().getTime();
+        it('GET /api/images should return imageFile list', function(done){
+            request(server)
+                .get('/api/images')
+                .set('cookie', cookie)
+                .expect(200)
+                .expect('Content-Type', 'application/json; charset=utf-8')
+                .end(done);
+        });
+        
+        it('POST /api/images should accept valid image', function (done){
+          var req = request(server)
+               .post('/api/images/' + time)
+               .send({time:time, location:[50,50]})
                .attach('image', 'test/sampleFiles/testImage.jpg')
                .set('cookie', cookie)
                .expect(200)
-               .end(function (err, res){
-                   if(err){
-                       throw err;
-                   }
-                   done();
-               });
-       });
-
-       it('should cache POST to /api/images', function (done){
-          request(url)
+               .end(done);
+        });
+        it('DELETE /api/images should delete image', function(done){
+            request(server)
+                .delete('/api/images/' + time)
+                .set('cookie', cookie)
+                .expect(200)
+                .end(done)
+        });
+        it('GET /api/images/latest should return image', function (done) {
+            request(server)
+                .get('/api/images/latest')
+                .set('cookie', cookie)
+                .expect(200)
+                .expect('Content-Type', 'image/jpeg')
+                .end(done);
+        });
+        it('should cache POST to /api/images', function (done){
+          request(server)
               .get('/api/images/latest')
               .set('cookie', cookie)
               .expect(200)
@@ -125,47 +180,79 @@ describe('Routing', function(){
                   should(equal).ok;
                   done();
               });
-       });
-
-       it('should reject invalid file upload', function(done){
-           request(url)
-               .post('/api/images')
+        });
+        it('should reject invalid file upload', function(done){
+           request(server)
+               .post('/api/images/' + time)
                .attach('image', 'test/sampleFiles/testInvalidImage.txt')
                .set('cookie', cookie)
                .expect(400)
-               .end(function (err, res){
-                   if(err){
-                       throw err;
-                   }
-                   done();
-               });
+               .end(done);
        });
    });
 
-   describe("GPS Endpoints", function(){
-       it('/getLatestGPS should return coordinates', function(done){
-           request(url)
-                .get('/getLatestGPS')
+    describe("GPS Endpoints", function(){
+        it('should return data from a set point', function(done){
+            request(server)
+                .get('/api/gps/' + (new Date().getTime() - 10000))
+                .set('cookie', cookie)
+                .expect(200, done);
+        });
+        it('should return data between two points', function(done){
+            request(server)
+                .get('/api/gps/' + (new Date().getTime() - 10000) + "/" + new Date().getTime())
+                .set('cookie', cookie)
+                .expect(200, done);
+        });
+   });
+
+    describe("User Endpoints", function(){
+        it('user can query own information', function(done){
+           request(server)
+               .get('/api/users/jake')
+               .set('cookie', cookie)
+               .expect(200)
+               .expect('Content-Type', 'application/json; charset=utf-8')
+               .end(function(err, res){
+                   res.body.should.have.property('first_name');
+                   res.body.should.have.property('last_name');
+                   res.body.should.have.property('username');
+                   done()
+               })
+        });
+        it('admin can add new user', function(done){
+            var newUser = {
+                username:"__testUser__",
+                password:"pass",
+                first_name:"Bill",
+                role:2
+            };
+            request(server)
+                .post('/api/users/' + newUser.username)
+                .set('cookie', cookie)
+                .send(newUser)
                 .expect(200)
-                .end(function(err, res) {
-                    if (err) {
-                        throw err;
-                    }
-                    var response = JSON.parse(res.text);
-                    response.should.have.property("lat");
-                    response.should.have.property("lon");
-                    done();
-                });
-       });
-   });
+                .end(done);
+            
+            
+        });
+        it('admin can delete user', function(done){
+            request(server)
+                .delete('/api/users/' + "__testUser__")
+                .set('cookie', cookie)
+                .expect(200)
+                .end(done)
+                
+        });
 
+    });
 
 /*
     describe("Direct services", function(){
         this.timeout(20000);
 
         it('/testAudio should return correct transcript', function(done){
-            request(url)
+            request(server)
                 .get('/testAudio')
                 .expect(200)
                 .end(function(err, res) {
@@ -178,7 +265,7 @@ describe('Routing', function(){
         });
 
         it('/testImage should return correct labels', function(done){
-            request(url)
+            request(server)
                 .get('/testImage')
                 .expect(200)
                 .end(function(err, res) {
