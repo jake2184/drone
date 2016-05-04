@@ -180,20 +180,20 @@
 
 	// Retrieve all sensor data
 	router.get('/sensors', function(req, res){
-		serveSensorDataRouter(req, res);
+		serveSensorData(req, res);
 	});
 	// Retrieve sensor data, docs from time a to now
 	router.get('/sensors/:timeFrom', function(req, res){
-		serveSensorDataRouter(req, res);
+		serveSensorData(req, res);
 	});
 	// Retrieve sensor data, docs from time a to b
 	router.get('/sensors/:timeFrom/:timeUntil', function(req, res){
-		serveSensorDataRouter(req, res);
+		serveSensorData(req, res);
 	});
 	// Retrieve a type of sensor data, docs from time a to b
 	router.get('/sensors/:timeFrom/:timeUntil/:type', function(req, res){
 		logger.info("Serving data");
-		serveSensorDataRouter(req, res);
+		serveSensorData(req, res);
 	});
 
 	// Retrieve gps (position) data from time a to b
@@ -256,7 +256,7 @@
 
 
 	router.post('/users', function(req, res){
-		insertUserCredentials2(req, res);
+		insertUserCredentials(req, res);
 	});
 	router.get('/users/:username', function(req, res){
 		serveUserInformation(req, res);
@@ -331,109 +331,109 @@
 	////////// REST FUNCTIONS ////////////////////
 
 	// Retrieves the latest image from the database
-	app.get('/getLatestImage', function (req, res){
-
-		retrieveLatestImage(res);
-
-	});
-
-	app.get('/getLatestImageSecure', requireLogin, function(req,res){
-		retrieveLatestImage(res);
-	});
+	// app.get('/getLatestImage', function (req, res){
+    //
+	// 	retrieveLatestImage(res);
+    //
+	// });
+    //
+	// app.get('/getLatestImageSecure', requireLogin, function(req,res){
+	// 	retrieveLatestImage(res);
+	// });
 
 	app.get('/getLatestGPS', function(req, res){
 		var latlon = {lat: 51.485138, lon: -0.187755};
 		res.status(200).send(JSON.stringify(latlon));
 	});
 
-	// Retrieves the image recognition label set
-	app.get('/getLabels', function(req, res){
-		var params = {
-			'verbose': 1
-		};
-		imageRecognition.listClassifiers(params, function(err, labels){
-			if(err){
-				logger.error(err);
-				res.status(500).send();
-			} else {
-				res.status(200).send(JSON.stringify(labels));
-			}
-		});
-	});
-
-	// Upload an image to the server from the drone. Saved to database and classified
-	app.post('/imageUpload', upload.single('image'), function (req, res){
-
-		// Check security/validity of the file
-		var valid = validateJPEG(req.file.path);
-		if(!valid){
-			res.status(400).send("Invalid file type - not jpeg.\n");
-			fs.unlink(req.file.path);
-		} else {
-			res.status(200).send("File uploaded successfully.\n");
-			latestImage = req.file.path;
-			IandC.sendImageAlert();
-			classifyImage(req.file.originalname, req.file.path, req.body);
-			insertImageIntoDatabase(req.file.originalname, req.file.path, req.body);
-		}
-	});
-
-	app.post('/imageUploadSecure', upload.single('image'), requireLogin, function (req, res){
-
-		// Check security/validity of the file
-		var valid = validateJPEG(req.file.path);
-		if(!valid){
-			res.status(400).send("Invalid file type - not jpeg.\n");
-			fs.unlink(req.file.path);
-		} else {
-			res.status(200).send("File uploaded successfully.\n");
-			latestImage = req.file.path;
-			IandC.sendImageAlert();
-			//classifyImage(req.file.originalname, req.file.path, req.body);
-			//insertImageIntoDatabase(req.file.originalname, req.file.path, req.body);
-		}
-
-	});
-
-	// Upload a speech file to the server from the drone
-	app.post('/speechUpload', upload.single('audio'), function (req, res){
-		logger.info("Received sound: " + req.file.originalname);
-
-		// Check security/validity of the file
-		var valid = validateAudioFile(req.file.path);
-		if(!valid){
-			res.status(400).send("Invalid file type - not wav.\n");
-			fs.unlink(req.file.path);
-		} else {
-			res.status(200).send("File uploaded successfull.\n");
-			latestAudio = req.file.path;
-			speechRecognition(req.file.originalname, req.file.path);
-			insertSpeechIntoDatabase(req.file.originalname, req.file.path, req.body);
-		}
-
-	});
-
-	app.post('/speechUploadSecure', upload.single('audio'), requireLogin, function (req, res){
-
-		// Check security/validity of the file
-		var valid = validateAudioFile(req.file.path);
-		if(!valid){
-			res.status(400).send("Invalid file type - not wav.\n");
-			fs.unlink(req.file.path);
-		} else {
-			res.status(200).send("File uploaded successfully.\n");
-			latestAudio = req.file.path;
-			speechRecognition(req.file.originalname, req.file.path, req.body);
-			insertSpeechIntoDatabase(req.file.originalname, req.file.path, req.body);
-		}
-	});
+	// // Retrieves the image recognition label set
+	// app.get('/getLabels', function(req, res){
+	// 	var params = {
+	// 		'verbose': 1
+	// 	};
+	// 	imageRecognition.listClassifiers(params, function(err, labels){
+	// 		if(err){
+	// 			logger.error(err);
+	// 			res.status(500).send();
+	// 		} else {
+	// 			res.status(200).send(JSON.stringify(labels));
+	// 		}
+	// 	});
+	// });
+    //
+	// // Upload an image to the server from the drone. Saved to database and classified
+	// app.post('/imageUpload', upload.single('image'), function (req, res){
+    //
+	// 	// Check security/validity of the file
+	// 	var valid = validateJPEG(req.file.path);
+	// 	if(!valid){
+	// 		res.status(400).send("Invalid file type - not jpeg.\n");
+	// 		fs.unlink(req.file.path);
+	// 	} else {
+	// 		res.status(200).send("File uploaded successfully.\n");
+	// 		latestImage = req.file.path;
+	// 		IandC.sendImageAlert();
+	// 		classifyImage(req.file.originalname, req.file.path, req.body);
+	// 		insertImageIntoDatabase(req.file.originalname, req.file.path, req.body);
+	// 	}
+	// });
+    //
+	// app.post('/imageUploadSecure', upload.single('image'), requireLogin, function (req, res){
+    //
+	// 	// Check security/validity of the file
+	// 	var valid = validateJPEG(req.file.path);
+	// 	if(!valid){
+	// 		res.status(400).send("Invalid file type - not jpeg.\n");
+	// 		fs.unlink(req.file.path);
+	// 	} else {
+	// 		res.status(200).send("File uploaded successfully.\n");
+	// 		latestImage = req.file.path;
+	// 		IandC.sendImageAlert();
+	// 		//classifyImage(req.file.originalname, req.file.path, req.body);
+	// 		//insertImageIntoDatabase(req.file.originalname, req.file.path, req.body);
+	// 	}
+    //
+	// });
+    //
+	// // Upload a speech file to the server from the drone
+	// app.post('/speechUpload', upload.single('audio'), function (req, res){
+	// 	logger.info("Received sound: " + req.file.originalname);
+    //
+	// 	// Check security/validity of the file
+	// 	var valid = validateAudioFile(req.file.path);
+	// 	if(!valid){
+	// 		res.status(400).send("Invalid file type - not wav.\n");
+	// 		fs.unlink(req.file.path);
+	// 	} else {
+	// 		res.status(200).send("File uploaded successfull.\n");
+	// 		latestAudio = req.file.path;
+	// 		speechRecognition(req.file.originalname, req.file.path);
+	// 		insertSpeechIntoDatabase(req.file.originalname, req.file.path, req.body);
+	// 	}
+    //
+	// });
+    //
+	// app.post('/speechUploadSecure', upload.single('audio'), requireLogin, function (req, res){
+    //
+	// 	// Check security/validity of the file
+	// 	var valid = validateAudioFile(req.file.path);
+	// 	if(!valid){
+	// 		res.status(400).send("Invalid file type - not wav.\n");
+	// 		fs.unlink(req.file.path);
+	// 	} else {
+	// 		res.status(200).send("File uploaded successfully.\n");
+	// 		latestAudio = req.file.path;
+	// 		speechRecognition(req.file.originalname, req.file.path, req.body);
+	// 		insertSpeechIntoDatabase(req.file.originalname, req.file.path, req.body);
+	// 	}
+	// });
 
 	app.post('/login', function(req, res){
 		var creds = auth(res);
 		if(!creds){
 			res.status(403).send("Please provide username and password.\n");
 		} else {
-			checkUserCredentials2(creds, function(response){
+			checkUserCredentials(creds, function(response){
 				if(response == null){
 					res.status(500).send("Please try again later.");
 
@@ -473,26 +473,26 @@
 		res.sendStatus(200);
 	});
 
-	app.get('/getSensorData', function(req, res){
-
-		// Get data from the database
-		serveSensorData(req, res);
-
-	});
-
-	app.get('/insertUsers', function (req,res){
-		var creds = auth(res);
-		insertUserCredentials2(creds, function(found){
-			if(found){
-				req.session.user = creds.name;
-				res.status(200).send("Logged in successfully.\n");
-			}else if (found == null){
-				res.status(500).send("Please try again later.");
-			} else{
-				res.status(403).send("Invalid username or password\n");
-			}
-		});
-	});
+	// app.get('/getSensorData', function(req, res){
+    //
+	// 	// Get data from the database
+	// 	serveSensorData(req, res);
+    //
+	// });
+    //
+	// app.get('/insertUsers', function (req,res){
+	// 	var creds = auth(res);
+	// 	insertUserCredentials(creds, function(found){
+	// 		if(found){
+	// 			req.session.user = creds.name;
+	// 			res.status(200).send("Logged in successfully.\n");
+	// 		}else if (found == null){
+	// 			res.status(500).send("Please try again later.");
+	// 		} else{
+	// 			res.status(403).send("Invalid username or password\n");
+	// 		}
+	// 	});
+	// });
 	/////////////////////////////////////////////////////
 
 	////////////// Caching/Performance Improvement ///
@@ -605,7 +605,7 @@
 		});
 	}
 
-	function serveSensorDataRouter(req, res) {
+	function serveSensorData(req, res) {
 
 		// Get data from the database
 
@@ -663,62 +663,6 @@
 				});
 			}
 			logger.info("Discovered "+ result.docs.length + " documents");
-			var data = JSON.stringify(result.docs);
-			res.status(200).send(data);
-		});
-
-	}
-
-	function serveSensorData(req, res) {
-
-		// Get data from the database
-
-		var timeFrom = req.query.timeFrom || 0;
-		var timeUntil = req.query.timeUntil || new Date().getTime().toString();
-		var returnAll = true;
-		var query = {
-			selector: {
-				"$and": [
-					{_id: {"$gt": timeFrom.toString()}},
-					{_id: {"$lt": timeUntil.toString()}}]
-			}
-		};
-
-		var type = req.query.type;
-		if (type != undefined) {
-			returnAll = false;
-			query.fields = ['time', 'location', type];
-
-			var minVal = req.query.minVal;
-			if (minVal != undefined) {
-				query.selector.$and.push({[type]: {"$gt": parseFloat(minVal)}})
-			}
-
-			var maxVal = req.query.maxVal;
-			if (maxVal != undefined) {
-				query.selector.$and.push({[type]: {"$lt": parseFloat(maxVal)}})
-			}
-		}
-
-
-		logger.info(JSON.stringify(query));
-		cloudant.use("sensorlog").find(query, function(err, result){
-			if(err){
-				logger.error("[sensors.request] " + err);
-				logger.error(JSON.stringify(query));
-				res.status(500).send();
-				return;
-			}
-			if(result === undefined){
-				res.status(204).send("Empty return");
-				return;
-			}
-			if(returnAll) {
-				result.docs.forEach(function (doc) {
-					delete doc._id;
-					delete doc._rev;
-				});
-			}
 			var data = JSON.stringify(result.docs);
 			res.status(200).send(data);
 		});
@@ -930,6 +874,7 @@
 
 
 
+
 	function deviceStatusCallback(deviceType, deviceId, eventType, format, payload){
 		if(deviceId == "drone"){
 			processDroneUpdate(eventType, payload);
@@ -966,37 +911,7 @@
 		GUEST : 3
 	});
 
-
-
 	function checkUserCredentials(credentials, callback){
-		dashDB.open(dashDBCreds.ssldsn, function(err, connection){
-			var error;
-			if(err){
-				logger.error("[users.connect] " + err.message);
-				error = false;
-				callback(error);
-				return;
-			}
-			var query = "SELECT * FROM USERS WHERE \"username\" = ? AND \"password\" = ?";
-
-			connection.query(query, [credentials.name.replace(/\W/g, ''), credentials.pass.replace(/\W/g, '')], function(err, response){
-				if(err){
-					logger.error("[users.select] " + err.message);
-					error = false;
-				}
-				if(response.length == 0){
-					//logger.info("Invalid username or password");
-					error =  false;
-				} else {
-					//logger.info("User " + credentials.name + " found");
-					error = true;
-				}
-				callback(error);
-			});
-		});
-	}
-
-	function checkUserCredentials2(credentials, callback){
 		dashDB.open(dashDBCreds.ssldsn, function(err, connection){
 			var error;
 			if(err){
@@ -1045,28 +960,7 @@
 		});
 	}
 
-	function insertUserCredentials(credentials){
-		dashDB.open(dashDBCreds.ssldsn, function(err, connection){
-			if(err){
-				logger.error("Error connecting to SQL database");
-				logger.error(err.message);
-				return false;
-			}
-			var query = "INSERT INTO USERS VALUES (?, ?, ?, ?)";
-			connection.query(query, [credentials.username, credentials.password, credentials.first_name, credentials.last_name], function(err){
-				if(err) {
-					logger.error("Couldn't insert user: " + credentials.username);
-					return false;
-				} else{
-					logger.info("User: " + credentials.username + " successfully added to database");
-					return true;
-				}
-			});
-
-		});
-	}
-
-	function insertUserCredentials2(req, res){
+	function insertUserCredentials(req, res){
 
 		var username = req.body.username;
 		var password = req.body.password;

@@ -11,7 +11,8 @@ describe('Scenario Testing', function(){
     //var url = 'http://drone-nodes.eu-gb.mybluemix.net';
 
     var mqttHandler = {
-        sendCommand : sinon.spy()
+        sendCommand : sinon.spy(),
+        sendEvent: sinon.spy()
     };
 
     var cloudant = {
@@ -28,16 +29,40 @@ describe('Scenario Testing', function(){
     var IandC = new iandc(mqttHandler, cloudant);
 
     describe("Fire", function () {
-        it('should be triggered ', function(done){
-            IandC.setMode("Normal");
-            var fire = [{name:"Fire", score:0.8}];
-            IandC.processImageLabels(fire, 10, 10);
-            //assert.equal(IandC.getModeName(), "Fire");
+        function getModeNameWithDelay(callback){
+            setTimeout(function(){
+                callback(IandC.getModeName())
+            }, 1100);
+        }
 
+        it('should be triggered by images', function(done){
             IandC.setMode("Normal");
-            IandC.updateTemp({'temperature':10, 'time': 10, 'location': [10,10]});
-            //assert.equal(IandC.getModeName(), "Fire");
-            done();
+            var fire = [{name:"Wild_Fire", score:0.8}];
+            IandC.processImageLabels(fire, new Date().getTime(), [10, 10]);
+
+            getModeNameWithDelay(function (result) {
+                assert.equal(result, "Fire", "Modes do not match");
+                assert(mqttHandler.sendCommand.calledOnce, "MQTT Command not sent");
+                done();
+            });
+        });
+
+        it('should be triggered by sensor readings', function(done){
+            mqttHandler.sendCommand.reset();
+            IandC.setMode("Normal");
+            var sensorReadings = {
+                time: new Date().getTime(),
+                temperature: 100,
+                airpurity: 200,
+                altitude: 100,
+                location: [51.485138, -0.18775]
+            };
+            IandC.updateSensorReadings(sensorReadings);
+            getModeNameWithDelay(function (result) {
+                assert.equal(result, "Fire", "Modes do not match");
+                assert(mqttHandler.sendCommand.calledOnce, "MQTT Command not sent");
+                done();
+            });
         })
     });
 

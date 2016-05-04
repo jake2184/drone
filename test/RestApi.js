@@ -7,8 +7,13 @@ var sizeof = require('object-sizeof');
 var buffEq = require ('buffer-equal');
 
 describe('Routing', function(){
+
+
+    this.timeout(5000);
     var url = 'http://localhost:8080';
     //var url = 'http://drone-nodes.eu-gb.mybluemix.net';
+
+    var cookie;
 
     describe("Website", function (){
         it(url +  ' should return index.html', function(done){
@@ -24,90 +29,16 @@ describe('Routing', function(){
      });
    });
 
-   describe("Image Endpoints", function() {
-       this.timeout(5000);
-       it('/getLatestImage should return image', function (done) {
-           request(url)
-               .get('/getLatestImage')
-               .expect(200)
-               .expect('Content-Type', 'image/jpeg')
-               .end(function (err, res) {
-                   if (err) {
-                       throw err;
-                   }
-                   done();
-               });
-       });
-
-       it('/imageUpload should accept valid image', function (done){
-           request(url)
-               .post('/imageUpload')
-               .attach('image', 'test/sampleFiles/testImage.jpg')
-               .expect(200)
-               .end(function (err, res){
-                   if(err){
-                       throw err;
-                   }
-                   done();
-               });
-       });
-
-       it('should cache /imageUpload', function (done){
-          request(url)
-              .get('/getLatestImage')
-              .expect(200)
-              .end(function (err, res) {
-                  if (err) {
-                      throw err;
-                  }
-                  var file = fs.readFileSync('test/sampleFiles/testImage.jpg');
-                  var equal = buffEq(res.body, file);
-                  should(equal).ok;
-                  done();
-              });
-       });
-
-       it('should reject invalid file upload', function(done){
-           request(url)
-               .post('/imageUpload')
-               .attach('image', 'test/sampleFiles/testInvalidImage.txt')
-               .expect(400)
-               .end(function (err, res){
-                   if(err){
-                       throw err;
-                   }
-                   done();
-               });
-       });
-   });
-
-   describe("GPS Endpoints", function(){
-       it('/getLatestGPS should return coordinates', function(done){
-           request(url)
-                .get('/getLatestGPS')
-                .expect(200)
-                .end(function(err, res) {
-                    if (err) {
-                        throw err;
-                    }
-                    var response = JSON.parse(res.text);
-                    response.should.have.property("lat");
-                    response.should.have.property("lon");
-                    done();
-                });
-       });
-   });
-
     describe("Security", function(){
-        var cookie;
+
         it('should be prevented from using secure URIs before login', function(done){
-           request(url)
-               .get('/getLatestImageSecure')
-               .expect(302)
-               .end(function(err){
+            request(url)
+                .get('/api/')
+                .expect(302)
+                .end(function(err){
                     if(err){throw err;}
                     done();
-               });
+                });
         });
         it('should not allow invalid login', function(done){
             request(url)
@@ -136,11 +67,10 @@ describe('Routing', function(){
                 });
         });
         it('should allow access to secure URIs post login', function(done){
-            var req = request(url).get('/getLatestImageSecure');
-            req.cookies = cookie;
-            req
+            request(url)
+                .get('/api/sensors/' + new Date().getTime())
+                .set('cookie', cookie)
                 .expect(200)
-                .expect('Content-Type', 'image/jpeg')
                 .end(function (err) {
                     if (err) {
                         throw err;
@@ -150,6 +80,86 @@ describe('Routing', function(){
         })
 
     });
+    
+   describe("Image Endpoints", function() {
+       this.timeout(5000);
+       it('/api/images/latest should return image', function (done) {
+           request(url)
+               .get('/api/images/latest')
+               .set('cookie', cookie)
+               .expect(200)
+               .expect('Content-Type', 'image/jpeg')
+               .end(function (err, res) {
+                   if (err) {
+                       throw err;
+                   }
+                   done();
+               });
+       });
+
+       it('/api/images should accept valid image', function (done){
+           request(url)
+               .post('/api/images')
+               .attach('image', 'test/sampleFiles/testImage.jpg')
+               .set('cookie', cookie)
+               .expect(200)
+               .end(function (err, res){
+                   if(err){
+                       throw err;
+                   }
+                   done();
+               });
+       });
+
+       it('should cache POST to /api/images', function (done){
+          request(url)
+              .get('/api/images/latest')
+              .set('cookie', cookie)
+              .expect(200)
+              .end(function (err, res) {
+                  if (err) {
+                      throw err;
+                  }
+                  var file = fs.readFileSync('test/sampleFiles/testImage.jpg');
+                  var equal = buffEq(res.body, file);
+                  should(equal).ok;
+                  done();
+              });
+       });
+
+       it('should reject invalid file upload', function(done){
+           request(url)
+               .post('/api/images')
+               .attach('image', 'test/sampleFiles/testInvalidImage.txt')
+               .set('cookie', cookie)
+               .expect(400)
+               .end(function (err, res){
+                   if(err){
+                       throw err;
+                   }
+                   done();
+               });
+       });
+   });
+
+   describe("GPS Endpoints", function(){
+       it('/getLatestGPS should return coordinates', function(done){
+           request(url)
+                .get('/getLatestGPS')
+                .expect(200)
+                .end(function(err, res) {
+                    if (err) {
+                        throw err;
+                    }
+                    var response = JSON.parse(res.text);
+                    response.should.have.property("lat");
+                    response.should.have.property("lon");
+                    done();
+                });
+       });
+   });
+
+
 /*
     describe("Direct services", function(){
         this.timeout(20000);
