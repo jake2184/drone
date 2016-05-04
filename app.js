@@ -161,6 +161,8 @@
 	//TODO fix access issues of routing
 	var router = express.Router();
 
+	router.all('/', requireLogin);
+
 	router.post('/*', function(req, res, next){
 		if(req.session.role <= RoleEnum.USER){
 			next();
@@ -495,7 +497,7 @@
 
 	////////////// Caching/Performance Improvement ///
 
-	var latestImage = ""; //TODO - replace with checking latest in uploads folder
+	var latestImage = "";
 	var latestAudio = "";
 
 
