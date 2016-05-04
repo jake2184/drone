@@ -253,7 +253,7 @@
 		deleteImageFromDatabase(req, res);
 	});
 
-	router.post('/audio', upload.single('audio'), function(res, req){
+	router.post('/audio/:docID', upload.single('audio'), function(req, res){
 		var valid = validateAudioFile(req.file.path);
 		if(!valid){
 			res.status(400).send("Invalid file type - not wav.\n");
@@ -262,10 +262,13 @@
 			res.status(200).send("File uploaded successfully.\n");
 			latestAudio = req.file.path;
 			speechRecognition(req.file.originalname, req.file.path, req.body);
-			insertSpeechIntoDatabase(req.file.originalname, req.file.path, req.body);
+			insertSpeechIntoDatabase(req.file.originalname, req.file.path, req);
 		}
 	});
-
+	router.delete('/audio/:docID', function(req, res){
+		res.status(200).send()
+		// TODO
+	});
 
 	router.post('/users/:username', function(req, res){
 		insertUserCredentials(req, res);
@@ -294,7 +297,11 @@
 	});
 	router.param('docID', function(req, res, next, docID){
 		if(docID == "latest"){
-			retrieveLatestImage(res);
+			if(req.url.indexOf("images") > -1) {
+				retrieveLatestImage(res);
+			} else if(req.url.indexOf("audio") > -1){
+				retrieveLatestAudio(res);
+			}
 		} else {
 			next();
 		}
@@ -626,6 +633,55 @@
 								logger.error(err);
 							}else{
 								latestImage = uploadDir+filename;
+							}
+						});
+					}
+				});
+			}
+		});
+	}
+	
+	function retrieveLatestAudio(res) {
+
+		if (latestAudio != "") {
+			try {
+				var imageData = fs.readFileSync(latestAudio);
+				res.set('Content-Type', 'audio/x-wav');
+				logger.info("Sending 1 ");
+				res.send(imageData);
+				return;
+			} catch (e) {
+				logger.error("Image Cache Error.");
+				logger.error(e.message);
+				latestImage = "";
+			}
+		}
+
+		var audio = cloudant.use('drone_audio');
+		audio.list({"descending": true, "include_docs": true, "limit": 1}, function (err, body) {
+			if (err) {
+				logger.error(err);
+				res.status(404).send("Internal error");
+			} else {
+				if (body.rows[0] == undefined) {
+					res.status(404).send("No audio found in database");
+					return;
+				}
+				var filename = body.rows[0].id;
+				audio.attachment.get(filename, "audio", function (err, body) {
+					if (err) { // Would reflect data input error
+						logger.error(err);
+						res.status(404).send(err.message);
+					} else {
+						res.set('Content-Type', 'audio/x-wav');
+						res.send(body);
+						logger.info("Sending 2 ");
+						// Cache response - need to append original filename?
+						fs.writeFile(uploadDir + filename, body, function (err) {
+							if (err) {
+								logger.error(err);
+							} else {
+								latestAudio = uploadDir + filename;
 							}
 						});
 					}
@@ -1228,4 +1284,4 @@
 			}
 			logger.info(response.result)
 		});
-	};
+	}

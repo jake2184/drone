@@ -142,7 +142,7 @@ describe('Routing', function(){
                 .end(done);
         });
         
-        it('POST /api/images should accept valid image', function (done){
+        it('POST /api/images/:docID should accept valid image', function (done){
           var req = request(server)
                .post('/api/images/' + time)
                .send({time:time, location:[50,50]})
@@ -190,6 +190,51 @@ describe('Routing', function(){
                .end(done);
        });
    });
+
+    describe("Audio Endpoints", function(){
+        var time = new Date().getTime();
+        it('GET /api/audio should return audioFile list', function(done){
+            request(server)
+                .get('/api/audio')
+                .set('cookie', cookie)
+                .expect(200)
+                .expect('Content-Type', 'application/json; charset=utf-8')
+                .end(done);
+        });
+
+        it('POST /api/audio/:docID should accept valid audio', function (done){
+            var req = request(server)
+                .post('/api/audio/' + time)
+                .send({time:time, location:[50,50]})
+                .attach('audio', 'test/sampleFiles/testAudio.wav')
+                .set('cookie', cookie)
+                .expect(200)
+                .end(done);
+        });
+        it('DELETE /api/audio should delete audio', function(done){
+            request(server)
+                .delete('/api/audio/' + time)
+                .set('cookie', cookie)
+                .expect(200)
+                .end(done)
+        });
+        it('GET /api/audio/latest should return audio', function (done) {
+            request(server)
+                .get('/api/audio/latest')
+                .set('cookie', cookie)
+                .expect(200)
+                .expect('Content-Type', 'audio/x-wav')
+                .end(done);
+        });
+        it('should reject invalid file upload', function(done){
+            request(server)
+                .post('/api/audio/' + time)
+                .attach('audio', 'test/sampleFiles/testInvalidImage.txt')
+                .set('cookie', cookie)
+                .expect(400)
+                .end(done);
+        });
+    });
 
     describe("GPS Endpoints", function(){
         it('should return data from a set point', function(done){
