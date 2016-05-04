@@ -19,22 +19,9 @@
 	var lame = require ('lame');
 	var wav = require('wav');
 	var crypto = require('crypto');
-	var winston = require('winston');
 
-	var logger = new (winston.Logger)({
-		transports: [
-			new (winston.transports.File)({
-				name: 'info-file',
-				filename: 'filelog-info.log',
-				level: 'info'
-			}),
-			new (winston.transports.File)({
-				name: 'error-file',
-				filename: 'filelog-error.log',
-				level: 'error'
-			})
-		]
-	});
+	var logger = require('./lib/logger.js');
+
 
 	var uploadDir = "uploads/";
 
@@ -64,14 +51,14 @@
 	/////////////// Load Service Details //////////
 	var services;
 	if (process.env.VCAP_SERVICES) {
-		console.log("Cloud Detected");
+		logger.info("Cloud Detected");
 		services = JSON.parse(process.env.VCAP_SERVICES);
 	} else {
 		try{
-			console.log("Local Detected");
+			logger.info("Local Detected");
 			services = require('./node_modules/vcap_services/VCAP_SERVICES.json');
 		} catch (e){
-			console.error(e);
+			logger.error(e);
 		}
 	}
 
@@ -96,22 +83,22 @@
 
 	/////////////// Test Credential Existance /////
 	if(typeof cloudantCreds === "undefined"){
-		console.error("No Cloudant credentials supplied in VCAP_SERVICES.");
+		logger.error("No Cloudant credentials supplied in VCAP_SERVICES.");
 		process.exit(1);
 	} else if(typeof imageRecognitionCreds === "undefined"){
-		console.error("No Image Recognition credentials supplied in VCAP_SERVICES.");
+		logger.error("No Image Recognition credentials supplied in VCAP_SERVICES.");
 		process.exit(1);
 	} else if(typeof speechToTextCreds === "undefined"){
-		console.error("No Speech to Text credentials supplied in VCAP_SERVICES.");
+		logger.error("No Speech to Text credentials supplied in VCAP_SERVICES.");
 		process.exit(1);
 	} else if(typeof toneAnalysisCreds === "undefined"){
-		console.error("No Tone Analysis credentials supplied in VCAP_SERVICES.");
+		logger.error("No Tone Analysis credentials supplied in VCAP_SERVICES.");
 		//process.exit(1);
 	}else if(typeof mqttCreds === "undefined"){
-		console.error("No IoT credentials supplied in VCAP_SERVICES.");
+		logger.error("No IoT credentials supplied in VCAP_SERVICES.");
 		process.exit(1);
 	}else if(typeof dashDBCreds === "undefined"){
-		console.error("No dashDB credentials supplied in VCAP_SERVICES.");
+		logger.error("No dashDB credentials supplied in VCAP_SERVICES.");
 		process.exit(1);
 	}
 
@@ -120,7 +107,7 @@
 	var username = cloudantCreds.username;
 	var password = cloudantCreds.password;
 	var cloudant = Cloudant({account:username, password:password});
-	//console.log("Cloudant: " + username + " " + password);
+	//logger.info("Cloudant: " + username + " " + password);
 
 	username = imageRecognitionCreds.username;
 	password = imageRecognitionCreds.password;
@@ -130,7 +117,7 @@
 		username:username,
 		password:password
 	});
-	//console.log("Recognition: " + username + " " + password);
+	//logger.info("Recognition: " + username + " " + password);
 
 	username = speechToTextCreds.username;
 	password = speechToTextCreds.password;
@@ -139,7 +126,7 @@
 		username:username,
 		password:password
 	});
-	//console.log("speechToText: " + username + " " + password);
+	//logger.info("speechToText: " + username + " " + password);
 
 	// username = toneAnalysisCreds.username;
 	// password = toneAnalysisCreds.password;
@@ -148,10 +135,10 @@
 	// 	username:username,
 	// 	password:password
 	// });
-	//console.log("Tone Analysis: " + username + " " + password);
+	//logger.info("Tone Analysis: " + username + " " + password);
 
 
-	mqttCreds.id = 'drone-nodes';
+	mqttCreds.id = 'server';
 	//mqttCreds.type = 'application';
 
 
@@ -203,7 +190,7 @@
 	});
 	// Retrieve a type of sensor data, docs from time a to b
 	router.get('/sensors/:timeFrom/:timeUntil/:type', function(req, res){
-		console.log("Serving data");
+		logger.info("Serving data");
 		serveSensorDataRouter(req, res);
 	});
 
@@ -326,13 +313,13 @@
 	app.use (function (req, res, next) {
 		if (req.secure) {
 			// request was via https, so do no special handling
-			console.log("hi");
+			logger.info("hi");
 			next();
 		} else {
 			// request was via http, so redirect to https
-			console.log("hi2");
+			logger.info("hi2");
 			var x = 'https://' + req.headers.host + req.url;
-			console.log(x);
+			logger.info(x);
 			res.redirect('https://' + req.headers.host + req.url);
 		}
 	});
@@ -364,7 +351,7 @@
 		};
 		imageRecognition.listClassifiers(params, function(err, labels){
 			if(err){
-				console.error(err);
+				logger.error(err);
 				res.status(500).send();
 			} else {
 				res.status(200).send(JSON.stringify(labels));
@@ -408,7 +395,7 @@
 
 	// Upload a speech file to the server from the drone
 	app.post('/speechUpload', upload.single('audio'), function (req, res){
-		console.log("Received sound: " + req.file.originalname);
+		logger.info("Received sound: " + req.file.originalname);
 
 		// Check security/validity of the file
 		var valid = validateAudioFile(req.file.path);
@@ -464,7 +451,7 @@
 	});
 
 	app.get('/test', function(req, res){
-		console.log("Testing");
+		logger.info("Testing");
 		//IandC.test();
 
 
@@ -514,7 +501,7 @@
 
 	// Clean up uploads
 	setInterval(function() {
-		console.log("Checking "+ __dirname + '/' + uploadDir);
+		logger.info("Checking "+ __dirname + '/' + uploadDir);
 		var removed = findRemoveSync(__dirname + '/' + uploadDir, {age: {seconds: 3600}});
 	}, 3600000);
 
@@ -522,7 +509,7 @@
 	// Start server on the specified port and binding host
 	var port = process.env.VCAP_APP_PORT || 8080;
 	app.listen(port, function() {
-		console.log("server starting on " + appEnv.url + " port " + port);
+		logger.info("server starting on " + appEnv.url + " port " + port);
 	});
 
 
@@ -533,7 +520,7 @@
 
 	//////////////// Cloudant Database ////////////////////
 	function insertImageIntoDatabase(imageName, imagePath, body){
-		//console.log("Received " + imageName);
+		//logger.info("Received " + imageName);
 		// Read from uploads
 		var imageData = fs.readFileSync(imagePath);
 		var images = cloudant.use('drone_images');
@@ -543,9 +530,9 @@
 
 		images.multipart.insert({name: imageName, time:body.time, location:body.location}, attach, imageName, function(err, body) {
 			if (err) {
-				console.error('[images.insert]: ', err.message);
+				logger.error('[images.insert]: ', err.message);
 			} else{
-				console.log("Saved image to database successfully.");
+				logger.info("Saved image to database successfully.");
 			}
 		});
 	}
@@ -561,9 +548,9 @@
 
 		speechDB.multipart.insert({name: speechfileName, time:body.time, location:body.location}, attach, speechfileName, function(err, body) {
 			if (err) {
-				console.error('[speech.insert]: ', err.message);
+				logger.error('[speech.insert]: ', err.message);
 			} else{
-				console.log("Saved speech to database successfully.");
+				logger.info("Saved speech to database successfully.");
 			}
 		});
 	}
@@ -573,12 +560,12 @@
 			try{
 				var imageData = fs.readFileSync(latestImage);
 				res.set('Content-Type', 'image/jpeg');
-				console.log("Sending 1 ");
+				logger.info("Sending 1 ");
 				res.send(imageData);
 				return;
 			} catch (e){
-				console.error("Image Cache Error.");
-				console.error(e.message);
+				logger.error("Image Cache Error.");
+				logger.error(e.message);
 				latestImage = "";
 			}
 		}
@@ -586,7 +573,7 @@
 		var images = cloudant.use('drone_images');
 		images.list({"descending": true, "include_docs": true, "limit": 1}, function(err, body){
 			if(err){
-				console.error(err);
+				logger.error(err);
 				res.status(404).send("Internal error");
 			}else{
 				if(body.rows[0] == undefined){
@@ -596,16 +583,16 @@
 				var filename = body.rows[0].id;
 				images.attachment.get(filename, "image", function(err, body){
 					if(err){ // Would reflect data input error
-						console.error(err);
+						logger.error(err);
 						res.status(404).send(err.message);
 					}else{
 						res.set('Content-Type', 'image/jpeg');
 						res.send(body);
-						console.log("Sending 2 ");
+						logger.info("Sending 2 ");
 						// Cache response - need to append original filename?
 						fs.writeFile(uploadDir+filename, body, function(err){
 							if(err){
-								console.error(err);
+								logger.error(err);
 							}else{
 								latestImage = uploadDir+filename;
 							}
@@ -654,15 +641,15 @@
 		}
 		query.limit = maxDocs;
 
-		console.log(JSON.stringify(query));
+		logger.info(JSON.stringify(query));
 		cloudant.use("sensorlog").find(query, function(err, result){
 			if(err){
-				console.error("[sensors.request] " + err);
+				logger.error("[sensors.request] " + err);
 				res.status(500).send("Request error. Malformed?");
 				return;
 			}
 			if(result === undefined){
-				console.log("Zero results found");
+				logger.info("Zero results found");
 				res.status(204).send("Empty return");
 				return;
 			}
@@ -673,7 +660,7 @@
 
 				});
 			}
-			console.log("Discovered "+ result.docs.length + " documents");
+			logger.info("Discovered "+ result.docs.length + " documents");
 			var data = JSON.stringify(result.docs);
 			res.status(200).send(data);
 		});
@@ -712,11 +699,11 @@
 		}
 
 
-		console.log(JSON.stringify(query));
+		logger.info(JSON.stringify(query));
 		cloudant.use("sensorlog").find(query, function(err, result){
 			if(err){
-				console.error("[sensors.request] " + err);
-				console.error(JSON.stringify(query));
+				logger.error("[sensors.request] " + err);
+				logger.error(JSON.stringify(query));
 				res.status(500).send();
 				return;
 			}
@@ -750,11 +737,11 @@
 			}
 		};
 
-		console.log(JSON.stringify(query));
+		logger.info(JSON.stringify(query));
 		cloudant.use("positionlog").find(query, function(err, result){
 			if(err){
-				console.error("[position.request] " + err);
-				console.error(JSON.stringify(query));
+				logger.error("[position.request] " + err);
+				logger.error(JSON.stringify(query));
 				res.status(500).send("Request error. Malformed?");
 				return;
 			}
@@ -777,7 +764,7 @@
 	function serveImagesInformation(req, res){
 		cloudant.use('drone_images').list({}, function(err, response){
 			if(err){
-				console.error(err);
+				logger.error(err);
 				res.status(500).send("Internal error.");
 			} else {
 				response.rows.forEach(function(row){
@@ -792,7 +779,7 @@
 	function serveImage(req, res){
 		cloudant.use('drone_images').attachment.get(req.params.docID, "image", function(err, image){
 			if(err){
-				console.error(err.description);
+				logger.error(err.description);
 				res.status(404).send("No image found");
 			} else {
 				res.set('Content-Type', 'image/jpeg').status(200).send(image);
@@ -803,7 +790,7 @@
 	function serveAudioInformation(req, res){
 		cloudant.use('drone_audio').list({}, function(err, response){
 			if(err){
-				console.error(err);
+				logger.error(err);
 				res.status(500).send("Internal error.");
 			} else {
 				response.rows.forEach(function(row){
@@ -818,7 +805,7 @@
 	function serveAudio(req, res){
 		cloudant.use('drone_audio').attachment.get(req.params.docID, "audio", function(err, audio){
 			if(err){
-				console.error(err.description);
+				logger.error(err.description);
 				res.status(404).send("No audio found");
 			} else {
 				res.set('Content-Type', 'audio/x-wav').status(200).send(audio);
@@ -835,26 +822,26 @@
 
 		imageRecognition.classify(params, function(err, results){
 			if(err){
-				console.error('[image.recognise]: ' + err);
+				logger.error('[image.recognise]: ' + err);
 			}else{
-				console.log("Recognition Duration: " + ((new Date()).getTime() - start));
+				logger.info("Recognition Duration: " + ((new Date()).getTime() - start));
 				var labels = results.images[0].scores;
 				var anyLabel = IandC.processImageLabels(labels,  body.time, {latitude:body.latitude, longitude:body.longitude});
-				//console.log("Image Recognised: " + anyLabel);
+				//logger.info("Image Recognised: " + anyLabel);
 			}
 		});
 	}
 
 	/*
 	function speechRecognition(audiofileName, audiofilePath, body){
-		console.log("Received " + audiofilePath);
+		logger.info("Received " + audiofilePath);
 
 		if(audiofilePath.endsWith(".mp3")){
 			convertMP3toWAV(audiofilePath);
 			audiofilePath = audiofilePath.replace(".mp3", ".wav");
 		}
 
-		console.log(audiofilePath);
+		logger.info(audiofilePath);
 
 		var params = {
 			audio: "file",
@@ -865,18 +852,18 @@
 
 		var file  = fs.createReadStream(audiofilePath);
 
-		console.log(file);
+		logger.info(file);
 
 		speechToText.recognize(params, function(err, results){
 			if(err){
-				console.error('[speech.recognise]: ' + err);
+				logger.error('[speech.recognise]: ' + err);
 			}else{
 				if(typeof results.results[0] == "undefined"){
 					return;
 				}
 				var transcript = results.results[0].alternatives[0].transcript;
 				var speechRecognised = IandC.processSpeechTranscript(transcript, body.time, body.location);
-				console.log("Speech Recognised: " + speechRecognised);
+				logger.info("Speech Recognised: " + speechRecognised);
 				if(speechRecognised){
 					analyseTone(transcript);
 				}
@@ -886,7 +873,7 @@
 	*/
 
 	function speechRecognition(audiofileName, audiofilePath, body) {
-		console.log("Received " + audiofilePath);
+		logger.info("Received " + audiofilePath);
 
 		if(audiofilePath.endsWith(".mp3")) {
 			convertMP3toWAV(audiofilePath, body, sendToSpeechRecognition);
@@ -904,17 +891,17 @@
 			model: "en-US_BroadbandModel"
 		};
 
-		console.log("Sending.. " + imageFile.path);
+		logger.info("Sending.. " + imageFile.path);
 
 		speechToText.recognize(params, function(err, results){
 			if(err){
-				console.error('[speech.recognise2]: ' + err);
+				logger.error('[speech.recognise2]: ' + err);
 			}else{
 				if(typeof results.results[0] == "undefined"){
 					return;
 				}
 				var transcript = results.results[0].alternatives[0].transcript;
-				console.log("Speech Recognised: " + transcript);
+				logger.info("Speech Recognised: " + transcript);
 				var speechRecognised = IandC.processSpeechTranscript(transcript, body.time, body.location);
 				if(speechRecognised){
 					analyseTone(transcript);
@@ -930,9 +917,9 @@
 
 		toneAnalysis.tone(params, function(err, results){
 			if(err){
-				console.error('[speech.toneAnalysis]: ' + err);
+				logger.error('[speech.toneAnalysis]: ' + err);
 			}else{
-				console.log(results.children);
+				logger.info(results.children);
 			}
 		});
 	}
@@ -965,7 +952,7 @@
 			case "ping":
 				break;
 			default:
-				console.log("Unknown eventType from drone: " + eventType);
+				logger.info("Unknown eventType from drone: " + eventType);
 		}
 	}
 
@@ -983,7 +970,7 @@
 		dashDB.open(dashDBCreds.ssldsn, function(err, connection){
 			var error;
 			if(err){
-				console.error("[users.connect] " + err.message);
+				logger.error("[users.connect] " + err.message);
 				error = false;
 				callback(error);
 				return;
@@ -992,14 +979,14 @@
 
 			connection.query(query, [credentials.name.replace(/\W/g, ''), credentials.pass.replace(/\W/g, '')], function(err, response){
 				if(err){
-					console.error("[users.select] " + err.message);
+					logger.error("[users.select] " + err.message);
 					error = false;
 				}
 				if(response.length == 0){
-					//console.log("Invalid username or password");
+					//logger.info("Invalid username or password");
 					error =  false;
 				} else {
-					//console.log("User " + credentials.name + " found");
+					//logger.info("User " + credentials.name + " found");
 					error = true;
 				}
 				callback(error);
@@ -1011,7 +998,7 @@
 		dashDB.open(dashDBCreds.ssldsn, function(err, connection){
 			var error;
 			if(err){
-				console.error("[users.connect] " + err.message);
+				logger.error("[users.connect] " + err.message);
 				callback(null);
 				return;
 			}
@@ -1021,14 +1008,14 @@
 			toReturn.valid = false;
 			connection.query(query, [credentials.name.replace(/\W/g, '')], function(err, response){
 				if(err){
-					console.error("[users.select] " + err.message);
+					logger.error("[users.select] " + err.message);
 					callback(toReturn);
 				}
 				if(response.length == 0){
-					console.log("Invalid username or password");
+					logger.info("Invalid username or password");
 					callback(toReturn);
 				} else { // only a single row
-					console.log("User " + credentials.name + " found");
+					logger.info("User " + credentials.name + " found");
 					// Test password
 					var salt = response[0].salt; //.salt
 
@@ -1059,17 +1046,17 @@
 	function insertUserCredentials(credentials){
 		dashDB.open(dashDBCreds.ssldsn, function(err, connection){
 			if(err){
-				console.error("Error connecting to SQL database");
-				console.error(err.message);
+				logger.error("Error connecting to SQL database");
+				logger.error(err.message);
 				return false;
 			}
 			var query = "INSERT INTO USERS VALUES (?, ?, ?, ?)";
 			connection.query(query, [credentials.username, credentials.password, credentials.first_name, credentials.last_name], function(err){
 				if(err) {
-					console.error("Couldn't insert user: " + credentials.username);
+					logger.error("Couldn't insert user: " + credentials.username);
 					return false;
 				} else{
-					console.log("User: " + credentials.username + " successfully added to database");
+					logger.info("User: " + credentials.username + " successfully added to database");
 					return true;
 				}
 			});
@@ -1092,8 +1079,8 @@
 
 		dashDB.open(dashDBCreds.ssldsn, function(err, connection){
 			if(err){
-				console.error("Error connecting to SQL database");
-				console.error(err.message);
+				logger.error("Error connecting to SQL database");
+				logger.error(err.message);
 				res.status(500).send("Database error");
 			}
 			var query = "INSERT INTO USERS VALUES (?, ?, ?, ?, ?, ?)";
@@ -1104,11 +1091,11 @@
 			var toAdd = crypto.createHash('sha256').update(password + salt).digest('hex');
 			connection.query(query, [username, first_name, last_name, salt, toAdd, role], function(err){
 				if(err) {
-					console.error("Couldn't insert user: " + username);
-					console.error(err.message);
+					logger.error("Couldn't insert user: " + username);
+					logger.error(err.message);
 					res.status(400).send("Couldn't add user");
 				} else{
-					console.log("User: " + username + " successfully added to database");
+					logger.info("User: " + username + " successfully added to database");
 					res.status(200).send("User " + username + " was successfully added");
 				}
 			});
@@ -1119,17 +1106,17 @@
 	function insertDroneCredentials(credentials){
 		dashDB.open(dashDBCreds.ssldsn, function(err, connection){
 			if(err){
-				console.error("Error connecting to SQL database");
-				console.error(err.message);
+				logger.error("Error connecting to SQL database");
+				logger.error(err.message);
 				return false;
 			}
 			var query = "INSERT INTO DRONE VALUES (?, ?, ?)";
 			connection.query(query, [credentials.number, credentials.name, credentials.owner], function(err){
 				if(err) {
-					console.error("Couldn't insert drone: " + credentials.name);
+					logger.error("Couldn't insert drone: " + credentials.name);
 					return false;
 				} else{
-					console.log("Drone: " + credentials.number + ":" + credentials.name + " successfully added to database");
+					logger.info("Drone: " + credentials.number + ":" + credentials.name + " successfully added to database");
 					return true;
 				}
 			});
@@ -1149,14 +1136,14 @@
 		dashDB.open(dashDBCreds.ssldsn, function(err, connection){
 			var error;
 			if(err){
-				console.error("[users.connect] " + err.message);
+				logger.error("[users.connect] " + err.message);
 				res.status(500).send("Server connection error");
 				return;
 			}
 			var query = "SELECT \"first_name\", \"last_name\", \"username\" FROM USERS WHERE \"username\" = ?";
 			connection.query(query, [req.params.username.replace(/\W/g, '')], function(err, response){
 				if(err){
-					console.error("[users.select] " + err.message);
+					logger.error("[users.select] " + err.message);
 					res.status(500).send("Server connection error");
 				} else if(response.length == 0){
 					res.status(404).send("User not found");
@@ -1172,13 +1159,13 @@
 		var buffer = readChunk.sync(filePath, 0, 12);
 		var type = imageType(buffer);
 		if(type == null){
-			console.log("Not an image type: " + filePath);
+			logger.info("Not an image type: " + filePath);
 			return false;
 		}
 		if( (type.ext == 'jpg'||type.ext == 'jpeg') && type.mime == 'image/jpeg' ){
 			return true;
 		} else {
-			console.log("Invalid image type: " + filePath);
+			logger.info("Invalid image type: " + filePath);
 			return false;
 		}
 
@@ -1188,7 +1175,7 @@
 		var buffer = readChunk.sync(filePath, 0, 262);
 		var type = fileType(buffer);
 		if(type == null){
-			console.log("Not a known file type: " + filePath);
+			logger.info("Not a known file type: " + filePath);
 			return false;
 		}
 		if( type.ext == 'wav' && (type.mime == 'audio/wav' || type.mime == 'audio/x-wav')) {
@@ -1196,7 +1183,7 @@
 		} else if (type.ext == 'mp3' && type.mime == 'audio/mpeg') {
 			return true;
 		} else {
-			console.log("Invalid audio type: " + filePath + " " + type.mime);
+			logger.info("Invalid audio type: " + filePath + " " + type.mime);
 			return false;
 		}
 	}
@@ -1216,7 +1203,7 @@
 		mp3FileStream.pipe(decoder);
 
 		decoder.on('finish', function(){
-			console.log("Converted file");
+			logger.info("Converted file");
 			sendToSpeechRecognition(mp3File.replace(".mp3",".wav"), body);
 		});
 
@@ -1243,12 +1230,12 @@
 
 		speechToText.recognize(params, function(err, results){
 			if(err){
-				console.error('[speech.recognise]: ' + err);
+				logger.error('[speech.recognise]: ' + err);
 			}else{
 				if(! results.results){
 					return;
 				}
-				console.log("Speech Recognition Duration: " + ((new Date()).getTime() - start));
+				logger.info("Speech Recognition Duration: " + ((new Date()).getTime() - start));
 				var transcript = results.results[0].alternatives[0].transcript;
 				res.status(200).send(transcript);
 			}
@@ -1263,9 +1250,9 @@
 
 		imageRecognition.classify(params, function(err, results){
 			if(err){
-				console.error('[image.recognise]: ' + err);
+				logger.error('[image.recognise]: ' + err);
 			}else{
-				console.log("Image Recognition Duration: " + ((new Date()).getTime() - start));
+				logger.info("Image Recognition Duration: " + ((new Date()).getTime() - start));
 				var labels = results.images[0].scores;
 				res.status(200).send(labels[0]);
 			}
@@ -1286,9 +1273,9 @@
 
 		database.index(index, function(err, response){
 			if(err){
-				console.error("Error " + err);
+				logger.error("Error " + err);
 				return;
 			}
-			console.log(response.result)
+			logger.info(response.result)
 		});
 	};
