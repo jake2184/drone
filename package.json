@@ -23,7 +23,8 @@
     "read-chunk": "~1.0.1",
     "unit.js": "^2.0.0",
     "watson-developer-cloud": "~1.2.3",
-    "wav": "^1.0.0"
+    "wav": "^1.0.0",
+    "winston": "^2.2.0"
   },
   "repository": {},
   "engines": {
