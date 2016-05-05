@@ -223,7 +223,7 @@ describe('Routing', function(){
                 .get('/api/audio/latest')
                 .set('cookie', cookie)
                 .expect(200)
-                .expect('Content-Type', 'audio/x-wav')
+                .expect('Content-Type', 'audio/x-wav; charset=utf-8')
                 .end(done);
         });
         it('should reject invalid file upload', function(done){
