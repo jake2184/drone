@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Control a drone",
   "scripts": {
-    "start": "node app.js --harmony",
+    "start": "node app.js",
     "test": "make test"
   },
   "dependencies": {
