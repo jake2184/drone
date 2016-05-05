@@ -17,6 +17,8 @@
 
 	var logger = require('./lib/logger.js');
 
+	var checkUserCredentials = require('./lib/functions.js').sql.checkUserCredentials;
+	
 	var uploadDir = "uploads/";
 
 	var app = express();
@@ -69,22 +71,15 @@
 
 	////////// REST FUNCTIONS ////////////////////
 
-
-	app.get('/getLatestGPS', function(req, res){
-		var latlon = {lat: 51.485138, lon: -0.187755};
-		res.status(200).send(JSON.stringify(latlon));
-	});
-
-	app.post('/login', function(req, res){
+	app.post('/login', function(req, res) {
 		var creds = auth(res);
-		if(!creds){
+		if (!creds) {
 			res.status(400).send("Please provide username and password.\n");
+		} else if (creds.name == req.session.user){
+			res.status(200).send("Already logged in");
 		} else {
 			checkUserCredentials(creds, function(response){
-				if(response == null){
-					res.status(500).send("Please try again later.");
-
-				}else if (response.valid){
+				if (response.valid){
 					req.session.user = response.username;
 					req.session.role = response.role;
 					res.status(200).send("Logged in successfully.\n");
@@ -99,13 +94,6 @@
 		res.status(200).send("Please login by POSTing username and password.\n");
 	});
 
-	app.get('/test', function(req, res){
-		logger.info("Testing");
-		//IandC.test();
-
-
-		res.status(200).send();
-	});
 
 	app.get('/testAudio', function(req, res){
 		testSpeechRecognition('test/sampleFiles/testAudio.wav', res);
@@ -113,11 +101,6 @@
 
 	app.get('/testImage', function(req, res){
 		testImageRecognition('test/sampleFiles/testImage.jpg', res);
-	});
-
-	app.get('/createIndex', function(req, res){
-		createIndexes(req.query.name, req.query.field);
-		res.sendStatus(200);
 	});
 
 
@@ -147,56 +130,6 @@
 	/////////////////// Internal Functions /////////////
 
 	/////////////////// DashDB ////////////////////////
-
-	function checkUserCredentials(credentials, callback){
-		dashDB.open(dashDBCreds.ssldsn, function(err, connection){
-			var error;
-			if(err){
-				logger.error("[users.connect] " + err.message);
-				callback(null);
-				return;
-			}
-			var query = "SELECT * FROM USERS WHERE \"username\" = ?";
-			credentials.pass.replace(/\W/g, '')
-			var toReturn = {};
-			toReturn.valid = false;
-			connection.query(query, [credentials.name.replace(/\W/g, '')], function(err, response){
-				if(err){
-					logger.error("[users.select] " + err.message);
-					callback(toReturn);
-				}
-				if(response.length == 0){
-					logger.info("Invalid username or password");
-					callback(toReturn);
-				} else { // only a single row
-					logger.info("User " + credentials.name + " found");
-					// Test password
-					var salt = response[0].salt; //.salt
-
-					var toCheck = crypto.createHash('sha256').update(credentials.pass + salt).digest('hex');
-
-					if(response[0].password == toCheck){
-						toReturn.valid = true;
-						toReturn.username = response[0].username;
-						toReturn.role = response[0].role;
-						callback(toReturn);
-					} else {
-						callback(toReturn);
-					}
-
-
-
-
-					error = true;
-				}
-				//callback(error);
-			});
-
-
-
-		});
-	}
-
 
 
 	// Test service directly
@@ -239,26 +172,5 @@
 				var labels = results.images[0].scores;
 				res.status(200).send(labels[0]);
 			}
-		});
-	}
-
-	function createIndexes(databaseName, field) {
-		var database = cloudant.use(databaseName);
-
-		var index = {
-			name : field,
-			type : 'json',
-			ddoc : 'indexDesignDoc',
-			index : {
-				fields : [field]
-			}
-		};
-
-		database.index(index, function(err, response){
-			if(err){
-				logger.error("Error " + err);
-				return;
-			}
-			logger.info(response.result)
 		});
 	}
