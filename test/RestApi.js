@@ -67,6 +67,20 @@ describe('Routing', function(){
                 callback();
             });
     }
+
+    function asAdmin(callback){
+        request(server)
+            .post('/login')
+            .auth('jake','pass')
+            .expect(200)
+            .end(function(err, res){
+                if(err){
+                    throw err;
+                }
+                cookie = res.headers['set-cookie'].pop().split(';')[0];
+                callback();
+            });
+    }
     
     this.timeout(20000);
     var cookie;
@@ -97,10 +111,8 @@ describe('Routing', function(){
             request(server)
                 .get('/api/')
                 .expect(302)
-                .end(function(err){
-                    if(err){throw err;}
-                    done();
-                });
+                .expect('location', '/login')
+                .end(done);
         });
         it('should not allow empty login', function(done){
             request(server)
@@ -136,16 +148,19 @@ describe('Routing', function(){
                 });
         });
         it('should allow access to secure URIs post login', function(done){
-            request(server)
-                .get('/api/sensors/' + new Date().getTime())
-                .set('cookie', cookie)
-                .expect(200)
-                .end(function (err) {
-                    if (err) {
-                        throw err;
-                    }
-                    done();
-                });
+            asAdmin(function() {
+                    request(server)
+                        .get('/api/sensors/' + new Date().getTime())
+                        .set('cookie', cookie)
+                        .expect(200)
+                        .end(function (err) {
+                            if (err) {
+                                throw err;
+                            }
+                            done();
+                        });
+                }
+            );
         })
 
     });
@@ -199,7 +214,6 @@ describe('Routing', function(){
                 .expect('Content-Type', 'application/json; charset=utf-8')
                 .end(done);
         });
-        
         it('POST /api/images/:docID should accept valid image', function (done){
           request(server)
                .post('/api/images/' + time)
@@ -208,6 +222,14 @@ describe('Routing', function(){
                .set('cookie', cookie)
                .expect(200)
                .end(done);
+        });
+        it('GET /api/images/:docID should return image', function(done){
+           request(server)
+               .get('/api/images/' + time)
+               .set('cookie', cookie)
+               .expect(200)
+               .expect('Content-Type', 'image/jpeg')
+               .end(done)
         });
         it('DELETE /api/images should delete image', function(done){
             request(server)
@@ -260,7 +282,6 @@ describe('Routing', function(){
                 .expect('Content-Type', 'application/json; charset=utf-8')
                 .end(done);
         });
-
         it('POST /api/audio/:docID should accept valid audio', function (done){
             var req = request(server)
                 .post('/api/audio/' + time)
@@ -270,14 +291,13 @@ describe('Routing', function(){
                 .expect(200)
                 .end(done);
         });
-        it('user cannot DELETE audio', function(done){
-            asGuest(function(){
-                request(server)
-                    .delete('/api/audio/' + time)
-                    .set('cookie', cookie)
-                    .expect(401)
-                    .end(done)
-            });
+        it('GET /api/audio/:docID should return audio', function(done){
+            request(server)
+                .get('/api/audio/' + time)
+                .set('cookie', cookie)
+                .expect(200)
+                .expect('Content-Type', 'audio/x-wav')
+                .end(done)
         });
         it('DELETE /api/audio should delete audio', function(done){
             request(server)
@@ -301,6 +321,15 @@ describe('Routing', function(){
                 .set('cookie', cookie)
                 .expect(400)
                 .end(done);
+        });
+        it('user cannot DELETE audio', function(done){
+            asGuest(function(){
+                request(server)
+                    .delete('/api/audio/' + time)
+                    .set('cookie', cookie)
+                    .expect(401)
+                    .end(done)
+            });
         });
     });
 

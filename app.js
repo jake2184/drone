@@ -91,22 +91,6 @@
 	});
 
 
-	app.get('/testAudio', function(req, res){
-		testSpeechRecognition('test/sampleFiles/testAudio.wav', res);
-	});
-
-	app.get('/testImage', function(req, res){
-		testImageRecognition('test/sampleFiles/testImage.jpg', res);
-	});
-
-
-
-	////////////// Caching/Performance Improvement ///
-
-	var latestImage = "";
-	var latestAudio = "";
-
-
 	// Clean up uploads
 	setInterval(function() {
 		logger.info("Checking "+ __dirname + '/' + uploadDir);
@@ -122,51 +106,3 @@
 
 
 	module.exports = app;
-
-	/////////////////// Internal Functions /////////////
-
-	/////////////////// DashDB ////////////////////////
-
-
-	// Test service directly
-	function testSpeechRecognition(fileName, res){
-
-		var file  = fs.createReadStream(fileName);
-
-		var params = {
-			audio: file,
-			content_type:"audio/wav",
-			model:"en-US_BroadbandModel"
-		};
-		var start = (new Date()).getTime();
-
-		speechToText.recognize(params, function(err, results){
-			if(err){
-				logger.error('[speech.recognise]: ' + err);
-			}else{
-				if(! results.results){
-					return;
-				}
-				logger.info("Speech Recognition Duration: " + ((new Date()).getTime() - start));
-				var transcript = results.results[0].alternatives[0].transcript;
-				res.status(200).send(transcript);
-			}
-		});
-	}
-
-	function testImageRecognition(imagePath, res, body){
-		var file = fs.createReadStream(imagePath);
-
-		var params = { images_file: file };
-		var start = (new Date()).getTime();
-
-		imageRecognition.classify(params, function(err, results){
-			if(err){
-				logger.error('[image.recognise]: ' + err);
-			}else{
-				logger.info("Image Recognition Duration: " + ((new Date()).getTime() - start));
-				var labels = results.images[0].scores;
-				res.status(200).send(labels[0]);
-			}
-		});
-	}
