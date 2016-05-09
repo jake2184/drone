@@ -9,9 +9,24 @@ var buffEq = require ('buffer-equal');
 var server = require('../app.js');
 
 
-
 describe('Routing', function(){
-
+    before(function (done) {
+        var dirPath = './uploads';
+        try {
+            var files = fs.readdirSync(dirPath);
+        }
+        catch (e) {
+            done();
+            return;
+        }
+        if (files.length > 0) {
+            for (var i = 0; i < files.length; i++) {
+                var filePath = dirPath + '/' + files[i];
+                fs.unlinkSync(filePath);
+            }
+        }
+        done();
+    });
     function loginAdmin(done){
         request(server)
             .post('/login')
@@ -53,7 +68,7 @@ describe('Routing', function(){
             });
     }
     
-    this.timeout(5000);
+    this.timeout(20000);
     var cookie;
 
     describe("Website", function (){
@@ -250,7 +265,7 @@ describe('Routing', function(){
             var req = request(server)
                 .post('/api/audio/' + time)
                 .send({time:time, location:[50,50]})
-                .attach('audio', 'test/sampleFiles/testAudio.wav')
+                .attach('audio', 'test/sampleFiles/testAudio.mp3')
                 .set('cookie', cookie)
                 .expect(200)
                 .end(done);
@@ -394,5 +409,23 @@ describe('Routing', function(){
         })
     });
 */
+
+    after(function (done) {
+        var dirPath = './uploads';
+        try {
+            var files = fs.readdirSync(dirPath);
+        }
+        catch (e) {
+            done();
+            return;
+        }
+        if (files.length > 0) {
+            for (var i = 0; i < files.length; i++) {
+                var filePath = dirPath + '/' + files[i];
+                fs.unlinkSync(filePath);
+            }
+        }
+        done();
+    });
 
 });

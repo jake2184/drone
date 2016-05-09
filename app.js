@@ -7,11 +7,7 @@
 	var fs = require ('fs');
 	var cfenv = require('cfenv');
 	var auth = require('basic-auth');
-	var readChunk = require('read-chunk');
-	var imageType = require('image-type');
-	var fileType = require('file-type');
 	var session = require('client-sessions');
-	var mqtt = require('./lib/MqttHandler');
 	var lame = require ('lame');
 	var wav = require('wav');
 

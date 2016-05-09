@@ -1,0 +1,2585 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for drone\lib\functions.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">drone/lib/</a> functions.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">15.65% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>67/428</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">2.05% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>3/146</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/69</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">15.65% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>67/428</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680
+681
+682
+683
+684
+685
+686
+687
+688
+689
+690
+691
+692
+693
+694
+695
+696
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780
+781
+782
+783
+784
+785
+786
+787
+788
+789
+790
+791
+792
+793
+794
+795
+796
+797
+798
+799
+800
+801
+802
+803
+804
+805
+806
+807
+808
+809
+810
+811
+812
+813
+814
+815
+816
+817
+818
+819
+820
+821
+822
+823
+824
+825
+826
+827
+828
+829
+830
+831
+832
+833
+834
+835
+836
+837
+838
+839
+840
+841</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var fs = require ('fs');
+var cfenv = require('cfenv');
+var iandc = require('./drone_interpret_and_control/drone_interpret_and_control');
+var auth = require('basic-auth');
+var readChunk = require('read-chunk');
+var imageType = require('image-type');
+var fileType = require('file-type');
+var session = require('client-sessions');
+var mqtt = require('./MqttHandler');
+var lame = require ('lame');
+var wav = require('wav');
+var crypto = require('crypto');
+&nbsp;
+&nbsp;
+&nbsp;
+var logger = require('winston');
+&nbsp;
+var latestImage = "";
+var latestAudio = "";
+&nbsp;
+var uploadDir = "uploads/";
+/////////////// Load Service Details //////////
+var services;
+<span class="missing-if-branch" title="if path not taken" >I</span>if (process.env.VCAP_SERVICES) {
+<span class="cstat-no" title="statement not covered" >    logger.info("Cloud Detected");</span>
+<span class="cstat-no" title="statement not covered" >    services = JSON.parse(process.env.VCAP_SERVICES);</span>
+} else {
+    try{
+        logger.info("Local Detected");
+        services = require('../node_modules/vcap_services/VCAP_SERVICES.json');
+    } catch (e){
+<span class="cstat-no" title="statement not covered" >        logger.error(e);</span>
+    }
+}
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+/////////////// Load Credentials //////////////
+var mqttCreds;
+for (var svcName in services) {
+    if (svcName.match(/^iotf/)) {
+        mqttCreds = services[svcName][0]['credentials'];
+    }
+}
+&nbsp;
+&nbsp;
+mqttCreds.id = 'server';
+&nbsp;
+&nbsp;
+var MQTT = new mqttHandler(mqttCreds, deviceStatusCallback);
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+var cloudant = require('./ibm_services').cloudant;
+var imageRecognition = require('./ibm_services').imageRecognition;
+var speechToText = require('./ibm_services').speechToText;
+var dashDB = require('./ibm_services').dashDB;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+var IandC = new iandc(MQTT, cloudant);
+&nbsp;
+&nbsp;
+<span class="fstat-no" title="function not covered" >function handleAudioUpload(req, res){</span>
+<span class="cstat-no" title="statement not covered" >    var valid = validateAudioFile(req.file.path);</span>
+<span class="cstat-no" title="statement not covered" >    if(!valid){</span>
+<span class="cstat-no" title="statement not covered" >        res.status(400).send("Invalid file type - not wav or mp3.\n");</span>
+<span class="cstat-no" title="statement not covered" >        fs.unlink(req.file.path);</span>
+    } else {
+        //res.status(200).send("File uploaded successfully.\n");
+<span class="cstat-no" title="statement not covered" >        latestAudio = req.file.path;</span>
+        //speechRecognition(req.file.originalname, req.file.path, req.body);
+<span class="cstat-no" title="statement not covered" >        insertSpeechIntoDatabase(req, res);</span>
+    }
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function handleImageUpload(req, res) {</span>
+<span class="cstat-no" title="statement not covered" >    var valid = validateJPEG(req.file.path);</span>
+<span class="cstat-no" title="statement not covered" >    if (!valid) {</span>
+<span class="cstat-no" title="statement not covered" >        res.status(400).send("Invalid file type - not jpeg.\n");</span>
+<span class="cstat-no" title="statement not covered" >        fs.unlink(req.file.path);</span>
+    } else {
+        //res.status(200).send("File uploaded successfully.\n");
+<span class="cstat-no" title="statement not covered" >        latestImage = req.file.path;</span>
+<span class="cstat-no" title="statement not covered" >        IandC.sendImageAlert();</span>
+        //classifyImage(req.file.originalname, req.file.path, req.body);
+<span class="cstat-no" title="statement not covered" >        insertImageIntoDatabase(req, res);</span>
+    }
+}
+&nbsp;
+//////////////// Cloudant Database ////////////////////
+<span class="fstat-no" title="function not covered" >function insertImageIntoDatabase(req, res){</span>
+    // Read from uploads
+<span class="cstat-no" title="statement not covered" >    var imageData = fs.readFileSync(req.file.path);</span>
+<span class="cstat-no" title="statement not covered" >    var images = cloudant.use('drone_images');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var attach = [{name: "image", data: imageData, content_type: 'image/jpeg'}];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    images.multipart.insert({name: req.file.originalname, time:req.body.time, location:req.body.location}, attach, req.params.docID, <span class="fstat-no" title="function not covered" >function(err, body) {</span></span>
+<span class="cstat-no" title="statement not covered" >        if (err) {</span>
+<span class="cstat-no" title="statement not covered" >            logger.error('[images.insert]: ', err.message);</span>
+<span class="cstat-no" title="statement not covered" >            res.status(400).send("File upload failed.\n");</span>
+        } else{
+<span class="cstat-no" title="statement not covered" >            logger.info('[images.insert]: Saved image to database successfully.');</span>
+<span class="cstat-no" title="statement not covered" >            res.status(200).send("File uploaded successfully.\n");</span>
+        }
+    });
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function deleteImageFromDatabase(req, res){</span>
+<span class="cstat-no" title="statement not covered" >    cloudant.use('drone_images').get(req.params.docID, <span class="fstat-no" title="function not covered" >function(err, document){</span></span>
+<span class="cstat-no" title="statement not covered" >        if(err){</span>
+<span class="cstat-no" title="statement not covered" >            logger.error('[images.delete]: ' + "Couldn't delete image");</span>
+<span class="cstat-no" title="statement not covered" >            res.status(err.statusCode).send("Couldn't delete image\n");</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >            cloudant.use('drone_images').destroy(req.params.docID, document._rev, <span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >                logger.info('[images.delete]: Successfully deleted image ' + req.params.docID);</span>
+<span class="cstat-no" title="statement not covered" >                res.status(200).send("Successfully deleted image\n");</span>
+            });
+        }
+    });
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function insertSpeechIntoDatabase(req, res){</span>
+    // Read from uploads
+<span class="cstat-no" title="statement not covered" >    var speechData = fs.readFileSync(req.file.path);</span>
+<span class="cstat-no" title="statement not covered" >    var speechDB = cloudant.use('drone_audio');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var attach = [{name: "speech", data: speechData, content_type: 'image/jpeg'}]; </span>//FIX
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    speechDB.multipart.insert({name: req.file.originalname, time:req.body.time, location:req.body.location}, attach, req.params.docID, <span class="fstat-no" title="function not covered" >function(err, body) {</span></span>
+<span class="cstat-no" title="statement not covered" >        if (err) {</span>
+<span class="cstat-no" title="statement not covered" >            logger.error('[audio.insert]: ', err.message);</span>
+<span class="cstat-no" title="statement not covered" >            res.status(400).send("File upload failed.\n");</span>
+        } else{
+<span class="cstat-no" title="statement not covered" >            logger.info("Saved speech to database successfully.");</span>
+<span class="cstat-no" title="statement not covered" >            res.status(200).send("Successfully uploaded image\n");</span>
+        }
+    });
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function deleteAudioFromDatabase(req, res){</span>
+<span class="cstat-no" title="statement not covered" >    cloudant.use('drone_audio').get(req.params.docID, <span class="fstat-no" title="function not covered" >function(err, document){</span></span>
+<span class="cstat-no" title="statement not covered" >        if(err){</span>
+<span class="cstat-no" title="statement not covered" >            logger.error('[audio.delete]: ' + "Couldn't delete audio");</span>
+<span class="cstat-no" title="statement not covered" >            res.status(err.statusCode).send("Couldn't delete audio\n");</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >            cloudant.use('drone_audio').destroy(req.params.docID, document._rev, <span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >                logger.info('[audio.delete]: Successfully deleted audio ' + req.params.docID);</span>
+<span class="cstat-no" title="statement not covered" >                res.status(200).send("Successfully deleted audio\n");</span>
+            });
+        }
+    });
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function retrieveLatestImage(res){</span>
+<span class="cstat-no" title="statement not covered" >    if(latestImage != ""){</span>
+<span class="cstat-no" title="statement not covered" >        try{</span>
+<span class="cstat-no" title="statement not covered" >            var imageData = fs.readFileSync(latestImage);</span>
+<span class="cstat-no" title="statement not covered" >            res.set('Content-Type', 'image/jpeg');</span>
+<span class="cstat-no" title="statement not covered" >            logger.info("Sending 1 ");</span>
+<span class="cstat-no" title="statement not covered" >            res.send(imageData);</span>
+<span class="cstat-no" title="statement not covered" >            return;</span>
+        } catch (e){
+<span class="cstat-no" title="statement not covered" >            logger.error("Image Cache Error.");</span>
+<span class="cstat-no" title="statement not covered" >            logger.error(e.message);</span>
+<span class="cstat-no" title="statement not covered" >            latestImage = "";</span>
+        }
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var images = cloudant.use('drone_images');</span>
+<span class="cstat-no" title="statement not covered" >    images.list({"descending": true, "include_docs": true, "limit": 1}, <span class="fstat-no" title="function not covered" >function(err, body){</span></span>
+<span class="cstat-no" title="statement not covered" >        if(err){</span>
+<span class="cstat-no" title="statement not covered" >            logger.error(err);</span>
+<span class="cstat-no" title="statement not covered" >            res.status(404).send("Internal error");</span>
+        }else{
+<span class="cstat-no" title="statement not covered" >            if(body.rows[0] == undefined){</span>
+<span class="cstat-no" title="statement not covered" >                res.status(404).send("No images found in database");</span>
+<span class="cstat-no" title="statement not covered" >                return;</span>
+            }
+<span class="cstat-no" title="statement not covered" >            var filename = body.rows[0].id;</span>
+<span class="cstat-no" title="statement not covered" >            images.attachment.get(filename, "image", <span class="fstat-no" title="function not covered" >function(err, body){</span></span>
+<span class="cstat-no" title="statement not covered" >                if(err){ // Would reflect data input error</span>
+<span class="cstat-no" title="statement not covered" >                    logger.error(err);</span>
+<span class="cstat-no" title="statement not covered" >                    res.status(404).send(err.message);</span>
+                }else{
+<span class="cstat-no" title="statement not covered" >                    res.set('Content-Type', 'image/jpeg');</span>
+<span class="cstat-no" title="statement not covered" >                    res.send(body);</span>
+<span class="cstat-no" title="statement not covered" >                    logger.info("Sending 2 ");</span>
+                    // Cache response - need to append original filename?
+<span class="cstat-no" title="statement not covered" >                    fs.writeFile(uploadDir+filename, body, <span class="fstat-no" title="function not covered" >function(err){</span></span>
+<span class="cstat-no" title="statement not covered" >                        if(err){</span>
+<span class="cstat-no" title="statement not covered" >                            logger.error(err);</span>
+                        }else{
+<span class="cstat-no" title="statement not covered" >                            latestImage = uploadDir+filename;</span>
+                        }
+                    });
+                }
+            });
+        }
+    });
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function retrieveLatestAudio(res) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (latestAudio != "") {</span>
+<span class="cstat-no" title="statement not covered" >        try {</span>
+<span class="cstat-no" title="statement not covered" >            var imageData = fs.readFileSync(latestAudio);</span>
+<span class="cstat-no" title="statement not covered" >            res.set('Content-Type', 'audio/x-wav');</span>
+<span class="cstat-no" title="statement not covered" >            logger.info("Sending 1 ");</span>
+<span class="cstat-no" title="statement not covered" >            res.send(imageData);</span>
+<span class="cstat-no" title="statement not covered" >            return;</span>
+        } catch (e) {
+<span class="cstat-no" title="statement not covered" >            logger.error("Image Cache Error.");</span>
+<span class="cstat-no" title="statement not covered" >            logger.error(e.message);</span>
+<span class="cstat-no" title="statement not covered" >            latestImage = "";</span>
+        }
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var audio = cloudant.use('drone_audio');</span>
+<span class="cstat-no" title="statement not covered" >    audio.list({"descending": true, "include_docs": true, "limit": 1}, <span class="fstat-no" title="function not covered" >function (err, body) {</span></span>
+<span class="cstat-no" title="statement not covered" >        if (err) {</span>
+<span class="cstat-no" title="statement not covered" >            logger.error(err);</span>
+<span class="cstat-no" title="statement not covered" >            res.status(404).send("Internal error");</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >            if (body.rows[0] == undefined) {</span>
+<span class="cstat-no" title="statement not covered" >                res.status(404).send("No audio found in database");</span>
+<span class="cstat-no" title="statement not covered" >                return;</span>
+            }
+<span class="cstat-no" title="statement not covered" >            var filename = body.rows[0].id;</span>
+<span class="cstat-no" title="statement not covered" >            audio.attachment.get(filename, "audio", <span class="fstat-no" title="function not covered" >function (err, body) {</span></span>
+<span class="cstat-no" title="statement not covered" >                if (err) { // Would reflect data input error</span>
+<span class="cstat-no" title="statement not covered" >                    logger.error(err);</span>
+<span class="cstat-no" title="statement not covered" >                    res.status(404).send(err.message);</span>
+                } else {
+<span class="cstat-no" title="statement not covered" >                    res.set('Content-Type', 'audio/x-wav');</span>
+<span class="cstat-no" title="statement not covered" >                    res.send(body);</span>
+<span class="cstat-no" title="statement not covered" >                    logger.info("Sending 2 ");</span>
+                    // Cache response - need to append original filename?
+<span class="cstat-no" title="statement not covered" >                    fs.writeFile(uploadDir + filename, body, <span class="fstat-no" title="function not covered" >function (err) {</span></span>
+<span class="cstat-no" title="statement not covered" >                        if (err) {</span>
+<span class="cstat-no" title="statement not covered" >                            logger.error(err);</span>
+                        } else {
+<span class="cstat-no" title="statement not covered" >                            latestAudio = uploadDir + filename;</span>
+                        }
+                    });
+                }
+            });
+        }
+    });
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function serveSensorData(req, res) {</span>
+&nbsp;
+    // Get data from the database
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var timeFrom = parseInt(req.params.timeFrom) || 0;</span>
+<span class="cstat-no" title="statement not covered" >    var timeUntil = parseInt(req.params.timeUntil) || new Date().getTime();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var returnAll = true;</span>
+<span class="cstat-no" title="statement not covered" >    var query = {</span>
+        selector: {
+            "$and": [
+                {time: {"$gt": timeFrom}},
+                {time: {"$lt": timeUntil}}]
+        }
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var type = req.params.type;</span>
+<span class="cstat-no" title="statement not covered" >    if (type != undefined) {</span>
+<span class="cstat-no" title="statement not covered" >        returnAll = false;</span>
+<span class="cstat-no" title="statement not covered" >        query.fields = ['time', 'location', type];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var minVal = req.query.minVal;</span>
+<span class="cstat-no" title="statement not covered" >        if (minVal != undefined) {</span>
+<span class="cstat-no" title="statement not covered" >            query.selector.$and.push({[type]: {"$gt": parseFloat(minVal)}})</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var maxVal = req.query.maxVal;</span>
+<span class="cstat-no" title="statement not covered" >        if (maxVal != undefined) {</span>
+<span class="cstat-no" title="statement not covered" >            query.selector.$and.push({[type]: {"$lt": parseFloat(maxVal)}})</span>
+        }
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var maxDocs = req.query.maxDocs;</span>
+<span class="cstat-no" title="statement not covered" >    if (maxDocs === undefined){</span>
+<span class="cstat-no" title="statement not covered" >        maxDocs = 100;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    query.limit = maxDocs;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    logger.info(JSON.stringify(query));</span>
+<span class="cstat-no" title="statement not covered" >    cloudant.use("sensorlog").find(query, <span class="fstat-no" title="function not covered" >function(err, result){</span></span>
+<span class="cstat-no" title="statement not covered" >        if(err){</span>
+<span class="cstat-no" title="statement not covered" >            logger.error("[sensors.request] " + err);</span>
+<span class="cstat-no" title="statement not covered" >            res.status(500).send("Request error. Malformed?");</span>
+<span class="cstat-no" title="statement not covered" >            return;</span>
+        }
+<span class="cstat-no" title="statement not covered" >        if(result === undefined){</span>
+<span class="cstat-no" title="statement not covered" >            logger.info("Zero results found");</span>
+<span class="cstat-no" title="statement not covered" >            res.status(204).send("Empty return");</span>
+<span class="cstat-no" title="statement not covered" >            return;</span>
+        }
+<span class="cstat-no" title="statement not covered" >        if(returnAll) {</span>
+<span class="cstat-no" title="statement not covered" >            result.docs.forEach(<span class="fstat-no" title="function not covered" >function (doc) {</span></span>
+<span class="cstat-no" title="statement not covered" >                delete doc._id;</span>
+<span class="cstat-no" title="statement not covered" >                delete doc._rev;</span>
+&nbsp;
+            });
+        }
+<span class="cstat-no" title="statement not covered" >        logger.info("Discovered "+ result.docs.length + " documents");</span>
+<span class="cstat-no" title="statement not covered" >        var data = JSON.stringify(result.docs);</span>
+<span class="cstat-no" title="statement not covered" >        res.status(200).send(data);</span>
+    });
+&nbsp;
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function serveGPSData(req, res){</span>
+    // Get data from the database
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var timeFrom = parseInt(req.params.timeFrom) || 0;</span>
+<span class="cstat-no" title="statement not covered" >    var timeUntil = parseInt(req.params.timeUntil) || new Date().getTime();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var query = {</span>
+        selector: {
+            "$and": [
+                {time: {"$gt": timeFrom}},
+                {time: {"$lt": timeUntil}}]
+        }
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    logger.info(JSON.stringify(query));</span>
+<span class="cstat-no" title="statement not covered" >    cloudant.use("positionlog").find(query, <span class="fstat-no" title="function not covered" >function(err, result){</span></span>
+<span class="cstat-no" title="statement not covered" >        if(err){</span>
+<span class="cstat-no" title="statement not covered" >            logger.error("[position.request] " + err);</span>
+<span class="cstat-no" title="statement not covered" >            logger.error(JSON.stringify(query));</span>
+<span class="cstat-no" title="statement not covered" >            res.status(500).send("Request error. Malformed?");</span>
+<span class="cstat-no" title="statement not covered" >            return;</span>
+        }
+<span class="cstat-no" title="statement not covered" >        if(result === undefined){</span>
+<span class="cstat-no" title="statement not covered" >            res.status(204).send("Empty return");</span>
+<span class="cstat-no" title="statement not covered" >            return;</span>
+        }
+<span class="cstat-no" title="statement not covered" >        result.docs.forEach(<span class="fstat-no" title="function not covered" >function (doc) {</span></span>
+<span class="cstat-no" title="statement not covered" >            delete doc._id;</span>
+<span class="cstat-no" title="statement not covered" >            delete doc._rev;</span>
+&nbsp;
+        });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var data = JSON.stringify(result.docs);</span>
+<span class="cstat-no" title="statement not covered" >        res.status(200).send(data);</span>
+    });
+&nbsp;
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function serveImagesInformation(req, res){</span>
+<span class="cstat-no" title="statement not covered" >    cloudant.use('drone_images').list({}, <span class="fstat-no" title="function not covered" >function(err, response){</span></span>
+<span class="cstat-no" title="statement not covered" >        if(err){</span>
+<span class="cstat-no" title="statement not covered" >            logger.error(err);</span>
+<span class="cstat-no" title="statement not covered" >            res.status(500).send("Internal error.");</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >            response.rows.forEach(<span class="fstat-no" title="function not covered" >function(row){</span></span>
+<span class="cstat-no" title="statement not covered" >                delete row.value;</span>
+<span class="cstat-no" title="statement not covered" >                delete row.key;</span>
+            });
+<span class="cstat-no" title="statement not covered" >            res.status(200).send(response.rows);</span>
+        }
+    });
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function serveImage(req, res){</span>
+<span class="cstat-no" title="statement not covered" >    cloudant.use('drone_images').attachment.get(req.params.docID, "image", <span class="fstat-no" title="function not covered" >function(err, image){</span></span>
+<span class="cstat-no" title="statement not covered" >        if(err){</span>
+<span class="cstat-no" title="statement not covered" >            logger.error(err.description);</span>
+<span class="cstat-no" title="statement not covered" >            res.status(404).send("No image found");</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >            res.set('Content-Type', 'image/jpeg').status(200).send(image);</span>
+        }
+    });
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function serveAudioInformation(req, res){</span>
+<span class="cstat-no" title="statement not covered" >    cloudant.use('drone_audio').list({}, <span class="fstat-no" title="function not covered" >function(err, response){</span></span>
+<span class="cstat-no" title="statement not covered" >        if(err){</span>
+<span class="cstat-no" title="statement not covered" >            logger.error(err);</span>
+<span class="cstat-no" title="statement not covered" >            res.status(500).send("Internal error.");</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >            response.rows.forEach(<span class="fstat-no" title="function not covered" >function(row){</span></span>
+<span class="cstat-no" title="statement not covered" >                delete row.value;</span>
+<span class="cstat-no" title="statement not covered" >                delete row.key;</span>
+            });
+<span class="cstat-no" title="statement not covered" >            res.status(200).send(response.rows);</span>
+        }
+    });
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function serveAudio(req, res){</span>
+<span class="cstat-no" title="statement not covered" >    cloudant.use('drone_audio').attachment.get(req.params.docID, "audio", <span class="fstat-no" title="function not covered" >function(err, audio){</span></span>
+<span class="cstat-no" title="statement not covered" >        if(err){</span>
+<span class="cstat-no" title="statement not covered" >            logger.error(err.description);</span>
+<span class="cstat-no" title="statement not covered" >            res.status(404).send("No audio found");</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >            res.set('Content-Type', 'audio/x-wav').status(200).send(audio);</span>
+        }
+    });
+}
+&nbsp;
+//////////////// IBM Service Functionality //////////////
+<span class="fstat-no" title="function not covered" >function classifyImage(imageName, imagePath, body){</span>
+<span class="cstat-no" title="statement not covered" >    var imageFile = fs.createReadStream(imagePath);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var params = { images_file: imageFile };</span>
+<span class="cstat-no" title="statement not covered" >    var start = (new Date()).getTime();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    imageRecognition.classify(params, <span class="fstat-no" title="function not covered" >function(err, results){</span></span>
+<span class="cstat-no" title="statement not covered" >        if(err){</span>
+<span class="cstat-no" title="statement not covered" >            logger.error('[image.recognise]: ' + err);</span>
+        }else{
+<span class="cstat-no" title="statement not covered" >            logger.info("Recognition Duration: " + ((new Date()).getTime() - start));</span>
+<span class="cstat-no" title="statement not covered" >            var labels = results.images[0].scores;</span>
+<span class="cstat-no" title="statement not covered" >            var anyLabel = IandC.processImageLabels(labels,  body.time, {latitude:body.latitude, longitude:body.longitude});</span>
+            //logger.info("Image Recognised: " + anyLabel);
+        }
+    });
+}
+&nbsp;
+/*
+ function speechRecognition(audiofileName, audiofilePath, body){
+ logger.info("Received " + audiofilePath);
+&nbsp;
+ if(audiofilePath.endsWith(".mp3")){
+ convertMP3toWAV(audiofilePath);
+ audiofilePath = audiofilePath.replace(".mp3", ".wav");
+ }
+&nbsp;
+ logger.info(audiofilePath);
+&nbsp;
+ var params = {
+ audio: "file",
+ content_type:"audio/wav",
+ model:"en-US_BroadbandModel"
+ };
+&nbsp;
+&nbsp;
+ var file  = fs.createReadStream(audiofilePath);
+&nbsp;
+ logger.info(file);
+&nbsp;
+ speechToText.recognize(params, function(err, results){
+ if(err){
+ logger.error('[speech.recognise]: ' + err);
+ }else{
+ if(typeof results.results[0] == "undefined"){
+ return;
+ }
+ var transcript = results.results[0].alternatives[0].transcript;
+ var speechRecognised = IandC.processSpeechTranscript(transcript, body.time, body.location);
+ logger.info("Speech Recognised: " + speechRecognised);
+ if(speechRecognised){
+ analyseTone(transcript);
+ }
+ }
+ });
+ }
+ */
+&nbsp;
+<span class="fstat-no" title="function not covered" >function speechRecognition(audiofileName, audiofilePath, body) {</span>
+<span class="cstat-no" title="statement not covered" >    logger.info("Received " + audiofilePath);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if(audiofilePath.endsWith(".mp3")) {</span>
+<span class="cstat-no" title="statement not covered" >        convertMP3toWAV(audiofilePath, body, sendToSpeechRecognition);</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >        sendToSpeechRecognition(audiofilePath, body)</span>
+    }
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function sendToSpeechRecognition(audiofilePath, body) {</span>
+<span class="cstat-no" title="statement not covered" >    var imageFile = fs.createReadStream(audiofilePath);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var params = {</span>
+        audio: imageFile,
+        content_type: "audio/wav",
+        model: "en-US_BroadbandModel"
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    logger.info("Sending.. " + imageFile.path);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    speechToText.recognize(params, <span class="fstat-no" title="function not covered" >function(err, results){</span></span>
+<span class="cstat-no" title="statement not covered" >        if(err){</span>
+<span class="cstat-no" title="statement not covered" >            logger.error('[speech.recognise2]: ' + err);</span>
+        }else{
+<span class="cstat-no" title="statement not covered" >            if(typeof results.results[0] == "undefined"){</span>
+<span class="cstat-no" title="statement not covered" >                return;</span>
+            }
+<span class="cstat-no" title="statement not covered" >            var transcript = results.results[0].alternatives[0].transcript;</span>
+<span class="cstat-no" title="statement not covered" >            logger.info("Speech Recognised: " + transcript);</span>
+<span class="cstat-no" title="statement not covered" >            var speechRecognised = IandC.processSpeechTranscript(transcript, body.time, body.location);</span>
+<span class="cstat-no" title="statement not covered" >            if(speechRecognised){</span>
+<span class="cstat-no" title="statement not covered" >                analyseTone(transcript);</span>
+            }
+        }
+    });
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function analyseTone(transcript){</span>
+<span class="cstat-no" title="statement not covered" >    var params = {</span>
+        text: transcript
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    toneAnalysis.tone(params, <span class="fstat-no" title="function not covered" >function(err, results){</span></span>
+<span class="cstat-no" title="statement not covered" >        if(err){</span>
+<span class="cstat-no" title="statement not covered" >            logger.error('[speech.toneAnalysis]: ' + err);</span>
+        }else{
+<span class="cstat-no" title="statement not covered" >            logger.info(results.children);</span>
+        }
+    });
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function deviceStatusCallback(deviceType, deviceId, eventType, format, payload){</span>
+<span class="cstat-no" title="statement not covered" >    if(deviceId == "drone"){</span>
+<span class="cstat-no" title="statement not covered" >        processDroneUpdate(eventType, payload);</span>
+    }
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function processDroneUpdate(eventType, payload){</span>
+    // Depends on format of data we get etcccc
+<span class="cstat-no" title="statement not covered" >    switch(eventType){</span>
+        case "sensors":
+<span class="cstat-no" title="statement not covered" >            IandC.updateSensorReadings(JSON.parse(payload));</span>
+<span class="cstat-no" title="statement not covered" >            break;</span>
+        case "temperature":
+<span class="cstat-no" title="statement not covered" >            IandC.updateTemp(payload);</span>
+<span class="cstat-no" title="statement not covered" >            break;</span>
+        case "airPurity":
+<span class="cstat-no" title="statement not covered" >            IandC.updateAirPurity(payload);</span>
+<span class="cstat-no" title="statement not covered" >            break;</span>
+        case "position":
+<span class="cstat-no" title="statement not covered" >            IandC.updatePosition(payload);</span>
+<span class="cstat-no" title="statement not covered" >            break;</span>
+        case "ping":
+<span class="cstat-no" title="statement not covered" >            break;</span>
+        default:
+<span class="cstat-no" title="statement not covered" >            logger.info("Unknown eventType from drone: " + eventType);</span>
+    }
+}
+&nbsp;
+/////////////////// DashDB ////////////////////////
+&nbsp;
+var RoleEnum = Object.freeze({
+    ADMIN : 1,
+    USER : 2,
+    GUEST : 3
+});
+&nbsp;
+<span class="fstat-no" title="function not covered" >function checkUserCredentials(credentials, callback){</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var query = "SELECT * FROM USERS WHERE \"username\" = ?";</span>
+<span class="cstat-no" title="statement not covered" >        credentials.pass.replace(/\W/g, '');</span>
+<span class="cstat-no" title="statement not covered" >        var toReturn = {};</span>
+<span class="cstat-no" title="statement not covered" >        toReturn.valid = false;</span>
+<span class="cstat-no" title="statement not covered" >        dashDB.query(query, [credentials.name.replace(/\W/g, '')], <span class="fstat-no" title="function not covered" >function(err, response){</span></span>
+<span class="cstat-no" title="statement not covered" >            if(err){</span>
+<span class="cstat-no" title="statement not covered" >                logger.error("[users.select] " + err.message);</span>
+<span class="cstat-no" title="statement not covered" >                callback(toReturn);</span>
+            }
+<span class="cstat-no" title="statement not covered" >            if(response.length == 0){</span>
+<span class="cstat-no" title="statement not covered" >                logger.info("Invalid username or password");</span>
+<span class="cstat-no" title="statement not covered" >                callback(toReturn);</span>
+            } else { // only a single row
+<span class="cstat-no" title="statement not covered" >                logger.info("User " + credentials.name + " found");</span>
+                // Test password
+<span class="cstat-no" title="statement not covered" >                var salt = response[0].salt; </span>//.salt
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                var toCheck = crypto.createHash('sha256').update(credentials.pass + salt).digest('hex');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                if(response[0].password == toCheck){</span>
+<span class="cstat-no" title="statement not covered" >                    toReturn.valid = true;</span>
+<span class="cstat-no" title="statement not covered" >                    toReturn.username = response[0].username;</span>
+<span class="cstat-no" title="statement not covered" >                    toReturn.role = response[0].role;</span>
+<span class="cstat-no" title="statement not covered" >                    callback(toReturn);</span>
+                } else {
+<span class="cstat-no" title="statement not covered" >                    callback(toReturn);</span>
+                }
+            }
+        });
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function insertUserCredentials(req, res){</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var username = req.body.username;</span>
+<span class="cstat-no" title="statement not covered" >    var password = req.body.password;</span>
+<span class="cstat-no" title="statement not covered" >    var first_name = req.body.first_name || null;</span>
+<span class="cstat-no" title="statement not covered" >    var last_name = req.body.last_name || null;</span>
+<span class="cstat-no" title="statement not covered" >    var role = req.body.role || RoleEnum.GUEST;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (username === undefined || password === undefined){</span>
+<span class="cstat-no" title="statement not covered" >        res.send(400).send("Please POST 'username' and 'password' in JSON format")</span>
+<span class="cstat-no" title="statement not covered" >        return;</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var query = "INSERT INTO USERS VALUES (?, ?, ?, ?, ?, ?)";</span>
+<span class="cstat-no" title="statement not covered" >    var salt = crypto.randomBytes(4).toString('hex'); </span>//string of length 8
+<span class="cstat-no" title="statement not covered" >    var toAdd = crypto.createHash('sha256').update(password + salt).digest('hex');</span>
+<span class="cstat-no" title="statement not covered" >    dashDB.query(query, [username, first_name, last_name, salt, toAdd, role], <span class="fstat-no" title="function not covered" >function(err){</span></span>
+<span class="cstat-no" title="statement not covered" >        if(err) {</span>
+<span class="cstat-no" title="statement not covered" >            logger.error("Couldn't insert user: " + username);</span>
+<span class="cstat-no" title="statement not covered" >            logger.error(err.message);</span>
+<span class="cstat-no" title="statement not covered" >            res.status(400).send("Couldn't add user, username not unique?");</span>
+        } else{
+<span class="cstat-no" title="statement not covered" >            logger.info("User: " + username + " successfully added to database");</span>
+<span class="cstat-no" title="statement not covered" >            res.status(200).send("User " + username + " was successfully added");</span>
+        }
+    });
+&nbsp;
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function deleteUserCredentials(req, res){</span>
+<span class="cstat-no" title="statement not covered" >    var username = req.params.username;</span>
+&nbsp;
+    // Receive [] for success + failure..?
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var query = "DELETE FROM USERS WHERE \"username\" = ?";</span>
+<span class="cstat-no" title="statement not covered" >    dashDB.query(query, [username], <span class="fstat-no" title="function not covered" >function(err, response){</span></span>
+<span class="cstat-no" title="statement not covered" >        if(err) {</span>
+<span class="cstat-no" title="statement not covered" >            logger.error("Couldn't delete user: " + username);</span>
+<span class="cstat-no" title="statement not covered" >            logger.error(err.message);</span>
+<span class="cstat-no" title="statement not covered" >            res.status(400).send("Couldn't delete user");</span>
+        } else{
+<span class="cstat-no" title="statement not covered" >            logger.info("User: " + username + " successfully deleted from database. Maybe.");</span>
+<span class="cstat-no" title="statement not covered" >            res.status(200).send("User " + username + " was successfully deleted");</span>
+        }
+    });
+&nbsp;
+&nbsp;
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function insertDroneCredentials(credentials){</span>
+<span class="cstat-no" title="statement not covered" >    dashDB.open(dashDBCreds.ssldsn, <span class="fstat-no" title="function not covered" >function(err, connection){</span></span>
+<span class="cstat-no" title="statement not covered" >        if(err){</span>
+<span class="cstat-no" title="statement not covered" >            logger.error("Error connecting to SQL database");</span>
+<span class="cstat-no" title="statement not covered" >            logger.error(err.message);</span>
+<span class="cstat-no" title="statement not covered" >            return false;</span>
+        }
+<span class="cstat-no" title="statement not covered" >        var query = "INSERT INTO DRONE VALUES (?, ?, ?)";</span>
+<span class="cstat-no" title="statement not covered" >        connection.query(query, [credentials.number, credentials.name, credentials.owner], <span class="fstat-no" title="function not covered" >function(err){</span></span>
+<span class="cstat-no" title="statement not covered" >            if(err) {</span>
+<span class="cstat-no" title="statement not covered" >                logger.error("Couldn't insert drone: " + credentials.name);</span>
+<span class="cstat-no" title="statement not covered" >                return false;</span>
+            } else{
+<span class="cstat-no" title="statement not covered" >                logger.info("Drone: " + credentials.number + ":" + credentials.name + " successfully added to database");</span>
+<span class="cstat-no" title="statement not covered" >                return true;</span>
+            }
+        });
+&nbsp;
+    });
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function requireLogin (req, res, next) {</span>
+<span class="cstat-no" title="statement not covered" >    if (!req.session.user) {</span>
+<span class="cstat-no" title="statement not covered" >        res.redirect('/checkUserCredentials');</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >        next();</span>
+    }
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function serveUserInformation(req, res){</span>
+<span class="cstat-no" title="statement not covered" >        var error;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var query = "SELECT \"first_name\", \"last_name\", \"username\" FROM USERS WHERE \"username\" = ?";</span>
+<span class="cstat-no" title="statement not covered" >        dashDB.query(query, [req.params.username.replace(/\W/g, '')], <span class="fstat-no" title="function not covered" >function(err, response){</span></span>
+<span class="cstat-no" title="statement not covered" >            if(err){</span>
+<span class="cstat-no" title="statement not covered" >                logger.error("[users.select] " + err.message);</span>
+<span class="cstat-no" title="statement not covered" >                res.status(500).send("Server connection error");</span>
+            } else <span class="cstat-no" title="statement not covered" >if(response.length == 0){</span>
+<span class="cstat-no" title="statement not covered" >                res.status(404).send("User not found");</span>
+            } else {
+<span class="cstat-no" title="statement not covered" >                res.status(200).send(response[0]);</span>
+            }
+        });
+  
+}
+&nbsp;
+///////////   File Functions //////////////////
+<span class="fstat-no" title="function not covered" >function validateJPEG(filePath){</span>
+<span class="cstat-no" title="statement not covered" >    var buffer = readChunk.sync(filePath, 0, 12);</span>
+<span class="cstat-no" title="statement not covered" >    var type = imageType(buffer);</span>
+<span class="cstat-no" title="statement not covered" >    if(type == null){</span>
+<span class="cstat-no" title="statement not covered" >        logger.info("Not an image type: " + filePath);</span>
+<span class="cstat-no" title="statement not covered" >        return false;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if( (type.ext == 'jpg'||type.ext == 'jpeg') &amp;&amp; type.mime == 'image/jpeg' ){</span>
+<span class="cstat-no" title="statement not covered" >        return true;</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >        logger.info("Invalid image type: " + filePath);</span>
+<span class="cstat-no" title="statement not covered" >        return false;</span>
+    }
+&nbsp;
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function validateAudioFile(filePath){</span>
+<span class="cstat-no" title="statement not covered" >    var buffer = readChunk.sync(filePath, 0, 262);</span>
+<span class="cstat-no" title="statement not covered" >    var type = fileType(buffer);</span>
+<span class="cstat-no" title="statement not covered" >    if(type == null){</span>
+<span class="cstat-no" title="statement not covered" >        logger.info("Not a known file type: " + filePath);</span>
+<span class="cstat-no" title="statement not covered" >        return false;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if( type.ext == 'wav' &amp;&amp; (type.mime == 'audio/wav' || type.mime == 'audio/x-wav')) {</span>
+<span class="cstat-no" title="statement not covered" >        return true;</span>
+    } else <span class="cstat-no" title="statement not covered" >if (type.ext == 'mp3' &amp;&amp; type.mime == 'audio/mpeg') {</span>
+<span class="cstat-no" title="statement not covered" >        return true;</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >        logger.info("Invalid audio type: " + filePath + " " + type.mime);</span>
+<span class="cstat-no" title="statement not covered" >        return false;</span>
+    }
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function convertMP3toWAV(mp3File, body, sendToSpeechRecognition){</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var decoder = new lame.Decoder();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var mp3FileStream = fs.createReadStream(mp3File);</span>
+<span class="cstat-no" title="statement not covered" >    var wavFileStream = fs.createWriteStream(mp3File.replace(".mp3",".wav"));</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    decoder.on('format', <span class="fstat-no" title="function not covered" >function(format){</span></span>
+<span class="cstat-no" title="statement not covered" >        var writer = new wav.Writer(format);</span>
+<span class="cstat-no" title="statement not covered" >        decoder.pipe(writer).pipe(wavFileStream);</span>
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    mp3FileStream.pipe(decoder);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    decoder.on('finish', <span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >        logger.info("Converted file");</span>
+<span class="cstat-no" title="statement not covered" >        sendToSpeechRecognition(mp3File.replace(".mp3",".wav"), body);</span>
+    });
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function onFormat(format){</span>
+<span class="cstat-no" title="statement not covered" >        var writer = new wav.Writer(format);</span>
+<span class="cstat-no" title="statement not covered" >        decoder.pipe(writer).pipe(wavFileStream);</span>
+    }
+&nbsp;
+}
+&nbsp;
+&nbsp;
+&nbsp;
+// Test service directly
+<span class="fstat-no" title="function not covered" >function testSpeechRecognition(fileName, res){</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var file  = fs.createReadStream(fileName);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var params = {</span>
+        audio: file,
+        content_type:"audio/wav",
+        model:"en-US_BroadbandModel"
+    };
+<span class="cstat-no" title="statement not covered" >    var start = (new Date()).getTime();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    speechToText.recognize(params, <span class="fstat-no" title="function not covered" >function(err, results){</span></span>
+<span class="cstat-no" title="statement not covered" >        if(err){</span>
+<span class="cstat-no" title="statement not covered" >            logger.error('[speech.recognise]: ' + err);</span>
+        }else{
+<span class="cstat-no" title="statement not covered" >            if(! results.results){</span>
+<span class="cstat-no" title="statement not covered" >                return;</span>
+            }
+<span class="cstat-no" title="statement not covered" >            logger.info("Speech Recognition Duration: " + ((new Date()).getTime() - start));</span>
+<span class="cstat-no" title="statement not covered" >            var transcript = results.results[0].alternatives[0].transcript;</span>
+<span class="cstat-no" title="statement not covered" >            res.status(200).send(transcript);</span>
+        }
+    });
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function testImageRecognition(imagePath, res, body){</span>
+<span class="cstat-no" title="statement not covered" >    var file = fs.createReadStream(imagePath);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var params = { images_file: file };</span>
+<span class="cstat-no" title="statement not covered" >    var start = (new Date()).getTime();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    imageRecognition.classify(params, <span class="fstat-no" title="function not covered" >function(err, results){</span></span>
+<span class="cstat-no" title="statement not covered" >        if(err){</span>
+<span class="cstat-no" title="statement not covered" >            logger.error('[image.recognise]: ' + err);</span>
+        }else{
+<span class="cstat-no" title="statement not covered" >            logger.info("Image Recognition Duration: " + ((new Date()).getTime() - start));</span>
+<span class="cstat-no" title="statement not covered" >            var labels = results.images[0].scores;</span>
+<span class="cstat-no" title="statement not covered" >            res.status(200).send(labels[0]);</span>
+        }
+    });
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function createIndexes(databaseName, field) {</span>
+<span class="cstat-no" title="statement not covered" >    var database = cloudant.use(databaseName);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var index = {</span>
+        name : field,
+        type : 'json',
+        ddoc : 'indexDesignDoc',
+        index : {
+            fields : [field]
+        }
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    database.index(index, <span class="fstat-no" title="function not covered" >function(err, response){</span></span>
+<span class="cstat-no" title="statement not covered" >        if(err){</span>
+<span class="cstat-no" title="statement not covered" >            logger.error("Error " + err);</span>
+<span class="cstat-no" title="statement not covered" >            return;</span>
+        }
+<span class="cstat-no" title="statement not covered" >        logger.info(response.result)</span>
+    });
+}
+&nbsp;
+module.exports = {
+    requireLogin : requireLogin,
+    RoleEnum : RoleEnum,
+    cloudant : {
+        insertImageIntoDatebase : insertImageIntoDatabase,
+        deleteImageFromDatabase : deleteImageFromDatabase,
+        insertSpeechIntoDatabase : insertSpeechIntoDatabase,
+        deleteAudioFromDatabase : deleteAudioFromDatabase,
+        retrieveLatestImage : retrieveLatestImage,
+        serveSensorData : serveSensorData,
+        serveGPSData : serveGPSData,
+        serveImagesInformation : serveImagesInformation,
+        serveImage : serveImage,
+        serveAudioInformation : serveAudioInformation,
+        serveAudio : serveAudio,
+        retrieveLatestAudio : retrieveLatestAudio,
+        handleAudioUpload : handleAudioUpload,
+        handleImageUpload : handleImageUpload
+    },
+    sql : {
+        checkUserCredentials: checkUserCredentials,
+        insertUserCredentials : insertUserCredentials,
+        deleteUserCredentials : deleteUserCredentials,
+        serveUserInformation : serveUserInformation
+    }
+};</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon May 09 2016 12:13:03 GMT+0100 (GMT Daylight Time)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

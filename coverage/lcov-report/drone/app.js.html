@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for drone\app.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">drone/</a> app.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">48.57% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>34/70</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">14.29% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>2/14</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">9.09% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/11</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">48.57% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>34/70</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">	/*eslint-env node*/
+&nbsp;
+	var express = require('express');
+	var bodyParser = require('body-parser');
+	var multer = require('multer');
+	var findRemoveSync = require('find-remove');
+	var fs = require ('fs');
+	var cfenv = require('cfenv');
+	var auth = require('basic-auth');
+	var session = require('client-sessions');
+	var lame = require ('lame');
+	var wav = require('wav');
+&nbsp;
+	var logger = require('./lib/logger.js');
+&nbsp;
+	var checkUserCredentials = require('./lib/functions.js').sql.checkUserCredentials;
+	
+	var uploadDir = "uploads/";
+&nbsp;
+	var app = express();
+	app.use(bodyParser.json());
+	app.use(bodyParser.urlencoded({ extended: true }));
+&nbsp;
+&nbsp;
+	// Get the app environment from Cloud Foundry
+	var appEnv = cfenv.getAppEnv();
+&nbsp;
+	////////////////////////////////////////////////////
+&nbsp;
+&nbsp;
+	// serve the files out of ./public as our static files
+	app.use(express.static(__dirname + '/documentation'));
+&nbsp;
+	app.use(session({
+		cookieName: 'session',
+		secret: 'JFuqTUOPdRNtYHc0c4Yx',
+		duration: 30 * 60 * 1000,
+		activeDuration: 5 * 60 * 1000
+	}));
+&nbsp;
+	//app.use('/api/', router);
+&nbsp;
+	var router2 = require('./lib/router.js');
+	app.use('/api/', router2);
+&nbsp;
+	/*
+	app.enable('trust proxy');
+&nbsp;
+	// Add a handler to inspect the req.secure flag (see
+	// http://expressjs.com/api#req.secure). This allows us
+	// to know whether the request was via http or https.
+	app.use (function (req, res, next) {
+		if (req.secure) {
+			// request was via https, so do no special handling
+			logger.info("hi");
+			next();
+		} else {
+			// request was via http, so redirect to https
+			logger.info("hi2");
+			var x = 'https://' + req.headers.host + req.url;
+			logger.info(x);
+			res.redirect('https://' + req.headers.host + req.url);
+		}
+	});
+	*/
+&nbsp;
+&nbsp;
+	////////// REST FUNCTIONS ////////////////////
+&nbsp;
+	app.post('/login', <span class="fstat-no" title="function not covered" >function(req, res) {</span>
+<span class="cstat-no" title="statement not covered" >		var creds = auth(res);</span>
+<span class="cstat-no" title="statement not covered" >		if (!creds) {</span>
+<span class="cstat-no" title="statement not covered" >			res.status(400).send("Please provide username and password.\n");</span>
+		} else <span class="cstat-no" title="statement not covered" >if (creds.name == req.session.user){</span>
+<span class="cstat-no" title="statement not covered" >			res.status(200).send("Already logged in");</span>
+		} else {
+<span class="cstat-no" title="statement not covered" >			checkUserCredentials(creds, <span class="fstat-no" title="function not covered" >function(response){</span></span>
+<span class="cstat-no" title="statement not covered" >				if (response.valid){</span>
+<span class="cstat-no" title="statement not covered" >					req.session.user = response.username;</span>
+<span class="cstat-no" title="statement not covered" >					req.session.role = response.role;</span>
+<span class="cstat-no" title="statement not covered" >					res.status(200).send("Logged in successfully.\n");</span>
+				} else{
+<span class="cstat-no" title="statement not covered" >					res.status(403).send("Invalid username or password\n");</span>
+				}
+			});
+		}
+	});
+&nbsp;
+	app.get('/login', <span class="fstat-no" title="function not covered" >function(req, res){</span>
+<span class="cstat-no" title="statement not covered" >		res.status(200).send("Please login by POSTing username and password.\n");</span>
+	});
+&nbsp;
+&nbsp;
+	app.get('/testAudio', <span class="fstat-no" title="function not covered" >function(req, res){</span>
+<span class="cstat-no" title="statement not covered" >		testSpeechRecognition('test/sampleFiles/testAudio.wav', res);</span>
+	});
+&nbsp;
+	app.get('/testImage', <span class="fstat-no" title="function not covered" >function(req, res){</span>
+<span class="cstat-no" title="statement not covered" >		testImageRecognition('test/sampleFiles/testImage.jpg', res);</span>
+	});
+&nbsp;
+&nbsp;
+&nbsp;
+	////////////// Caching/Performance Improvement ///
+&nbsp;
+	var latestImage = "";
+	var latestAudio = "";
+&nbsp;
+&nbsp;
+	// Clean up uploads
+	setInterval(<span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >		logger.info("Checking "+ __dirname + '/' + uploadDir);</span>
+<span class="cstat-no" title="statement not covered" >		var removed = findRemoveSync(__dirname + '/' + uploadDir, {age: {seconds: 3600}});</span>
+	}, 3600000);
+&nbsp;
+&nbsp;
+	// Start server on the specified port and binding host
+	var port = process.env.VCAP_APP_PORT || 8080;
+	app.listen(port, function() {
+		logger.info("server starting on " + appEnv.url + " port " + port);
+	});
+&nbsp;
+&nbsp;
+	module.exports = app;
+&nbsp;
+	/////////////////// Internal Functions /////////////
+&nbsp;
+	/////////////////// DashDB ////////////////////////
+&nbsp;
+&nbsp;
+	// Test service directly
+<span class="fstat-no" title="function not covered" >	function testSpeechRecognition(fileName, res){</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >		var file  = fs.createReadStream(fileName);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >		var params = {</span>
+			audio: file,
+			content_type:"audio/wav",
+			model:"en-US_BroadbandModel"
+		};
+<span class="cstat-no" title="statement not covered" >		var start = (new Date()).getTime();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >		speechToText.recognize(params, <span class="fstat-no" title="function not covered" >function(err, results){</span></span>
+<span class="cstat-no" title="statement not covered" >			if(err){</span>
+<span class="cstat-no" title="statement not covered" >				logger.error('[speech.recognise]: ' + err);</span>
+			}else{
+<span class="cstat-no" title="statement not covered" >				if(! results.results){</span>
+<span class="cstat-no" title="statement not covered" >					return;</span>
+				}
+<span class="cstat-no" title="statement not covered" >				logger.info("Speech Recognition Duration: " + ((new Date()).getTime() - start));</span>
+<span class="cstat-no" title="statement not covered" >				var transcript = results.results[0].alternatives[0].transcript;</span>
+<span class="cstat-no" title="statement not covered" >				res.status(200).send(transcript);</span>
+			}
+		});
+	}
+&nbsp;
+<span class="fstat-no" title="function not covered" >	function testImageRecognition(imagePath, res, body){</span>
+<span class="cstat-no" title="statement not covered" >		var file = fs.createReadStream(imagePath);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >		var params = { images_file: file };</span>
+<span class="cstat-no" title="statement not covered" >		var start = (new Date()).getTime();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >		imageRecognition.classify(params, <span class="fstat-no" title="function not covered" >function(err, results){</span></span>
+<span class="cstat-no" title="statement not covered" >			if(err){</span>
+<span class="cstat-no" title="statement not covered" >				logger.error('[image.recognise]: ' + err);</span>
+			}else{
+<span class="cstat-no" title="statement not covered" >				logger.info("Image Recognition Duration: " + ((new Date()).getTime() - start));</span>
+<span class="cstat-no" title="statement not covered" >				var labels = results.images[0].scores;</span>
+<span class="cstat-no" title="statement not covered" >				res.status(200).send(labels[0]);</span>
+			}
+		});
+	}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon May 09 2016 12:13:03 GMT+0100 (GMT Daylight Time)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>
