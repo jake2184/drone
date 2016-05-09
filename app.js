@@ -87,7 +87,8 @@
 	});
 
 	app.get('/login', function(req, res){
-		res.status(200).send("Please login by POSTing username and password.\n");
+		res.status(200).send(JSON.stringify(req));
+		//res.status(200).send("Please login by POSTing username and password.\n");
 	});
 
 
