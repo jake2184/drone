@@ -43,9 +43,9 @@
 	var router2 = require('./lib/router.js');
 	app.use('/api/', router2);
 
-	/*
-	app.enable('trust proxy');
 
+	app.enable('trust proxy');
+/*
 	// Add a handler to inspect the req.secure flag (see
 	// http://expressjs.com/api#req.secure). This allows us
 	// to know whether the request was via http or https.
@@ -87,7 +87,7 @@
 	});
 
 	app.get('/login', function(req, res){
-		res.status(200).send(JSON.stringify(req));
+		res.status(200).send(req.secure);
 		//res.status(200).send("Please login by POSTing username and password.\n");
 	});
 
