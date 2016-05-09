@@ -29,7 +29,7 @@
 
 
 	// serve the files out of ./public as our static files
-	app.use(express.static(__dirname + '/documentation'));
+	app.use(express.static(__dirname + '/public'));
 
 	app.use(session({
 		cookieName: 'session',

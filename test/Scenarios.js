@@ -61,7 +61,7 @@ describe('Scenario Testing', function(){
                 assert(mqttHandler.sendCommand.calledOnce, "MQTT Command not sent");
                 done();
             });
-        })
+        });
         it('should be triggered by poor air quality', function(done){
             mqttHandler.sendCommand.reset();
             IandC.setMode("Normal");
@@ -72,7 +72,8 @@ describe('Scenario Testing', function(){
                 altitude: 100,
                 location: [51.485138, -0.18775]
             };
-            IandC.updateSensorReadings(sensorReadings);
+            //IandC.updateSensorReadings(sensorReadings);
+            
             getModeNameWithDelay(function (result) {
                 assert.equal(result, "Fire", "Modes do not match");
                 assert(mqttHandler.sendCommand.calledOnce, "MQTT Command not sent");
