@@ -11,6 +11,7 @@
 	var lame = require ('lame');
 	var wav = require('wav');
 
+
 	var logger = require('./lib/logger.js');
 
 	var checkUserCredentials = require('./lib/functions.js').sql.checkUserCredentials;
@@ -21,6 +22,7 @@
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({ extended: true }));
 
+	var expressWs = require('express-ws')(app);
 
 	// Get the app environment from Cloud Foundry
 	var appEnv = cfenv.getAppEnv();
@@ -38,30 +40,53 @@
 		activeDuration: 5 * 60 * 1000
 	}));
 
-	//app.use('/api/', router);
+	var router = require('./lib/router.js');
 
-	var router2 = require('./lib/router.js');
-	app.use('/api/', router2);
-
-
-	app.enable('trust proxy');
-/*
-	// Add a handler to inspect the req.secure flag (see
-	// http://expressjs.com/api#req.secure). This allows us
-	// to know whether the request was via http or https.
-	*/
-	app.use (function (req, res, next) {
-		if (req.secure) {
-			// request was via https, so do no special handling
-			logger.info("Request for " + req.url);
-			next();
-		} else {
-			// request was via http, so redirect to https
-			var x = 'https://' + req.headers.host + req.url;
-			logger.info("Redirecting to " + x);
-			res.redirect('https://' + req.headers.host + req.url);
-		}
+	router.ws('/audio/stream/listen', function(ws, req){
+		console.log("listener");
+		ws.send("Successfully listening");
 	});
+
+	router.ws('/audio/stream/upload', function(ws, req){
+		ws.send("Successfully connected");
+
+		ws.on('message', function(msg){
+			console.log("Got");
+			var clients = expressWs.getWss().clients;
+			console.log(clients.length + " listeneers");
+			for(var i = 0; i < clients.length; i++){
+
+				if(clients[i].upgradeReq.originalUrl.indexOf("listen") > -1){
+					console.log("Sending to client");
+					clients[i].send(msg);
+				}
+			}
+		});
+	});
+
+
+	app.use('/api/', router);
+
+
+
+	// app.enable('trust proxy');
+    //
+	// // Add a handler to inspect the req.secure flag (see
+	// // http://expressjs.com/api#req.secure). This allows us
+	// // to know whether the request was via http or https.
+	// */
+	// app.use (function (req, res, next) {
+	// 	if (req.secure) {
+	// 		// request was via https, so do no special handling
+	// 		logger.info("Request for " + req.url);
+	// 		next();
+	// 	} else {
+	// 		// request was via http, so redirect to https
+	// 		var x = 'https://' + req.headers.host + req.url;
+	// 		logger.info("Redirecting to " + x);
+	// 		res.redirect('https://' + req.headers.host + req.url);
+	// 	}
+	// });
 
 
 
@@ -87,8 +112,7 @@
 	});
 
 	app.get('/login', function(req, res){
-		res.status(200).send(req.secure);
-		//res.status(200).send("Please login by POSTing username and password.\n");
+		res.status(200).send("Please login by POSTing username and password.\n");
 	});
 
 
@@ -104,6 +128,5 @@
 	app.listen(port, function() {
 		logger.info("server starting on " + appEnv.url + " port " + port);
 	});
-
 
 	module.exports = app;
