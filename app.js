@@ -49,20 +49,22 @@
 	// Add a handler to inspect the req.secure flag (see
 	// http://expressjs.com/api#req.secure). This allows us
 	// to know whether the request was via http or https.
+	*/
 	app.use (function (req, res, next) {
 		if (req.secure) {
 			// request was via https, so do no special handling
-			logger.info("hi");
+			//logger.info("hi");
+			console.log("hi");
 			next();
 		} else {
 			// request was via http, so redirect to https
-			logger.info("hi2");
+			console.log("hi2");
 			var x = 'https://' + req.headers.host + req.url;
-			logger.info(x);
+			console.log(x);
 			res.redirect('https://' + req.headers.host + req.url);
 		}
 	});
-	*/
+
 
 
 	////////// REST FUNCTIONS ////////////////////
