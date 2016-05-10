@@ -25,16 +25,22 @@ describe('Scenario Testing', function(){
     };
 
     var IandC = new iandc(mqttHandler, cloudant);
+    
+    function getModeNameWithDelay(callback){
+        setTimeout(function(){
+            callback(IandC.getModeName())
+        }, 1100);
+    }
 
     describe("Fire", function () {
-        function getModeNameWithDelay(callback){
-            setTimeout(function(){
-                callback(IandC.getModeName())
-            }, 1100);
-        }
+
+        beforeEach(function(done){
+            IandC.reset();
+            mqttHandler.sendCommand.reset();
+            done();
+        });
 
         it('should be triggered by images', function(done){
-            IandC.setMode("Normal");
             var fire = [{name:"Wild_Fire", score:0.8}, {name:"Rainbow", score:0.53}];
             IandC.processImageLabels(fire, new Date().getTime(), [10, 10]);
 
@@ -46,8 +52,6 @@ describe('Scenario Testing', function(){
         });
 
         it('should be triggered by high temperature', function(done){
-            mqttHandler.sendCommand.reset();
-            IandC.setMode("Normal");
             var sensorReadings = {
                 time: new Date().getTime(),
                 temperature: 100,
@@ -63,8 +67,6 @@ describe('Scenario Testing', function(){
             });
         });
         it('should be triggered by poor air quality', function(done){
-            mqttHandler.sendCommand.reset();
-            IandC.setMode("Normal");
             var sensorReadings = {
                 time: new Date().getTime(),
                 temperature: 20,
@@ -72,7 +74,7 @@ describe('Scenario Testing', function(){
                 altitude: 100,
                 location: [51.485138, -0.18775]
             };
-            //IandC.updateSensorReadings(sensorReadings);
+            IandC.updateSensorReadings(sensorReadings);
             
             getModeNameWithDelay(function (result) {
                 assert.equal(result, "Fire", "Modes do not match");
@@ -84,6 +86,36 @@ describe('Scenario Testing', function(){
 
     describe("Person", function () {
 
+        beforeEach(function(done){
+            IandC.reset();
+            mqttHandler.sendCommand.reset();
+            done();
+        });
+        
+        it('should be triggered by image label above single threshold', function(done){
+            var person = [{name:"Adult", score:0.8}, {name:"Rainbow", score:0.53}];
+            IandC.processImageLabels(person, new Date().getTime(), [10, 10]);
+
+            getModeNameWithDelay(function (result) {
+                assert.equal(result, "Interact", "Modes do not match");
+                assert(mqttHandler.sendCommand.calledTwice, "MQTT Command not sent");
+                done();
+            });
+        });
+        it('should be triggered by image labels above lower threshold ', function(done){
+            var person = [
+                {name:"Adult", score:0.7},
+                {name:"Female_Adult", score:0.65},
+                {name:"Human", score:0.79}
+            ];
+            IandC.processImageLabels(person, new Date().getTime(), [10, 10]);
+
+            getModeNameWithDelay(function (result) {
+                assert.equal(result, "Interact", "Modes do not match");
+                assert(mqttHandler.sendCommand.calledTwice, "MQTT Command not sent");
+                done();
+            });
+        });
     });
 
 

@@ -7,9 +7,9 @@
   <component name="ChangeListManager">
     <list default="true" id="d29ee594-5367-4f8e-8370-d3d13e0b5770" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/functions.js" afterPath="$PROJECT_DIR$/lib/functions.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/logger.js" afterPath="$PROJECT_DIR$/lib/logger.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/router.js" afterPath="$PROJECT_DIR$/lib/router.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/drone_interpret_and_control/drone_interpret_and_control.js" afterPath="$PROJECT_DIR$/lib/drone_interpret_and_control/drone_interpret_and_control.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/normal.js" afterPath="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/normal.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/Scenarios.js" afterPath="$PROJECT_DIR$/test/Scenarios.js" />
     </list>
     <ignored path="drone.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -52,11 +52,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="router.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="router.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/lib/router.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="5372">
-                  <caret line="316" column="58" selection-start-line="316" selection-start-column="58" selection-end-line="316" selection-end-column="58" />
+                <state relative-caret-position="306">
+                  <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -253,6 +253,60 @@
               </provider>
             </entry>
           </file>
+          <file leaf-file-name="drone_interpret_and_control.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/drone_interpret_and_control.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="800">
+                  <caret line="260" column="37" selection-start-line="260" selection-start-column="37" selection-end-line="260" selection-end-column="37" />
+                  <folding>
+                    <element signature="e#449#772#0" expanded="false" />
+                    <element signature="n#!!block;n#InterpretAndControl#0" expanded="false" />
+                    <element signature="e#1236#1275#0" expanded="false" />
+                    <element signature="e#1336#2244#0" expanded="false" />
+                    <element signature="e#1383#1463#0" expanded="false" />
+                    <element signature="e#1596#1642#0" expanded="false" />
+                    <element signature="e#1683#2242#0" expanded="false" />
+                    <element signature="n#!!block;n#testCategoryThreshold#0" expanded="false" />
+                    <element signature="e#2372#2693#0" expanded="false" />
+                    <element signature="e#2414#2687#0" expanded="false" />
+                    <element signature="e#2458#2502#0" expanded="false" />
+                    <element signature="e#2542#2594#0" expanded="false" />
+                    <element signature="e#2633#2677#0" expanded="false" />
+                    <element signature="e#2782#4528#0" expanded="false" />
+                    <element signature="e#2859#2972#0" expanded="false" />
+                    <element signature="e#3055#3105#0" expanded="false" />
+                    <element signature="e#3135#3370#0" expanded="false" />
+                    <element signature="e#3178#3364#0" expanded="false" />
+                    <element signature="e#3196#3287#0" expanded="false" />
+                    <element signature="e#3298#3353#0" expanded="false" />
+                    <element signature="e#3490#3528#0" expanded="false" />
+                    <element signature="e#3652#3694#0" expanded="false" />
+                    <element signature="e#3709#3737#0" expanded="false" />
+                    <element signature="e#4178#4302#0" expanded="false" />
+                    <element signature="e#4246#4296#0" expanded="false" />
+                    <element signature="e#4311#4492#0" expanded="false" />
+                    <element signature="e#4357#4401#0" expanded="false" />
+                    <element signature="e#4442#4486#0" expanded="false" />
+                    <element signature="e#4510#4526#0" expanded="false" />
+                    <element signature="e#4616#5021#0" expanded="false" />
+                    <element signature="e#4690#4827#0" expanded="false" />
+                    <element signature="e#4727#4757#0" expanded="false" />
+                    <element signature="e#4873#4941#0" expanded="false" />
+                    <element signature="e#5117#5303#0" expanded="false" />
+                    <element signature="e#5161#5225#0" expanded="false" />
+                    <element signature="e#5610#6552#0" expanded="false" />
+                    <element signature="e#5653#5992#0" expanded="false" />
+                    <element signature="e#6064#6171#0" expanded="false" />
+                    <element signature="e#6204#6307#0" expanded="false" />
+                    <element signature="e#6339#6440#0" expanded="false" />
+                    <element signature="e#6556#7262#0" expanded="false" />
+                    <element signature="e#7310#7345#0" expanded="false" />
+                    <element signature="e#7405#7538#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
           <file leaf-file-name="MqttHandler.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/lib/MqttHandler.js">
               <provider selected="true" editor-type-id="text-editor">
@@ -277,11 +331,11 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="RestApi.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="RestApi.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/test/RestApi.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="306">
-                  <caret line="248" column="8" selection-start-line="248" selection-start-column="8" selection-end-line="248" selection-end-column="8" />
+                <state relative-caret-position="-424">
+                  <caret line="249" column="23" selection-start-line="249" selection-start-column="23" selection-end-line="249" selection-end-column="23" />
                   <folding>
                     <element signature="e#323#731#0" expanded="false" />
                     <element signature="e#372#432#0" expanded="false" />
@@ -371,6 +425,26 @@
               </provider>
             </entry>
           </file>
+          <file leaf-file-name="Scenarios.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/test/Scenarios.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="732">
+                  <caret line="120" column="0" selection-start-line="120" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="normal.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/normal.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="578">
+                  <caret line="44" column="46" selection-start-line="44" selection-start-column="46" selection-end-line="44" selection-end-column="46" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
           <file leaf-file-name="base.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/base.js">
               <provider selected="true" editor-type-id="text-editor">
@@ -448,12 +522,9 @@
         <option value="$PROJECT_DIR$/test/Unit Testing.js" />
         <option value="internal/net.js" />
         <option value="internal/freelist.js" />
-        <option value="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/normal.js" />
         <option value="$PROJECT_DIR$/lib/drone_interpret_and_control/ibm_services.js" />
         <option value="$PROJECT_DIR$/lib/ibm_services.js" />
         <option value="$PROJECT_DIR$/test/RestApi.js" />
-        <option value="$PROJECT_DIR$/lib/drone_interpret_and_control/drone_interpret_and_control.js" />
-        <option value="$PROJECT_DIR$/test/Scenarios.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/interact.js" />
@@ -461,6 +532,9 @@
         <option value="$PROJECT_DIR$/lib/logger.js" />
         <option value="$PROJECT_DIR$/lib/functions.js" />
         <option value="$PROJECT_DIR$/lib/router.js" />
+        <option value="$PROJECT_DIR$/lib/drone_interpret_and_control/drone_interpret_and_control.js" />
+        <option value="$PROJECT_DIR$/test/Scenarios.js" />
+        <option value="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/normal.js" />
       </list>
     </option>
   </component>
@@ -645,7 +719,7 @@
       <recent name="$PROJECT_DIR$/lib/drone_interpret_and_control" />
     </key>
   </component>
-  <component name="RunManager" selected="Mocha.Test">
+  <component name="RunManager" selected="Mocha.Scenario Testing">
     <configuration default="false" name="Routing" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -658,55 +732,6 @@
       <test-file>$PROJECT_DIR$/test/RestApi.js</test-file>
       <test-names>
         <name value="Routing" />
-      </test-names>
-      <method />
-    </configuration>
-    <configuration default="false" name="Routing.User Endpoints" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <envs />
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>SUITE</test-kind>
-      <test-file>$PROJECT_DIR$/test/RestApi.js</test-file>
-      <test-names>
-        <name value="Routing" />
-        <name value="User Endpoints" />
-      </test-names>
-      <method />
-    </configuration>
-    <configuration default="false" name="Routing.Audio Endpoints.POST /api/audio/:docID should accept valid audio" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <envs />
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>TEST</test-kind>
-      <test-file>$PROJECT_DIR$/test/RestApi.js</test-file>
-      <test-names>
-        <name value="Routing" />
-        <name value="Audio Endpoints" />
-        <name value="POST /api/audio/:docID should accept valid audio" />
-      </test-names>
-      <method />
-    </configuration>
-    <configuration default="false" name="Routing.Image Endpoints" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <envs />
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>SUITE</test-kind>
-      <test-file>$PROJECT_DIR$/test/RestApi.js</test-file>
-      <test-names>
-        <name value="Routing" />
-        <name value="Image Endpoints" />
       </test-names>
       <method />
     </configuration>
@@ -723,6 +748,54 @@
       <test-names>
         <name value="Routing" />
         <name value="Audio Endpoints" />
+      </test-names>
+      <method />
+    </configuration>
+    <configuration default="false" name="Scenario Testing" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>SUITE</test-kind>
+      <test-file>$PROJECT_DIR$/test/Scenarios.js</test-file>
+      <test-names>
+        <name value="Scenario Testing" />
+      </test-names>
+      <method />
+    </configuration>
+    <configuration default="false" name="Scenario Testing.Fire.should be triggered by images" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>TEST</test-kind>
+      <test-file>$PROJECT_DIR$/test/Scenarios.js</test-file>
+      <test-names>
+        <name value="Scenario Testing" />
+        <name value="Fire" />
+        <name value="should be triggered by images" />
+      </test-names>
+      <method />
+    </configuration>
+    <configuration default="false" name="Scenario Testing.Person" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>SUITE</test-kind>
+      <test-file>$PROJECT_DIR$/test/Scenarios.js</test-file>
+      <test-names>
+        <name value="Scenario Testing" />
+        <name value="Person" />
       </test-names>
       <method />
     </configuration>
@@ -866,18 +939,18 @@
       <item index="2" class="java.lang.String" itemvalue="Node.js.App" />
       <item index="3" class="java.lang.String" itemvalue="Node.js.Test" />
       <item index="4" class="java.lang.String" itemvalue="Mocha.Routing" />
-      <item index="5" class="java.lang.String" itemvalue="Mocha.Routing.User Endpoints" />
-      <item index="6" class="java.lang.String" itemvalue="Mocha.Routing.Audio Endpoints.POST /api/audio/:docID should accept valid audio" />
-      <item index="7" class="java.lang.String" itemvalue="Mocha.Routing.Image Endpoints" />
-      <item index="8" class="java.lang.String" itemvalue="Mocha.Routing.Audio Endpoints" />
+      <item index="5" class="java.lang.String" itemvalue="Mocha.Routing.Audio Endpoints" />
+      <item index="6" class="java.lang.String" itemvalue="Mocha.Scenario Testing" />
+      <item index="7" class="java.lang.String" itemvalue="Mocha.Scenario Testing.Fire.should be triggered by images" />
+      <item index="8" class="java.lang.String" itemvalue="Mocha.Scenario Testing.Person" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Mocha.Routing.Audio Endpoints" />
-        <item index="1" class="java.lang.String" itemvalue="Mocha.Routing" />
-        <item index="2" class="java.lang.String" itemvalue="Mocha.Routing.Image Endpoints" />
-        <item index="3" class="java.lang.String" itemvalue="Mocha.Routing.Audio Endpoints.POST /api/audio/:docID should accept valid audio" />
-        <item index="4" class="java.lang.String" itemvalue="Mocha.Routing.User Endpoints" />
+        <item index="0" class="java.lang.String" itemvalue="Mocha.Scenario Testing" />
+        <item index="1" class="java.lang.String" itemvalue="Mocha.Scenario Testing.Person" />
+        <item index="2" class="java.lang.String" itemvalue="Mocha.Scenario Testing.Fire.should be triggered by images" />
+        <item index="3" class="java.lang.String" itemvalue="Mocha.Routing.Audio Endpoints" />
+        <item index="4" class="java.lang.String" itemvalue="Mocha.Routing" />
       </list>
     </recent_temporary>
     <configuration name="&lt;template&gt;" type="JUnit" default="true" selected="false">
@@ -967,35 +1040,35 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Test - 2016.05.09 at 12h 58m 40s.xml">
-      <configuration name="Test" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="Scenario_Testing - 2016.05.10 at 18h 31m 38s.xml">
+      <configuration name="Scenario Testing" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="Test - 2016.05.09 at 13h 00m 08s.xml">
-      <configuration name="Test" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="Scenario_Testing - 2016.05.10 at 18h 31m 58s.xml">
+      <configuration name="Scenario Testing" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="Test - 2016.05.10 at 10h 18m 07s.xml">
-      <configuration name="Test" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="Scenario_Testing - 2016.05.10 at 18h 32m 12s.xml">
+      <configuration name="Scenario Testing" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="Test - 2016.05.10 at 10h 20m 12s.xml">
-      <configuration name="Test" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="Scenario_Testing - 2016.05.10 at 18h 35m 17s.xml">
+      <configuration name="Scenario Testing" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="Test - 2016.05.10 at 10h 21m 17s.xml">
-      <configuration name="Test" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="Scenario_Testing - 2016.05.10 at 18h 35m 39s.xml">
+      <configuration name="Scenario Testing" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="Test - 2016.05.10 at 10h 21m 38s.xml">
-      <configuration name="Test" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="Scenario_Testing - 2016.05.10 at 18h 47m 41s.xml">
+      <configuration name="Scenario Testing" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="Test - 2016.05.10 at 17h 30m 12s.xml">
-      <configuration name="Test" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="Scenario_Testing_Person - 2016.05.10 at 18h 27m 56s.xml">
+      <configuration name="Scenario Testing.Person" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="Test - 2016.05.10 at 17h 30m 40s.xml">
-      <configuration name="Test" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="Scenario_Testing_Person - 2016.05.10 at 18h 28m 08s.xml">
+      <configuration name="Scenario Testing.Person" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="Test - 2016.05.10 at 17h 34m 10s.xml">
-      <configuration name="Test" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="Scenario_Testing_Person - 2016.05.10 at 18h 28m 55s.xml">
+      <configuration name="Scenario Testing.Person" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="Test - 2016.05.10 at 17h 34m 51s.xml">
-      <configuration name="Test" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="Scenario_Testing_Person - 2016.05.10 at 18h 30m 37s.xml">
+      <configuration name="Scenario Testing.Person" configurationId="mocha-javascript-test-runner" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
@@ -1019,7 +1092,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="false" show_stripe_button="true" weight="1.0" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="2880" y="0" width="960" height="1040" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="false" show_stripe_button="true" weight="1.0" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="1920" y="0" width="960" height="1040" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1065,7 +1138,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="getSensorData correctly queries the (now indexed) database of sensor data. &#10;" />
     <MESSAGE value="Added sensorIndexing, and changed mode sensor logging" />
     <MESSAGE value="Added sending of mqtt message when image received - push notification" />
     <MESSAGE value="Added api router. Works for querying sensor data, gps data, and images.&#10;&#10;/api/images&#10;/api/sensors&#10;/api/gps" />
@@ -1090,14 +1162,15 @@
     <MESSAGE value="Added websocket endpoint to API to allow audio streaming (upload and download)." />
     <MESSAGE value="&#10;f" />
     <MESSAGE value="Further documentation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Further documentation" />
+    <MESSAGE value="Neated router" />
+    <option name="LAST_COMMIT_MESSAGE" value="Neated router" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="144" />
+      <option name="time" value="151" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1249,13 +1322,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/normal.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="40" selection-start-line="3" selection-start-column="40" selection-end-line="3" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Temp/modules.uml" />
     <entry file="file://$PROJECT_DIR$/node_modules/supertest/lib/test.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -1268,21 +1334,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/drone_interpret_and_control.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="121" column="4" selection-start-line="121" selection-start-column="4" selection-end-line="121" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/Scenarios.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1191">
-          <caret line="75" column="12" selection-start-line="75" selection-start-column="12" selection-end-line="75" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1383,14 +1434,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="783">
           <caret line="126" column="4" selection-start-line="126" selection-start-column="4" selection-end-line="126" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ibm_services.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
           <folding />
         </state>
       </provider>
@@ -1608,6 +1651,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ibm_services.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/router.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/interact.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -1618,8 +1677,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test/RestApi.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="248" column="8" selection-start-line="248" selection-start-column="8" selection-end-line="248" selection-end-column="8" />
+        <state relative-caret-position="-424">
+          <caret line="249" column="23" selection-start-line="249" selection-start-column="23" selection-end-line="249" selection-end-column="23" />
           <folding>
             <element signature="e#323#731#0" expanded="false" />
             <element signature="e#372#432#0" expanded="false" />
@@ -1688,10 +1747,70 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/router.js">
+    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/drone_interpret_and_control.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5372">
-          <caret line="316" column="58" selection-start-line="316" selection-start-column="58" selection-end-line="316" selection-end-column="58" />
+        <state relative-caret-position="800">
+          <caret line="260" column="37" selection-start-line="260" selection-start-column="37" selection-end-line="260" selection-end-column="37" />
+          <folding>
+            <element signature="e#449#772#0" expanded="false" />
+            <element signature="n#!!block;n#InterpretAndControl#0" expanded="false" />
+            <element signature="e#1236#1275#0" expanded="false" />
+            <element signature="e#1336#2244#0" expanded="false" />
+            <element signature="e#1383#1463#0" expanded="false" />
+            <element signature="e#1596#1642#0" expanded="false" />
+            <element signature="e#1683#2242#0" expanded="false" />
+            <element signature="n#!!block;n#testCategoryThreshold#0" expanded="false" />
+            <element signature="e#2372#2693#0" expanded="false" />
+            <element signature="e#2414#2687#0" expanded="false" />
+            <element signature="e#2458#2502#0" expanded="false" />
+            <element signature="e#2542#2594#0" expanded="false" />
+            <element signature="e#2633#2677#0" expanded="false" />
+            <element signature="e#2782#4528#0" expanded="false" />
+            <element signature="e#2859#2972#0" expanded="false" />
+            <element signature="e#3055#3105#0" expanded="false" />
+            <element signature="e#3135#3370#0" expanded="false" />
+            <element signature="e#3178#3364#0" expanded="false" />
+            <element signature="e#3196#3287#0" expanded="false" />
+            <element signature="e#3298#3353#0" expanded="false" />
+            <element signature="e#3490#3528#0" expanded="false" />
+            <element signature="e#3652#3694#0" expanded="false" />
+            <element signature="e#3709#3737#0" expanded="false" />
+            <element signature="e#4178#4302#0" expanded="false" />
+            <element signature="e#4246#4296#0" expanded="false" />
+            <element signature="e#4311#4492#0" expanded="false" />
+            <element signature="e#4357#4401#0" expanded="false" />
+            <element signature="e#4442#4486#0" expanded="false" />
+            <element signature="e#4510#4526#0" expanded="false" />
+            <element signature="e#4616#5021#0" expanded="false" />
+            <element signature="e#4690#4827#0" expanded="false" />
+            <element signature="e#4727#4757#0" expanded="false" />
+            <element signature="e#4873#4941#0" expanded="false" />
+            <element signature="e#5117#5303#0" expanded="false" />
+            <element signature="e#5161#5225#0" expanded="false" />
+            <element signature="e#5610#6552#0" expanded="false" />
+            <element signature="e#5653#5992#0" expanded="false" />
+            <element signature="e#6064#6171#0" expanded="false" />
+            <element signature="e#6204#6307#0" expanded="false" />
+            <element signature="e#6339#6440#0" expanded="false" />
+            <element signature="e#6556#7262#0" expanded="false" />
+            <element signature="e#7310#7345#0" expanded="false" />
+            <element signature="e#7405#7538#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/Scenarios.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="732">
+          <caret line="120" column="0" selection-start-line="120" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/normal.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="44" column="46" selection-start-line="44" selection-start-column="46" selection-end-line="44" selection-end-column="46" />
           <folding />
         </state>
       </provider>
