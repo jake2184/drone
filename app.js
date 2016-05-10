@@ -10,6 +10,7 @@
 	var session = require('client-sessions');
 	var lame = require ('lame');
 	var wav = require('wav');
+	var https=require('https');
 
 
 	var logger = require('./lib/logger.js');
@@ -44,20 +45,19 @@
 
 	router.ws('/audio/stream/listen', function(ws, req){
 		console.log("listener");
-		ws.send("Successfully listening");
+		//ws.send("Successfully listening");
+		logger.info("AGENCY    " + req.agent + " " + req.session.user);
 	});
 
 	router.ws('/audio/stream/upload', function(ws, req){
 		ws.send("Successfully connected");
 
 		ws.on('message', function(msg){
-			console.log("Got");
 			var clients = expressWs.getWss().clients;
-			console.log(clients.length + " listeneers");
+			console.log(clients.length + " listeners");
 			for(var i = 0; i < clients.length; i++){
 
 				if(clients[i].upgradeReq.originalUrl.indexOf("listen") > -1){
-					console.log("Sending to client");
 					clients[i].send(msg);
 				}
 			}
@@ -123,10 +123,11 @@
 	}, 3600000);
 
 
+	module.exports = app;
+	
 	// Start server on the specified port and binding host
 	var port = process.env.VCAP_APP_PORT || 8080;
 	app.listen(port, function() {
 		logger.info("server starting on " + appEnv.url + " port " + port);
 	});
 
-	module.exports = app;
