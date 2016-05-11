@@ -10,10 +10,79 @@ var server = require('../app.js');
 
 
 describe('Routing', function(){
+    before(function (done) {
+        var dirPath = './uploads';
+        try {
+            var files = fs.readdirSync(dirPath);
+        }
+        catch (e) {
+            done();
+            return;
+        }
+        if (files.length > 0) {
+            for (var i = 0; i < files.length; i++) {
+                var filePath = dirPath + '/' + files[i];
+                fs.unlinkSync(filePath);
+            }
+        }
+        done();
+    });
+    function loginAdmin(done){
+        request(server)
+            .post('/login')
+            .auth('jake','pass')
+            .expect(200)
+            .end(function(err, res){
+                if(err){
+                    throw err;
+                }
+                cookie = res.headers['set-cookie'].pop().split(';')[0];
+                done();
+            });
+    }
+    function loginGuest(done){
+        request(server)
+            .post('/login')
+            .auth('guest','guest')
+            .expect(200)
+            .end(function(err, res){
+                if(err){
+                    throw err;
+                }
+                cookie = res.headers['set-cookie'].pop().split(';')[0];
+                done();
+            });
+    }
 
+    function asGuest(callback){
+        request(server)
+            .post('/login')
+            .auth('guest','guest')
+            .expect(200)
+            .end(function(err, res){
+                if(err){
+                    throw err;
+                }
+                cookie = res.headers['set-cookie'].pop().split(';')[0];
+                callback();
+            });
+    }
 
-    this.timeout(5000);
-
+    function asAdmin(callback){
+        request(server)
+            .post('/login')
+            .auth('jake','pass')
+            .expect(200)
+            .end(function(err, res){
+                if(err){
+                    throw err;
+                }
+                cookie = res.headers['set-cookie'].pop().split(';')[0];
+                callback();
+            });
+    }
+    
+    this.timeout(20000);
     var cookie;
 
     describe("Website", function (){
@@ -42,10 +111,8 @@ describe('Routing', function(){
             request(server)
                 .get('/api/')
                 .expect(302)
-                .end(function(err){
-                    if(err){throw err;}
-                    done();
-                });
+                .expect('location', '/login')
+                .end(done);
         });
         it('should not allow empty login', function(done){
             request(server)
@@ -81,22 +148,26 @@ describe('Routing', function(){
                 });
         });
         it('should allow access to secure URIs post login', function(done){
-            request(server)
-                .get('/api/sensors/' + new Date().getTime())
-                .set('cookie', cookie)
-                .expect(200)
-                .end(function (err) {
-                    if (err) {
-                        throw err;
-                    }
-                    done();
-                });
+            asAdmin(function() {
+                    request(server)
+                        .get('/api/sensors/' + new Date().getTime())
+                        .set('cookie', cookie)
+                        .expect(200)
+                        .end(function (err) {
+                            if (err) {
+                                throw err;
+                            }
+                            done();
+                        });
+                }
+            );
         })
 
     });
 
     describe("Path param checking", function(){
-       it('should detect when timeFrom is not a number', function(done) {
+        beforeEach(loginAdmin);
+        it('should detect when timeFrom is not a number', function(done) {
             request(server)
                 .get('/api/sensors/' + "notANumber")
                 .set('cookie', cookie)
@@ -111,6 +182,7 @@ describe('Routing', function(){
     });
 
     describe("Sensor Endpoints", function(){
+        beforeEach(loginAdmin);
         it('should return data from a set point', function(done){
             request(server)
                 .get('/api/sensors/' + (new Date().getTime() - 10000))
@@ -132,6 +204,7 @@ describe('Routing', function(){
     });
 
     describe("Image Endpoints", function() {
+        beforeEach(loginAdmin);
         var time = new Date().getTime();
         it('GET /api/images should return imageFile list', function(done){
             request(server)
@@ -141,15 +214,22 @@ describe('Routing', function(){
                 .expect('Content-Type', 'application/json; charset=utf-8')
                 .end(done);
         });
-        
         it('POST /api/images/:docID should accept valid image', function (done){
-          var req = request(server)
+          request(server)
                .post('/api/images/' + time)
                .send({time:time, location:[50,50]})
                .attach('image', 'test/sampleFiles/testImage.jpg')
                .set('cookie', cookie)
                .expect(200)
                .end(done);
+        });
+        it('GET /api/images/:docID should return image', function(done){
+           request(server)
+               .get('/api/images/' + time)
+               .set('cookie', cookie)
+               .expect(200)
+               .expect('Content-Type', 'image/jpeg')
+               .end(done)
         });
         it('DELETE /api/images should delete image', function(done){
             request(server)
@@ -167,18 +247,18 @@ describe('Routing', function(){
                 .end(done);
         });
         it('should cache POST to /api/images', function (done){
-          request(server)
-              .get('/api/images/latest')
-              .set('cookie', cookie)
-              .expect(200)
-              .end(function (err, res) {
-                  if (err) {
-                      throw err;
-                  }
-                  var file = fs.readFileSync('test/sampleFiles/testImage.jpg');
-                  var equal = buffEq(res.body, file);
-                  should(equal).ok;
-                  done();
+            request(server)
+                .get('/api/images/latest')
+                .set('cookie', cookie)
+                .expect(200)
+                .end(function (err, res) {
+                if (err) {
+                  throw err;
+                }
+                var file = fs.readFileSync('test/sampleFiles/testImage.jpg');
+                var equal = buffEq(res.body, file);
+                should(equal).ok;
+                done();
               });
         });
         it('should reject invalid file upload', function(done){
@@ -192,6 +272,7 @@ describe('Routing', function(){
    });
 
     describe("Audio Endpoints", function(){
+        beforeEach(loginAdmin);
         var time = new Date().getTime();
         it('GET /api/audio should return audioFile list', function(done){
             request(server)
@@ -201,15 +282,22 @@ describe('Routing', function(){
                 .expect('Content-Type', 'application/json; charset=utf-8')
                 .end(done);
         });
-
         it('POST /api/audio/:docID should accept valid audio', function (done){
             var req = request(server)
                 .post('/api/audio/' + time)
                 .send({time:time, location:[50,50]})
-                .attach('audio', 'test/sampleFiles/testAudio.wav')
+                .attach('audio', 'test/sampleFiles/testAudio.mp3')
                 .set('cookie', cookie)
                 .expect(200)
                 .end(done);
+        });
+        it('GET /api/audio/:docID should return audio', function(done){
+            request(server)
+                .get('/api/audio/' + time)
+                .set('cookie', cookie)
+                .expect(200)
+                .expect('Content-Type', 'audio/x-wav')
+                .end(done)
         });
         it('DELETE /api/audio should delete audio', function(done){
             request(server)
@@ -234,9 +322,19 @@ describe('Routing', function(){
                 .expect(400)
                 .end(done);
         });
+        it('user cannot DELETE audio', function(done){
+            asGuest(function(){
+                request(server)
+                    .delete('/api/audio/' + time)
+                    .set('cookie', cookie)
+                    .expect(401)
+                    .end(done)
+            });
+        });
     });
 
     describe("GPS Endpoints", function(){
+        beforeEach(loginAdmin);
         it('should return data from a set point', function(done){
             request(server)
                 .get('/api/gps/' + (new Date().getTime() - 10000))
@@ -252,6 +350,7 @@ describe('Routing', function(){
    });
 
     describe("User Endpoints", function(){
+        beforeEach(loginAdmin);
         it('user can query own information', function(done){
            request(server)
                .get('/api/users/jake')
@@ -265,7 +364,17 @@ describe('Routing', function(){
                    done()
                })
         });
-        it('admin can add new user', function(done){
+
+        it('user cannot query other users information', function(done){
+            asGuest(function(){
+                request(server)
+                    .get('/api/users/jake')
+                    .set('cookie', cookie)
+                    .expect(401)
+                    .end(done)
+            });
+        });
+        it('admin can add new user and login', function(done){
             var newUser = {
                 username:"__testUser__",
                 password:"pass",
@@ -277,9 +386,13 @@ describe('Routing', function(){
                 .set('cookie', cookie)
                 .send(newUser)
                 .expect(200)
-                .end(done);
-            
-            
+                .end(function(){
+                    request(server)
+                        .post('/login')
+                        .auth('__testUser__', 'pass')
+                        .expect(200)
+                        .end(done);
+                });
         });
         it('admin can delete user', function(done){
             request(server)
@@ -325,5 +438,23 @@ describe('Routing', function(){
         })
     });
 */
+
+    after(function (done) {
+        var dirPath = './uploads';
+        try {
+            var files = fs.readdirSync(dirPath);
+        }
+        catch (e) {
+            done();
+            return;
+        }
+        if (files.length > 0) {
+            for (var i = 0; i < files.length; i++) {
+                var filePath = dirPath + '/' + files[i];
+                fs.unlinkSync(filePath);
+            }
+        }
+        done();
+    });
 
 });

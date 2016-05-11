@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for drone\lib\drone_interpret_and_control\drone_interpret_and_control.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">drone/lib/drone_interpret_and_control/</a> drone_interpret_and_control.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">87.36% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>76/87</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">62.16% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>23/37</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">77.78% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>7/9</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">87.36% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>76/87</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27×</span>
+<span class="cline-any cline-yes">27×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&nbsp;
+&nbsp;
+//var Client = require('ibmiotf');
+var ModeNormal = require('./modes/normal');
+var ModeInteract = require('./modes/interact');
+var ModeFire = require('./modes/fire');
+var ModeAvoidance = require('./modes/avoidance');
+var logger = require('winston');
+&nbsp;
+&nbsp;
+&nbsp;
+// Image Labels
+const Fire = "Fire";
+const Person = "Person";
+const Building = "Building";
+const Explosion = "Explosion";
+const Normal = "Normal";
+const Smoke = "Smoke";
+&nbsp;
+&nbsp;
+&nbsp;
+function InterpretAndControl(MQTT, cloudant){
+    this.cloudant = cloudant;
+    this.MQTT = MQTT;
+&nbsp;
+    this.currentMode = new ModeNormal(this.cloudant, this.MQTT);
+&nbsp;
+&nbsp;
+    this.modeFactors = {};
+    this.modeFactors.sensorReadings = {};
+    this.modeFactors.imageLabels = {};
+    //this.modeFactors.push({"imageLabels": []  });
+&nbsp;
+    setInterval(this.determineModeGlobal, 1000, this)
+&nbsp;
+}
+&nbsp;
+InterpretAndControl.prototype.getModeName = function(){
+    return this.currentMode.name();
+};
+&nbsp;
+InterpretAndControl.prototype.setMode = function(modeType){
+&nbsp;
+    if (modeType == this.currentMode.name()){
+        logger.info("mode: " + this.currentMode.name());
+        return;
+    }
+    logger.info("Setting mode " + modeType);
+    var timeNow = new Date().getTime();
+&nbsp;
+    if (timeNow - this.lastModeChange &lt; 3000) {
+        logger.info("Mode thrashing?")
+    }
+&nbsp;
+    this.lastModeChange = timeNow;
+    switch(modeType){
+        case Normal:
+            this.currentMode = new ModeNormal(this.cloudant, this.MQTT);
+            break;
+        case Fire:
+            this.currentMode = new ModeFire(this.cloudant, this.MQTT);
+            break;
+        case "Interact":
+            this.currentMode = new ModeInteract(this.cloudant, this.MQTT);
+            break;
+        case "Avoidance":
+            this.currentMode = new ModeAvoidance(this.cloudant, this.MQTT);
+            break;
+<span class="branch-4 cbranch-no" title="branch not covered" >        default:</span>
+<span class="cstat-no" title="statement not covered" >            console.error("No known mode: " + modeType);</span>
+    }
+};
+&nbsp;
+InterpretAndControl.prototype.determineModeGlobal = function(IandC){
+&nbsp;
+&nbsp;
+    <span class="missing-if-branch" title="if path not taken" >I</span>if(IandC.modeFactors.imageLabels.time &lt; new Date().getTime() - 10000){
+<span class="cstat-no" title="statement not covered" >        delete IandC.modeFactors.imageLabels.time;</span>
+<span class="cstat-no" title="statement not covered" >        delete IandC.modeFactors.imageLabels.keywords;</span>
+    }
+    var labels = IandC.modeFactors.imageLabels.keywords;
+&nbsp;
+    if(labels != undefined) {
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (labels[Fire] &gt;= 0.8 || labels["Wild_Fire"] &gt;= 0.8) {
+            IandC.setMode(Fire);
+        } else <span class="cstat-no" title="statement not covered" >if (labels[Person] &gt;= 0.8) {</span>
+<span class="cstat-no" title="statement not covered" >            IandC.setMode(Person);</span>
+        } else <span class="cstat-no" title="statement not covered" >if (labels[Fire] &gt;= 0.6 &amp;&amp; labels[Smoke] &gt;= 0.6) {</span>
+<span class="cstat-no" title="statement not covered" >            IandC.setMode(Fire);</span>
+        }
+    }
+&nbsp;
+&nbsp;
+    var sensors = IandC.modeFactors.sensorReadings;
+&nbsp;
+    for(var attribute in sensors){
+        <span class="missing-if-branch" title="if path not taken" >I</span>if(sensors[attribute].time &lt; new Date().getTime() - 10000){
+<span class="cstat-no" title="statement not covered" >            delete sensors[attribute];</span>
+        }
+    }
+    try {
+        if (sensors.temperature.value &gt; 60) {
+            IandC.setMode(Fire);
+        } else <span class="missing-if-branch" title="else path not taken" >E</span>if (sensors.airPurity.value &gt; 500) {
+            IandC.setMode(Fire);
+        }
+    } catch (TypeError){
+        
+    }
+};
+&nbsp;
+InterpretAndControl.prototype.processImageLabels = function(keywords, time, location){
+    var neatenedKeywords = {};
+&nbsp;
+    for(var i=0; i&lt;keywords.length; i++){
+        if(keywords[i].score &lt; 0.6){
+            break;
+        }
+        neatenedKeywords[keywords[i].name] = keywords[i].score;
+    }
+    
+    
+    this.modeFactors.imageLabels = {
+        'time' : time,
+        'keywords' : neatenedKeywords
+    };
+&nbsp;
+    this.currentMode.handleImageLabels(keywords, parseInt(time), location);
+};
+&nbsp;
+InterpretAndControl.prototype.processSpeechTranscript = <span class="fstat-no" title="function not covered" >function (transcript, time, location){</span>
+<span class="cstat-no" title="statement not covered" >    this.currentMode["audioTranscript"] = {</span>
+        'time' : time,
+        'transcript' : transcript
+    };
+<span class="cstat-no" title="statement not covered" >    this.currentMode.handleSpeechTranscript(transcript, time, location);</span>
+};
+&nbsp;
+&nbsp;
+&nbsp;
+InterpretAndControl.prototype.updateSensorReadings = function(sensorReadings){
+    //logger.info("Received sensors");
+    /*
+    this.modeFactors["sensorReadings"] = {
+        'time' : sensorReadings["time"],
+        'temperature' : sensorReadings["temperature"],
+        'airPurity' : sensorReadings["airPurity"],
+        'position' :{
+            altitude : sensorReadings["altitude"],
+            location : sensorReadings["location"]
+        }
+    };
+    */
+&nbsp;
+    var time = sensorReadings.time;
+    <span class="missing-if-branch" title="else path not taken" >E</span>if(sensorReadings.temperature){
+        this.modeFactors.sensorReadings.temperature = {time:time, value:sensorReadings.temperature}
+    }
+    <span class="missing-if-branch" title="else path not taken" >E</span>if(sensorReadings.airPurity){
+        this.modeFactors.sensorReadings.airPurity = {time:time, value:sensorReadings.airPurity}
+    }
+    <span class="missing-if-branch" title="else path not taken" >E</span>if(sensorReadings.altitude){
+        this.modeFactors.sensorReadings.altitude = {time:time, value:sensorReadings.altitude}
+    }
+&nbsp;
+&nbsp;
+&nbsp;
+    // Let current mode handle the recent reading
+    //this.currentMode.handleTemp(sensorReadings["temperature"], sensorReadings["time"], sensorReadings["location"]);
+    //this.currentMode.handleAirPurity(sensorReadings["airPurity"], sensorReadings["time"], sensorReadings["location"]);
+    //this.currentMode.handlePosition(sensorReadings["altitude"], sensorReadings["time"], sensorReadings["location"]);
+    this.currentMode.handleSensorReadings(sensorReadings);
+};
+&nbsp;
+&nbsp;
+/*
+InterpretAndControl.prototype.updateTemp = function(tempPayload){
+    this.modeFactors["temperature"] = tempPayload;
+    this.currentMode.handleTemp(tempPayload["temperature"], tempPayload["time"], tempPayload["location"]);
+};
+&nbsp;
+InterpretAndControl.prototype.updateAirPurity = function(airPayload){
+    this.modeFactors["airPurity"] = airPayload;
+    this.currentMode.handleAirPurity(airPayload["airPurity"], airPayload["time"], airPayload["location"]);
+};
+&nbsp;
+InterpretAndControl.prototype.updatePosition = function(positionPayload){
+    this.modeFactors["position"] = positionPayload;
+    this.currentMode.handlePosition(positionPayload["altitude"], positionPayload["time"], positionPayload["GPS"]);
+};
+*/
+InterpretAndControl.prototype.test = <span class="fstat-no" title="function not covered" >function(){</span>
+<span class="cstat-no" title="statement not covered" >    this.currentMode.test()    </span>
+};
+&nbsp;
+InterpretAndControl.prototype.sendImageAlert = function(){
+    var data = {"text": "New image uploaded."};
+    this.MQTT.sendEvent("node", "server", "image", "json", JSON.stringify(data));
+};
+&nbsp;
+module.exports = InterpretAndControl;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon May 09 2016 12:54:20 GMT+0100 (GMT Daylight Time)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>
