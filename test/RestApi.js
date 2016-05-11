@@ -419,27 +419,26 @@ describe('Routing', function(){
                 .send(newDrone)
                 .set('cookie', cookie)
                 .expect(200)
-                .end(function(err, res){
-                    done();
-                });
+                .end(done);
          });
         it('user can delete drone', function(done){
             request(server)
                 .delete('/api/drones/testDrone')
                 .set('cookie', cookie)
                 .expect(200)
-                .end(function(err, res){
-                    done();
-                });
+                .end(done);
         });
 
         it('user can query own drone information', function(done){
             request(server)
-                .get('/api/drones/jake')
+                .get('/api/drones')
                 .set('cookie', cookie)
                 .expect(200)
                 .expect('Content-Type', 'application/json; charset=utf-8')
                 .end(function(err, res){
+                    if(err){
+                        throw err;
+                    }
                     res.body[0].should.have.property('model');
                     res.body[0].should.have.property('name');
                     res.body[0].should.have.property('owner');
