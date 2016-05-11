@@ -40,6 +40,7 @@ describe('Routing', function(){
                 done();
             });
     }
+    
     function loginGuest(done){
         request(server)
             .post('/login')
@@ -82,7 +83,7 @@ describe('Routing', function(){
             });
     }
     
-    this.timeout(20000);
+    this.timeout(10000);
     var cookie;
 
     describe("Website", function (){
@@ -403,6 +404,51 @@ describe('Routing', function(){
                 
         });
 
+    });
+
+    describe("Drone Endpoints", function(){
+        beforeEach(loginAdmin);
+         it('user can add drone', function(done){
+            var newDrone = {
+                "name":"testDrone",
+                "model":"px4",
+                "owner":"jake"
+            };
+             request(server)
+                .post('/api/drones')
+                .send(newDrone)
+                .set('cookie', cookie)
+                .expect(200)
+                .end(function(err, res){
+                    done();
+                });
+         });
+        it('user can delete drone', function(done){
+            request(server)
+                .delete('/api/drones/testDrone')
+                .set('cookie', cookie)
+                .expect(200)
+                .end(function(err, res){
+                    done();
+                });
+        });
+
+        it('user can query own drone information', function(done){
+            request(server)
+                .get('/api/drones/jake')
+                .set('cookie', cookie)
+                .expect(200)
+                .expect('Content-Type', 'application/json; charset=utf-8')
+                .end(function(err, res){
+                    res.body[0].should.have.property('model');
+                    res.body[0].should.have.property('name');
+                    res.body[0].should.have.property('owner');
+                    res.body[0].owner.should.equal("jake");
+                    done()
+                })
+        });
+    
+        
     });
 
 /*

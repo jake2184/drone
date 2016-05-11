@@ -103,6 +103,7 @@
 				if (response.valid){
 					req.session.user = response.username;
 					req.session.role = response.role;
+					req.session.drones = response.drones;
 					res.status(200).send("Logged in successfully.\n");
 				} else{
 					res.status(403).send("Invalid username or password\n");
@@ -111,6 +112,27 @@
 		}
 	});
 
+	
+	function loginUser (req, res) {
+		var creds = auth(res);
+		if (!creds) {
+			res.status(400).send("Please provide username and password.\n");
+		} else if (creds.name == req.session.user){
+			res.status(200).send("Already logged in");
+		} else {
+			checkUserCredentials(creds, function(response){
+				if (response.valid){
+					req.session.user = response.username;
+					req.session.role = response.role;
+					res.status(200).send("Logged in successfully.\n");
+				} else{
+					res.status(403).send("Invalid username or password\n");
+				}
+			});
+		}
+	}
+	
+	
 	app.get('/login', function(req, res){
 		res.status(200).send("Please login by POSTing username and password.\n");
 	});
