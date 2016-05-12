@@ -43,13 +43,9 @@
 
 	var router = require('./lib/router.js');
 
-	router.ws('/audio/stream/listen', function(ws, req){
-		console.log("listener");
-		//ws.send("Successfully listening");
-		logger.info("AGENCY    " + req.agent + " " + req.session.user);
-	});
+	
 
-	router.ws('/audio/stream/upload', function(ws, req){
+	router.ws('/:dronename/audio/stream/upload', function(ws, req){
 		ws.send("Successfully connected");
 
 		ws.on('message', function(msg){
@@ -64,12 +60,28 @@
 		});
 	});
 
+	router.ws('/:dronename/audio/stream/talk', function(ws, req){
+		ws.send("Successfully connected");
+
+		ws.on('message', function(msg){
+			var clients = expressWs.getWss().clients;
+			console.log(clients.length + " listeners");
+			for(var i = 0; i < clients.length; i++){
+
+				if(clients[i].upgradeReq.originalUrl.indexOf("download") > -1){
+					clients[i].send(msg);
+				}
+			}
+		});
+	});
+
+
 
 	app.use('/api/', router);
 
 
 
-	// app.enable('trust proxy');
+	app.enable('trust proxy');
     //
 	// // Add a handler to inspect the req.secure flag (see
 	// // http://expressjs.com/api#req.secure). This allows us

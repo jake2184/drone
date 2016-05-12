@@ -5,6 +5,8 @@ var request = require('supertest');
 var fs = require('fs');
 var sizeof = require('object-sizeof');
 var buffEq = require ('buffer-equal');
+var WebSocket = require('nodejs-websocket');
+
 
 var server = require('../app.js');
 
@@ -111,28 +113,19 @@ describe('Routing', function(){
         it('should be prevented from using secure URIs before login', function(done){
             request(server)
                 .get('/api/')
-                .expect(302)
                 .expect('location', '/login')
-                .end(done);
+                .expect(302, done)
         });
         it('should not allow empty login', function(done){
             request(server)
                 .post('/login')
-                .expect(400)
-                .end(function(err){
-                    if(err){throw err;}
-                    done();
-                });
+                .expect(400, done);
         });
         it('should not allow invalid login', function(done){
             request(server)
                 .post('/login')
                 .auth('pink','trees')
-                .expect(403)
-                .end(function(err){
-                    if(err){throw err;}
-                    done();
-                });
+                .expect(403, done);
         });
 
         it('should allow valid login', function(done){
@@ -150,16 +143,10 @@ describe('Routing', function(){
         });
         it('should allow access to secure URIs post login', function(done){
             asAdmin(function() {
-                    request(server)
-                        .get('/api/sensors/' + new Date().getTime())
-                        .set('cookie', cookie)
-                        .expect(200)
-                        .end(function (err) {
-                            if (err) {
-                                throw err;
-                            }
-                            done();
-                        });
+                request(server)
+                    .get('/api/pixhack/sensors/' + new Date().getTime())
+                    .set('cookie', cookie)
+                    .expect(200, done);
                 }
             );
         })
@@ -170,13 +157,19 @@ describe('Routing', function(){
         beforeEach(loginAdmin);
         it('should detect when timeFrom is not a number', function(done) {
             request(server)
-                .get('/api/sensors/' + "notANumber")
+                .get('/api/pixhack/sensors/' + "notANumber")
                 .set('cookie', cookie)
                 .expect(400, done);
         });
         it('should detect when timeTill is not a number', function(done) {
             request(server)
-                .get('/api/sensors/' + (new Date().getTime() - 10000) + "/" + "notANumber")
+                .get('/api/pixhack/sensors/' + (new Date().getTime() - 10000) + "/" + "notANumber")
+                .set('cookie', cookie)
+                .expect(400, done);
+        });
+        it('should detect when dronename is not valid', function(done) {
+            request(server)
+                .get('/api/notADrone/sensors/' + (new Date().getTime() - 10000))
                 .set('cookie', cookie)
                 .expect(400, done);
         });
@@ -186,19 +179,19 @@ describe('Routing', function(){
         beforeEach(loginAdmin);
         it('should return data from a set point', function(done){
             request(server)
-                .get('/api/sensors/' + (new Date().getTime() - 10000))
+                .get('/api/pixhack/sensors/' + (new Date().getTime() - 10000))
                 .set('cookie', cookie)
                 .expect(200, done);
         });
         it('should return data between two points', function(done){
             request(server)
-                .get('/api/sensors/' + (new Date().getTime() - 10000) + "/" + new Date().getTime())
+                .get('/api/pixhack/sensors/' + (new Date().getTime() - 10000) + "/" + new Date().getTime())
                 .set('cookie', cookie)
                 .expect(200, done);
         });
         it('should return data between two points with a type', function(done){
             request(server)
-                .get('/api/sensors/' + (new Date().getTime() - 10000) + "/" + new Date().getTime() + "/" + "temperature")
+                .get('/api/pixhack/sensors/' + (new Date().getTime() - 10000) + "/" + new Date().getTime() + "/" + "temperature")
                 .set('cookie', cookie)
                 .expect(200, done);
         });
@@ -209,66 +202,60 @@ describe('Routing', function(){
         var time = new Date().getTime();
         it('GET /api/images should return imageFile list', function(done){
             request(server)
-                .get('/api/images')
+                .get('/api/pixhack/images')
                 .set('cookie', cookie)
-                .expect(200)
                 .expect('Content-Type', 'application/json; charset=utf-8')
-                .end(done);
+                .expect(200, done);
         });
         it('POST /api/images/:docID should accept valid image', function (done){
           request(server)
-               .post('/api/images/' + time)
+               .post('/api/pixhack/images/' + time)
                .send({time:time, location:[50,50]})
                .attach('image', 'test/sampleFiles/testImage.jpg')
                .set('cookie', cookie)
-               .expect(200)
-               .end(done);
+               .expect(200, done)
         });
         it('GET /api/images/:docID should return image', function(done){
            request(server)
-               .get('/api/images/' + time)
+               .get('/api/pixhack/images/' + time)
                .set('cookie', cookie)
-               .expect(200)
                .expect('Content-Type', 'image/jpeg')
-               .end(done)
+               .expect(200, done)
         });
         it('DELETE /api/images should delete image', function(done){
             request(server)
-                .delete('/api/images/' + time)
+                .delete('/api/pixhack/images/' + time)
                 .set('cookie', cookie)
-                .expect(200)
-                .end(done)
+                .expect(200, done)
         });
         it('GET /api/images/latest should return image', function (done) {
             request(server)
-                .get('/api/images/latest')
+                .get('/api/pixhack/images/latest')
                 .set('cookie', cookie)
-                .expect(200)
                 .expect('Content-Type', 'image/jpeg')
-                .end(done);
+                .expect(200 , done)
         });
         it('should cache POST to /api/images', function (done){
             request(server)
-                .get('/api/images/latest')
+                .get('/api/pixhack/images/latest')
                 .set('cookie', cookie)
                 .expect(200)
                 .end(function (err, res) {
-                if (err) {
-                  throw err;
-                }
-                var file = fs.readFileSync('test/sampleFiles/testImage.jpg');
-                var equal = buffEq(res.body, file);
-                should(equal).ok;
-                done();
+                    if (err) {
+                      throw err;
+                    }
+                    var file = fs.readFileSync('test/sampleFiles/testImage.jpg');
+                    var equal = buffEq(res.body, file);
+                    should(equal).ok;
+                    done();
               });
         });
         it('should reject invalid file upload', function(done){
            request(server)
-               .post('/api/images/' + time)
+               .post('/api/pixhack/images/' + time)
                .attach('image', 'test/sampleFiles/testInvalidImage.txt')
                .set('cookie', cookie)
-               .expect(400)
-               .end(done);
+               .expect(400, done);
        });
    });
 
@@ -277,60 +264,91 @@ describe('Routing', function(){
         var time = new Date().getTime();
         it('GET /api/audio should return audioFile list', function(done){
             request(server)
-                .get('/api/audio')
+                .get('/api/pixhack/audio')
                 .set('cookie', cookie)
-                .expect(200)
                 .expect('Content-Type', 'application/json; charset=utf-8')
-                .end(done);
+                .expect(200, done);
         });
         it('POST /api/audio/:docID should accept valid audio', function (done){
             var req = request(server)
-                .post('/api/audio/' + time)
+                .post('/api/pixhack/audio/' + time)
                 .send({time:time, location:[50,50]})
                 .attach('audio', 'test/sampleFiles/testAudio.mp3')
                 .set('cookie', cookie)
-                .expect(200)
-                .end(done);
+                .expect(200, done);
         });
         it('GET /api/audio/:docID should return audio', function(done){
             request(server)
-                .get('/api/audio/' + time)
+                .get('/api/pixhack/audio/' + time)
                 .set('cookie', cookie)
-                .expect(200)
                 .expect('Content-Type', 'audio/x-wav')
-                .end(done)
+                .expect(200, done);
         });
         it('DELETE /api/audio should delete audio', function(done){
             request(server)
-                .delete('/api/audio/' + time)
+                .delete('/api/pixhack/audio/' + time)
                 .set('cookie', cookie)
-                .expect(200)
-                .end(done)
+                .expect(200, done);
         });
         it('GET /api/audio/latest should return audio', function (done) {
             request(server)
-                .get('/api/audio/latest')
+                .get('/api/pixhack/audio/latest')
                 .set('cookie', cookie)
-                .expect(200)
                 .expect('Content-Type', 'audio/x-wav')
-                .end(done);
+                .expect(200, done);
         });
         it('should reject invalid file upload', function(done){
             request(server)
-                .post('/api/audio/' + time)
+                .post('/api/pixhack/audio/' + time)
                 .attach('audio', 'test/sampleFiles/testInvalidImage.txt')
                 .set('cookie', cookie)
-                .expect(400)
-                .end(done);
+                .expect(400, done);
         });
         it('user cannot DELETE audio', function(done){
             asGuest(function(){
                 request(server)
-                    .delete('/api/audio/' + time)
+                    .delete('/api/pixhack/audio/' + time)
                     .set('cookie', cookie)
-                    .expect(401)
-                    .end(done)
+                    .expect(401, done)
             });
+        });
+        it('can connect and listen to drone audio stream', function(done){
+            var testString = "Hello world";
+            var wsListen = WebSocket.connect('ws://localhost:8080/api/pixhack/audio/stream/listen',
+                {extraHeaders:{"cookie":cookie}});
+
+            wsListen.on('text', function(message){
+                message.should.equal(testString);
+                done();
+            });
+            wsListen.on('close', function(err){throw err});
+            wsListen.on('error', function (err) {throw err;});
+
+            var wsSend = WebSocket.connect('ws://localhost:8080/api/pixhack/audio/stream/upload',
+                {extraHeaders:{"cookie":cookie}});
+
+            wsSend.on('connect', function(){wsSend.send(testString);});
+            wsSend.on('close', function(err){throw err});
+            wsSend.on('error', function (err) {throw err;});
+        });
+        it('can connect and listen to client audio stream', function(done){
+            var testString = "Hello world";
+            var wsListen = WebSocket.connect('ws://localhost:8080/api/pixhack/audio/stream/download',
+                {extraHeaders:{"cookie":cookie}});
+
+            wsListen.on('text', function(message){
+                message.should.equal(testString);
+                done();
+            });
+            wsListen.on('close', function(err){throw err});
+            wsListen.on('error', function (err) {throw err;});
+
+            var wsSend = WebSocket.connect('ws://localhost:8080/api/pixhack/audio/stream/talk',
+                {extraHeaders:{"cookie":cookie}});
+
+            wsSend.on('connect', function(){wsSend.send(testString);});
+            wsSend.on('close', function(err){throw err});
+            wsSend.on('error', function (err) {throw err;});
         });
     });
 
@@ -338,13 +356,13 @@ describe('Routing', function(){
         beforeEach(loginAdmin);
         it('should return data from a set point', function(done){
             request(server)
-                .get('/api/gps/' + (new Date().getTime() - 10000))
+                .get('/api/pixhack/gps/' + (new Date().getTime() - 10000))
                 .set('cookie', cookie)
                 .expect(200, done);
         });
         it('should return data between two points', function(done){
             request(server)
-                .get('/api/gps/' + (new Date().getTime() - 10000) + "/" + new Date().getTime())
+                .get('/api/pixhack/gps/' + (new Date().getTime() - 10000) + "/" + new Date().getTime())
                 .set('cookie', cookie)
                 .expect(200, done);
         });
@@ -365,14 +383,12 @@ describe('Routing', function(){
                    done()
                })
         });
-
         it('user cannot query other users information', function(done){
             asGuest(function(){
                 request(server)
                     .get('/api/users/jake')
                     .set('cookie', cookie)
-                    .expect(401)
-                    .end(done)
+                    .expect(401, done)
             });
         });
         it('admin can add new user and login', function(done){
@@ -387,7 +403,8 @@ describe('Routing', function(){
                 .set('cookie', cookie)
                 .send(newUser)
                 .expect(200)
-                .end(function(){
+                .end(function(err){
+                    if(err){throw err;}
                     request(server)
                         .post('/login')
                         .auth('__testUser__', 'pass')
@@ -399,16 +416,14 @@ describe('Routing', function(){
             request(server)
                 .delete('/api/users/' + "__testUser__")
                 .set('cookie', cookie)
-                .expect(200)
-                .end(done)
-                
+                .expect(200, done)
         });
 
     });
 
     describe("Drone Endpoints", function(){
         beforeEach(loginAdmin);
-         it('user can add drone', function(done){
+        it('user can add drone', function(done){
             var newDrone = {
                 "name":"testDrone",
                 "model":"px4",
@@ -418,15 +433,13 @@ describe('Routing', function(){
                 .post('/api/drones')
                 .send(newDrone)
                 .set('cookie', cookie)
-                .expect(200)
-                .end(done);
+                .expect(200, done)
          });
         it('user can delete drone', function(done){
             request(server)
                 .delete('/api/drones/testDrone')
                 .set('cookie', cookie)
-                .expect(200)
-                .end(done);
+                .expect(200, done)
         });
 
         it('user can query own drone information', function(done){
@@ -450,40 +463,6 @@ describe('Routing', function(){
         
     });
 
-/*
-    describe("Direct services", function(){
-        this.timeout(20000);
-
-        it('/testAudio should return correct transcript', function(done){
-            request(server)
-                .get('/testAudio')
-                .expect(200)
-                .end(function(err, res) {
-                    if (err) {
-                        throw err;
-                    }
-                    assert.equal(res.text, 'can you hear what I am saying ');
-                    done();
-                });
-        });
-
-        it('/testImage should return correct labels', function(done){
-            request(server)
-                .get('/testImage')
-                .expect(200)
-                .end(function(err, res) {
-                    if (err) {
-                        throw err;
-                    }
-                    res.body.should.have.property("name");
-                    res.body.name.should.equal('Baby');
-                    done();
-                });
-
-        })
-    });
-*/
-
     after(function (done) {
         var dirPath = './uploads';
         try {
@@ -499,7 +478,15 @@ describe('Routing', function(){
                 fs.unlinkSync(filePath);
             }
         }
-        done();
+
+        function Delay(callback){
+            setTimeout(function(){
+                callback()
+            }, 1100);
+        }
+        Delay(done);
     });
+
+
 
 });
