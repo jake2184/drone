@@ -17,7 +17,7 @@
 
 	var checkUserCredentials = require('./lib/functions.js').sql.checkUserCredentials;
 	
-	var uploadDir = "uploads/";
+	var uploadDir = "./uploads/";
 
 	var app = express();
 	app.use(bodyParser.json());
