@@ -168,11 +168,14 @@ describe('Routing', function(){
                 .expect(400, done);
         });
         it('should detect when dronename is not valid', function(done) {
-            request(server)
-                .get('/api/notADrone/sensors/' + (new Date().getTime() - 10000))
-                .set('cookie', cookie)
-                .expect(400, done);
+            asGuest(function () {
+                request(server)
+                    .get('/api/notADrone/sensors/' + (new Date().getTime() - 10000))
+                    .set('cookie', cookie)
+                    .expect(400, done);
+            });
         });
+
     });
 
     describe("Sensor Endpoints", function(){
