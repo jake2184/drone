@@ -50,7 +50,7 @@
 
 		ws.on('message', function(msg){
 			var clients = expressWs.getWss().clients;
-			console.log(clients.length + " listeners");
+			//console.log(clients.length + " listeners");
 			for(var i = 0; i < clients.length; i++){
 
 				if(clients[i].upgradeReq.originalUrl.indexOf("listen") > -1){
