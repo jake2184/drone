@@ -6,3 +6,5 @@ uploads/
 .project
 .config.json
 .gitignore
+logs/*
+public/documentation/*
