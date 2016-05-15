@@ -5,7 +5,7 @@ var assert = require('assert');
 var sinon = require('sinon');
 require("unit.js");
 var server = require('../app.js');
-var iandc = require('../lib/drone_interpret_and_control/drone_interpret_and_control.js');
+var iandc = require('../lib/drone_interpret_and_control/DroneCoordinator.js');
 
 describe('Unit Testing', function(){
     var url = 'http://localhost:8080';

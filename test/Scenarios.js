@@ -4,7 +4,7 @@ require('should-http');
 var assert = require('assert');
 var sinon = require('sinon');
 require("unit.js");
-var iandc = require('../lib/drone_interpret_and_control/drone_interpret_and_control.js');
+var iandc = require('../lib/drone_interpret_and_control/DroneCoordinator.js');
 
 describe('Scenario Testing', function(){
 

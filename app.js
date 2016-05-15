@@ -148,22 +148,6 @@
 	});
 
 
-	function Delay(callback, param){
-		setTimeout(function(){
-			callback(param)
-		}, 1100);
-	}
-
-	app.get('/test', function(req, res){
-		var doIt = function (res) {
-			res.write("World");
-			res.send();
-		};
-		res.write("Hello");
-		Delay(doIt, res);
-	});
-
-
 	// Clean up uploads
 	setInterval(function() {
 		logger.info("Checking "+ __dirname + '/' + uploadDir);
