@@ -147,6 +147,9 @@
 		res.status(200).send("Please login by POSTing username and password.\n");
 	});
 
+	app.get('/logout', function(req, res){
+		req.session.reset();
+	});
 
 	// Clean up uploads
 	setInterval(function() {
