@@ -50,7 +50,6 @@
 
 		ws.on('message', function(msg){
 			var clients = expressWs.getWss().clients;
-			//console.log(clients.length + " listeners");
 			for(var i = 0; i < clients.length; i++){
 
 				if(clients[i].upgradeReq.originalUrl.indexOf("listen") > -1){
@@ -65,7 +64,6 @@
 
 		ws.on('message', function(msg){
 			var clients = expressWs.getWss().clients;
-			//console.log(clients.length + " listeners");
 			for(var i = 0; i < clients.length; i++){
 
 				if(clients[i].upgradeReq.originalUrl.indexOf("download") > -1){
@@ -147,6 +145,22 @@
 	
 	app.get('/login', function(req, res){
 		res.status(200).send("Please login by POSTing username and password.\n");
+	});
+
+
+	function Delay(callback, param){
+		setTimeout(function(){
+			callback(param)
+		}, 1100);
+	}
+
+	app.get('/test', function(req, res){
+		var doIt = function (res) {
+			res.write("World");
+			res.send();
+		};
+		res.write("Hello");
+		Delay(doIt, res);
 	});
 
 

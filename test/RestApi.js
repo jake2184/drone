@@ -411,8 +411,7 @@ describe('Routing', function(){
                     request(server)
                         .post('/login')
                         .auth('__testUser__', 'pass')
-                        .expect(200)
-                        .end(done);
+                        .expect(200, done);
                 });
         });
         it('admin can delete user', function(done){
@@ -436,7 +435,18 @@ describe('Routing', function(){
                 .post('/api/drones')
                 .send(newDrone)
                 .set('cookie', cookie)
-                .expect(200, done)
+                .expect(200)
+                .expect('Content-Type', "application/json; charset=utf-8")
+                .end(function(err, res){
+                    if(err) { throw err; }
+                    var MQTT = res.body.MQTT;
+                    MQTT.should.have.property('auth-token');
+                    MQTT.deviceId.should.equal(newDrone.name);
+                    MQTT.should.have.property('org');
+                    MQTT.should.have.property('type');
+                    console.log(err);
+                    done();
+                })
          });
         it('user can delete drone', function(done){
             request(server)

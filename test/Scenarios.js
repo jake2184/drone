@@ -23,26 +23,26 @@ describe('Scenario Testing', function(){
             }
         }
     };
-
-    var IandC = new iandc(mqttHandler, cloudant);
+    var droneName = "testDrone";
+    var IandC = new iandc(mqttHandler, cloudant, [droneName]);
     
     function getModeNameWithDelay(callback){
         setTimeout(function(){
-            callback(IandC.getModeName())
+            callback(IandC.getModeName(droneName))
         }, 1100);
     }
 
     describe("Fire", function () {
 
         beforeEach(function(done){
-            IandC.reset();
+            IandC.reset(droneName);
             mqttHandler.sendCommand.reset();
             done();
         });
 
         it('should be triggered by images', function(done){
             var fire = [{name:"Wild_Fire", score:0.8}, {name:"Rainbow", score:0.53}];
-            IandC.processImageLabels(fire, new Date().getTime(), [10, 10]);
+            IandC.processImageLabels(droneName, fire, new Date().getTime(), [10, 10]);
 
             getModeNameWithDelay(function (result) {
                 assert.equal(result, "Fire", "Modes do not match");
@@ -59,7 +59,7 @@ describe('Scenario Testing', function(){
                 altitude: 100,
                 location: [51.485138, -0.18775]
             };
-            IandC.updateSensorReadings(sensorReadings);
+            IandC.updateSensorReadings(droneName, sensorReadings);
             getModeNameWithDelay(function (result) {
                 assert.equal(result, "Fire", "Modes do not match");
                 assert(mqttHandler.sendCommand.calledOnce, "MQTT Command not sent");
@@ -74,7 +74,7 @@ describe('Scenario Testing', function(){
                 altitude: 100,
                 location: [51.485138, -0.18775]
             };
-            IandC.updateSensorReadings(sensorReadings);
+            IandC.updateSensorReadings(droneName, sensorReadings);
             
             getModeNameWithDelay(function (result) {
                 assert.equal(result, "Fire", "Modes do not match");
@@ -87,14 +87,14 @@ describe('Scenario Testing', function(){
     describe("Person", function () {
 
         beforeEach(function(done){
-            IandC.reset();
+            IandC.reset(droneName);
             mqttHandler.sendCommand.reset();
             done();
         });
         
         it('should be triggered by image label above single threshold', function(done){
             var person = [{name:"Adult", score:0.8}, {name:"Rainbow", score:0.53}];
-            IandC.processImageLabels(person, new Date().getTime(), [10, 10]);
+            IandC.processImageLabels(droneName, person, new Date().getTime(), [10, 10]);
 
             getModeNameWithDelay(function (result) {
                 assert.equal(result, "Interact", "Modes do not match");
@@ -108,7 +108,7 @@ describe('Scenario Testing', function(){
                 {name:"Female_Adult", score:0.65},
                 {name:"Human", score:0.79}
             ];
-            IandC.processImageLabels(person, new Date().getTime(), [10, 10]);
+            IandC.processImageLabels(droneName, person, new Date().getTime(), [10, 10]);
 
             getModeNameWithDelay(function (result) {
                 assert.equal(result, "Interact", "Modes do not match");

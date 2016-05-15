@@ -29,19 +29,20 @@ describe('Unit Testing', function(){
             }
         };
 
-        var IandC = new iandc(mqttHandler, cloudant);
+        var droneName = "testDrone";
+        var IandC = new iandc(mqttHandler, cloudant, [droneName]);
 
         it('should initialise in normal mode and be able to change mode', function(done) {
-            assert.equal(IandC.getModeName(), "Normal");
-            IandC.setMode("Fire");
-            assert.equal(IandC.getModeName(), "Fire");
-            IandC.setMode("Interact");
-            assert.equal(IandC.getModeName(), "Interact");
-            IandC.setMode("Avoidance");
-            assert.equal(IandC.getModeName(), "Avoidance");
+            assert.equal(IandC.getModeName(droneName), "Normal");
+            IandC.setMode(droneName, "Fire");
+            assert.equal(IandC.getModeName(droneName), "Fire");
+            IandC.setMode(droneName, "Interact");
+            assert.equal(IandC.getModeName(droneName), "Interact");
+            IandC.setMode(droneName, "Avoidance");
+            assert.equal(IandC.getModeName(droneName), "Avoidance");
 
-            IandC.setMode("Normal");
-            assert.equal(IandC.getModeName(), "Normal");
+            IandC.setMode(droneName, "Normal");
+            assert.equal(IandC.getModeName(droneName), "Normal");
             done();
         });
 
@@ -54,7 +55,7 @@ describe('Unit Testing', function(){
                 altitude: 100,
                 location: [51.485138, -0.18775]
             };
-            IandC.updateSensorReadings(sensorReadings);
+            IandC.updateSensorReadings(droneName, sensorReadings);
 
 
             var position = {
