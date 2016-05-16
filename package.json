@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node app.js",
     "test": "mocha",
-    "install": "install.sh"
+    "install": "./install.sh"
   },
   "dependencies": {
     "basic-auth": "~1.0.3",
