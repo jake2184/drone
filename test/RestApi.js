@@ -427,7 +427,7 @@ describe('Routing', function(){
         beforeEach(loginAdmin);
         it('user can add drone', function(done){
             var newDrone = {
-                "name":"testDrone",
+                "name":"__testDrone__",
                 "model":"px4",
                 "owner":"jake"
             };
@@ -450,7 +450,7 @@ describe('Routing', function(){
          });
         it('user can delete drone', function(done){
             request(server)
-                .delete('/api/drones/testDrone')
+                .delete('/api/drones/__testDrone__')
                 .set('cookie', cookie)
                 .expect(200, done)
         });

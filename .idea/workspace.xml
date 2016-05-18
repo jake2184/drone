@@ -5,9 +5,13 @@
     <option name="CUSTOM_SCOPE_NAME" value="Current File" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d29ee594-5367-4f8e-8370-d3d13e0b5770" name="Default" comment="Neatened DroneHandler + Coordinator">
+    <list default="true" id="d29ee594-5367-4f8e-8370-d3d13e0b5770" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/base.js" afterPath="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/base.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/fire.js" afterPath="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/fire.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/interact.js" afterPath="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/interact.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/normal.js" afterPath="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/normal.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/RestApi.js" afterPath="$PROJECT_DIR$/test/RestApi.js" />
     </list>
     <ignored path="drone.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,11 +34,21 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/app.js">
+          <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/package.json">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="596">
-                  <caret line="149" column="14" selection-start-line="149" selection-start-column="14" selection-end-line="149" selection-end-column="14" />
+                <state relative-caret-position="119">
+                  <caret line="7" column="18" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="DroneCoordinator.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/DroneCoordinator.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="629">
+                  <caret line="37" column="33" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
                   <folding />
                 </state>
               </provider>
@@ -43,8 +57,8 @@
           <file leaf-file-name="router.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/lib/router.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="477">
-                  <caret line="356" column="3" selection-start-line="356" selection-start-column="3" selection-end-line="356" selection-end-column="3" />
+                <state relative-caret-position="222">
+                  <caret line="250" column="0" selection-start-line="250" selection-start-column="0" selection-end-line="250" selection-end-column="0" />
                   <folding>
                     <element signature="e#341#378#0" expanded="false" />
                     <element signature="e#419#463#0" expanded="false" />
@@ -79,7 +93,6 @@
                     <element signature="e#5997#6235#0" expanded="false" />
                     <element signature="e#6341#6518#0" expanded="false" />
                     <element signature="e#6608#6846#0" expanded="false" />
-                    <element signature="e#6923#7280#0" expanded="false" />
                     <element signature="e#7353#7570#0" expanded="false" />
                     <element signature="e#7675#7854#0" expanded="false" />
                     <element signature="e#7943#8409#0" expanded="false" />
@@ -110,8 +123,8 @@
           <file leaf-file-name="functions.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/lib/functions.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="612">
-                  <caret line="59" column="38" selection-start-line="59" selection-start-column="38" selection-end-line="59" selection-end-column="38" />
+                <state relative-caret-position="296">
+                  <caret line="464" column="35" selection-start-line="464" selection-start-column="27" selection-end-line="464" selection-end-column="35" />
                   <folding>
                     <element signature="e#557#649#0" expanded="false" />
                     <element signature="e#655#834#0" expanded="false" />
@@ -195,7 +208,6 @@
                     <element signature="e#13948#14022#0" expanded="false" />
                     <element signature="e#14028#14119#0" expanded="false" />
                     <element signature="n#!!doc;n#serveSensorData#0" expanded="false" />
-                    <element signature="n#!!block;n#serveSensorData#0" expanded="false" />
                     <element signature="e#14829#14975#0" expanded="false" />
                     <element signature="e#14849#14969#0" expanded="false" />
                     <element signature="e#14871#14959#0" expanded="false" />
@@ -203,8 +215,6 @@
                     <element signature="e#15190#15279#0" expanded="false" />
                     <element signature="e#15353#15442#0" expanded="false" />
                     <element signature="e#15517#15547#0" expanded="false" />
-                    <element signature="e#15703#16355#0" expanded="false" />
-                    <element signature="e#15720#15868#0" expanded="false" />
                     <element signature="e#15901#16029#0" expanded="false" />
                     <element signature="e#16052#16194#0" expanded="false" />
                     <element signature="e#16101#16182#0" expanded="false" />
@@ -310,21 +320,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="DroneCoordinator.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/DroneCoordinator.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="136">
-                  <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
           <file leaf-file-name="DroneHandler.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/DroneHandler.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="629">
-                  <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+                <state relative-caret-position="296">
+                  <caret line="161" column="20" selection-start-line="161" selection-start-column="12" selection-end-line="161" selection-end-column="20" />
                   <folding />
                 </state>
               </provider>
@@ -333,18 +333,48 @@
           <file leaf-file-name="normal.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/normal.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="120">
-                  <caret line="33" column="31" selection-start-line="33" selection-start-column="31" selection-end-line="33" selection-end-column="31" />
+                <state relative-caret-position="663">
+                  <caret line="39" column="25" selection-start-line="39" selection-start-column="25" selection-end-line="39" selection-end-column="25" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="base.js" pinned="false" current-in-tab="false">
+          <file leaf-file-name="interact.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/interact.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="136">
+                  <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="fire.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/fire.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="119">
+                  <caret line="7" column="36" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="avoidance.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/avoidance.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="34">
+                  <caret line="2" column="9" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="9" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="base.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/base.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="296">
-                  <caret line="67" column="9" selection-start-line="67" selection-start-column="9" selection-end-line="67" selection-end-column="9" />
+                <state relative-caret-position="2193">
+                  <caret line="129" column="44" selection-start-line="129" selection-start-column="44" selection-end-line="129" selection-end-column="44" />
                   <folding />
                 </state>
               </provider>
@@ -354,11 +384,11 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="RestApi.js" pinned="false" current-in-tab="false">
+          <file leaf-file-name="RestApi.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/test/RestApi.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1309">
-                  <caret line="77" column="24" selection-start-line="77" selection-start-column="24" selection-end-line="77" selection-end-column="24" />
+                <state relative-caret-position="596">
+                  <caret line="449" column="12" selection-start-line="449" selection-start-column="12" selection-end-line="449" selection-end-column="12" />
                   <folding />
                 </state>
               </provider>
@@ -374,11 +404,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Scenarios.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="Scenarios.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/test/Scenarios.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="306">
-                  <caret line="61" column="29" selection-start-line="61" selection-start-column="29" selection-end-line="61" selection-end-column="29" />
+                <state relative-caret-position="290">
+                  <caret line="49" column="23" selection-start-line="49" selection-start-column="23" selection-end-line="49" selection-end-column="23" />
                   <folding />
                 </state>
               </provider>
@@ -426,30 +456,30 @@
         <option value="$PROJECT_DIR$/test.js" />
         <option value="internal/streams/lazy_transform.js" />
         <option value="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/avoidance.js" />
-        <option value="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/fire.js" />
         <option value="$PROJECT_DIR$/logs/example.log" />
         <option value="$PROJECT_DIR$/test/Services.js" />
         <option value="internal/freelist.js" />
         <option value="$PROJECT_DIR$/lib/drone_interpret_and_control/ibm_services.js" />
         <option value="$PROJECT_DIR$/lib/ibm_services.js" />
-        <option value="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/interact.js" />
         <option value="$PROJECT_DIR$/lib/logger.js" />
-        <option value="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/normal.js" />
         <option value="internal/net.js" />
         <option value="$PROJECT_DIR$/lib/router.js" />
         <option value="$PROJECT_DIR$/lib/MqttHandler.js" />
-        <option value="$PROJECT_DIR$/test/RestApi.js" />
         <option value="$PROJECT_DIR$/test/Unit Testing.js" />
         <option value="$PROJECT_DIR$/lib/drone_interpret_and_control/drone_interpret_and_control.js" />
-        <option value="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/base.js" />
         <option value="$PROJECT_DIR$/License.txt" />
-        <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/install.sh" />
         <option value="$PROJECT_DIR$/test/Scenarios.js" />
         <option value="$PROJECT_DIR$/lib/functions.js" />
         <option value="$PROJECT_DIR$/lib/drone_interpret_and_control/DroneCoordinator.js" />
         <option value="$PROJECT_DIR$/lib/drone_interpret_and_control/DroneHandler.js" />
         <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/install.sh" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/fire.js" />
+        <option value="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/interact.js" />
+        <option value="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/normal.js" />
+        <option value="$PROJECT_DIR$/test/RestApi.js" />
+        <option value="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/base.js" />
       </list>
     </option>
   </component>
@@ -515,7 +545,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -591,6 +620,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -601,12 +631,13 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.build" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="JavaScriptPreferStrict" value="false" />
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="nodejs.mocha.mocha_node_package_dir" value="C:\Users\Jake\meng\drone\node_modules\mocha" />
+    <property name="Node.Profiling.V8Profiler.Path" value="" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -620,7 +651,7 @@
       <recent name="$PROJECT_DIR$/lib/drone_interpret_and_control" />
     </key>
   </component>
-  <component name="RunManager" selected="Mocha.Test">
+  <component name="RunManager" selected="Mocha.Routing.Drone Endpoints.user can add drone">
     <configuration default="false" name="Routing" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -826,31 +857,36 @@
       <recursive>false</recursive>
       <method />
     </configuration>
+    <configuration default="false" name="Profile" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" path-to-js-file="app.js" working-dir="$PROJECT_DIR$">
+      <profiling log-folder="logs" do-profile="true" />
+      <method />
+    </configuration>
     <configuration default="false" name="Istanbul" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" path-to-js-file="node_modules/istanbul/lib/cli.js" application-parameters="cover node_modules/mocha/bin/_mocha -- -R spec" working-dir="$PROJECT_DIR$">
       <method />
     </configuration>
-    <configuration default="false" name="App" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="C:/Program Files/nodejs/node" path-to-js-file="app.js" working-dir="$PROJECT_DIR$">
+    <configuration default="false" name="App" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" path-to-js-file="app.js" working-dir="$PROJECT_DIR$">
       <method />
     </configuration>
     <configuration default="false" name="Test" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="C:/Program Files/nodejs/npm" node-parameters="test" working-dir="$PROJECT_DIR$">
       <method />
     </configuration>
-    <list size="9">
+    <list size="10">
       <item index="0" class="java.lang.String" itemvalue="Mocha.Test" />
-      <item index="1" class="java.lang.String" itemvalue="Node.js.Istanbul" />
-      <item index="2" class="java.lang.String" itemvalue="Node.js.App" />
-      <item index="3" class="java.lang.String" itemvalue="Node.js.Test" />
-      <item index="4" class="java.lang.String" itemvalue="Mocha.Routing" />
-      <item index="5" class="java.lang.String" itemvalue="Mocha.Routing.Drone Endpoints.user can add drone" />
-      <item index="6" class="java.lang.String" itemvalue="Mocha.Routing.Drone Endpoints.user can delete drone" />
-      <item index="7" class="java.lang.String" itemvalue="Mocha.Routing.Drone Endpoints" />
-      <item index="8" class="java.lang.String" itemvalue="Mocha.Scenario Testing" />
+      <item index="1" class="java.lang.String" itemvalue="Node.js.Profile" />
+      <item index="2" class="java.lang.String" itemvalue="Node.js.Istanbul" />
+      <item index="3" class="java.lang.String" itemvalue="Node.js.App" />
+      <item index="4" class="java.lang.String" itemvalue="Node.js.Test" />
+      <item index="5" class="java.lang.String" itemvalue="Mocha.Routing" />
+      <item index="6" class="java.lang.String" itemvalue="Mocha.Routing.Drone Endpoints.user can add drone" />
+      <item index="7" class="java.lang.String" itemvalue="Mocha.Routing.Drone Endpoints.user can delete drone" />
+      <item index="8" class="java.lang.String" itemvalue="Mocha.Routing.Drone Endpoints" />
+      <item index="9" class="java.lang.String" itemvalue="Mocha.Scenario Testing" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Mocha.Routing.Drone Endpoints" />
-        <item index="1" class="java.lang.String" itemvalue="Mocha.Scenario Testing" />
-        <item index="2" class="java.lang.String" itemvalue="Mocha.Routing.Drone Endpoints.user can add drone" />
+        <item index="0" class="java.lang.String" itemvalue="Mocha.Routing.Drone Endpoints.user can add drone" />
+        <item index="1" class="java.lang.String" itemvalue="Mocha.Routing.Drone Endpoints" />
+        <item index="2" class="java.lang.String" itemvalue="Mocha.Scenario Testing" />
         <item index="3" class="java.lang.String" itemvalue="Mocha.Routing.Drone Endpoints.user can delete drone" />
         <item index="4" class="java.lang.String" itemvalue="Mocha.Routing" />
       </list>
@@ -942,8 +978,8 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Test - 2016.05.15 at 12h 58m 57s.xml">
-      <configuration name="Test" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="Routing_Drone_Endpoints_user_can_add_drone - 2016.05.18 at 11h 32m 32s.xml">
+      <configuration name="Routing.Drone Endpoints.user can add drone" configurationId="mocha-javascript-test-runner" />
     </history-entry>
     <history-entry file="Test - 2016.05.15 at 13h 03m 07s.xml">
       <configuration name="Test" configurationId="mocha-javascript-test-runner" />
@@ -986,15 +1022,13 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49703503" sideWeight="0.506993" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="true" show_stripe_button="true" weight="1.0" sideWeight="0.4921875" order="2" side_tool="false" content_ui="tabs" x="1912" y="-30" width="976" height="1078" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="false" show_stripe_button="true" weight="0.5807814" sideWeight="0.4921875" order="2" side_tool="false" content_ui="tabs" x="241" y="401" width="1612" height="588" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.119791664" sideWeight="0.493007" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946146" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="true" show_stripe_button="true" weight="1.0" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="1912" y="-30" width="976" height="1078" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="false" show_stripe_button="true" weight="1.0" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="1920" y="0" width="960" height="1040" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3284055" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1002,6 +1036,9 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39915523" sideWeight="0.49595687" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="REST Client" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946146" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32901832" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946146" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="V8 CPU Profiling" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.72228086" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1043,7 +1080,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Neatened app" />
     <MESSAGE value="Further modularity and testing" />
     <MESSAGE value="Fixed large file api endpoints - are now persistent with database. can cause timeouts on large files.&#10;&#10;Added coverage reports" />
     <MESSAGE value="Further testing coverage" />
@@ -1068,7 +1104,8 @@
     <MESSAGE value="Renamed iandC to drone coordinator." />
     <MESSAGE value="Fixed licence, added install.sh" />
     <MESSAGE value="Neatened DroneHandler + Coordinator" />
-    <option name="LAST_COMMIT_MESSAGE" value="Neatened DroneHandler + Coordinator" />
+    <MESSAGE value="Added logout to reset session" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added logout to reset session" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1141,21 +1178,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/fire.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/UnitTesting.js" />
-    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/avoidance.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="13" column="31" selection-start-line="13" selection-start-column="31" selection-end-line="13" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/javascript/nodejs/4.4.3/core-modules/url.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -1187,13 +1210,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/makefile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="5" selection-start-line="1" selection-start-column="5" selection-end-line="1" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/makefile" />
     <entry file="file://$PROJECT_DIR$/node_modules/vcap_services/VCAP_SERVICES.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="867">
@@ -1219,13 +1236,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/interact.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="39" selection-start-line="2" selection-start-column="39" selection-end-line="2" selection-end-column="39" />
         </state>
       </provider>
     </entry>
@@ -1290,7 +1300,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="699" column="9" selection-start-line="699" selection-start-column="9" selection-end-line="699" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1298,7 +1307,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2346">
           <caret line="291" column="2" selection-start-line="291" selection-start-column="2" selection-end-line="291" selection-end-column="2" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1306,7 +1314,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1314,14 +1321,114 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
           <caret line="29" column="30" selection-start-line="29" selection-start-column="30" selection-end-line="29" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/License.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manifest.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="14" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/documentation/functions/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2125">
+          <caret line="125" column="31" selection-start-line="125" selection-start-column="31" selection-end-line="125" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/install.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="55" selection-start-line="4" selection-start-column="55" selection-end-line="4" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="18" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/interact.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/avoidance.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="9" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/fire.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="36" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/normal.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="39" column="25" selection-start-line="39" selection-start-column="25" selection-end-line="39" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/DroneCoordinator.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="37" column="33" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/Scenarios.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="49" column="23" selection-start-line="49" selection-start-column="23" selection-end-line="49" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/RestApi.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="596">
+          <caret line="449" column="12" selection-start-line="449" selection-start-column="12" selection-end-line="449" selection-end-column="12" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/router.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="477">
-          <caret line="356" column="3" selection-start-line="356" selection-start-column="3" selection-end-line="356" selection-end-column="3" />
+        <state relative-caret-position="222">
+          <caret line="250" column="0" selection-start-line="250" selection-start-column="0" selection-end-line="250" selection-end-column="0" />
           <folding>
             <element signature="e#341#378#0" expanded="false" />
             <element signature="e#419#463#0" expanded="false" />
@@ -1356,7 +1463,6 @@
             <element signature="e#5997#6235#0" expanded="false" />
             <element signature="e#6341#6518#0" expanded="false" />
             <element signature="e#6608#6846#0" expanded="false" />
-            <element signature="e#6923#7280#0" expanded="false" />
             <element signature="e#7353#7570#0" expanded="false" />
             <element signature="e#7675#7854#0" expanded="false" />
             <element signature="e#7943#8409#0" expanded="false" />
@@ -1383,66 +1489,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/License.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/manifest.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="14" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="42" column="23" selection-start-line="42" selection-start-column="23" selection-end-line="42" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/documentation/functions/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/install.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="55" selection-start-line="4" selection-start-column="55" selection-end-line="4" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/RestApi.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1309">
-          <caret line="77" column="24" selection-start-line="77" selection-start-column="24" selection-end-line="77" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/normal.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="33" column="31" selection-start-line="33" selection-start-column="31" selection-end-line="33" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/functions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="59" column="38" selection-start-line="59" selection-start-column="38" selection-end-line="59" selection-end-column="38" />
+        <state relative-caret-position="296">
+          <caret line="464" column="35" selection-start-line="464" selection-start-column="27" selection-end-line="464" selection-end-column="35" />
           <folding>
             <element signature="e#557#649#0" expanded="false" />
             <element signature="e#655#834#0" expanded="false" />
@@ -1526,7 +1576,6 @@
             <element signature="e#13948#14022#0" expanded="false" />
             <element signature="e#14028#14119#0" expanded="false" />
             <element signature="n#!!doc;n#serveSensorData#0" expanded="false" />
-            <element signature="n#!!block;n#serveSensorData#0" expanded="false" />
             <element signature="e#14829#14975#0" expanded="false" />
             <element signature="e#14849#14969#0" expanded="false" />
             <element signature="e#14871#14959#0" expanded="false" />
@@ -1534,8 +1583,6 @@
             <element signature="e#15190#15279#0" expanded="false" />
             <element signature="e#15353#15442#0" expanded="false" />
             <element signature="e#15517#15547#0" expanded="false" />
-            <element signature="e#15703#16355#0" expanded="false" />
-            <element signature="e#15720#15868#0" expanded="false" />
             <element signature="e#15901#16029#0" expanded="false" />
             <element signature="e#16052#16194#0" expanded="false" />
             <element signature="e#16101#16182#0" expanded="false" />
@@ -1640,42 +1687,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/base.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="67" column="9" selection-start-line="67" selection-start-column="9" selection-end-line="67" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/Scenarios.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="61" column="29" selection-start-line="61" selection-start-column="29" selection-end-line="61" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/DroneCoordinator.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/DroneHandler.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+        <state relative-caret-position="296">
+          <caret line="161" column="20" selection-start-line="161" selection-start-column="12" selection-end-line="161" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
+    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/base.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="596">
-          <caret line="149" column="14" selection-start-line="149" selection-start-column="14" selection-end-line="149" selection-end-column="14" />
+        <state relative-caret-position="2193">
+          <caret line="129" column="44" selection-start-line="129" selection-start-column="44" selection-end-line="129" selection-end-column="44" />
           <folding />
         </state>
       </provider>
