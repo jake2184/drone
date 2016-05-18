@@ -46,7 +46,7 @@ describe('Scenario Testing', function(){
 
             getModeNameWithDelay(function (result) {
                 assert.equal(result, "Fire", "Modes do not match");
-                assert(mqttHandler.sendCommand.calledOnce, "MQTT Command not sent");
+                assert(mqttHandler.sendCommand.calledTwice, "MQTT Command not sent");
                 done();
             });
         });
@@ -62,7 +62,7 @@ describe('Scenario Testing', function(){
             droneCoordinator.updateSensorReadings(droneName, sensorReadings);
             getModeNameWithDelay(function (result) {
                 assert.equal(result, "Fire", "Modes do not match");
-                assert(mqttHandler.sendCommand.calledOnce, "MQTT Command not sent");
+                assert(mqttHandler.sendCommand.calledTwice, "MQTT Command not sent");
                 done();
             });
         });
@@ -78,7 +78,7 @@ describe('Scenario Testing', function(){
             
             getModeNameWithDelay(function (result) {
                 assert.equal(result, "Fire", "Modes do not match");
-                assert(mqttHandler.sendCommand.calledOnce, "MQTT Command not sent");
+                assert(mqttHandler.sendCommand.calledTwice, "MQTT Command not sent");
                 done();
             });
         })
