@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" >
+  <head>
+    <title>Drone Dashboard</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
+    <link rel="stylesheet" href="../node_modules/angular-material/angular-material.css"/>
+    <link rel="stylesheet" href="assets/app.css"/>
+	<link rel="stylesheet" href="../node_modules/angular-chart.js/dist/angular-chart.css"/>
+
+    <style type="text/css">
+        /**
+         * Hide when Angular is not yet loaded and initialized
+         */
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+          display: none !important;
+        }
+    </style>
+
+  </head>
+
+  <body ng-app="starterApp" layout="column" ng-controller="DashboardController as dl" ng-cloak>
+
+    <md-toolbar layout="row">
+      <h1>The 'Saving The World' Drone Dashboard</h1>
+    </md-toolbar>
+    <div flex>
+        <md-content flex id="content" layout="row">
+			<div flex-xs flex-gt-xs="50" layout="column">
+				<md-card>
+					<md-card-title>
+						<md-card-title-text>
+							<span class="md-headline">Map View</span>
+							<span class="md-subhead">Provided by Google Maps</span>
+						</md-card-title-text>
+					</md-card-title>
+					<md-card-content>
+						<div class="angular-google-map">
+							<div id="map-canvas" style="height:450px"></div>
+						</div>
+					</md-card-content>
+				</md-card>
+			</div>
+			<div flex-xs flex-gt-xs="50" layout="column">
+				<md-card>
+					<md-card-title>
+						<md-card-title-text>
+							<span class="md-headline">Data View</span>
+							<span class="md-subhead">Provided by Jake Reynolds</span>
+						</md-card-title-text>
+					</md-card-title>
+					<md-card-content>
+						<canvas id="line" class="chart chart-line" chart-data="dl.data" chart-labels="dl.labels" chart-legend="true" chart-series="dl.series"></canvas>
+					</md-card-content>
+				</md-card>
+			</div>
+        </md-content>
+
+    </div>
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3wXmZy0MDqra2yXcxwmUQ6TLCxXE6D1o"></script>
+    <script src="../node_modules/angular/angular.js"></script>
+    <script src="../node_modules/angular-animate/angular-animate.js"></script>
+    <script src="../node_modules/angular-aria/angular-aria.js"></script>
+    <script type="text/javascript" src="../node_modules/angular-material/angular-material.js"></script>
+	<script src="../node_modules/angular-chart.js/node_modules/chart.js/dist/Chart.js"></script>
+	<script src="../node_modules/angular-chart.js/dist/angular-chart.js"></script>
+
+    <script src="./src/dashboard/Dashboard.js"></script>
+    <script src="./src/dashboard/DashboardController.js"></script>
+    <script src="./src/dashboard/MapService.js"></script>
+	<script src="./src/dashboard/ChartService.js"></script>
+
+
+	
+    <script type="text/javascript">
+
+          angular
+              .module('starterApp', ['ngMaterial', 'dashboard', 'chart.js'])
+              .config(function($mdThemingProvider, $mdIconProvider, ChartJsProvider){
+			  
+				ChartJsProvider.setOptions({colours: ['#C62828', '#4527A0', '#C62828', '#C62828', '#C62828', '#C62828', '#C62828']});
+
+                  $mdIconProvider
+                      .defaultIconSet("./assets/svg/avatars.svg", 128)
+                      .icon("menu"       , "./assets/svg/menu.svg"        , 24)
+                      .icon("share"      , "./assets/svg/share.svg"       , 24)
+                      .icon("google_plus", "./assets/svg/google_plus.svg" , 512)
+                      .icon("hangouts"   , "./assets/svg/hangouts.svg"    , 512)
+                      .icon("twitter"    , "./assets/svg/twitter.svg"     , 512)
+                      .icon("phone"      , "./assets/svg/phone.svg"       , 512);
+              });
+
+    </script>
+
+  </body>
+</html>

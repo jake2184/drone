@@ -6,17 +6,30 @@
   </component>
   <component name="ChangeListManager">
     <list id="d29ee594-5367-4f8e-8370-d3d13e0b5770" name="Default" comment="" />
-    <list default="true" id="118fcb26-86d6-41e0-9d61-cf5065071d27" name="New changelist" comment="">
+    <list default="true" id="118fcb26-86d6-41e0-9d61-cf5065071d27" name="New changelist" comment="Added drone name to the mode constructors, and minor logging changes">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/.jshintrc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/.travis.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/LICENSE" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/assets/app.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/assets/svg/avatar-1.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/assets/svg/avatar-4.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/assets/svg/avatars.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/assets/svg/google_plus.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/assets/svg/hangouts.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/assets/svg/mail.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/assets/svg/menu.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/assets/svg/phone.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/assets/svg/share.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/assets/svg/twitter.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/src/dashboard/ChartService.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/src/dashboard/Dashboard.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/src/dashboard/DashboardController.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/src/dashboard/MapService.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/src/dashboard/view/contactSheet.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/package.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/drone_interpret_and_control/DroneCoordinator.js" afterPath="$PROJECT_DIR$/lib/drone_interpret_and_control/DroneCoordinator.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/drone_interpret_and_control/DroneHandler.js" afterPath="$PROJECT_DIR$/lib/drone_interpret_and_control/DroneHandler.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/avoidance.js" afterPath="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/avoidance.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/base.js" afterPath="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/base.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/fire.js" afterPath="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/fire.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/interact.js" afterPath="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/interact.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/normal.js" afterPath="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/normal.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/functions.js" afterPath="$PROJECT_DIR$/lib/functions.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/router.js" afterPath="$PROJECT_DIR$/lib/router.js" />
     </list>
     <ignored path="drone.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -60,8 +73,8 @@
       <file leaf-file-name="functions.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/functions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="500">
-              <caret line="570" column="11" selection-start-line="570" selection-start-column="11" selection-end-line="570" selection-end-column="11" />
+            <state relative-caret-position="245">
+              <caret line="548" column="21" selection-start-line="548" selection-start-column="21" selection-end-line="548" selection-end-column="21" />
               <folding>
                 <element signature="e#557#649#0" expanded="false" />
                 <element signature="e#655#834#0" expanded="false" />
@@ -1069,7 +1082,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Added api docs template" />
     <MESSAGE value="Comment out [type] to work on Bluemix" />
     <MESSAGE value="Added websocket endpoint to API to allow audio streaming (upload and download)." />
     <MESSAGE value="&#10;f" />
@@ -1094,7 +1106,8 @@
     <MESSAGE value="Added dronename to database names in Base.js" />
     <MESSAGE value="Added correct login function" />
     <MESSAGE value="Updated main index.html, added /loginPage to app to trigger browser login" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated main index.html, added /loginPage to app to trigger browser login" />
+    <MESSAGE value="Added drone name to the mode constructors, and minor logging changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added drone name to the mode constructors, and minor logging changes" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="PRESELECT_EXISTING_CHANGELIST" value="false" />
   </component>
@@ -1272,6 +1285,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="307">
           <caret line="56" column="33" selection-start-line="56" selection-start-column="33" selection-end-line="56" selection-end-column="33" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1343,6 +1357,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="51" selection-start-line="3" selection-start-column="51" selection-end-line="3" selection-end-column="51" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1350,6 +1365,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="51" selection-start-line="3" selection-start-column="51" selection-end-line="3" selection-end-column="51" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1357,6 +1373,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="1" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1364,6 +1381,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="6" column="30" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="30" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1443,6 +1461,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-968">
           <caret line="20" column="17" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1450,6 +1469,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="731">
           <caret line="49" column="62" selection-start-line="49" selection-start-column="62" selection-end-line="49" selection-end-column="62" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1457,6 +1477,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1071">
           <caret line="69" column="39" selection-start-line="69" selection-start-column="39" selection-end-line="69" selection-end-column="39" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1526,8 +1547,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/functions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="570" column="11" selection-start-line="570" selection-start-column="11" selection-end-line="570" selection-end-column="11" />
+        <state relative-caret-position="245">
+          <caret line="548" column="21" selection-start-line="548" selection-start-column="21" selection-end-line="548" selection-end-column="21" />
           <folding>
             <element signature="e#557#649#0" expanded="false" />
             <element signature="e#655#834#0" expanded="false" />
