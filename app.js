@@ -125,8 +125,18 @@
 
 	
 	app.post('/login', login);
+
+	app.get('/loginPage', function(req, res) {
+		if(auth(res)) {
+			login(req, res)
+		} else {
+			res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
+			res.status(401).send("Please provide username and password.\n");
+		}
+	});
+
 	
-	
+
 	app.get('/login', function(req, res){
 		res.status(200).send("Please login by POSTing username and password.\n");
 	});
