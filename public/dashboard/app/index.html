@@ -45,7 +45,6 @@
 					<md-card-title>
 						<md-card-title-text>
 							<span class="md-headline">Map View</span>
-							<span class="md-subhead">Provided by Google Maps</span>
 						</md-card-title-text>
 					</md-card-title>
 					<md-card-content>
@@ -54,8 +53,31 @@
 						</div>
 					</md-card-content>
 				</md-card>
-			</div>
+                <md-card>
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Latest image from {{dl.droneName}}</span>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-card-content>
+                        <img id="drone_image" ng-src="../../api/{{dl.droneName}}/images/latest?cb={{dl.random}}" style="margin: auto; max-width: 100%;" alt="Drone Captured Image" >
+                    </md-card-content>
+                </md-card>
+            </div>
 			<div flex-xs flex-gt-xs="50" layout="column">
+                <md-card>
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Drone Status:  {{dl.droneName}}</span>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-card-content>
+                        <md-list>
+                            <md-list-item>Connected : {{dl.currentDroneStatus.connection}}</md-list-item>
+                            <md-list-item>Mode : {{dl.currentDroneStatus.mode}}</md-list-item>
+                        </md-list>
+                    </md-card-content>
+                </md-card>
 				<md-card>
                     <md-toolbar class="md-menu-toolbar">
                         <div class="md-toolbar-tools">

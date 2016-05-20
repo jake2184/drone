@@ -18,7 +18,14 @@
         var self = this;
 
         // Set up universal
-        self.droneList = [];
+        self.dronesNameList = [];
+        self.dronesInformation = [];
+
+
+
+        self.droneName = "";
+        self.currentDroneStatus = {};
+
 
 
         // Set up map
@@ -28,16 +35,23 @@
         $http.get("../../api/drones").then(function (response) {
             //console.log(response);
 
-            for (var i = 0; i < response.data.length; i++) {
-                self.droneList.push(response.data[i].name);
+            if(response.data.length == 0){
+                return;
             }
 
-            mapService.setDrones(self.droneList);
-            chartService.setDrone("pixhack");
+            for (var i = 0; i < response.data.length; i++) {
+                self.dronesNameList.push(response.data[i].name);
+                self.dronesInformation.push(response.data[i]);
+            }
+
+            mapService.setDrones(self.dronesNameList);
+            self.swapDrone("pixhack");
 
             $interval(function () {
                 mapService.updateMap();
             }, 1000);
+
+            // Get drone status
 
         }, function (error) {
             //handle
@@ -57,6 +71,10 @@
             altitude: true
         };
 
+
+        $interval(function(){
+            self.random = new Date().getTime();
+        }, 10000);
 
         $interval(function () {
             chartService.getData();
@@ -82,6 +100,13 @@
         };
 
         self.swapDrone = function swapDrone(droneName) {
+            self.droneName = droneName;
+
+            for(var i=0; i<self.dronesInformation.length;i++){
+                if(self.dronesInformation[i].name == droneName){
+                    self.currentDroneStatus = self.dronesInformation[i].status;
+                }
+            }
             chartService.setDrone(droneName)
         };
 
@@ -140,9 +165,11 @@
 
 
         function DialogController($scope, $mdDialog) {
-            $scope.tempDrone = ""
+            $scope.dronesInformation = self.dronesInformation;
+            
+            $scope.tempDrone = "";
             $scope.setTmpDrone = function(name){
-                console.log(name);
+                //console.log(name);
                 $scope.tempDrone = name;
             };
 
@@ -153,8 +180,7 @@
                 $mdDialog.cancel();
             };
             $scope.confirmDroneSwap = function () {
-                console.log($scope.tempDrone);
-                chartService.setDrone($scope.tempDrone);
+                self.swapDrone($scope.tempDrone);
                 $mdDialog.hide();
             };
         }

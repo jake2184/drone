@@ -37,14 +37,16 @@
 			chart.labels = [0];
 			chart.series = ['Temperature', 'Air Purity' , 'Altitude'];
 			chart.data = [ [0], [0], [0] ];
+			lastQueried = 0;
 		};
 
 		chart.getData =  function() {
 			var uri = "../../api/" + currentDrone + "/sensors/" + lastQueried;
 			var thisQueryTime = new Date().getTime();
+			console.log("Querying " + uri)
 			$http.get(uri).then(function(response){
 				//console.log(response);
-				lastQueried = thisQueryTime;
+
 
 				for(var i = 0; i < response.data.length; i++){
 					var sensorReading = response.data[i];
@@ -63,6 +65,7 @@
 						chart.data[IndexEnum.altitude].push(sensorReading.altitude)
 					}
 					if(push){
+						lastQueried = thisQueryTime;
 						var time = new Date(sensorReading.time);
 						chart.labels.push(time.toUTCString().substr(4, time.toUTCString().length - 8));
 					}

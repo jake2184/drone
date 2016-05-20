@@ -17,6 +17,7 @@
 
 	var checkUserCredentials = require('./lib/functions.js').sql.checkUserCredentials;
 	var login = require('./lib/functions.js').login;
+	var dash_login = require('./lib/functions.js').dash_login;
 	
 	var uploadDir = "./uploads/";
 
@@ -128,7 +129,7 @@
 
 	app.get('/loginPage', function(req, res) {
 		if(auth(res)) {
-			login(req, res)
+			dash_login(req, res)
 		} else {
 			res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
 			res.status(401).send("Please provide username and password.\n");
