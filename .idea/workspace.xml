@@ -6,30 +6,13 @@
   </component>
   <component name="ChangeListManager">
     <list id="d29ee594-5367-4f8e-8370-d3d13e0b5770" name="Default" comment="" />
-    <list default="true" id="118fcb26-86d6-41e0-9d61-cf5065071d27" name="New changelist" comment="Added drone name to the mode constructors, and minor logging changes">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/.jshintrc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/.travis.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/LICENSE" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/assets/app.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/assets/svg/avatar-1.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/assets/svg/avatar-4.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/assets/svg/avatars.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/assets/svg/google_plus.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/assets/svg/hangouts.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/assets/svg/mail.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/assets/svg/menu.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/assets/svg/phone.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/assets/svg/share.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/assets/svg/twitter.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/src/dashboard/ChartService.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/src/dashboard/Dashboard.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/src/dashboard/DashboardController.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/src/dashboard/MapService.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/src/dashboard/view/contactSheet.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/package.json" />
+    <list default="true" id="118fcb26-86d6-41e0-9d61-cf5065071d27" name="New changelist" comment="Added dashboard for website, based on angular framework">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/dashboard/app/src/dashboard/view/tabDialog.tmpl.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/dashboard/app/index.html" afterPath="$PROJECT_DIR$/public/dashboard/app/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/dashboard/app/src/dashboard/ChartService.js" afterPath="$PROJECT_DIR$/public/dashboard/app/src/dashboard/ChartService.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/dashboard/app/src/dashboard/DashboardController.js" afterPath="$PROJECT_DIR$/public/dashboard/app/src/dashboard/DashboardController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/dashboard/app/src/dashboard/MapService.js" afterPath="$PROJECT_DIR$/public/dashboard/app/src/dashboard/MapService.js" />
     </list>
     <ignored path="drone.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -49,317 +32,96 @@
     <favorites_list name="drone" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="341">
-              <caret line="131" column="14" selection-start-line="131" selection-start-column="14" selection-end-line="131" selection-end-column="14" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/login.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="36" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="functions.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lib/functions.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="245">
-              <caret line="548" column="21" selection-start-line="548" selection-start-column="21" selection-end-line="548" selection-end-column="21" />
-              <folding>
-                <element signature="e#557#649#0" expanded="false" />
-                <element signature="e#655#834#0" expanded="false" />
-                <element signature="e#664#790#0" expanded="false" />
-                <element signature="e#800#832#0" expanded="false" />
-                <element signature="e#930#1030#0" expanded="false" />
-                <element signature="e#964#1028#0" expanded="false" />
-                <element signature="n#!!block;n#handleAudioUpload#0" expanded="false" />
-                <element signature="e#1494#1606#0" expanded="false" />
-                <element signature="e#1612#1801#0" expanded="false" />
-                <element signature="n#!!block;n#handleImageUpload#0" expanded="false" />
-                <element signature="e#1905#2011#0" expanded="false" />
-                <element signature="e#2017#2254#0" expanded="false" />
-                <element signature="n#!!block;n#requireLogin#0" expanded="false" />
-                <element signature="e#2326#2426#0" expanded="false" />
-                <element signature="e#2432#2517#0" expanded="false" />
-                <element signature="n#!!block;n#checkUserCredentials#0" expanded="false" />
-                <element signature="n#!!doc;n#createCloudantDatabases#0" expanded="false" />
-                <element signature="e#6543#6621#0" expanded="false" />
-                <element signature="n#!!block;n#deleteCloudantDatabases#0" expanded="false" />
-                <element signature="e#7945#8023#0" expanded="false" />
-                <element signature="e#8066#8521#0" expanded="false" />
-                <element signature="e#8099#8492#0" expanded="false" />
-                <element signature="e#8160#8481#0" expanded="false" />
-                <element signature="e#8185#8351#0" expanded="false" />
-                <element signature="e#8357#8467#0" expanded="false" />
-                <element signature="n#!!doc;n#insertImageIntoDatabase#0" expanded="false" />
-                <element signature="n#!!block;n#insertImageIntoDatabase#0" expanded="false" />
-                <element signature="e#9431#9752#0" expanded="false" />
-                <element signature="e#9450#9580#0" expanded="false" />
-                <element signature="e#9585#9746#0" expanded="false" />
-                <element signature="n#!!doc;n#deleteImageFromDatabase#0" expanded="false" />
-                <element signature="n#!!block;n#deleteImageFromDatabase#0" expanded="false" />
-                <element signature="e#10114#10586#0" expanded="false" />
-                <element signature="e#10131#10287#0" expanded="false" />
-                <element signature="e#10293#10580#0" expanded="false" />
-                <element signature="e#10387#10568#0" expanded="false" />
-                <element signature="n#!!doc;n#insertAudioIntoDatabase#0" expanded="false" />
-                <element signature="n#!!block;n#insertAudioIntoDatabase#0" expanded="false" />
-                <element signature="e#11510#11814#0" expanded="false" />
-                <element signature="e#11529#11658#0" expanded="false" />
-                <element signature="e#11663#11808#0" expanded="false" />
-                <element signature="n#!!doc;n#deleteAudioFromDatabase#0" expanded="false" />
-                <element signature="n#!!block;n#deleteAudioFromDatabase#0" expanded="false" />
-                <element signature="e#12175#12644#0" expanded="false" />
-                <element signature="e#12192#12347#0" expanded="false" />
-                <element signature="e#12353#12638#0" expanded="false" />
-                <element signature="e#12446#12626#0" expanded="false" />
-                <element signature="n#!!doc;n#retrieveLatestImage#0" expanded="false" />
-                <element signature="n#!!block;n#retrieveLatestImage#0" expanded="false" />
-                <element signature="e#12832#13199#0" expanded="false" />
-                <element signature="e#12845#13057#0" expanded="false" />
-                <element signature="e#13067#13193#0" expanded="false" />
-                <element signature="e#13357#14480#0" expanded="false" />
-                <element signature="e#13374#13468#0" expanded="false" />
-                <element signature="e#13472#14474#0" expanded="false" />
-                <element signature="e#13515#13623#0" expanded="false" />
-                <element signature="e#13740#14462#0" expanded="false" />
-                <element signature="e#13765#13912#0" expanded="false" />
-                <element signature="e#13916#14448#0" expanded="false" />
-                <element signature="e#14206#14428#0" expanded="false" />
-                <element signature="e#14239#14313#0" expanded="false" />
-                <element signature="e#14317#14406#0" expanded="false" />
-                <element signature="n#!!doc;n#retrieveLatestAudio#0" expanded="false" />
-                <element signature="n#!!block;n#retrieveLatestAudio#0" expanded="false" />
-                <element signature="e#14672#15042#0" expanded="false" />
-                <element signature="e#14686#14899#0" expanded="false" />
-                <element signature="e#14910#15036#0" expanded="false" />
-                <element signature="e#15199#16343#0" expanded="false" />
-                <element signature="e#15218#15312#0" expanded="false" />
-                <element signature="e#15318#16337#0" expanded="false" />
-                <element signature="e#15363#15470#0" expanded="false" />
-                <element signature="e#15588#16325#0" expanded="false" />
-                <element signature="e#15615#15762#0" expanded="false" />
-                <element signature="e#15768#16311#0" expanded="false" />
-                <element signature="e#16063#16291#0" expanded="false" />
-                <element signature="e#16098#16172#0" expanded="false" />
-                <element signature="e#16178#16269#0" expanded="false" />
-                <element signature="n#!!doc;n#serveSensorData#0" expanded="false" />
-                <element signature="n#!!block;n#serveSensorData#0" expanded="false" />
-                <element signature="e#16979#17125#0" expanded="false" />
-                <element signature="e#16999#17119#0" expanded="false" />
-                <element signature="e#17021#17109#0" expanded="false" />
-                <element signature="e#17187#17598#0" expanded="false" />
-                <element signature="e#17340#17429#0" expanded="false" />
-                <element signature="e#17503#17592#0" expanded="false" />
-                <element signature="e#17667#17697#0" expanded="false" />
-                <element signature="e#17853#18505#0" expanded="false" />
-                <element signature="e#17870#18018#0" expanded="false" />
-                <element signature="e#18051#18179#0" expanded="false" />
-                <element signature="e#18202#18344#0" expanded="false" />
-                <element signature="e#18251#18332#0" expanded="false" />
-                <element signature="n#!!doc;n#serveGPSData#0" expanded="false" />
-                <element signature="e#19586#19667#0" expanded="false" />
-                <element signature="e#19711#19780#0" expanded="false" />
-                <element signature="n#!!doc;n#serveImagesInformation#0" expanded="false" />
-                <element signature="n#!!block;n#serveImagesInformation#0" expanded="false" />
-                <element signature="e#20160#20475#0" expanded="false" />
-                <element signature="e#20177#20272#0" expanded="false" />
-                <element signature="e#20278#20469#0" expanded="false" />
-                <element signature="e#20327#20408#0" expanded="false" />
-                <element signature="n#!!doc;n#serveImage#0" expanded="false" />
-                <element signature="n#!!block;n#serveImage#0" expanded="false" />
-                <element signature="e#20835#21056#0" expanded="false" />
-                <element signature="e#20852#20958#0" expanded="false" />
-                <element signature="e#20964#21050#0" expanded="false" />
-                <element signature="n#!!doc;n#serveAudioInformation#0" expanded="false" />
-                <element signature="n#!!block;n#serveAudioInformation#0" expanded="false" />
-                <element signature="e#21346#21661#0" expanded="false" />
-                <element signature="e#21363#21458#0" expanded="false" />
-                <element signature="e#21464#21655#0" expanded="false" />
-                <element signature="e#21513#21594#0" expanded="false" />
-                <element signature="n#!!doc;n#serveAudio#0" expanded="false" />
-                <element signature="n#!!block;n#serveAudio#0" expanded="false" />
-                <element signature="e#22025#22247#0" expanded="false" />
-                <element signature="e#22042#22148#0" expanded="false" />
-                <element signature="e#22154#22241#0" expanded="false" />
-                <element signature="n#!!block;n#classifyImage#0" expanded="false" />
-                <element signature="e#22646#23094#0" expanded="false" />
-                <element signature="e#22663#22729#0" expanded="false" />
-                <element signature="e#22733#23088#0" expanded="false" />
-                <element signature="e#23100#23996#0" expanded="false" />
-                <element signature="n#!!block;n#speechRecognition#0" expanded="false" />
-                <element signature="e#24247#24397#0" expanded="false" />
-                <element signature="e#24302#24390#0" expanded="false" />
-                <element signature="e#24439#24528#0" expanded="false" />
-                <element signature="e#24534#24605#0" expanded="false" />
-                <element signature="n#!!block;n#sendToSpeechRecognition#0" expanded="false" />
-                <element signature="e#24750#24856#0" expanded="false" />
-                <element signature="e#24965#25508#0" expanded="false" />
-                <element signature="e#24982#25050#0" expanded="false" />
-                <element signature="e#25054#25502#0" expanded="false" />
-                <element signature="e#25112#25151#0" expanded="false" />
-                <element signature="e#25436#25492#0" expanded="false" />
-                <element signature="n#!!block;n#analyseTone#0" expanded="false" />
-                <element signature="e#25565#25597#0" expanded="false" />
-                <element signature="e#25652#25803#0" expanded="false" />
-                <element signature="e#25669#25739#0" expanded="false" />
-                <element signature="e#25743#25797#0" expanded="false" />
-                <element signature="n#!!block;n#deviceStatusCallback#0" expanded="false" />
-                <element signature="e#25973#26038#0" expanded="false" />
-                <element signature="n#!!block;n#processDroneUpdate#0" expanded="false" />
-                <element signature="e#26152#26418#0" expanded="false" />
-                <element signature="e#26504#26550#0" expanded="false" />
-                <element signature="e#26554#26572#0" expanded="false" />
-                <element signature="n#!!doc;n#insertUserCredentials#0" expanded="false" />
-                <element signature="n#!!block;n#insertUserCredentials#0" expanded="false" />
-                <element signature="e#27331#27438#0" expanded="false" />
-                <element signature="e#27752#28146#0" expanded="false" />
-                <element signature="e#27770#27960#0" expanded="false" />
-                <element signature="e#27965#28140#0" expanded="false" />
-                <element signature="n#!!doc;n#deleteUserCredentials#0" expanded="false" />
-                <element signature="n#!!block;n#deleteUserCredentials#0" expanded="false" />
-                <element signature="e#28616#29005#0" expanded="false" />
-                <element signature="e#28634#28805#0" expanded="false" />
-                <element signature="e#28810#28999#0" expanded="false" />
-                <element signature="n#!!doc;n#insertDroneCredentials#0" expanded="false" />
-                <element signature="n#!!doc;n#deleteDroneCredentials#0" expanded="false" />
-                <element signature="n#!!block;n#deleteDroneCredentials#0" expanded="false" />
-                <element signature="e#31700#32919#0" expanded="false" />
-                <element signature="e#31718#31904#0" expanded="false" />
-                <element signature="e#31909#32913#0" expanded="false" />
-                <element signature="e#32095#32384#0" expanded="false" />
-                <element signature="e#32411#32857#0" expanded="false" />
-                <element signature="e#32564#32664#0" expanded="false" />
-                <element signature="e#32670#32767#0" expanded="false" />
-                <element signature="n#!!doc;n#serveUserInformation#0" expanded="false" />
-                <element signature="n#!!block;n#serveUserInformation#0" expanded="false" />
-                <element signature="e#33405#33752#0" expanded="false" />
-                <element signature="e#33426#33569#0" expanded="false" />
-                <element signature="e#33599#33670#0" expanded="false" />
-                <element signature="e#33676#33742#0" expanded="false" />
-                <element signature="n#!!doc;n#serveDronesInformation#0" expanded="false" />
-                <element signature="n#!!block;n#serveDronesInformation#0" expanded="false" />
-                <element signature="e#34127#34441#0" expanded="false" />
-                <element signature="e#34144#34281#0" expanded="false" />
-                <element signature="e#34311#34374#0" expanded="false" />
-                <element signature="e#34380#34435#0" expanded="false" />
-                <element signature="e#34497#34527#0" expanded="false" />
-                <element signature="n#!!doc;n#validateJPEG#0" expanded="false" />
-                <element signature="n#!!block;n#validateJPEG#0" expanded="false" />
-                <element signature="e#34813#34897#0" expanded="false" />
-                <element signature="e#34976#35004#0" expanded="false" />
-                <element signature="e#35010#35095#0" expanded="false" />
-                <element signature="n#!!doc;n#validateAudioFile#0" expanded="false" />
-                <element signature="n#!!block;n#validateAudioFile#0" expanded="false" />
-                <element signature="e#35394#35482#0" expanded="false" />
-                <element signature="e#35570#35598#0" expanded="false" />
-                <element signature="e#35656#35684#0" expanded="false" />
-                <element signature="e#35690#35793#0" expanded="false" />
-                <element signature="n#!!doc;n#convertMP3toWAV#0" expanded="false" />
-                <element signature="n#!!block;n#convertMP3toWAV#0" expanded="false" />
-                <element signature="e#36296#36398#0" expanded="false" />
-                <element signature="e#36471#36599#0" expanded="false" />
-                <element signature="n#!!block;n#onFormat#0;n#!!block;n#convertMP3toWAV#0" expanded="false" />
-                <element signature="n#!!block;n#testSpeechRecognition#0" expanded="false" />
-                <element signature="e#36879#36978#0" expanded="false" />
-                <element signature="e#37078#37471#0" expanded="false" />
-                <element signature="e#37095#37162#0" expanded="false" />
-                <element signature="e#37166#37465#0" expanded="false" />
-                <element signature="e#37201#37240#0" expanded="false" />
-                <element signature="n#!!block;n#testImageRecognition#0" expanded="false" />
-                <element signature="e#37719#38011#0" expanded="false" />
-                <element signature="e#37736#37802#0" expanded="false" />
-                <element signature="e#37806#38005#0" expanded="false" />
-                <element signature="n#!!block;n#createIndexes#0" expanded="false" />
-                <element signature="e#38127#38269#0" expanded="false" />
-                <element signature="e#38223#38263#0" expanded="false" />
-                <element signature="e#38321#38454#0" expanded="false" />
-                <element signature="e#38338#38411#0" expanded="false" />
-                <marker date="1463677746489" expanded="false" signature="27440:28149" placeholder="{...}" />
-                <marker date="1463677746489" expanded="false" signature="28496:29008" placeholder="{...}" />
-                <marker date="1463677746489" expanded="false" signature="33184:33757" placeholder="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="router.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/router.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1462">
-              <caret line="197" column="62" selection-start-line="197" selection-start-column="62" selection-end-line="197" selection-end-column="62" />
-              <folding>
-                <element signature="e#341#378#0" expanded="false" />
-                <element signature="e#419#463#0" expanded="false" />
-                <element signature="e#761#919#0" expanded="false" />
-                <element signature="e#814#837#0" expanded="false" />
-                <element signature="e#843#917#0" expanded="false" />
-                <element signature="e#965#1121#0" expanded="false" />
-                <element signature="e#1018#1041#0" expanded="false" />
-                <element signature="e#1047#1119#0" expanded="false" />
-                <element signature="e#1167#1323#0" expanded="false" />
-                <element signature="e#1221#1244#0" expanded="false" />
-                <element signature="e#1250#1321#0" expanded="false" />
-                <element signature="e#1377#1645#0" expanded="false" />
-                <element signature="e#1647#1983#0" expanded="false" />
-                <element signature="e#1985#2132#0" expanded="false" />
-                <element signature="e#2134#2233#0" expanded="false" />
-                <element signature="e#2235#2350#0" expanded="false" />
-                <element signature="e#2352#2470#0" expanded="false" />
-                <element signature="e#2472#2590#0" expanded="false" />
-                <element signature="e#2592#2619#0" expanded="false" />
-                <element signature="e#2621#2647#0" expanded="false" />
-                <element signature="e#2649#2676#0" expanded="false" />
-                <element signature="e#2725#2880#0" expanded="false" />
-                <element signature="e#2953#3224#0" expanded="false" />
-                <element signature="e#3307#3664#0" expanded="false" />
-                <element signature="e#3759#4211#0" expanded="false" />
-                <element signature="e#4311#4448#0" expanded="false" />
-                <element signature="e#4514#4775#0" expanded="false" />
-                <element signature="e#4851#5186#0" expanded="false" />
-                <element signature="e#5273#5495#0" expanded="false" />
-                <element signature="e#5574#5922#0" expanded="false" />
-                <element signature="e#5996#6234#0" expanded="false" />
-                <element signature="e#6340#6517#0" expanded="false" />
-                <element signature="e#6607#6845#0" expanded="false" />
-                <element signature="e#7352#7569#0" expanded="false" />
-                <element signature="e#7674#7853#0" expanded="false" />
-                <element signature="e#7942#8408#0" expanded="false" />
-                <element signature="e#8478#8687#0" expanded="false" />
-                <element signature="e#8759#9000#0" expanded="false" />
-                <element signature="e#9074#9278#0" expanded="false" />
-                <element signature="e#9342#9729#0" expanded="false" />
-                <element signature="e#9792#10039#0" expanded="false" />
-                <element signature="e#10429#10558#0" expanded="false" />
-                <element signature="e#10461#10484#0" expanded="false" />
-                <element signature="e#10490#10556#0" expanded="false" />
-                <element signature="e#10622#10753#0" expanded="false" />
-                <element signature="e#10655#10678#0" expanded="false" />
-                <element signature="e#10684#10751#0" expanded="false" />
-                <element signature="e#10809#11103#0" expanded="false" />
-                <element signature="e#10836#11072#0" expanded="false" />
-                <element signature="e#10881#10954#0" expanded="false" />
-                <element signature="e#10993#11066#0" expanded="false" />
-                <element signature="e#11078#11101#0" expanded="false" />
-                <element signature="e#11165#11364#0" expanded="false" />
-                <element signature="e#11255#11278#0" expanded="false" />
-                <element signature="e#11284#11362#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.5">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/app.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="2142">
+                  <caret line="126" column="30" selection-start-line="126" selection-start-column="30" selection-end-line="126" selection-end-column="30" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="ChartService.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/public/dashboard/app/src/dashboard/ChartService.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="307">
+                  <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="tabDialog.tmpl.html" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/public/dashboard/app/src/dashboard/view/tabDialog.tmpl.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="680">
+                  <caret line="40" column="59" selection-start-line="40" selection-start-column="59" selection-end-line="40" selection-end-column="59" />
+                  <folding>
+                    <element signature="n#style#0;n#md-dialog-content#0;n#form#0;n#md-dialog#0;n#!!top" expanded="true" />
+                    <element signature="n#style#0;n#md-button#1;n#md-dialog-actions#0;n#form#0;n#md-dialog#0;n#!!top" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Dashboard.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/public/dashboard/app/src/dashboard/Dashboard.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="85">
+                  <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="MapService.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/public/dashboard/app/src/dashboard/MapService.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="765">
+                  <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/public/dashboard/app/index.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="578">
+                  <caret line="34" column="27" selection-start-line="34" selection-start-column="27" selection-end-line="34" selection-end-column="27" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="DashboardController.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/public/dashboard/app/src/dashboard/DashboardController.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="205">
+                  <caret line="79" column="30" selection-start-line="79" selection-start-column="30" selection-end-line="79" selection-end-column="30" />
+                  <folding>
+                    <element signature="e#2708#2771#0" expanded="false" />
+                    <element signature="e#2830#2882#0" expanded="false" />
+                    <element signature="e#2892#2970#0" expanded="false" />
+                    <element signature="e#3005#3096#0" expanded="false" />
+                    <element signature="e#3106#3174#0" expanded="false" />
+                    <element signature="e#3218#4508#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -379,10 +141,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/drone.iml" />
-        <option value="$PROJECT_DIR$/.idea/runConfigurations/bin_www.xml" />
-        <option value="$PROJECT_DIR$/node_modules/drone_interpret_and_control/modes/interact.js" />
-        <option value="$PROJECT_DIR$/node_modules/drone_interpret_and_control/modes/fire.js" />
         <option value="$PROJECT_DIR$/node_modules/drone_interpret_and_control/modes/avoidance.js" />
         <option value="$PROJECT_DIR$/node_modules/drone_interpret_and_control/drone_interpret_and_control.js" />
         <option value="$PROJECT_DIR$/node_modules/drone_interpret_and_control/modes/baseMode.js" />
@@ -429,6 +187,11 @@
         <option value="$PROJECT_DIR$/public/drone-dashboard/app/src/dashboard/MapService.js" />
         <option value="$PROJECT_DIR$/public/drone-dashboard/app/src/dashboard/DashboardController.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/public/dashboard/app/src/dashboard/MapService.js" />
+        <option value="$PROJECT_DIR$/public/dashboard/app/src/dashboard/ChartService.js" />
+        <option value="$PROJECT_DIR$/public/dashboard/app/index.html" />
+        <option value="$PROJECT_DIR$/public/dashboard/app/src/dashboard/view/tabDialog.tmpl.html" />
+        <option value="$PROJECT_DIR$/public/dashboard/app/src/dashboard/DashboardController.js" />
       </list>
     </option>
   </component>
@@ -540,7 +303,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="documentation" />
+              <option name="myItemId" value="dashboard" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -561,18 +324,8 @@
               <option name="myItemId" value="dashboard" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="drone" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="drone" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
+              <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -586,11 +339,23 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
+              <option name="myItemId" value="public" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="drone_interpret_and_control" />
+              <option name="myItemId" value="dashboard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dashboard" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -604,15 +369,27 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
+              <option name="myItemId" value="public" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="drone_interpret_and_control" />
+              <option name="myItemId" value="dashboard" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="modes" />
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dashboard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="view" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1024,7 +801,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="false" show_stripe_button="true" weight="1.0" sideWeight="0.4921875" order="2" side_tool="false" content_ui="tabs" x="-22" y="101" width="1936" height="1056" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.119791664" sideWeight="0.493007" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12864584" sideWeight="0.493007" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -1082,7 +859,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Comment out [type] to work on Bluemix" />
     <MESSAGE value="Added websocket endpoint to API to allow audio streaming (upload and download)." />
     <MESSAGE value="&#10;f" />
     <MESSAGE value="Further documentation" />
@@ -1107,7 +883,8 @@
     <MESSAGE value="Added correct login function" />
     <MESSAGE value="Updated main index.html, added /loginPage to app to trigger browser login" />
     <MESSAGE value="Added drone name to the mode constructors, and minor logging changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added drone name to the mode constructors, and minor logging changes" />
+    <MESSAGE value="Added dashboard for website, based on angular framework" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added dashboard for website, based on angular framework" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="PRESELECT_EXISTING_CHANGELIST" value="false" />
   </component>
@@ -1125,42 +902,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/drone.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="9" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apiDocsTemplate/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apidoc.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/makefile" />
-    <entry file="file://$PROJECT_DIR$/node_modules/vcap_services/VCAP_SERVICES.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="867">
-          <caret line="51" column="28" selection-start-line="51" selection-start-column="28" selection-end-line="51" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/javascript/nodejs/4.4.3/core-modules/dgram.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="245" column="0" selection-start-line="245" selection-start-column="0" selection-end-line="245" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/testResults.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1314,6 +1055,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="12" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1321,6 +1063,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
           <caret line="35" column="8" selection-start-line="35" selection-start-column="8" selection-end-line="35" selection-end-column="8" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1336,6 +1079,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="400">
           <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#md-card-content#0;n#md-card#0;n#div#0;n#md-content#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1385,10 +1131,90 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/base.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-968">
+          <caret line="20" column="17" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/DroneCoordinator.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="731">
+          <caret line="49" column="62" selection-start-line="49" selection-start-column="62" selection-end-line="49" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/DroneHandler.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1071">
+          <caret line="69" column="39" selection-start-line="69" selection-start-column="39" selection-end-line="69" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/drone-dashboard/app/src/dashboard/ChartService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/RestApi.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="438" column="57" selection-start-line="438" selection-start-column="57" selection-end-line="438" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/drone-dashboard/app/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-68">
+          <caret line="17" column="44" selection-start-line="17" selection-start-column="44" selection-end-line="17" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/drone-dashboard/app/src/dashboard/DashboardController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/drone-dashboard/app/src/dashboard/MapService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="21" column="25" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lib/router.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1462">
-          <caret line="197" column="62" selection-start-line="197" selection-start-column="62" selection-end-line="197" selection-end-column="62" />
+        <state relative-caret-position="460">
+          <caret line="166" column="0" selection-start-line="166" selection-start-column="0" selection-end-line="166" selection-end-column="0" />
           <folding>
             <element signature="e#341#378#0" expanded="false" />
             <element signature="e#419#463#0" expanded="false" />
@@ -1449,106 +1275,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/base.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-968">
-          <caret line="20" column="17" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/DroneCoordinator.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="731">
-          <caret line="49" column="62" selection-start-line="49" selection-start-column="62" selection-end-line="49" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/DroneHandler.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1071">
-          <caret line="69" column="39" selection-start-line="69" selection-start-column="39" selection-end-line="69" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="36" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/drone-dashboard/app/src/dashboard/ChartService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/RestApi.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="438" column="57" selection-start-line="438" selection-start-column="57" selection-end-line="438" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="131" column="14" selection-start-line="131" selection-start-column="14" selection-end-line="131" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/drone-dashboard/app/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-68">
-          <caret line="17" column="44" selection-start-line="17" selection-start-column="44" selection-end-line="17" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/drone-dashboard/app/src/dashboard/DashboardController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/drone-dashboard/app/src/dashboard/MapService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="21" column="25" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/functions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="548" column="21" selection-start-line="548" selection-start-column="21" selection-end-line="548" selection-end-column="21" />
+        <state relative-caret-position="432">
+          <caret line="556" column="16" selection-start-line="556" selection-start-column="16" selection-end-line="556" selection-end-column="16" />
           <folding>
             <element signature="e#557#649#0" expanded="false" />
             <element signature="e#655#834#0" expanded="false" />
@@ -1762,6 +1492,80 @@
             <marker date="1463677746489" expanded="false" signature="27440:28149" placeholder="{...}" />
             <marker date="1463677746489" expanded="false" signature="28496:29008" placeholder="{...}" />
             <marker date="1463677746489" expanded="false" signature="33184:33757" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="36" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2142">
+          <caret line="126" column="30" selection-start-line="126" selection-start-column="30" selection-end-line="126" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/dashboard/app/src/dashboard/Dashboard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/dashboard/app/src/dashboard/ChartService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="307">
+          <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/dashboard/app/src/dashboard/MapService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/dashboard/app/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="34" column="27" selection-start-line="34" selection-start-column="27" selection-end-line="34" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/dashboard/app/src/dashboard/view/tabDialog.tmpl.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="40" column="59" selection-start-line="40" selection-start-column="59" selection-end-line="40" selection-end-column="59" />
+          <folding>
+            <element signature="n#style#0;n#md-dialog-content#0;n#form#0;n#md-dialog#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#md-button#1;n#md-dialog-actions#0;n#form#0;n#md-dialog#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/dashboard/app/src/dashboard/DashboardController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="79" column="30" selection-start-line="79" selection-start-column="30" selection-end-line="79" selection-end-column="30" />
+          <folding>
+            <element signature="e#2708#2771#0" expanded="false" />
+            <element signature="e#2830#2882#0" expanded="false" />
+            <element signature="e#2892#2970#0" expanded="false" />
+            <element signature="e#3005#3096#0" expanded="false" />
+            <element signature="e#3106#3174#0" expanded="false" />
+            <element signature="e#3218#4508#0" expanded="false" />
           </folding>
         </state>
       </provider>

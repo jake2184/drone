@@ -56,6 +56,7 @@
                                 label: droneName,
                                 visible: true
                             });
+                            map.setCenter(latLng);
                         }
                     });
                 };
