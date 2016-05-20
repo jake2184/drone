@@ -34,9 +34,9 @@
 		var currentDrone = "";
 
 		chart.initChart = function(){
-			chart.labels = [];
+			chart.labels = [0];
 			chart.series = ['Temperature', 'Air Purity' , 'Altitude'];
-			chart.data = [ [], [], [] ];
+			chart.data = [ [0], [0], [0] ];
 		};
 
 		chart.getData =  function() {

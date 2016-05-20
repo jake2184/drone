@@ -140,17 +140,24 @@
 
 
         function DialogController($scope, $mdDialog) {
+            $scope.tempDrone = ""
+            $scope.setTmpDrone = function(name){
+                console.log(name);
+                $scope.tempDrone = name;
+            };
+
             $scope.hide = function () {
                 $mdDialog.hide();
             };
             $scope.cancel = function () {
                 $mdDialog.cancel();
             };
-            $scope.swapDrone = function (answer) {
-                console.log(answer)
-                $mdDialog.hide(answer);
+            $scope.confirmDroneSwap = function () {
+                console.log($scope.tempDrone);
+                chartService.setDrone($scope.tempDrone);
+                $mdDialog.hide();
             };
-        };
+        }
     }
 
 })();
