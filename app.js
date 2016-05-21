@@ -136,9 +136,19 @@
 		}
 	});
 
-	
+	app.use('/dashboard/*', function(req, res, next){
+		if(req.session.user){
+			next();
+		} else if (auth(res)){
+			dash_login(req, res)
+		} else{
+			res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
+			res.status(401).send("Please provide username and password.\n");
+		}
+	});
 
 	app.get('/login', function(req, res){
+		res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
 		res.status(400).send("Please login by POSTing username and password.\n");
 	});
 

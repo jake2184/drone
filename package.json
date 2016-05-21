@@ -27,7 +27,8 @@
     "watson-developer-cloud": "~1.2.3",
     "wav": "^1.0.0",
     "winston": "^2.2.0",
-    "ws": "^1.1.0"
+    "ws": "^1.1.0",
+    "dashboard": "file:public/dashboard"
   },
   "repository": {},
   "engines": {
