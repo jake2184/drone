@@ -44,7 +44,7 @@
 	}));
 
 	var router = require('./lib/router.js');
-
+	router.setWsInstance(expressWs.getWss());
 	
 
 	router.ws('/:dronename/audio/stream/upload', function(ws, req){
@@ -139,7 +139,7 @@
 	
 
 	app.get('/login', function(req, res){
-		res.status(200).send("Please login by POSTing username and password.\n");
+		res.status(400).send("Please login by POSTing username and password.\n");
 	});
 
 	app.get('/logout', function(req, res){

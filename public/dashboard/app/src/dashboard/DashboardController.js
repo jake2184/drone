@@ -3,7 +3,7 @@
     angular
         .module('dashboard')
         .controller('DashboardController', [
-            'chartService', 'mapService', '$log', '$interval', '$http', '$mdDialog',
+            'chartService', 'mapService', '$log', '$interval', '$http', '$mdDialog', '$websocket',
             DashboardController
         ]);
 
@@ -14,7 +14,7 @@
      * @param avatarsService
      * @constructor
      */
-    function DashboardController(chartService, mapService, $log, $interval, $http, $mdDialog) {
+    function DashboardController(chartService, mapService, $log, $interval, $http, $mdDialog, $websocket) {
         var self = this;
 
         // Set up universal
@@ -51,7 +51,28 @@
                 mapService.updateMap();
             }, 1000);
 
-            // Get drone status
+            var dataStream = $websocket('ws://192.168.1.77:8080/api/updates/jake');
+            
+            dataStream.onMessage(function(message){
+                console.log(JSON.stringify(JSON.parse(message.data)));
+                var incMessage = JSON.parse(message.data);
+
+                if(incMessage.name == self.droneName){
+                    // Is the currently focused drone
+                    self.random = new Date().getTime();
+                }
+
+            });
+
+            dataStream.onError(function(error){
+                console.log(error)
+            });
+            dataStream.onOpen(function(error){
+                console.log("Connected")
+            });
+            dataStream.onClose(function(error){
+                console.log(error)
+            })
 
         }, function (error) {
             //handle

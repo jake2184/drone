@@ -43,7 +43,7 @@
 		chart.getData =  function() {
 			var uri = "../../api/" + currentDrone + "/sensors/" + lastQueried;
 			var thisQueryTime = new Date().getTime();
-			console.log("Querying " + uri)
+			//console.log("Querying " + uri)
 			$http.get(uri).then(function(response){
 				//console.log(response);
 

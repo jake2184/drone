@@ -200,9 +200,29 @@ describe('Routing', function(){
         });
     });
 
+
     describe("Image Endpoints", function() {
         beforeEach(loginAdmin);
         var time = new Date().getTime();
+
+        var wsListen;
+        function connectToUpdates(){
+            wsListen = WebSocket.connect('ws://localhost:8080/api/updates/jake',
+                {extraHeaders:{"cookie":cookie}});
+
+            wsListen.on('text', function(message){
+                console.log("Message: " + message);
+                done();
+            });
+            wsListen.on('close', function(err){throw err});
+            wsListen.on('error', function (err) {throw err;});
+        }
+        function disconnectFromUpdates() {
+            try {
+                wsListen.close();
+            } catch(a){}
+        }
+
         it('GET /api/images should return imageFile list', function(done){
             request(server)
                 .get('/api/pixhack/images')
@@ -210,6 +230,7 @@ describe('Routing', function(){
                 .expect('Content-Type', 'application/json; charset=utf-8')
                 .expect(200, done);
         });
+        before(connectToUpdates);
         it('POST /api/images/:docID should accept valid image', function (done){
           request(server)
                .post('/api/pixhack/images/' + time)
@@ -218,6 +239,7 @@ describe('Routing', function(){
                .set('cookie', cookie)
                .expect(200, done)
         });
+        after(disconnectFromUpdates);
         it('GET /api/images/:docID should return image', function(done){
            request(server)
                .get('/api/pixhack/images/' + time)
@@ -370,6 +392,10 @@ describe('Routing', function(){
                 .expect(200, done);
         });
    });
+
+
+
+
 
     describe("User Endpoints", function(){
         beforeEach(loginAdmin);
