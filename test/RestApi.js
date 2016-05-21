@@ -101,7 +101,7 @@ describe('Routing', function(){
         it('should return /login', function(done){
             request(server)
                 .get('/login')
-                .expect(200)
+                .expect(400)
                 .end(function(err){
                     if(err){throw err;}
                     done();
@@ -211,8 +211,8 @@ describe('Routing', function(){
                 {extraHeaders:{"cookie":cookie}});
 
             wsListen.on('text', function(message){
-                console.log("Message: " + message);
-                done();
+                //console.log("Message: " + message);
+               
             });
             wsListen.on('close', function(err){throw err});
             wsListen.on('error', function (err) {throw err;});
@@ -464,13 +464,16 @@ describe('Routing', function(){
                 .expect(200)
                 .expect('Content-Type', "application/json; charset=utf-8")
                 .end(function(err, res){
-                    if(err) { throw err; }
+                    if(err) { 
+                        console.log(err)
+                        throw err;
+                    }
                     var MQTT = res.body.MQTT;
                     MQTT.should.have.property('auth-token');
                     MQTT.deviceId.should.equal(newDrone.name);
                     MQTT.should.have.property('org');
                     MQTT.should.have.property('type');
-                    console.log(err);
+                    //console.log(err);
                     done();
                 })
          });
