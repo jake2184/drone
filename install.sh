@@ -1,6 +1,7 @@
 
+cd public
 npm install dashboard
-
+cd ..
 npm install -g apidoc
 apidoc -i lib/ -o public/documentation/api -t apiDocsTemplate
 npm install -g jsdoc
