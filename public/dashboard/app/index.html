@@ -78,6 +78,16 @@
                         </md-list>
                     </md-card-content>
                 </md-card>
+                <md-card>
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Live Data Chart for {{dl.droneName}}</span>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-card-content>
+                        <div flex id="chart-div" style="width: 900px; height: 500px;"></div>
+                    </md-card-content>
+                </md-card>
 				<md-card>
                     <md-toolbar class="md-menu-toolbar">
                         <div class="md-toolbar-tools">
@@ -107,14 +117,17 @@
 	<script src="../node_modules/angular-chart.js/dist/angular-chart.js"></script>
     <script src="../node_modules/angular-websocket/dist/angular-websocket.js"></script>
     <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/svg-assets-cache.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
     <script src="./src/dashboard/Dashboard.js"></script>
     <script src="./src/dashboard/DashboardController.js"></script>
     <script src="./src/dashboard/MapService.js"></script>
-	<script src="./src/dashboard/ChartService.js"></script>
+    <script src="./src/dashboard/ChartService.js"></script>
+    <script src="./src/dashboard/LiveChartService.js"></script>
 
-
-
+    <script type="text/javascript">
+        google.load('visualization', '1', {packages:['corechart']});
+    </script>
     <script type="text/javascript">
 
         angular

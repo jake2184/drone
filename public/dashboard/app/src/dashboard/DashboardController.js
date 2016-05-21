@@ -3,7 +3,7 @@
     angular
         .module('dashboard')
         .controller('DashboardController', [
-            'chartService', 'mapService', '$log', '$interval', '$http', '$mdDialog', '$websocket',
+            'chartService', 'mapService', 'liveChartService', '$log', '$interval', '$http', '$mdDialog', '$websocket',
             DashboardController
         ]);
 
@@ -14,14 +14,22 @@
      * @param avatarsService
      * @constructor
      */
-    function DashboardController(chartService, mapService, $log, $interval, $http, $mdDialog, $websocket) {
+    function DashboardController(chartService, mapService, liveChartService,$log, $interval, $http, $mdDialog, $websocket) {
         var self = this;
+
 
         // Set up universal
         self.dronesNameList = [];
         self.dronesInformation = [];
 
-
+        function getDroneIndex(droneName){
+            for ( var i = 0; i < self.dronesInformation.length; i++){
+                if(self.dronesInformation[i].name === droneName){
+                    return i;
+                }
+            }
+            return -1;
+        }
 
         self.droneName = "";
         self.currentDroneStatus = {};
@@ -30,6 +38,8 @@
 
         // Set up map
         mapService.initMap();
+        liveChartService.initChart();
+
 
 
         $http.get("../../api/drones").then(function (response) {
@@ -57,9 +67,22 @@
                 console.log(JSON.stringify(JSON.parse(message.data)));
                 var incMessage = JSON.parse(message.data);
 
-                if(incMessage.name == self.droneName){
+                if(incMessage.name === self.droneName){
                     // Is the currently focused drone
-                    self.random = new Date().getTime();
+                    if(incMessage.event === 'image') {
+                        self.random = new Date().getTime();
+                    }
+
+                    if(incMessage.event === 'sensors'){
+                        //should update chart
+                        liveChartService.addSingleRow(incMessage.payload)
+                    }
+                }
+
+                // do universally
+                if(incMessage.event === 'status'){
+                    console.log("Updating status");
+                    self.dronesInformation[getDroneIndex(incMessage.name)] = incMessage.payload;
                 }
 
             });
@@ -128,7 +151,8 @@
                     self.currentDroneStatus = self.dronesInformation[i].status;
                 }
             }
-            chartService.setDrone(droneName)
+            chartService.setDrone(droneName);
+            liveChartService.initChart();
         };
 
         self.updateTypes = function updateTypes(seriesName) {
@@ -187,7 +211,7 @@
 
         function DialogController($scope, $mdDialog) {
             $scope.dronesInformation = self.dronesInformation;
-            
+            console.log(self.dronesInformation)
             $scope.tempDrone = "";
             $scope.setTmpDrone = function(name){
                 //console.log(name);
