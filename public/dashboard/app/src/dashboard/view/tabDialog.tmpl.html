@@ -1,5 +1,5 @@
 <md-dialog aria-label="Drone Choice">
-    <form>
+    <form style="min-width  800px">
         <md-toolbar>
             <div class="md-toolbar-tools">
                 <h2>Drone Choice</h2>
@@ -9,7 +9,7 @@
                 </md-button>
             </div>
         </md-toolbar>
-        <md-dialog-content style="max-width:800px;max-height:810px; ">
+        <md-dialog-content style="width:800px;max-height:800px; ">
             <md-tabs md-dynamic-height md-dynamic-width md-border-bottom id="tabs">
                 <md-tab  ng-repeat="drone in dronesInformation" label="{{drone.name}}" md-on-select="setTmpDrone(drone.name)" >
                     <md-content class="md-padding">

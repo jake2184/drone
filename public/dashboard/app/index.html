@@ -29,7 +29,7 @@
 
     <md-toolbar layout="row">
         <div class="md-toolbar-tools">
-            <h2>The 'Saving The World' Drone Dashboard</h2>
+            <h2>Drone Monitoring Dashboard</h2>
             <span flex></span>
             <md-button class="md-raised" ng-click="dl.showChangeDrone($event)">
                 Change Drone
@@ -58,6 +58,7 @@
                         <md-card-title-text>
                             <span class="md-headline">Latest image from {{dl.droneName}}</span>
                         </md-card-title-text>
+                        <md-checkbox ng-model="dl.dataTypes.audioStream" ng-change="dl.toggleAudioStream()">Stream Audio</md-checkbox>
                     </md-card-title>
                     <md-card-content>
                         <img id="drone_image" ng-src="../../api/{{dl.droneName}}/images/latest?cb={{dl.random}}" style="margin: auto; max-width: 100%;" alt="Drone Captured Image" >
@@ -76,6 +77,13 @@
                             <md-list-item>Connected : {{dl.currentDroneStatus.connection}}</md-list-item>
                             <md-list-item>Mode : {{dl.currentDroneStatus.mode}}</md-list-item>
                         </md-list>
+                        <md-subheader>Latest Service Feedback</md-subheader>
+                        <md-virtual-repeat-container style="height:300px" id="vertical-container">
+                            <div md-virtual-repeat="feedback in dl.serviceFeedback" class="md-list-item-text" flex>
+                                <h4>{{feedback.time}} : {{feedback.service}}</h4>
+                                <p>{{feedback.feedback}}</p>
+                            </div>
+                        </md-virtual-repeat-container>
                     </md-card-content>
                 </md-card>
                 <md-card>
@@ -85,7 +93,7 @@
                         </md-card-title-text>
                     </md-card-title>
                     <md-card-content>
-                        <div flex id="chart-div" style="width: 900px; height: 500px;"></div>
+                        <div flex id="chart-div" style="height: 500px;"></div>
                     </md-card-content>
                 </md-card>
 				<md-card>

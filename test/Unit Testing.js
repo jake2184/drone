@@ -11,7 +11,7 @@ describe('Unit Testing', function(){
     var url = 'http://localhost:8080';
     //var url = 'http://drone-nodes.eu-gb.mybluemix.net';
 
-    describe("IandC", function (){
+    describe("DroneCoordinator", function (){
 
         var mqttHandler = {
             sendCommand : sinon.spy(),
@@ -72,8 +72,8 @@ describe('Unit Testing', function(){
             done();
         });
         it('should process image labels and send mqtt event messages', function(done){
-            //IandC.setMode("Normal");
-            //IandC.processImageLabels([ {name:"Fire" , score:0.7 }, {name:"Whut", score:0.6} , {name:"Person", score:0.8}], new Date().getTime(), null);
+            //DroneCoordinator.setMode("Normal");
+            //DroneCoordinator.processImageLabels([ {name:"Fire" , score:0.7 }, {name:"Whut", score:0.6} , {name:"Person", score:0.8}], new Date().getTime(), null);
             //assert.equal(MqttHandler.sendCommand.callCount, 6);
             done();
         });

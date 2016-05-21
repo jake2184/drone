@@ -9,10 +9,15 @@
 
     /**
      * Main Controller for the Angular Material Starter App
-     * @param $scope
-     * @param $mdSidenav
-     * @param avatarsService
      * @constructor
+     * @param chartService
+     * @param mapService
+     * @param liveChartService
+     * @param $log
+     * @param $interval
+     * @param $http
+     * @param $mdDialog
+     * @param $websocket
      */
     function DashboardController(chartService, mapService, liveChartService,$log, $interval, $http, $mdDialog, $websocket) {
         var self = this;
@@ -34,7 +39,8 @@
         self.droneName = "";
         self.currentDroneStatus = {};
 
-
+        
+        self.serviceFeedback = [];
 
         // Set up map
         mapService.initMap();
@@ -77,6 +83,30 @@
                         //should update chart
                         liveChartService.addSingleRow(incMessage.payload)
                     }
+                    if(incMessage.event === 'imageLabels'){
+                        var neaterLabels = [];
+
+                        for(var i=0; i<incMessage.payload.length; i++){
+                            neaterLabels.push({
+                                name : incMessage.payload[i].name,
+                                score : incMessage.payload[i].score
+                            })
+                        }
+
+                        self.serviceFeedback.unshift({
+                            service : "Image Recognition",
+                            feedback : neaterLabels.slice(0, 5),
+                            time : new Date(incMessage.time).toLocaleTimeString()
+                        });
+                    }
+                    if(incMessage.event === 'audioTranscript'){
+                        self.serviceFeedback.unshift({
+                            service: 'Speech To Text',
+                            feedback : incMessage.payload,
+                            time : new Date(incMessage.time).toLocaleTimeString()
+                        })
+                    }
+
                 }
 
                 // do universally
@@ -112,7 +142,8 @@
         self.dataTypes = {
             temperature: true,
             airPurity: true,
-            altitude: true
+            altitude: true,
+            audioStream : false
         };
 
 
@@ -128,7 +159,7 @@
             self.data = chartService.data;
         }, 1000);
 
-        self.showChangeDrone = function showChangeDrone(event) {
+        self.showChangeDrone = function (event) {
             $mdDialog.show({
                     controller: DialogController,
                     templateUrl: 'src/dashboard/view/tabDialog.tmpl.html',
@@ -143,7 +174,7 @@
                 });
         };
 
-        self.swapDrone = function swapDrone(droneName) {
+        self.swapDrone = function (droneName) {
             self.droneName = droneName;
 
             for(var i=0; i<self.dronesInformation.length;i++){
@@ -155,9 +186,79 @@
             liveChartService.initChart();
         };
 
-        self.updateTypes = function updateTypes(seriesName) {
+        self.updateTypes = function (seriesName) {
             chartService.toggleDataSeries(seriesName, self.dataTypes[seriesName]);
         };
+
+        var audioStream;
+        self.toggleAudioStream = function (){
+            if(self.dataTypes.audioStream) {
+                audioStream = $websocket('ws://192.168.1.77:8080/api/' + self.droneName + '/audio/stream/listen');
+
+                audioStream.onMessage(function (message) {
+                    console.log("Got data");
+                    console.log(message.data);
+
+                    var arrayBuffer;
+                    var fileReader = new FileReader();
+                    fileReader.onload = function() {
+                        arrayBuffer = this.result;
+
+                        var buff = new Int16Array(arrayBuffer);
+                        playByteArray(buff);
+                        console.log("Buffer afer raed:" + buff)
+                    };
+                    var stuff = fileReader.readAsArrayBuffer(message.data);
+
+                });
+
+                audioStream.onOpen(function () {
+                    console.log("Listening..")
+                });
+
+                audioStream.onClose(function () {
+                    console.log("Stopped Listening")
+                })
+            } else {
+                audioStream.close();
+            }
+        };
+
+        window.onload = init;
+        var context;    // Audio context
+        var buf;        // Audio buffer
+
+        function init() {
+            if (!window.AudioContext) {
+                if (!window.webkitAudioContext) {
+                    alert("Your browser does not support any AudioContext and cannot play back this audio.");
+                    return;
+                }
+                window.AudioContext = window.webkitAudioContext;
+            }
+            context = new AudioContext();
+        }
+
+
+
+        function playByteArray(byteArray) {
+            // Input is Int16Array
+
+            var myAudioBuffer = context.createBuffer(1, 8192, 44100);
+            var nowBuffering = myAudioBuffer.getChannelData(0);
+            for(var i = 0 ; i < 8192; i++){
+                nowBuffering[i] = byteArray[i] / Math.pow(2,15);
+            }
+            var source = context.createBufferSource();
+            source.buffer = myAudioBuffer;
+            source.connect(context.destination);
+            source.start();
+
+
+        }
+
+
+
 
         /**
          * Hide or Show the 'left' sideNav area
@@ -211,7 +312,6 @@
 
         function DialogController($scope, $mdDialog) {
             $scope.dronesInformation = self.dronesInformation;
-            console.log(self.dronesInformation)
             $scope.tempDrone = "";
             $scope.setTmpDrone = function(name){
                 //console.log(name);
