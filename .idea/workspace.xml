@@ -6,7 +6,7 @@
   </component>
   <component name="ChangeListManager">
     <list id="d29ee594-5367-4f8e-8370-d3d13e0b5770" name="Default" comment="" />
-    <list default="true" id="118fcb26-86d6-41e0-9d61-cf5065071d27" name="New changelist" comment="Added live chart fragment (with google visualization). This works much better than angular chart for time series">
+    <list default="true" id="118fcb26-86d6-41e0-9d61-cf5065071d27" name="New changelist" comment="Added npm install to install.sh">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/install.sh" afterPath="$PROJECT_DIR$/install.sh" />
     </list>
@@ -1118,7 +1118,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Fixed drone credentials" />
     <MESSAGE value="Added drone credential testing. Drone insertion/deletion cascades onto cloudant databases" />
     <MESSAGE value="Added dronename to all relevant api endpoints.&#10;Added another audio stream for client to drone.&#10;Added tests for audio stream" />
     <MESSAGE value="Added websocket nodejs to devDependency" />
@@ -1143,7 +1142,8 @@
     <MESSAGE value="Added getStatus" />
     <MESSAGE value="Made own mqtt model with sendUpdates and websockets" />
     <MESSAGE value="Added live chart fragment (with google visualization). This works much better than angular chart for time series" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added live chart fragment (with google visualization). This works much better than angular chart for time series" />
+    <MESSAGE value="Added npm install to install.sh" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added npm install to install.sh" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="PRESELECT_EXISTING_CHANGELIST" value="false" />
   </component>
