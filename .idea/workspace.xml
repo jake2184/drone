@@ -6,7 +6,7 @@
   </component>
   <component name="ChangeListManager">
     <list id="d29ee594-5367-4f8e-8370-d3d13e0b5770" name="Default" comment="" />
-    <list default="true" id="118fcb26-86d6-41e0-9d61-cf5065071d27" name="New changelist" comment="Added npm install to install.sh">
+    <list default="true" id="118fcb26-86d6-41e0-9d61-cf5065071d27" name="New changelist" comment="instanbul from repo">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/install.sh" afterPath="$PROJECT_DIR$/install.sh" />
     </list>
@@ -108,7 +108,7 @@
           <file leaf-file-name="functions.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/lib/functions.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="289">
+                <state relative-caret-position="-527">
                   <caret line="17" column="21" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
                   <folding>
                     <element signature="e#557#649#0" expanded="false" />
@@ -315,7 +315,7 @@
             <entry file="file://$PROJECT_DIR$/install.sh">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="102">
-                  <caret line="6" column="55" selection-start-line="6" selection-start-column="55" selection-end-line="6" selection-end-column="55" />
+                  <caret line="6" column="45" selection-start-line="6" selection-start-column="45" selection-end-line="6" selection-end-column="45" />
                   <folding />
                 </state>
               </provider>
@@ -380,7 +380,7 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+          <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/public/dashboard/app/index.html">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="281">
@@ -393,10 +393,10 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="DashboardController.js" pinned="false" current-in-tab="false">
+          <file leaf-file-name="DashboardController.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/public/dashboard/app/src/dashboard/DashboardController.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="358">
+                <state relative-caret-position="953">
                   <caret line="132" column="46" selection-start-line="132" selection-start-column="46" selection-end-line="132" selection-end-column="46" />
                   <folding>
                     <element signature="e#5206#5258#0" expanded="false" />
@@ -1118,7 +1118,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Added drone credential testing. Drone insertion/deletion cascades onto cloudant databases" />
     <MESSAGE value="Added dronename to all relevant api endpoints.&#10;Added another audio stream for client to drone.&#10;Added tests for audio stream" />
     <MESSAGE value="Added websocket nodejs to devDependency" />
     <MESSAGE value="Try adding './' before uploads" />
@@ -1143,7 +1142,8 @@
     <MESSAGE value="Made own mqtt model with sendUpdates and websockets" />
     <MESSAGE value="Added live chart fragment (with google visualization). This works much better than angular chart for time series" />
     <MESSAGE value="Added npm install to install.sh" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added npm install to install.sh" />
+    <MESSAGE value="instanbul from repo" />
+    <option name="LAST_COMMIT_MESSAGE" value="instanbul from repo" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="PRESELECT_EXISTING_CHANGELIST" value="false" />
   </component>
@@ -1502,20 +1502,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/dashboard/app/src/dashboard/DashboardController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="132" column="46" selection-start-line="132" selection-start-column="46" selection-end-line="132" selection-end-column="46" />
-          <folding>
-            <element signature="e#5206#5258#0" expanded="false" />
-            <element signature="e#5268#5346#0" expanded="false" />
-            <element signature="e#5381#5472#0" expanded="false" />
-            <element signature="e#5482#5550#0" expanded="false" />
-            <element signature="e#5594#6884#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/dashboard/app/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="281">
@@ -1537,9 +1523,39 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="37" column="17" selection-start-line="37" selection-start-column="17" selection-end-line="37" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/dashboard/app/src/dashboard/DashboardController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="953">
+          <caret line="132" column="46" selection-start-line="132" selection-start-column="46" selection-end-line="132" selection-end-column="46" />
+          <folding>
+            <element signature="e#5206#5258#0" expanded="false" />
+            <element signature="e#5268#5346#0" expanded="false" />
+            <element signature="e#5381#5472#0" expanded="false" />
+            <element signature="e#5482#5550#0" expanded="false" />
+            <element signature="e#5594#6884#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lib/functions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
+        <state relative-caret-position="-527">
           <caret line="17" column="21" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
           <folding>
             <element signature="e#557#649#0" expanded="false" />
@@ -1731,26 +1747,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="37" column="17" selection-start-line="37" selection-start-column="17" selection-end-line="37" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/install.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
-          <caret line="6" column="55" selection-start-line="6" selection-start-column="55" selection-end-line="6" selection-end-column="55" />
+          <caret line="6" column="45" selection-start-line="6" selection-start-column="45" selection-end-line="6" selection-end-column="45" />
           <folding />
         </state>
       </provider>
