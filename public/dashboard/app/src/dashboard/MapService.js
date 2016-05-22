@@ -34,7 +34,7 @@
             updateMap : function() {
 
                 var getLatestDronePosition = function (droneName) {
-                    var uri = "http://192.168.1.77:8080/api/" + droneName + "/gps/" + lastQueried[droneName];
+                    var uri = "../../api/" + droneName + "/gps/" + lastQueried[droneName];
                     var thisQueryTime = new Date().getTime();
                     $http.get(uri).then(function(response){
                         lastQueried[droneName] = thisQueryTime;

@@ -31,6 +31,19 @@
         <div class="md-toolbar-tools">
             <h2>Drone Monitoring Dashboard</h2>
             <span flex></span>
+            <md-menu md-position-mode="target-right target" ng-show="dl.errorList.length">
+                <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                    <md-icon id="warningIcon" class="material-icons">warning</md-icon>
+                </md-button>
+                <md-menu-content width="8">
+                    <md-menu-item ng-repeat="error in dl.errorList">
+                        <div layout="row">
+                            <p flex>{{error.time | date : 'dd/MM/yy, hh:mm:ss a'}}: {{error.text}}</p>
+                            <md-icon md-menu-align-target style="margin: auto 3px auto 0;" >error</md-icon>
+                        </div>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
             <md-button class="md-raised" ng-click="dl.showChangeDrone($event)">
                 Change Drone
             </md-button>
@@ -56,12 +69,32 @@
                 <md-card>
                     <md-card-title>
                         <md-card-title-text>
-                            <span class="md-headline">Latest image from {{dl.droneName}}</span>
+                            <span class="md-headline">Images from {{dl.droneName}}</span>
                         </md-card-title-text>
                         <md-checkbox ng-model="dl.dataTypes.audioStream" ng-change="dl.toggleAudioStream()">Stream Audio</md-checkbox>
                     </md-card-title>
                     <md-card-content>
-                        <img id="drone_image" ng-src="../../api/{{dl.droneName}}/images/latest?cb={{dl.random}}" style="margin: auto; max-width: 100%;" alt="Drone Captured Image" >
+
+                        <md-tabs md-dynamic-height md-dynamic-width md-border-bottom id="tabs">
+
+                            <md-tab label="Legacy Images">
+                                <md-content class="md-padding">
+                                    <img ng-src="../../api/{{dl.droneName}}/images/{{dl.legacyImage}}" src="assets/No_image.png" class="legacy">
+                                    <md-virtual-repeat-container style="height:200px">
+                                        <div md-virtual-repeat="image in dl.droneImageList" class="md-list-item" ng-click="dl.selectDroneImage(image.time)" flex>
+                                            <h4>{{image.time | date : 'dd/MM/yy, hh:mm:ss a'}}</h4>
+                                        </div>
+                                    </md-virtual-repeat-container>
+                                </md-content>
+                            </md-tab>
+                            <md-tab  label="Latest Image" >
+                                <md-content class="md-padding">
+                                    <img id="drone_image" ng-src="../../api/{{dl.droneName}}/images/latest?cb={{dl.random}}" src="assets/No_image.png" style="margin: auto; max-width: 100%;" alt="Drone Captured Image" >
+                                </md-content>
+                            </md-tab>
+                        </md-tabs>
+
+
                     </md-card-content>
                 </md-card>
             </div>

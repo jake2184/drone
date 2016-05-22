@@ -25,7 +25,8 @@
 
         // Set up universal
         self.dronesNameList = [];
-        self.dronesInformation = [];
+        self.dronesInformation = []; //  [{ connection:'', mode:'', status:{}  }]
+        
 
         function getDroneIndex(droneName){
             for ( var i = 0; i < self.dronesInformation.length; i++){
@@ -41,6 +42,9 @@
 
         
         self.serviceFeedback = [];
+        self.droneImageList = [];
+
+        self.errorList = [];
 
         // Set up map
         mapService.initMap();
@@ -78,12 +82,11 @@
                     if(incMessage.event === 'image') {
                         self.random = new Date().getTime();
                     }
-
-                    if(incMessage.event === 'sensors'){
+                    else if(incMessage.event === 'sensors'){
                         //should update chart
                         liveChartService.addSingleRow(incMessage.payload)
                     }
-                    if(incMessage.event === 'imageLabels'){
+                    else if(incMessage.event === 'imageLabels'){
                         var neaterLabels = [];
 
                         for(var i=0; i<incMessage.payload.length; i++){
@@ -99,20 +102,20 @@
                             time : new Date(incMessage.time).toLocaleTimeString()
                         });
                     }
-                    if(incMessage.event === 'audioTranscript'){
+                    else if(incMessage.event === 'audioTranscript'){
                         self.serviceFeedback.unshift({
                             service: 'Speech To Text',
                             feedback : incMessage.payload,
                             time : new Date(incMessage.time).toLocaleTimeString()
                         })
                     }
-
                 }
 
                 // do universally
                 if(incMessage.event === 'status'){
-                    console.log("Updating status");
-                    self.dronesInformation[getDroneIndex(incMessage.name)] = incMessage.payload;
+                    console.log("Updating status for " + incMessage.name);
+                    self.dronesInformation[getDroneIndex(incMessage.name)].status.latestStatus = incMessage.payload.status;
+                    console.log(self.dronesInformation[0].latestStatus)
                 }
 
             });
@@ -129,9 +132,31 @@
 
         }, function (error) {
             //handle
-            console.log(error);
-            alert("Failed to connect");
+            self.addError("Failed to get drone infomation");
+            alert("Failed to get drone information - fairly fatal error");
         });
+
+        function loadDroneImageList() {
+            $http.get("../../api/" + self.droneName + "/images").then(function (response){
+                console.log(response);
+                for( var i=0; i<response.data.length-1; i++){
+                    var time = parseInt(response.data[i].id);
+                    var string = new Date(time).toLocaleString();
+                    self.droneImageList.unshift({time: time, asString: string})
+                }
+                self.selectDroneImage(self.droneImageList[0].time);
+            }, function(error){
+                self.addError("Failed to load image list");
+            });
+        }
+
+        self.selectDroneImage = function(time){
+            self.legacyImage = time;  
+        };
+
+        self.addError = function(errorText){
+          self.errorList.unshift({time: new Date().getTime(), text: errorText});
+        };
 
         // Set up chart
         chartService.initChart();
@@ -145,11 +170,6 @@
             altitude: true,
             audioStream : false
         };
-
-
-        $interval(function(){
-            self.random = new Date().getTime();
-        }, 10000);
 
         $interval(function () {
             chartService.getData();
@@ -184,6 +204,8 @@
             }
             chartService.setDrone(droneName);
             liveChartService.initChart();
+            loadDroneImageList();
+            self.random = new Date().getTime();
         };
 
         self.updateTypes = function (seriesName) {
@@ -203,12 +225,11 @@
                     var fileReader = new FileReader();
                     fileReader.onload = function() {
                         arrayBuffer = this.result;
-
                         var buff = new Int16Array(arrayBuffer);
                         playByteArray(buff);
                         console.log("Buffer afer raed:" + buff)
                     };
-                    var stuff = fileReader.readAsArrayBuffer(message.data);
+                    fileReader.readAsArrayBuffer(message.data);
 
                 });
 
@@ -217,6 +238,7 @@
                 });
 
                 audioStream.onClose(function () {
+                    // Check if unclean and throw error
                     console.log("Stopped Listening")
                 })
             } else {
@@ -226,12 +248,11 @@
 
         window.onload = init;
         var context;    // Audio context
-        var buf;        // Audio buffer
 
         function init() {
             if (!window.AudioContext) {
                 if (!window.webkitAudioContext) {
-                    alert("Your browser does not support any AudioContext and cannot play back this audio.");
+                    alert("Your browser does not support any AudioContext and cannot play back audio.");
                     return;
                 }
                 window.AudioContext = window.webkitAudioContext;
@@ -256,7 +277,6 @@
 
 
         }
-
 
 
 
@@ -308,6 +328,7 @@
                 };
             }
         }
+
 
 
         function DialogController($scope, $mdDialog) {

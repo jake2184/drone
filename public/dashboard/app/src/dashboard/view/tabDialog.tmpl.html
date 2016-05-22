@@ -1,5 +1,5 @@
 <md-dialog aria-label="Drone Choice">
-    <form style="min-width  800px">
+    <form style="min-width : 800px">
         <md-toolbar>
             <div class="md-toolbar-tools">
                 <h2>Drone Choice</h2>
@@ -14,10 +14,19 @@
                 <md-tab  ng-repeat="drone in dronesInformation" label="{{drone.name}}" md-on-select="setTmpDrone(drone.name)" >
                     <md-content class="md-padding">
                         <h1 class="md-display-2">{{drone.name}}</h1>
-                        <md-list>
-                            <md-list-item>Connected : {{drone.status.connection}}</md-list-item>
-                            <md-list-item>Mode : {{drone.status.mode}}</md-list-item>
-                        </md-list>
+                        <div flex layout="row">
+                            <div flex-xs flex-gt-xs="50">
+                                <md-list>
+                                    <md-list-item>Connected : {{drone.status.connection}}</md-list-item>
+                                    <md-list-item>Mode : {{drone.status.mode}}</md-list-item>
+                                </md-list>
+                            </div>
+                            <div flex-xs flex-gt-xs="50" layout="column">
+                                <h1 class="md-subheader">Latest Status:</h1>
+                                <div ng-repeat="(key, value) in drone.status.latestStatus">{{key}} : {{value}}</div>
+
+                            </div>
+                        </div>
                     </md-content>
                 </md-tab>
                </md-tabs>
