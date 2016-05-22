@@ -3,7 +3,7 @@
     angular
         .module('dashboard')
         .controller('DashboardController', [
-            'mapService', 'liveChartService', '$log', '$interval', '$http', '$mdDialog', '$websocket', '$mdSidenav',
+            'mapService', 'liveChartService', 'audioService', '$log', '$interval', '$http', '$mdDialog', '$websocket', '$mdSidenav',
             DashboardController
         ]);
 
@@ -19,7 +19,7 @@
      * @param $mdDialog
      * @param $websocket
      */
-    function DashboardController(mapService, liveChartService,$log, $interval, $http, $mdDialog, $websocket, $mdSidenav) {
+    function DashboardController(mapService, liveChartService, audioService, $log, $interval, $http, $mdDialog, $websocket, $mdSidenav) {
         var self = this;
 
 
@@ -51,6 +51,7 @@
         // Set up map
         mapService.initMap();
         liveChartService.initChart();
+        audioService.initService();
 
 
 
@@ -169,21 +170,12 @@
           self.errorList.unshift({time: new Date().getTime(), text: errorText});
         };
 
-        // Set up chart
-        // chartService.initChart();
-        // self.labels = chartService.labels;
-        // self.series = chartService.series;
-        // self.data = chartService.data;
-
         self.dataTypes = {
             temperature: true,
             airPurity: true,
             altitude: true,
             audioStream : false
         };
-
-        $interval(function () {
-        }, 1000);
 
         self.showChangeDrone = function (event) {
             $mdDialog.show({
@@ -223,7 +215,7 @@
                     fileReader.onload = function() {
                         arrayBuffer = this.result;
                         var buff = new Int16Array(arrayBuffer);
-                        playByteArray(buff);
+                        audioService.playByteArray(buff);
                         console.log("Buffer afer raed:" + buff)
                     };
                     fileReader.readAsArrayBuffer(message.data);
@@ -243,35 +235,35 @@
             }
         };
 
-        window.onload = init;
-        var context;    // Audio context
+        //window.onload = init;
+        //var context;    // Audio context
 
-        function init() {
-            if (!window.AudioContext) {
-                if (!window.webkitAudioContext) {
-                    alert("Your browser does not support any AudioContext and cannot play back audio.");
-                    return;
-                }
-                window.AudioContext = window.webkitAudioContext;
-            }
-            context = new AudioContext();
-        }
-
-        function playByteArray(byteArray) {
-            // Input is Int16Array
-
-            var myAudioBuffer = context.createBuffer(1, 8192, 44100);
-            var nowBuffering = myAudioBuffer.getChannelData(0);
-            for(var i = 0 ; i < 8192; i++){
-                nowBuffering[i] = byteArray[i] / Math.pow(2,15);
-            }
-            var source = context.createBufferSource();
-            source.buffer = myAudioBuffer;
-            source.connect(context.destination);
-            source.start();
-
-
-        }
+        // function init() {
+        //     if (!window.AudioContext) {
+        //         if (!window.webkitAudioContext) {
+        //             alert("Your browser does not support any AudioContext and cannot play back audio.");
+        //             return;
+        //         }
+        //         window.AudioContext = window.webkitAudioContext;
+        //     }
+        //     context = new AudioContext();
+        // }
+        //
+        // function playByteArray(byteArray) {
+        //     // Input is Int16Array
+        //
+        //     var myAudioBuffer = context.createBuffer(1, 8192, 44100);
+        //     var nowBuffering = myAudioBuffer.getChannelData(0);
+        //     for(var i = 0 ; i < 8192; i++){
+        //         nowBuffering[i] = byteArray[i] / Math.pow(2,15);
+        //     }
+        //     var source = context.createBufferSource();
+        //     source.buffer = myAudioBuffer;
+        //     source.connect(context.destination);
+        //     source.start();
+        //
+        //
+        // }
 
         self.toggleDroneNavPanel = function(){
             $mdSidenav('right').toggle();
