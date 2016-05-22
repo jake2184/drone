@@ -44,7 +44,7 @@
                     </md-menu-item>
                 </md-menu-content>
             </md-menu>
-            <md-button class="md-raised" ng-click="dl.showChangeDrone($event)">
+            <md-button class="md-raised" ng-click="dl.toggleDroneNavPanel()">
                 Change Drone
             </md-button>
         </div>
@@ -116,6 +116,9 @@
                                 <h4>{{feedback.time}} : {{feedback.service}}</h4>
                                 <p>{{feedback.feedback}}</p>
                             </div>
+                            <div ng-if="dl.serviceFeedback.length==0">
+                                No feedback ( yet.. )
+                            </div>
                         </md-virtual-repeat-container>
                     </md-card-content>
                 </md-card>
@@ -147,6 +150,32 @@
 				</md-card>
 			</div>
         </md-content>
+        <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
+            <md-toolbar><h1 class="md-toolbar-tools">Change Drone Focus</h1></md-toolbar>
+            <md-content>
+                <md-list>
+                    <md-list-item ng-repeat="drone in dl.dronesInformation" layout="column">
+                        <md-button class="md-secondary" ng-click="dl.swapDrone(drone.name); dl.toggleDroneNavPanel()">
+                            <div flex layout="row">
+                                <md-icon ng-if="drone.status.connection === 'online'">network_wifi</md-icon>
+                                <md-icon ng-if="drone.status.connection != 'online'">signal_wifi_off</md-icon>
+                                <h2 style="margin-left: 20px">{{drone.name}}</h2>
+                            </div>
+                            <div flex layout="row">
+                                <!--
+                                <p>Last contact: {{(drone.status.latestStatus.time && (drone.status.latestStatus.time | date : 'dd/MM/yy, hh:mm:ss a')) ||  (!drone.status.latestStatus.time &&'N/A')}}</p>-->
+                                <p>Last contact: {{drone.status.latestStatus.time ?  (drone.status.latestStatus.time | date : 'dd/MM/yy, hh:mm:ss a' ): 'N/A'}}</p>
+                                <md-card-title-media>
+                                    <div class="md-media-md card-media md-padding">
+                                        <img style="max-height: 64px; max-width: 64px" src="../../api/{{drone.name}}/images/latest">
+                                    </div>
+                                </md-card-title-media>
+                            </div>
+                        </md-button>
+                    </md-list-item>
+                </md-list>
+            </md-content>
+        </md-sidenav>
     </div>
 
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3wXmZy0MDqra2yXcxwmUQ6TLCxXE6D1o"></script>

@@ -3,7 +3,7 @@
     angular
         .module('dashboard')
         .controller('DashboardController', [
-            'chartService', 'mapService', 'liveChartService', '$log', '$interval', '$http', '$mdDialog', '$websocket',
+            'chartService', 'mapService', 'liveChartService', '$log', '$interval', '$http', '$mdDialog', '$websocket', '$mdSidenav',
             DashboardController
         ]);
 
@@ -19,7 +19,7 @@
      * @param $mdDialog
      * @param $websocket
      */
-    function DashboardController(chartService, mapService, liveChartService,$log, $interval, $http, $mdDialog, $websocket) {
+    function DashboardController(chartService, mapService, liveChartService,$log, $interval, $http, $mdDialog, $websocket, $mdSidenav) {
         var self = this;
 
 
@@ -260,8 +260,6 @@
             context = new AudioContext();
         }
 
-
-
         function playByteArray(byteArray) {
             // Input is Int16Array
 
@@ -278,7 +276,9 @@
 
         }
 
-
+        self.toggleDroneNavPanel = function(){
+            $mdSidenav('right').toggle();
+        };
 
         /**
          * Hide or Show the 'left' sideNav area

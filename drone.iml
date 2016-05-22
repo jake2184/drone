@@ -10,5 +10,6 @@
     <orderEntry type="library" name="express-DefinitelyTyped" level="application" />
     <orderEntry type="library" name="node_modules" level="project" />
     <orderEntry type="library" name="Angular" level="application" />
+    <orderEntry type="library" name="drone node_modules" level="project" />
   </component>
 </module>

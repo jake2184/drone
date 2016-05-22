@@ -82,6 +82,22 @@
 
 
 	app.enable('trust proxy');
+	if (process.env.VCAP_SERVICES) {
+		logger.info("Forcing HTTPS");
+		app.use (function (req, res, next) {
+			if (req.secure) {
+				// request was via https, so do no special handling
+				//logger.info("Request for " + req.url);
+				next();
+			} else {
+				// request was via http, so redirect to https
+				var x = 'https://' + req.headers.host + req.url;
+				logger.info("Redirecting to " + x);
+				res.redirect('https://' + req.headers.host + req.url);
+			}
+		});
+	}
+
     //
 	// // Add a handler to inspect the req.secure flag (see
 	// // http://expressjs.com/api#req.secure). This allows us
