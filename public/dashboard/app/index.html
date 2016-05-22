@@ -11,7 +11,6 @@
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
     <link rel="stylesheet" href="../node_modules/angular-material/angular-material.css"/>
     <link rel="stylesheet" href="assets/app.css"/>
-	<link rel="stylesheet" href="../node_modules/angular-chart.js/dist/angular-chart.css"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
     <style type="text/css">
@@ -59,6 +58,7 @@
 						<md-card-title-text>
 							<span class="md-headline">Map View</span>
 						</md-card-title-text>
+                        <md-checkbox ng-model="dl.maps.fromDatabase" ng-change="dl.toggleMapsFromDatabase()">Load Positions From Database</md-checkbox>
 					</md-card-title>
 					<md-card-content>
 						<div class="angular-google-map">
@@ -108,9 +108,53 @@
                     <md-card-content>
                         <md-list>
                             <md-list-item>Connected : {{dl.currentDroneStatus.connection}}</md-list-item>
-                            <md-list-item>Mode : {{dl.currentDroneStatus.mode}}</md-list-item>
+                            <md-list-item>Mode : {{dl.currentDroneStatus.mode ? dl.currentDroneStatus.mode : 'n/a'}}</md-list-item>
                         </md-list>
-                        <md-subheader>Latest Service Feedback</md-subheader>
+
+                        <md-divider></md-divider>
+                        <md-grid-list
+                            md-cols="4" md-row-height="80px" md-gutter="1px">
+                            <md-grid-tile>
+                                <div layout="column">
+                                    <md-icon>battery_full</md-icon>
+                                    <p align="center">{{dl.currentDroneStatus.droneSettings ? (dl.currentDroneStatus.droneSettings.battery_remaining + '%'): 'n/a'}}</p>
+                                </div>
+                            </md-grid-tile>
+                            <md-grid-tile>
+                                <div layout="column">
+                                    <md-icon>add_a_photo</md-icon>
+                                    <p>Capture Interval: {{dl.currentDroneStatus.droneSettings ? (dl.currentDroneStatus.droneSettings.photoInterval + 'ms'): 'n/a'}}</p>
+                                </div>
+                            </md-grid-tile>
+                            <md-grid-tile>
+                                <md-switch ng-model="dl.currentDroneStatus.droneSettings.uploadingImages">Uploading Images</md-switch>
+                            </md-grid-tile>
+                            <md-grid-tile>
+                                <md-switch ng-model="dl.currentDroneStatus.droneSettings.uploadingAudio">Uploading Audio</md-switch>
+                            </md-grid-tile>
+                            <md-grid-tile>
+                                <md-switch ng-model="dl.currentDroneStatus.droneSettings.uploadingSensors">Uploading Sensors</md-switch>
+                            </md-grid-tile>
+                            <md-grid-tile>
+                                <md-switch ng-model="dl.currentDroneStatus.droneSettings.capturingImages">Capturing Images</md-switch>
+                            </md-grid-tile>
+                            <md-grid-tile>
+                                <md-switch ng-model="dl.currentDroneStatus.droneSettings.capturingAudio">Capturing Audio</md-switch>
+                            </md-grid-tile>
+                            <md-grid-tile>
+                                <md-switch ng-model="dl.currentDroneStatus.droneSettings.streamingAudio">Streaming Audio</md-switch>
+                            </md-grid-tile>
+
+
+
+
+
+                        </md-grid-list>
+
+                        <md-divider></md-divider>
+
+
+                        <md-subheader class="md-primary">Latest Service Feedback</md-subheader>
                         <md-virtual-repeat-container style="height:300px" id="vertical-container">
                             <div md-virtual-repeat="feedback in dl.serviceFeedback" class="md-list-item-text" flex>
                                 <h4>{{feedback.time}} : {{feedback.service}}</h4>
@@ -132,22 +176,6 @@
                         <div flex id="chart-div" style="height: 500px;"></div>
                     </md-card-content>
                 </md-card>
-				<md-card>
-                    <md-toolbar class="md-menu-toolbar">
-                        <div class="md-toolbar-tools">
-                            <h2 class="md-toolbar-tools">Data View</h2>
-                            <span flex></span>
-                        </div>
-                    </md-toolbar>
-					<md-card-content>
-						<canvas id="line" class="chart chart-line" chart-data="dl.data" chart-labels="dl.labels" chart-legend="true" chart-series="dl.series"></canvas>
-                        <div flex layout="row">
-                            <md-checkbox ng-model="dl.dataTypes.temperature" ng-change="dl.updateTypes('temperature')">Temperature</md-checkbox>
-                            <md-checkbox ng-model="dl.dataTypes.airPurity" ng-change="dl.updateTypes('airPurity')">Air Purity</md-checkbox>
-                            <md-checkbox ng-model="dl.dataTypes.altitude" ng-change="dl.updateTypes('altitude')">Altitude</md-checkbox>
-                        </div>
-					</md-card-content>
-				</md-card>
 			</div>
         </md-content>
         <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
@@ -162,12 +190,13 @@
                                 <h2 style="margin-left: 20px">{{drone.name}}</h2>
                             </div>
                             <div flex layout="row">
-                                <!--
-                                <p>Last contact: {{(drone.status.latestStatus.time && (drone.status.latestStatus.time | date : 'dd/MM/yy, hh:mm:ss a')) ||  (!drone.status.latestStatus.time &&'N/A')}}</p>-->
-                                <p>Last contact: {{drone.status.latestStatus.time ?  (drone.status.latestStatus.time | date : 'dd/MM/yy, hh:mm:ss a' ): 'N/A'}}</p>
+                                <div flex layout="column">
+                                <p>Last contact:</p>
+                                <p>{{drone.status.droneSettings.time ? (drone.status.droneSettings.time | date : 'dd/MM/yy, hh:mm:ss a' ): 'N/A'}}</p>
+                                </div>
                                 <md-card-title-media>
                                     <div class="md-media-md card-media md-padding">
-                                        <img style="max-height: 64px; max-width: 64px" src="../../api/{{drone.name}}/images/latest">
+                                        <img style="max-height: 64px; max-width: 64px" ng-src="../../api/{{drone.name}}/images/latest">
                                     </div>
                                 </md-card-title-media>
                             </div>
@@ -183,8 +212,6 @@
     <script src="../node_modules/angular-animate/angular-animate.js"></script>
     <script src="../node_modules/angular-aria/angular-aria.js"></script>
     <script type="text/javascript" src="../node_modules/angular-material/angular-material.js"></script>
-	<script src="../node_modules/angular-chart.js/node_modules/chart.js/dist/Chart.js"></script>
-	<script src="../node_modules/angular-chart.js/dist/angular-chart.js"></script>
     <script src="../node_modules/angular-websocket/dist/angular-websocket.js"></script>
     <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/svg-assets-cache.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -192,7 +219,6 @@
     <script src="./src/dashboard/Dashboard.js"></script>
     <script src="./src/dashboard/DashboardController.js"></script>
     <script src="./src/dashboard/MapService.js"></script>
-    <script src="./src/dashboard/ChartService.js"></script>
     <script src="./src/dashboard/LiveChartService.js"></script>
 
     <script type="text/javascript">
@@ -201,16 +227,12 @@
     <script type="text/javascript">
 
         angular
-            .module('starterApp', ['ngMaterial', 'dashboard', 'chart.js', 'material.svgAssetsCache', 'ngWebSocket'])
-            .config(function($mdThemingProvider, $mdIconProvider, ChartJsProvider){
+            .module('starterApp', ['ngMaterial', 'dashboard', 'material.svgAssetsCache', 'ngWebSocket'])
+            .config(function($mdThemingProvider, $mdIconProvider){
 
                 $mdIconProvider
                         .defaultIconSet('img/icons/sets/core-icons.svg', 24);
 
-                ChartJsProvider.setOptions(
-                        {
-                            colours: ['#C62828', '#4527A0', '#C62828', '#C62828', '#C62828', '#C62828', '#C62828']
-                        });
 
             });
 

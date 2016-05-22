@@ -152,7 +152,8 @@
 		}
 	});
 
-	app.use('/dashboard/*', function(req, res, next){
+
+	app.use('/dashboard/app', function(req, res, next){
 		if(req.session.user){
 			next();
 		} else if (auth(res)){

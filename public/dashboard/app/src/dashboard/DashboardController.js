@@ -3,7 +3,7 @@
     angular
         .module('dashboard')
         .controller('DashboardController', [
-            'chartService', 'mapService', 'liveChartService', '$log', '$interval', '$http', '$mdDialog', '$websocket', '$mdSidenav',
+            'mapService', 'liveChartService', '$log', '$interval', '$http', '$mdDialog', '$websocket', '$mdSidenav',
             DashboardController
         ]);
 
@@ -19,7 +19,7 @@
      * @param $mdDialog
      * @param $websocket
      */
-    function DashboardController(chartService, mapService, liveChartService,$log, $interval, $http, $mdDialog, $websocket, $mdSidenav) {
+    function DashboardController(mapService, liveChartService,$log, $interval, $http, $mdDialog, $websocket, $mdSidenav) {
         var self = this;
 
 
@@ -39,7 +39,9 @@
 
         self.droneName = "";
         self.currentDroneStatus = {};
-
+        self.maps = {
+            fromDatabase : false
+        };
         
         self.serviceFeedback = [];
         self.droneImageList = [];
@@ -67,9 +69,9 @@
             mapService.setDrones(self.dronesNameList);
             self.swapDrone("pixhack");
 
-            $interval(function () {
-                mapService.updateMap();
-            }, 1000);
+            mapService.setLoadingPositionsFromDatabase(self.maps.fromDatabase);
+            
+
 
             var dataStream = $websocket('ws://192.168.1.77:8080/api/updates/jake');
             
@@ -84,7 +86,7 @@
                     }
                     else if(incMessage.event === 'sensors'){
                         //should update chart
-                        liveChartService.addSingleRow(incMessage.payload)
+                        liveChartService.addSingleRow(incMessage.payload);
                     }
                     else if(incMessage.event === 'imageLabels'){
                         var neaterLabels = [];
@@ -114,8 +116,17 @@
                 // do universally
                 if(incMessage.event === 'status'){
                     console.log("Updating status for " + incMessage.name);
-                    self.dronesInformation[getDroneIndex(incMessage.name)].status.latestStatus = incMessage.payload.status;
-                    console.log(self.dronesInformation[0].latestStatus)
+                    self.dronesInformation[getDroneIndex(incMessage.name)].status = incMessage.payload;
+                    console.log(self.dronesInformation[0].status);
+
+                    if(incMessage.name === self.droneName){
+                        self.currentDroneStatus = incMessage.payload;
+                    }
+                    console.log(self.dronesInformation);
+                    console.log("CUrr")
+                    console.log(self.currentDroneStatus)
+                } else if(incMessage.event === 'sensors'){
+                    mapService.updateDronePosition(incMessage.name, incMessage.payload.location);
                 }
 
             });
@@ -159,10 +170,10 @@
         };
 
         // Set up chart
-        chartService.initChart();
-        self.labels = chartService.labels;
-        self.series = chartService.series;
-        self.data = chartService.data;
+        // chartService.initChart();
+        // self.labels = chartService.labels;
+        // self.series = chartService.series;
+        // self.data = chartService.data;
 
         self.dataTypes = {
             temperature: true,
@@ -172,11 +183,6 @@
         };
 
         $interval(function () {
-            chartService.getData();
-            // This shouldn't need doing
-            self.labels = chartService.labels;
-            self.series = chartService.series;
-            self.data = chartService.data;
         }, 1000);
 
         self.showChangeDrone = function (event) {
@@ -196,20 +202,11 @@
 
         self.swapDrone = function (droneName) {
             self.droneName = droneName;
-
-            for(var i=0; i<self.dronesInformation.length;i++){
-                if(self.dronesInformation[i].name == droneName){
-                    self.currentDroneStatus = self.dronesInformation[i].status;
-                }
-            }
-            chartService.setDrone(droneName);
+            self.currentDroneStatus = self.dronesInformation[getDroneIndex(droneName)].status || {};
+            //chartService.setDrone(droneName);
             liveChartService.initChart();
             loadDroneImageList();
             self.random = new Date().getTime();
-        };
-
-        self.updateTypes = function (seriesName) {
-            chartService.toggleDataSeries(seriesName, self.dataTypes[seriesName]);
         };
 
         var audioStream;
@@ -285,7 +282,13 @@
          */
         self.toggleUsersList = function toggleUsersList() {
             $mdSidenav('left').toggle();
-        }
+        };
+
+        self.toggleMapsFromDatabase = function(){
+            
+            mapService.setLoadingPositionsFromDatabase(self.maps.fromDatabase);
+
+        };
 
         /**
          * Select the current avatars
