@@ -33,8 +33,7 @@
 	////////////////////////////////////////////////////
 
 
-	// serve the files out of ./public as our static files
-	app.use(express.static(__dirname + '/public'));
+
 
 	app.use(session({
 		cookieName: 'session',
@@ -152,7 +151,6 @@
 		}
 	});
 
-
 	app.use('/dashboard/app', function(req, res, next){
 		if(req.session.user){
 			next();
@@ -172,6 +170,9 @@
 	app.get('/logout', function(req, res){
 		req.session.reset();
 	});
+
+	// serve the files out of ./public as our static files
+	app.use(express.static(__dirname + '/public'));
 
 	// Clean up uploads
 	setInterval(function() {

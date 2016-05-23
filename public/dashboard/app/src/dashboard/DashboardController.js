@@ -38,7 +38,9 @@
         }
 
         self.droneName = "";
-        self.currentDroneStatus = {};
+        self.currentDroneStatus = {
+            droneSettings : {}
+        };
         self.maps = {
             fromDatabase : false
         };
@@ -77,7 +79,7 @@
             var dataStream = $websocket('ws://192.168.1.77:8080/api/updates/jake');
             
             dataStream.onMessage(function(message){
-                console.log(JSON.stringify(JSON.parse(message.data)));
+                //console.log(JSON.stringify(JSON.parse(message.data)));
                 var incMessage = JSON.parse(message.data);
 
                 if(incMessage.name === self.droneName){
@@ -116,16 +118,30 @@
 
                 // do universally
                 if(incMessage.event === 'status'){
-                    console.log("Updating status for " + incMessage.name);
+
                     self.dronesInformation[getDroneIndex(incMessage.name)].status = incMessage.payload;
-                    console.log(self.dronesInformation[0].status);
 
                     if(incMessage.name === self.droneName){
-                        self.currentDroneStatus = incMessage.payload;
+                        // REVAMP
+                        //self.currentDroneStatus = incMessage.payload;
+                        var newSettings = incMessage.payload.droneSettings;
+                        self.currentDroneStatus.connection = incMessage.payload.connection;
+                        self.currentDroneStatus.mode = incMessage.payload.mode;
+
+                        for(var setting in newSettings){
+                            if(newSettings.hasOwnProperty(setting)) {
+                                if(self.currentDroneStatus.beingUpdated.hasOwnProperty(setting)){
+                                    if(self.currentDroneStatus.droneSettings[setting] == newSettings[setting]){
+                                        delete self.currentDroneStatus.beingUpdated[setting];
+                                    }
+                                } else{
+                                    self.currentDroneStatus.droneSettings[setting] = newSettings[setting];
+                                }
+                            }
+                        }
+
                     }
-                    console.log(self.dronesInformation);
-                    console.log("CUrr")
-                    console.log(self.currentDroneStatus)
+
                 } else if(incMessage.event === 'sensors'){
                     mapService.updateDronePosition(incMessage.name, incMessage.payload.location);
                 }
@@ -177,6 +193,32 @@
             audioStream : false
         };
 
+        self.changeCaptureInterval = function(){
+
+        };
+
+        self.updatingDroneSetting = function(){
+            for(var key in self.currentDroneStatus.beingUpdated) {
+                if (self.currentDroneStatus.beingUpdated.hasOwnProperty(key)) {
+                    return true;
+                }
+            }
+            return false;            
+        };
+
+        self.changeDroneSetting = function(setting){
+            self.currentDroneStatus.beingUpdated[setting] = true;
+            var newValue = self.currentDroneStatus.droneSettings[setting];
+            var command = {
+                command : setting,
+                args : [newValue]
+            };
+            $http.post('../../api/' + self.droneName + '/command', command).then(function(response){}, function (error) {
+                delete self.currentDroneStatus.beingUpdated[setting];
+                self.addError("Failed to send new command");
+            });
+        };
+
         self.showChangeDrone = function (event) {
             $mdDialog.show({
                     controller: DialogController,
@@ -195,6 +237,7 @@
         self.swapDrone = function (droneName) {
             self.droneName = droneName;
             self.currentDroneStatus = self.dronesInformation[getDroneIndex(droneName)].status || {};
+            self.currentDroneStatus.beingUpdated = [];
             //chartService.setDrone(droneName);
             liveChartService.initChart();
             loadDroneImageList();

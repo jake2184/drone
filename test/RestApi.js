@@ -84,7 +84,30 @@ describe('Routing', function(){
                 callback();
             });
     }
-    
+    var wsListen;
+    function connectToUpdates(){
+        wsListen = WebSocket.connect('ws://localhost:8080/api/updates/jake',
+            {extraHeaders:{"cookie":cookie}});
+
+        wsListen.on('text', function(message){
+            //console.log("Message: " + message);
+        });
+        wsListen.on('close', function(err){throw err});
+        wsListen.on('error', function (err) {throw err;});
+    }
+
+    function disconnectFromUpdates() {
+        try {
+            wsListen.close();
+        } catch(a){}
+    }
+
+     function checkForErr(err){
+         if(err){
+             throw err;
+         }
+     }
+
     this.timeout(10000);
     var cookie;
 
@@ -101,11 +124,7 @@ describe('Routing', function(){
         it('should return /login', function(done){
             request(server)
                 .get('/login')
-                .expect(400)
-                .end(function(err){
-                    if(err){throw err;}
-                    done();
-                });
+                .expect(400, done);
         })
     });
 
@@ -205,24 +224,6 @@ describe('Routing', function(){
         beforeEach(loginAdmin);
         var time = new Date().getTime();
 
-        var wsListen;
-        function connectToUpdates(){
-            wsListen = WebSocket.connect('ws://localhost:8080/api/updates/jake',
-                {extraHeaders:{"cookie":cookie}});
-
-            wsListen.on('text', function(message){
-                //console.log("Message: " + message);
-               
-            });
-            wsListen.on('close', function(err){throw err});
-            wsListen.on('error', function (err) {throw err;});
-        }
-        function disconnectFromUpdates() {
-            try {
-                wsListen.close();
-            } catch(a){}
-        }
-
         it('GET /api/images should return imageFile list', function(done){
             request(server)
                 .get('/api/pixhack/images')
@@ -230,7 +231,6 @@ describe('Routing', function(){
                 .expect('Content-Type', 'application/json; charset=utf-8')
                 .expect(200, done);
         });
-        before(connectToUpdates);
         it('POST /api/images/:docID should accept valid image', function (done){
           request(server)
                .post('/api/pixhack/images/' + time)
@@ -239,7 +239,6 @@ describe('Routing', function(){
                .set('cookie', cookie)
                .expect(200, done)
         });
-        after(disconnectFromUpdates);
         it('GET /api/images/:docID should return image', function(done){
            request(server)
                .get('/api/pixhack/images/' + time)
@@ -346,15 +345,15 @@ describe('Routing', function(){
                 message.should.equal(testString);
                 done();
             });
-            wsListen.on('close', function(err){throw err});
-            wsListen.on('error', function (err) {throw err;});
+            wsListen.on('close', checkForErr);
+            wsListen.on('error', checkForErr);
 
             var wsSend = WebSocket.connect('ws://localhost:8080/api/pixhack/audio/stream/upload',
                 {extraHeaders:{"cookie":cookie}});
 
             wsSend.on('connect', function(){wsSend.send(testString);});
-            wsSend.on('close', function(err){throw err});
-            wsSend.on('error', function (err) {throw err;});
+            wsSend.on('close', checkForErr);
+            wsSend.on('error', checkForErr);
         });
         it('can connect and listen to client audio stream', function(done){
             var testString = "Hello world";
@@ -365,15 +364,15 @@ describe('Routing', function(){
                 message.should.equal(testString);
                 done();
             });
-            wsListen.on('close', function(err){throw err});
-            wsListen.on('error', function (err) {throw err;});
+            wsListen.on('close', checkForErr);
+            wsListen.on('error', checkForErr);
 
             var wsSend = WebSocket.connect('ws://localhost:8080/api/pixhack/audio/stream/talk',
                 {extraHeaders:{"cookie":cookie}});
 
             wsSend.on('connect', function(){wsSend.send(testString);});
-            wsSend.on('close', function(err){throw err});
-            wsSend.on('error', function (err) {throw err;});
+            wsSend.on('close', checkForErr);
+            wsSend.on('error', checkForErr);
         });
     });
 
@@ -504,6 +503,29 @@ describe('Routing', function(){
     
         
     });
+    describe('Updates and Commands', function(){
+        beforeEach(loginAdmin);
+        it('should be able to connect to updates', function(done){
+            wsListen = WebSocket.connect('ws://localhost:8080/api/updates/jake',
+                {extraHeaders:{"cookie":cookie}});
+
+            wsListen.on('connect', function(){ 
+                wsListen.close(); 
+                done();
+            });
+            wsListen.on('close', checkForErr);
+            wsListen.on('error', checkForErr);
+
+        });
+        it('should be able to send commands', function(done){
+            request(server)
+                .post('/api/pixhack/command')
+                .send( {command: "dummyCommand", args : []} )
+                .set('cookie', cookie)
+                .expect(200, done)                
+        });
+    });
+
 
     after(function (done) {
         var dirPath = './uploads';
