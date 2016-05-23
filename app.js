@@ -1,30 +1,29 @@
-	/*eslint-env node*/
-
 	var express = require('express');
 	var bodyParser = require('body-parser');
 	var multer = require('multer');
 	var findRemoveSync = require('find-remove');
-	var fs = require ('fs');
 	var cfenv = require('cfenv');
 	var auth = require('basic-auth');
 	var session = require('client-sessions');
-	var lame = require ('lame');
-	var wav = require('wav');
 	var https=require('https');
 
-
+	// Require logging module
 	var logger = require('./lib/logger.js');
 
+	// Load select login functions
 	var checkUserCredentials = require('./lib/functions.js').sql.checkUserCredentials;
 	var login = require('./lib/functions.js').login;
 	var dash_login = require('./lib/functions.js').dash_login;
-	
+
+	// Where all uploaded files will be stored
 	var uploadDir = "./uploads/";
 
+	// Create express server object, add parsing middleware
 	var app = express();
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({ extended: true }));
 
+	// Add websocket server to the application
 	var expressWs = require('express-ws')(app);
 
 	// Get the app environment from Cloud Foundry
@@ -32,54 +31,21 @@
 
 	////////////////////////////////////////////////////
 
-
-
-
+	// Use client-side session middleware. Secret is an encryption key
 	app.use(session({
 		cookieName: 'session',
-		secret: 'JFuqTUOPdRNtYHc0c4Yx',
+		secret: 'JFuqTUOPdRNtYHc0c4YxXQNZ9CHGoP',
 		duration: 30 * 60 * 1000,
 		activeDuration: 5 * 60 * 1000
 	}));
 
+	// Load the router, pass it the websocket server instance, apply to app /api
 	var router = require('./lib/router.js');
 	router.setWsInstance(expressWs.getWss());
-	
-
-	router.ws('/:dronename/audio/stream/upload', function(ws, req){
-		ws.send("Successfully connected");
-
-		ws.on('message', function(msg){
-			var clients = expressWs.getWss().clients;
-			for(var i = 0; i < clients.length; i++){
-
-				if(clients[i].upgradeReq.originalUrl.indexOf("listen") > -1){
-					clients[i].send(msg);
-				}
-			}
-		});
-	});
-
-	router.ws('/:dronename/audio/stream/talk', function(ws, req){
-		ws.send("Successfully connected");
-
-		ws.on('message', function(msg){
-			var clients = expressWs.getWss().clients;
-			for(var i = 0; i < clients.length; i++){
-
-				if(clients[i].upgradeReq.originalUrl.indexOf("download") > -1){
-					clients[i].send(msg);
-				}
-			}
-		});
-	});
-
-
-
 	app.use('/api/', router);
 
 
-
+	// Enforce HTTPS when running in the cloud
 	app.enable('trust proxy');
 	if (process.env.VCAP_SERVICES) {
 		logger.info("Forcing HTTPS");
@@ -115,10 +81,7 @@
 	// 	}
 	// });
 
-
-
-	////////// REST FUNCTIONS ////////////////////
-
+	// Legacy login function. Should be deleted soon
 	app.post('/loginLegacy', function(req, res) {
 		var creds = auth(res);
 		if (!creds) {
@@ -139,9 +102,16 @@
 		}
 	});
 
-	
+	// Login details should be posted, not a get
+	app.get('/login', function(req, res){
+		res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
+		res.status(400).send("Please login by POSTing username and password.\n");
+	});
+
+	// Post command for command-line interface (pi) 	
 	app.post('/login', login);
 
+	// Dashboard login for browser
 	app.get('/loginPage', function(req, res) {
 		if(auth(res)) {
 			dash_login(req, res)
@@ -151,6 +121,7 @@
 		}
 	});
 
+	// Ensure that the dashboard restricts access
 	app.use('/dashboard/app', function(req, res, next){
 		if(req.session.user){
 			next();
@@ -162,16 +133,12 @@
 		}
 	});
 
-	app.get('/login', function(req, res){
-		res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
-		res.status(400).send("Please login by POSTing username and password.\n");
-	});
-
+	// Logout functionality
 	app.get('/logout', function(req, res){
 		req.session.reset();
 	});
 
-	// serve the files out of ./public as our static files
+	// Serve the files out of ./public as static files
 	app.use(express.static(__dirname + '/public'));
 
 	// Clean up uploads

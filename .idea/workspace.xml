@@ -6,18 +6,14 @@
   </component>
   <component name="ChangeListManager">
     <list id="d29ee594-5367-4f8e-8370-d3d13e0b5770" name="Default" comment="" />
-    <list default="true" id="118fcb26-86d6-41e0-9d61-cf5065071d27" name="New changelist" comment="Created audio service. TODO move the websocket to the audioservice">
+    <list default="true" id="118fcb26-86d6-41e0-9d61-cf5065071d27" name="New changelist" comment="Added drone settings to dashboard. These are interactive and can correctly change the Pi's settings. &#10;&#10;Fixed authorisation for login - order the middleware is added.&#10;&#10;Added commands endpoint to the api and added testing.">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/apidoc.json" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/drone_interpret_and_control/DroneCoordinator.js" afterPath="$PROJECT_DIR$/lib/drone_interpret_and_control/DroneCoordinator.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/drone_interpret_and_control/DroneHandler.js" afterPath="$PROJECT_DIR$/lib/drone_interpret_and_control/DroneHandler.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/base.js" afterPath="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/base.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/functions.js" afterPath="$PROJECT_DIR$/lib/functions.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/router.js" afterPath="$PROJECT_DIR$/lib/router.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/dashboard/app/assets/app.css" afterPath="$PROJECT_DIR$/public/dashboard/app/assets/app.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/dashboard/app/index.html" afterPath="$PROJECT_DIR$/public/dashboard/app/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/dashboard/app/src/dashboard/DashboardController.js" afterPath="$PROJECT_DIR$/public/dashboard/app/src/dashboard/DashboardController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/RestApi.js" afterPath="$PROJECT_DIR$/test/RestApi.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
     </list>
     <ignored path="drone.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -43,8 +39,8 @@
           <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/app.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="494">
-                  <caret line="51" column="30" selection-start-line="51" selection-start-column="30" selection-end-line="51" selection-end-column="30" />
+                <state relative-caret-position="391">
+                  <caret line="23" column="55" selection-start-line="23" selection-start-column="55" selection-end-line="23" selection-end-column="55" />
                   <folding />
                 </state>
               </provider>
@@ -63,63 +59,87 @@
           <file leaf-file-name="router.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/lib/router.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="374">
-                  <caret line="368" column="52" selection-start-line="368" selection-start-column="52" selection-end-line="368" selection-end-column="52" />
+                <state relative-caret-position="125">
+                  <caret line="246" column="0" selection-start-line="246" selection-start-column="0" selection-end-line="246" selection-end-column="0" />
                   <folding>
-                    <element signature="e#513#550#0" expanded="false" />
-                    <element signature="e#591#635#0" expanded="false" />
-                    <element signature="e#933#1091#0" expanded="false" />
-                    <element signature="e#986#1009#0" expanded="false" />
-                    <element signature="e#1015#1089#0" expanded="false" />
-                    <element signature="e#1137#1293#0" expanded="false" />
-                    <element signature="e#1190#1213#0" expanded="false" />
-                    <element signature="e#1219#1291#0" expanded="false" />
-                    <element signature="e#1339#1495#0" expanded="false" />
-                    <element signature="e#1393#1416#0" expanded="false" />
-                    <element signature="e#1422#1493#0" expanded="false" />
-                    <element signature="e#1549#1817#0" expanded="false" />
-                    <element signature="e#1819#2155#0" expanded="false" />
-                    <element signature="e#2157#2304#0" expanded="false" />
-                    <element signature="e#2306#2405#0" expanded="false" />
-                    <element signature="e#2407#2522#0" expanded="false" />
-                    <element signature="e#2524#2642#0" expanded="false" />
-                    <element signature="e#2644#2762#0" expanded="false" />
-                    <element signature="e#2764#2791#0" expanded="false" />
-                    <element signature="e#2793#2819#0" expanded="false" />
-                    <element signature="e#2821#2848#0" expanded="false" />
-                    <element signature="e#2897#3052#0" expanded="false" />
-                    <element signature="e#3125#3396#0" expanded="false" />
-                    <element signature="e#3479#3836#0" expanded="false" />
-                    <element signature="e#3931#4383#0" expanded="false" />
-                    <element signature="e#4483#4620#0" expanded="false" />
-                    <element signature="e#4686#4947#0" expanded="false" />
-                    <element signature="e#5023#5358#0" expanded="false" />
-                    <element signature="e#5445#5667#0" expanded="false" />
-                    <element signature="e#5746#6094#0" expanded="false" />
-                    <element signature="e#6168#6406#0" expanded="false" />
-                    <element signature="e#6512#6689#0" expanded="false" />
-                    <element signature="e#6779#7017#0" expanded="false" />
-                    <element signature="e#7094#7451#0" expanded="false" />
-                    <element signature="e#7524#7741#0" expanded="false" />
-                    <element signature="e#7846#8025#0" expanded="false" />
-                    <element signature="e#8114#8580#0" expanded="false" />
-                    <element signature="e#8650#8859#0" expanded="false" />
-                    <element signature="e#8931#9172#0" expanded="false" />
-                    <element signature="e#9246#9450#0" expanded="false" />
-                    <element signature="e#9514#9901#0" expanded="false" />
-                    <element signature="e#9964#10211#0" expanded="false" />
-                    <element signature="e#10771#10900#0" expanded="false" />
-                    <element signature="e#10803#10826#0" expanded="false" />
-                    <element signature="e#10832#10898#0" expanded="false" />
-                    <element signature="e#10964#11095#0" expanded="false" />
-                    <element signature="e#10997#11020#0" expanded="false" />
-                    <element signature="e#11026#11093#0" expanded="false" />
-                    <element signature="e#11151#11445#0" expanded="false" />
-                    <element signature="e#11178#11414#0" expanded="false" />
-                    <element signature="e#11223#11296#0" expanded="false" />
-                    <element signature="e#11335#11408#0" expanded="false" />
-                    <element signature="e#11420#11443#0" expanded="false" />
+                    <element signature="e#327#402#0" expanded="false" />
+                    <element signature="e#514#546#0" expanded="false" />
+                    <element signature="e#902#904#0" expanded="false" />
+                    <element signature="e#1278#1434#0" expanded="false" />
+                    <element signature="e#1529#1685#0" expanded="false" />
+                    <element signature="e#1784#1942#0" expanded="false" />
+                    <element signature="e#2010#2278#0" expanded="false" />
+                    <element signature="e#2280#2616#0" expanded="false" />
+                    <element signature="e#2618#2765#0" expanded="false" />
+                    <element signature="e#2767#2866#0" expanded="false" />
+                    <element signature="e#2868#2983#0" expanded="false" />
+                    <element signature="e#2985#3103#0" expanded="false" />
+                    <element signature="e#3105#3223#0" expanded="false" />
+                    <element signature="e#3225#3252#0" expanded="false" />
+                    <element signature="e#3254#3280#0" expanded="false" />
+                    <element signature="e#3282#3309#0" expanded="false" />
+                    <element signature="e#3383#3538#0" expanded="false" />
+                    <element signature="e#3611#3882#0" expanded="false" />
+                    <element signature="e#3965#4322#0" expanded="false" />
+                    <element signature="e#4416#4868#0" expanded="false" />
+                    <element signature="e#4975#5112#0" expanded="false" />
+                    <element signature="e#5178#5439#0" expanded="false" />
+                    <element signature="e#5515#5850#0" expanded="false" />
+                    <element signature="e#5947#6169#0" expanded="false" />
+                    <element signature="e#6248#6596#0" expanded="false" />
+                    <element signature="e#6670#6908#0" expanded="false" />
+                    <element signature="e#7290#7528#0" expanded="false" />
+                    <element signature="e#7605#7962#0" expanded="false" />
+                    <element signature="e#8035#8252#0" expanded="false" />
+                    <element signature="e#8357#8536#0" expanded="false" />
+                    <element signature="e#8634#9100#0" expanded="false" />
+                    <element signature="e#9170#9379#0" expanded="false" />
+                    <element signature="e#9451#9692#0" expanded="false" />
+                    <element signature="e#9776#9980#0" expanded="false" />
+                    <element signature="e#10044#10431#0" expanded="false" />
+                    <element signature="e#10494#10741#0" expanded="false" />
+                    <element signature="e#10873#10938#0" expanded="false" />
+                    <element signature="e#10999#11065#0" expanded="false" />
+                    <element signature="e#11113#11169#0" expanded="false" />
+                    <element signature="e#11478#11607#0" expanded="false" />
+                    <element signature="e#11510#11533#0" expanded="false" />
+                    <element signature="e#11539#11605#0" expanded="false" />
+                    <element signature="e#11671#11802#0" expanded="false" />
+                    <element signature="e#11704#11727#0" expanded="false" />
+                    <element signature="e#11733#11800#0" expanded="false" />
+                    <element signature="e#11858#12152#0" expanded="false" />
+                    <element signature="e#11885#12121#0" expanded="false" />
+                    <element signature="e#11930#12003#0" expanded="false" />
+                    <element signature="e#12042#12115#0" expanded="false" />
+                    <element signature="e#12127#12150#0" expanded="false" />
+                    <element signature="e#12214#12450#0" expanded="false" />
+                    <element signature="e#12304#12327#0" expanded="false" />
+                    <element signature="e#12333#12448#0" expanded="false" />
+                    <element signature="e#12515#12754#0" expanded="false" />
+                    <element signature="e#12567#12590#0" expanded="false" />
+                    <element signature="e#12644#12667#0" expanded="false" />
+                    <element signature="e#12673#12752#0" expanded="false" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="install.sh" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/install.sh">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="153">
+                  <caret line="9" column="50" selection-start-line="9" selection-start-column="50" selection-end-line="9" selection-end-column="50" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/package.json">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="417">
+                  <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="4" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -127,8 +147,8 @@
           <file leaf-file-name="functions.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/lib/functions.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="140">
-                  <caret line="979" column="0" selection-start-line="979" selection-start-column="0" selection-end-line="979" selection-end-column="0" />
+                <state relative-caret-position="324">
+                  <caret line="1241" column="32" selection-start-line="1241" selection-start-column="32" selection-end-line="1241" selection-end-column="32" />
                   <folding>
                     <element signature="e#568#660#0" expanded="false" />
                     <element signature="e#666#845#0" expanded="false" />
@@ -390,27 +410,26 @@
                     <element signature="e#41527#41655#0" expanded="false" />
                     <element signature="n#!!block;n#onFormat#0;n#!!block;n#convertMP3toWAV#0" expanded="false" />
                     <element signature="n#!!block;n#testSpeechRecognition#0" expanded="false" />
-                    <element signature="e#41935#42034#0" expanded="false" />
-                    <element signature="e#42134#42527#0" expanded="false" />
-                    <element signature="e#42151#42218#0" expanded="false" />
-                    <element signature="e#42222#42521#0" expanded="false" />
-                    <element signature="e#42257#42296#0" expanded="false" />
+                    <element signature="e#42644#42743#0" expanded="false" />
+                    <element signature="e#42843#43236#0" expanded="false" />
+                    <element signature="e#42860#42927#0" expanded="false" />
+                    <element signature="e#42931#43230#0" expanded="false" />
+                    <element signature="e#42966#43005#0" expanded="false" />
                     <element signature="n#!!block;n#testImageRecognition#0" expanded="false" />
-                    <element signature="e#42775#43067#0" expanded="false" />
-                    <element signature="e#42792#42858#0" expanded="false" />
-                    <element signature="e#42862#43061#0" expanded="false" />
+                    <element signature="e#43484#43776#0" expanded="false" />
+                    <element signature="e#43501#43567#0" expanded="false" />
+                    <element signature="e#43571#43770#0" expanded="false" />
                     <element signature="n#!!block;n#createIndexes#0" expanded="false" />
-                    <element signature="e#43183#43325#0" expanded="false" />
-                    <element signature="e#43279#43319#0" expanded="false" />
-                    <element signature="e#43377#43510#0" expanded="false" />
-                    <element signature="e#43394#43467#0" expanded="false" />
-                    <element signature="e#43533#44854#0" expanded="false" />
-                    <element signature="e#43695#44392#0" expanded="false" />
-                    <element signature="e#44404#44794#0" expanded="false" />
-                    <element signature="e#44811#44852#0" expanded="false" />
-                    <marker date="1463999688129" expanded="false" signature="31981:32690" ph="{...}" />
-                    <marker date="1463999688129" expanded="false" signature="33037:33549" ph="{...}" />
-                    <marker date="1463999688129" expanded="false" signature="37725:38298" ph="{...}" />
+                    <element signature="e#43892#44034#0" expanded="false" />
+                    <element signature="e#43988#44028#0" expanded="false" />
+                    <element signature="e#44086#44219#0" expanded="false" />
+                    <element signature="e#44103#44176#0" expanded="false" />
+                    <element signature="e#44404#45101#0" expanded="false" />
+                    <element signature="e#45113#45503#0" expanded="false" />
+                    <element signature="e#45520#45561#0" expanded="false" />
+                    <marker date="1464000642265" expanded="false" signature="31981:32690" ph="{...}" />
+                    <marker date="1464000642265" expanded="false" signature="33037:33549" ph="{...}" />
+                    <marker date="1464000642265" expanded="false" signature="37725:38298" ph="{...}" />
                   </folding>
                 </state>
               </provider>
@@ -419,7 +438,7 @@
           <file leaf-file-name="DroneCoordinator.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/DroneCoordinator.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1088">
+                <state relative-caret-position="579">
                   <caret line="64" column="39" selection-start-line="64" selection-start-column="39" selection-end-line="64" selection-end-column="39" />
                   <folding />
                 </state>
@@ -442,38 +461,6 @@
                 <state relative-caret-position="2839">
                   <caret line="167" column="0" selection-start-line="167" selection-start-column="0" selection-end-line="173" selection-end-column="2" />
                   <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="MapService.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/public/dashboard/app/src/dashboard/MapService.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="561">
-                  <caret line="33" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="AudioService.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/public/dashboard/app/src/dashboard/AudioService.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="442">
-                  <caret line="26" column="20" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="LiveChartService.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/public/dashboard/app/src/dashboard/LiveChartService.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="0" column="12" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
-                  <folding>
-                    <element signature="e#1257#1298#0" expanded="false" />
-                  </folding>
                 </state>
               </provider>
             </entry>
@@ -519,8 +506,8 @@
           <file leaf-file-name="RestApi.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/test/RestApi.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="602">
-                  <caret line="322" column="11" selection-start-line="322" selection-start-column="11" selection-end-line="322" selection-end-column="11" />
+                <state relative-caret-position="459">
+                  <caret line="360" column="50" selection-start-line="360" selection-start-column="50" selection-end-line="360" selection-end-column="50" />
                   <folding />
                 </state>
               </provider>
@@ -600,22 +587,22 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/public/dashboard/app/src/dashboard/ChartService.js" />
         <option value="$PROJECT_DIR$/public/dashboard/app/src/dashboard/LiveChartService.js" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/install.sh" />
         <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/public/dashboard/app/src/dashboard/view/tabDialog.tmpl.html" />
         <option value="$PROJECT_DIR$/public/dashboard/app/src/dashboard/MapService.js" />
         <option value="$PROJECT_DIR$/public/dashboard/app/src/dashboard/AudioService.js" />
-        <option value="$PROJECT_DIR$/lib/router.js" />
         <option value="$PROJECT_DIR$/lib/drone_interpret_and_control/DroneHandler.js" />
         <option value="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/base.js" />
         <option value="$PROJECT_DIR$/lib/drone_interpret_and_control/DroneCoordinator.js" />
-        <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/public/dashboard/app/src/dashboard/DashboardController.js" />
         <option value="$PROJECT_DIR$/public/dashboard/app/index.html" />
         <option value="$PROJECT_DIR$/public/dashboard/app/assets/app.css" />
-        <option value="$PROJECT_DIR$/lib/functions.js" />
         <option value="$PROJECT_DIR$/test/RestApi.js" />
+        <option value="$PROJECT_DIR$/lib/functions.js" />
+        <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/lib/router.js" />
+        <option value="$PROJECT_DIR$/package.json" />
       </list>
     </option>
   </component>
@@ -699,116 +686,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="drone" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="drone" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="drone" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="drone" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dashboard" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="drone" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="drone" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dashboard" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="drone" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="drone" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dashboard" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dashboard" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="drone" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="drone" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dashboard" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
       <pane id="Scratches" />
@@ -846,7 +723,7 @@
       <recent name="C:\Users\Jake\meng\drone" />
     </key>
   </component>
-  <component name="RunManager" selected="Mocha.Test">
+  <component name="RunManager" selected="Mocha.Routing.Audio Endpoints">
     <configuration default="false" name="Routing" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -879,23 +756,6 @@
       </test-names>
       <method />
     </configuration>
-    <configuration default="false" name="Routing.Drone Endpoints.user can delete drone" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <envs />
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>TEST</test-kind>
-      <test-file>$PROJECT_DIR$/test/RestApi.js</test-file>
-      <test-names>
-        <name value="Routing" />
-        <name value="Drone Endpoints" />
-        <name value="user can delete drone" />
-      </test-names>
-      <method />
-    </configuration>
     <configuration default="false" name="Routing.User Endpoints" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -925,6 +785,22 @@
       <test-names>
         <name value="Routing" />
         <name value="Updates and Commands" />
+      </test-names>
+      <method />
+    </configuration>
+    <configuration default="false" name="Routing.Audio Endpoints" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>SUITE</test-kind>
+      <test-file>$PROJECT_DIR$/test/RestApi.js</test-file>
+      <test-names>
+        <name value="Routing" />
+        <name value="Audio Endpoints" />
       </test-names>
       <method />
     </configuration>
@@ -1074,17 +950,17 @@
       <item index="4" class="java.lang.String" itemvalue="Node.js.Test" />
       <item index="5" class="java.lang.String" itemvalue="Mocha.Routing" />
       <item index="6" class="java.lang.String" itemvalue="Mocha.Routing.Drone Endpoints.user can add drone" />
-      <item index="7" class="java.lang.String" itemvalue="Mocha.Routing.Drone Endpoints.user can delete drone" />
-      <item index="8" class="java.lang.String" itemvalue="Mocha.Routing.User Endpoints" />
-      <item index="9" class="java.lang.String" itemvalue="Mocha.Routing.Updates and Commands" />
+      <item index="7" class="java.lang.String" itemvalue="Mocha.Routing.User Endpoints" />
+      <item index="8" class="java.lang.String" itemvalue="Mocha.Routing.Updates and Commands" />
+      <item index="9" class="java.lang.String" itemvalue="Mocha.Routing.Audio Endpoints" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Mocha.Routing.Updates and Commands" />
-        <item index="1" class="java.lang.String" itemvalue="Mocha.Routing.User Endpoints" />
-        <item index="2" class="java.lang.String" itemvalue="Mocha.Routing" />
-        <item index="3" class="java.lang.String" itemvalue="Mocha.Routing.Drone Endpoints.user can add drone" />
-        <item index="4" class="java.lang.String" itemvalue="Mocha.Routing.Drone Endpoints.user can delete drone" />
+        <item index="0" class="java.lang.String" itemvalue="Mocha.Routing.Audio Endpoints" />
+        <item index="1" class="java.lang.String" itemvalue="Mocha.Routing.Updates and Commands" />
+        <item index="2" class="java.lang.String" itemvalue="Mocha.Routing.User Endpoints" />
+        <item index="3" class="java.lang.String" itemvalue="Mocha.Routing" />
+        <item index="4" class="java.lang.String" itemvalue="Mocha.Routing.Drone Endpoints.user can add drone" />
       </list>
     </recent_temporary>
     <configuration name="&lt;template&gt;" type="JUnit" default="true" selected="false">
@@ -1174,17 +1050,14 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Routing_Updates_and_Commands - 2016.05.23 at 11h 32m 31s.xml">
-      <configuration name="Routing.Updates and Commands" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="Routing_Audio_Endpoints - 2016.05.23 at 11h 50m 33s.xml">
+      <configuration name="Routing.Audio Endpoints" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="Routing_Updates_and_Commands - 2016.05.23 at 11h 32m 36s.xml">
-      <configuration name="Routing.Updates and Commands" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="Routing_Audio_Endpoints - 2016.05.23 at 11h 50m 43s.xml">
+      <configuration name="Routing.Audio Endpoints" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="Routing_Updates_and_Commands - 2016.05.23 at 11h 34m 55s.xml">
-      <configuration name="Routing.Updates and Commands" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="Routing_Updates_and_Commands - 2016.05.23 at 11h 35m 10s.xml">
-      <configuration name="Routing.Updates and Commands" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="Routing_Audio_Endpoints - 2016.05.23 at 11h 50m 52s.xml">
+      <configuration name="Routing.Audio Endpoints" configurationId="mocha-javascript-test-runner" />
     </history-entry>
     <history-entry file="Routing_Updates_and_Commands - 2016.05.23 at 11h 35m 44s.xml">
       <configuration name="Routing.Updates and Commands" configurationId="mocha-javascript-test-runner" />
@@ -1204,6 +1077,9 @@
     <history-entry file="Test - 2016.05.23 at 11h 43m 36s.xml">
       <configuration name="Test" configurationId="mocha-javascript-test-runner" />
     </history-entry>
+    <history-entry file="Test - 2016.05.23 at 11h 49m 07s.xml">
+      <configuration name="Test" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
     <option name="totallyTimeSpent" value="53023000" />
@@ -1220,7 +1096,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="true" show_stripe_button="true" weight="0.5828934" sideWeight="0.4921875" order="2" side_tool="false" content_ui="tabs" x="459" y="174" width="848" height="552" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12864584" sideWeight="0.493007" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12864584" sideWeight="0.493007" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -1278,7 +1154,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Major restructuring to better support multiple drones.&#10;&#10;IandC becomes a DroneHandler object. &#10;IandC now steers messages to appropriate DroneHandler, making it if it doesn't exist." />
     <MESSAGE value="Renamed iandC to drone coordinator." />
     <MESSAGE value="Fixed licence, added install.sh" />
     <MESSAGE value="Neatened DroneHandler + Coordinator" />
@@ -1303,7 +1178,8 @@
     <MESSAGE value="Added navbar for changing drone" />
     <MESSAGE value="Map data can be loaded from sensors or from database" />
     <MESSAGE value="Created audio service. TODO move the websocket to the audioservice" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created audio service. TODO move the websocket to the audioservice" />
+    <MESSAGE value="Added drone settings to dashboard. These are interactive and can correctly change the Pi's settings. &#10;&#10;Fixed authorisation for login - order the middleware is added.&#10;&#10;Added commands endpoint to the api and added testing." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added drone settings to dashboard. These are interactive and can correctly change the Pi's settings. &#10;&#10;Fixed authorisation for login - order the middleware is added.&#10;&#10;Added commands endpoint to the api and added testing." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="PRESELECT_EXISTING_CHANGELIST" value="false" />
   </component>
@@ -1321,13 +1197,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/lib/logger.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/express/lib/response.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -1473,24 +1342,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="21" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/dashboard/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
           <caret line="31" column="14" selection-start-line="31" selection-start-column="14" selection-end-line="31" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/install.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -1562,14 +1417,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/DroneCoordinator.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1088">
-          <caret line="64" column="39" selection-start-line="64" selection-start-column="39" selection-end-line="64" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/dashboard/app/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
@@ -1600,72 +1447,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/router.js">
+    <entry file="file://$PROJECT_DIR$/public/dashboard/app/assets/app.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="368" column="52" selection-start-line="368" selection-start-column="52" selection-end-line="368" selection-end-column="52" />
-          <folding>
-            <element signature="e#513#550#0" expanded="false" />
-            <element signature="e#591#635#0" expanded="false" />
-            <element signature="e#933#1091#0" expanded="false" />
-            <element signature="e#986#1009#0" expanded="false" />
-            <element signature="e#1015#1089#0" expanded="false" />
-            <element signature="e#1137#1293#0" expanded="false" />
-            <element signature="e#1190#1213#0" expanded="false" />
-            <element signature="e#1219#1291#0" expanded="false" />
-            <element signature="e#1339#1495#0" expanded="false" />
-            <element signature="e#1393#1416#0" expanded="false" />
-            <element signature="e#1422#1493#0" expanded="false" />
-            <element signature="e#1549#1817#0" expanded="false" />
-            <element signature="e#1819#2155#0" expanded="false" />
-            <element signature="e#2157#2304#0" expanded="false" />
-            <element signature="e#2306#2405#0" expanded="false" />
-            <element signature="e#2407#2522#0" expanded="false" />
-            <element signature="e#2524#2642#0" expanded="false" />
-            <element signature="e#2644#2762#0" expanded="false" />
-            <element signature="e#2764#2791#0" expanded="false" />
-            <element signature="e#2793#2819#0" expanded="false" />
-            <element signature="e#2821#2848#0" expanded="false" />
-            <element signature="e#2897#3052#0" expanded="false" />
-            <element signature="e#3125#3396#0" expanded="false" />
-            <element signature="e#3479#3836#0" expanded="false" />
-            <element signature="e#3931#4383#0" expanded="false" />
-            <element signature="e#4483#4620#0" expanded="false" />
-            <element signature="e#4686#4947#0" expanded="false" />
-            <element signature="e#5023#5358#0" expanded="false" />
-            <element signature="e#5445#5667#0" expanded="false" />
-            <element signature="e#5746#6094#0" expanded="false" />
-            <element signature="e#6168#6406#0" expanded="false" />
-            <element signature="e#6512#6689#0" expanded="false" />
-            <element signature="e#6779#7017#0" expanded="false" />
-            <element signature="e#7094#7451#0" expanded="false" />
-            <element signature="e#7524#7741#0" expanded="false" />
-            <element signature="e#7846#8025#0" expanded="false" />
-            <element signature="e#8114#8580#0" expanded="false" />
-            <element signature="e#8650#8859#0" expanded="false" />
-            <element signature="e#8931#9172#0" expanded="false" />
-            <element signature="e#9246#9450#0" expanded="false" />
-            <element signature="e#9514#9901#0" expanded="false" />
-            <element signature="e#9964#10211#0" expanded="false" />
-            <element signature="e#10771#10900#0" expanded="false" />
-            <element signature="e#10803#10826#0" expanded="false" />
-            <element signature="e#10832#10898#0" expanded="false" />
-            <element signature="e#10964#11095#0" expanded="false" />
-            <element signature="e#10997#11020#0" expanded="false" />
-            <element signature="e#11026#11093#0" expanded="false" />
-            <element signature="e#11151#11445#0" expanded="false" />
-            <element signature="e#11178#11414#0" expanded="false" />
-            <element signature="e#11223#11296#0" expanded="false" />
-            <element signature="e#11335#11408#0" expanded="false" />
-            <element signature="e#11420#11443#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="723">
+          <caret line="148" column="28" selection-start-line="148" selection-start-column="28" selection-end-line="148" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/DroneCoordinator.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="579">
+          <caret line="64" column="39" selection-start-line="64" selection-start-column="39" selection-end-line="64" selection-end-column="39" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/functions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="979" column="0" selection-start-line="979" selection-start-column="0" selection-end-line="979" selection-end-column="0" />
+        <state relative-caret-position="324">
+          <caret line="1241" column="32" selection-start-line="1241" selection-start-column="32" selection-end-line="1241" selection-end-column="32" />
           <folding>
             <element signature="e#568#660#0" expanded="false" />
             <element signature="e#666#845#0" expanded="false" />
@@ -1927,51 +1728,132 @@
             <element signature="e#41527#41655#0" expanded="false" />
             <element signature="n#!!block;n#onFormat#0;n#!!block;n#convertMP3toWAV#0" expanded="false" />
             <element signature="n#!!block;n#testSpeechRecognition#0" expanded="false" />
-            <element signature="e#41935#42034#0" expanded="false" />
-            <element signature="e#42134#42527#0" expanded="false" />
-            <element signature="e#42151#42218#0" expanded="false" />
-            <element signature="e#42222#42521#0" expanded="false" />
-            <element signature="e#42257#42296#0" expanded="false" />
+            <element signature="e#42644#42743#0" expanded="false" />
+            <element signature="e#42843#43236#0" expanded="false" />
+            <element signature="e#42860#42927#0" expanded="false" />
+            <element signature="e#42931#43230#0" expanded="false" />
+            <element signature="e#42966#43005#0" expanded="false" />
             <element signature="n#!!block;n#testImageRecognition#0" expanded="false" />
-            <element signature="e#42775#43067#0" expanded="false" />
-            <element signature="e#42792#42858#0" expanded="false" />
-            <element signature="e#42862#43061#0" expanded="false" />
+            <element signature="e#43484#43776#0" expanded="false" />
+            <element signature="e#43501#43567#0" expanded="false" />
+            <element signature="e#43571#43770#0" expanded="false" />
             <element signature="n#!!block;n#createIndexes#0" expanded="false" />
-            <element signature="e#43183#43325#0" expanded="false" />
-            <element signature="e#43279#43319#0" expanded="false" />
-            <element signature="e#43377#43510#0" expanded="false" />
-            <element signature="e#43394#43467#0" expanded="false" />
-            <element signature="e#43533#44854#0" expanded="false" />
-            <element signature="e#43695#44392#0" expanded="false" />
-            <element signature="e#44404#44794#0" expanded="false" />
-            <element signature="e#44811#44852#0" expanded="false" />
-            <marker date="1463999688129" expanded="false" signature="31981:32690" ph="{...}" />
-            <marker date="1463999688129" expanded="false" signature="33037:33549" ph="{...}" />
-            <marker date="1463999688129" expanded="false" signature="37725:38298" ph="{...}" />
+            <element signature="e#43892#44034#0" expanded="false" />
+            <element signature="e#43988#44028#0" expanded="false" />
+            <element signature="e#44086#44219#0" expanded="false" />
+            <element signature="e#44103#44176#0" expanded="false" />
+            <element signature="e#44404#45101#0" expanded="false" />
+            <element signature="e#45113#45503#0" expanded="false" />
+            <element signature="e#45520#45561#0" expanded="false" />
+            <marker date="1464000642265" expanded="false" signature="31981:32690" ph="{...}" />
+            <marker date="1464000642265" expanded="false" signature="33037:33549" ph="{...}" />
+            <marker date="1464000642265" expanded="false" signature="37725:38298" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/dashboard/app/assets/app.css">
+    <entry file="file://$PROJECT_DIR$/test/RestApi.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="723">
-          <caret line="148" column="28" selection-start-line="148" selection-start-column="28" selection-end-line="148" selection-end-column="28" />
+        <state relative-caret-position="459">
+          <caret line="360" column="50" selection-start-line="360" selection-start-column="50" selection-end-line="360" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/router.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="246" column="0" selection-start-line="246" selection-start-column="0" selection-end-line="246" selection-end-column="0" />
+          <folding>
+            <element signature="e#327#402#0" expanded="false" />
+            <element signature="e#514#546#0" expanded="false" />
+            <element signature="e#902#904#0" expanded="false" />
+            <element signature="e#1278#1434#0" expanded="false" />
+            <element signature="e#1529#1685#0" expanded="false" />
+            <element signature="e#1784#1942#0" expanded="false" />
+            <element signature="e#2010#2278#0" expanded="false" />
+            <element signature="e#2280#2616#0" expanded="false" />
+            <element signature="e#2618#2765#0" expanded="false" />
+            <element signature="e#2767#2866#0" expanded="false" />
+            <element signature="e#2868#2983#0" expanded="false" />
+            <element signature="e#2985#3103#0" expanded="false" />
+            <element signature="e#3105#3223#0" expanded="false" />
+            <element signature="e#3225#3252#0" expanded="false" />
+            <element signature="e#3254#3280#0" expanded="false" />
+            <element signature="e#3282#3309#0" expanded="false" />
+            <element signature="e#3383#3538#0" expanded="false" />
+            <element signature="e#3611#3882#0" expanded="false" />
+            <element signature="e#3965#4322#0" expanded="false" />
+            <element signature="e#4416#4868#0" expanded="false" />
+            <element signature="e#4975#5112#0" expanded="false" />
+            <element signature="e#5178#5439#0" expanded="false" />
+            <element signature="e#5515#5850#0" expanded="false" />
+            <element signature="e#5947#6169#0" expanded="false" />
+            <element signature="e#6248#6596#0" expanded="false" />
+            <element signature="e#6670#6908#0" expanded="false" />
+            <element signature="e#7290#7528#0" expanded="false" />
+            <element signature="e#7605#7962#0" expanded="false" />
+            <element signature="e#8035#8252#0" expanded="false" />
+            <element signature="e#8357#8536#0" expanded="false" />
+            <element signature="e#8634#9100#0" expanded="false" />
+            <element signature="e#9170#9379#0" expanded="false" />
+            <element signature="e#9451#9692#0" expanded="false" />
+            <element signature="e#9776#9980#0" expanded="false" />
+            <element signature="e#10044#10431#0" expanded="false" />
+            <element signature="e#10494#10741#0" expanded="false" />
+            <element signature="e#10873#10938#0" expanded="false" />
+            <element signature="e#10999#11065#0" expanded="false" />
+            <element signature="e#11113#11169#0" expanded="false" />
+            <element signature="e#11478#11607#0" expanded="false" />
+            <element signature="e#11510#11533#0" expanded="false" />
+            <element signature="e#11539#11605#0" expanded="false" />
+            <element signature="e#11671#11802#0" expanded="false" />
+            <element signature="e#11704#11727#0" expanded="false" />
+            <element signature="e#11733#11800#0" expanded="false" />
+            <element signature="e#11858#12152#0" expanded="false" />
+            <element signature="e#11885#12121#0" expanded="false" />
+            <element signature="e#11930#12003#0" expanded="false" />
+            <element signature="e#12042#12115#0" expanded="false" />
+            <element signature="e#12127#12150#0" expanded="false" />
+            <element signature="e#12214#12450#0" expanded="false" />
+            <element signature="e#12304#12327#0" expanded="false" />
+            <element signature="e#12333#12448#0" expanded="false" />
+            <element signature="e#12515#12754#0" expanded="false" />
+            <element signature="e#12567#12590#0" expanded="false" />
+            <element signature="e#12644#12667#0" expanded="false" />
+            <element signature="e#12673#12752#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/install.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="50" selection-start-line="9" selection-start-column="50" selection-end-line="9" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apidoc.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="1" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="417">
+          <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="51" column="30" selection-start-line="51" selection-start-column="30" selection-end-line="51" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/RestApi.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="602">
-          <caret line="322" column="11" selection-start-line="322" selection-start-column="11" selection-end-line="322" selection-end-column="11" />
+        <state relative-caret-position="391">
+          <caret line="23" column="55" selection-start-line="23" selection-start-column="55" selection-end-line="23" selection-end-column="55" />
           <folding />
         </state>
       </provider>

@@ -44,5 +44,16 @@
     "sinon": "^1.17.3",
     "sizeof": "^1.0.0",
     "supertest": "^1.2.0"
+  },
+  "apidoc": {
+    "name": "Drone Server API",
+    "version": "0.1.0",
+    "description": "Documentation of Drone Server Endpoints",
+    "title": "Drone Server API",
+    "url" : "https://192.168.1.77:8080/api",
+    "template" : {
+      "withCompare" : false,
+      "withGenerator": false
+    }
   }
 }
