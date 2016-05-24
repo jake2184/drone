@@ -127,7 +127,6 @@
                         var newSettings = incMessage.payload.droneSettings;
                         self.currentDroneStatus.connection = incMessage.payload.connection;
                         self.currentDroneStatus.mode = incMessage.payload.mode;
-
                         for(var setting in newSettings){
                             if(newSettings.hasOwnProperty(setting)) {
                                 if(self.currentDroneStatus.beingUpdated.hasOwnProperty(setting)){
@@ -275,9 +274,14 @@
 
         self.swapDrone = function (droneName) {
             self.droneName = droneName;
-            self.currentDroneStatus = self.dronesInformation[getDroneIndex(droneName)].status || {};
+            self.currentDroneStatus = self.dronesInformation[getDroneIndex(droneName)].status || {droneSettings : {}};
             self.currentDroneStatus.beingUpdated = [];
-            //chartService.setDrone(droneName);
+
+
+            if(self.currentDroneStatus.droneSettings === undefined){
+                self.currentDroneStatus.droneSettings = {}
+            }
+
             liveChartService.initChart();
             loadDroneImageList();
             self.random = new Date().getTime();
