@@ -70,7 +70,7 @@ describe('Scenario Testing', function(){
             var sensorReadings = {
                 time: new Date().getTime(),
                 temperature: 20,
-                airPurity: 700,
+                airPurity: 800,
                 altitude: 100,
                 location: [51.485138, -0.18775]
             };
