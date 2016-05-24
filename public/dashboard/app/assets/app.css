@@ -136,10 +136,10 @@ span.name {
 }
 
 .btn1{
-  height: inherit;
+  height: 85px;
   font-size: 14px;
   text-transform: none;
-  margin: 5px;
+  margin: 0px;
   border-radius: 0px;
   padding: 5px;
   font-weight: normal;
@@ -149,5 +149,4 @@ span.name {
   margin: 5px auto 5px auto;
   max-width: 100%;
 }
-
-#content
+.md-track-ticks canvas { display: none; }

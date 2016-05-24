@@ -19,6 +19,13 @@
 		function initChart(){
 			options = {
 				title: 'Live Data'
+				// Multiple axis, actually looks horrible
+				/*,
+				series: {
+					0 : {targetAxisIndex:0},
+					1 : {targetAxisIndex:1},
+					2 : {targetAxisIndex:2}
+				}*/
 			};
 			chart = new google.visualization.LineChart(document.getElementById('chart-div'));
 			table = new google.visualization.DataTable();
@@ -42,7 +49,7 @@
 			}
 			table.setCell(i, 0, new Date(newData.time));
 			table.setCell(i, 1, newData.temperature);
-			table.setCell(i, 2, newData.airPurity);
+			table.setCell(i, 2, newData.airPurity / 10);
 			table.setCell(i, 3, newData.altitude);
 
 			chart.draw(view, options);

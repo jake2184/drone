@@ -108,12 +108,17 @@
                     <md-card-content>
                         <md-list>
                             <md-list-item>Connected : {{dl.currentDroneStatus.connection}}</md-list-item>
-                            <md-list-item>Mode : {{dl.currentDroneStatus.mode ? dl.currentDroneStatus.mode : 'n/a'}}</md-list-item>
+                            <md-list-item>
+                                Mode : {{dl.currentDroneStatus.mode ? dl.currentDroneStatus.mode : 'n/a'}}
+                            </md-list-item>
                         </md-list>
 
                         <md-divider></md-divider>
                         <md-grid-list
                             md-cols="4" md-row-height="85px" md-gutter="1px">
+                            <md-grid-tile>
+                                <md-button class="md-primary" ng-click="dl.cancelDroneSettingUpdates()">Cancel Changes</md-button>
+                            </md-grid-tile>
                             <md-grid-tile>
                                 <div layout="column">
                                     <md-icon>battery_full</md-icon>
@@ -121,40 +126,53 @@
                                 </div>
                             </md-grid-tile>
                             <md-grid-tile>
-                                <md-menu md-position-mode="target-right target">
-                                    <md-button class="btn1" ng-click="toAssign = dl.currentDroneStatus.droneSettings.photoInterval;$mdOpenMenu($event)">
-                                        <div layout="column" >
-                                            <md-icon>add_a_photo</md-icon>
-                                            <p>Capture Interval: {{dl.currentDroneStatus.droneSettings ? (dl.currentDroneStatus.droneSettings.photoInterval + 'ms'): 'n/a'}}</p>
+                                <md-switch ng-disabled="dl.updatingDroneSetting()" ng-change="dl.changeDroneSetting('uploadingImages')" ng-model="dl.currentDroneStatus.droneSettings.uploadingImages">Uploading Images</md-switch>
+                            </md-grid-tile>
+                            <md-grid-tile>
+                                <md-switch ng-disabled="dl.updatingDroneSetting()" ng-change="dl.changeDroneSetting('uploadingAudio')" ng-model="dl.currentDroneStatus.droneSettings.uploadingAudio">Uploading Audio</md-switch>
+                            </md-grid-tile>
+                            <md-grid-tile>
+                                <md-switch ng-disabled="dl.updatingDroneSetting()" ng-change="dl.changeDroneSetting('uploadingSensors')" ng-model="dl.currentDroneStatus.droneSettings.uploadingSensors">Uploading Sensors</md-switch>
+                            </md-grid-tile>
+                            <md-grid-tile>
+                                <md-switch ng-disabled="dl.updatingDroneSetting()" ng-change="dl.changeDroneSetting('capturingImages')" ng-model="dl.currentDroneStatus.droneSettings.capturingImages">Capturing Images</md-switch>
+                            </md-grid-tile>
+                            <md-grid-tile>
+                                <md-switch ng-disabled="dl.updatingDroneSetting()" ng-change="dl.changeDroneSetting('capturingAudio')" ng-model="dl.currentDroneStatus.droneSettings.capturingAudio">Capturing Audio</md-switch>
+                            </md-grid-tile>
+                            <md-grid-tile>
+                                <md-switch aria-label="Toggle Audio Stream" ng-disabled="dl.updatingDroneSetting()" ng-change="dl.changeDroneSetting('streamingAudio')" ng-model="dl.currentDroneStatus.droneSettings.streamingAudio">Streaming Audio</md-switch>
+                            </md-grid-tile>
+                            <md-grid-tile md-colspan="2">
+                                <div layout="column" flex class="md-padding">
+                                    <div layout="row">
+                                        <md-icon>add_a_photo</md-icon>
+                                        <span style="line-height:24px; padding-left: 10px" flex >Capture Interval (ms)</span>
+                                        <md-button class="md-icon-button" ng-click="dl.changeInterval('photoInterval', 'save')">
+                                            <md-icon>save</md-icon>
+                                        </md-button>
+                                    </div>
+                                    <div layout="row">
+                                        <md-slider aria-label="Change Photo Interval" ng-change="dl.changeInterval('photoInterval', 'edit')" md-discrete flex min="0" step="100" max="5000" ng-model="dl.currentDroneStatus.droneSettings.photoInterval" class></md-slider>
+                                        <div flex="20" layout layout-align="center center">
+                                            <input  flex type="number" ng-model="dl.currentDroneStatus.droneSettings.photoInterval">
                                         </div>
-                                    </md-button>
-                                    <md-menu-content style="width:500px">
-                                        <md-menu-item>
-                                            <md-slider flex min="0" max="5000" ng-model="toAssign" class></md-slider>
-                                            <div md-menu-align-target flex="20" layout layout-align="center center">
-                                                <input  flex type="number" ng-model="toAssign">
-                                            </div>
-                                        </md-menu-item>
-                                    </md-menu-content>
-                                </md-menu>
+                                    </div>
+                                </div>
                             </md-grid-tile>
-                            <md-grid-tile>
-                                <md-switch ng-change="dl.changeDroneSetting('uploadingImages')" ng-model="dl.currentDroneStatus.droneSettings.uploadingImages">Uploading Images</md-switch>
-                            </md-grid-tile>
-                            <md-grid-tile>
-                                <md-switch ng-change="dl.changeDroneSetting('uploadingAudio')" ng-model="dl.currentDroneStatus.droneSettings.uploadingAudio">Uploading Audio</md-switch>
-                            </md-grid-tile>
-                            <md-grid-tile>
-                                <md-switch ng-change="dl.changeDroneSetting('uploadingSensors')" ng-model="dl.currentDroneStatus.droneSettings.uploadingSensors">Uploading Sensors</md-switch>
-                            </md-grid-tile>
-                            <md-grid-tile>
-                                <md-switch ng-change="dl.changeDroneSetting('capturingImages')" ng-model="dl.currentDroneStatus.droneSettings.capturingImages">Capturing Images</md-switch>
-                            </md-grid-tile>
-                            <md-grid-tile>
-                                <md-switch ng-change="dl.changeDroneSetting('capturingAudio')" ng-model="dl.currentDroneStatus.droneSettings.capturingAudio">Capturing Audio</md-switch>
-                            </md-grid-tile>
-                            <md-grid-tile>
-                                <md-switch ng-change="dl.changeDroneSetting('streamingAudio')" ng-model="dl.currentDroneStatus.droneSettings.streamingAudio">Streaming Audio</md-switch>
+                            <md-grid-tile md-colspan="2">
+                                <div layout="column" flex class="md-padding">
+                                    <div layout="row">
+                                        <md-icon>mic_none</md-icon>
+                                        <span style="line-height:24px; padding-left: 10px" flex >Audio File Duration (ms)</span>
+                                    </div>
+                                    <div layout="row">
+                                        <md-slider ng-change="dl.changeInterval('duration')" md-discrete flex min="0" step="1000" max="10000" ng-model="dl.currentDroneStatus.droneSettings.duration" class></md-slider>
+                                        <div flex="20" layout layout-align="center center">
+                                            <input  flex type="number" ng-model="dl.currentDroneStatus.droneSettings.duration">
+                                        </div>
+                                    </div>
+                                </div>
                             </md-grid-tile>
                         </md-grid-list>
 
@@ -167,7 +185,7 @@
                         <md-virtual-repeat-container style="height:300px" id="vertical-container">
                             <div md-virtual-repeat="feedback in dl.serviceFeedback" class="md-list-item-text" flex>
                                 <h4>{{feedback.time}} : {{feedback.service}}</h4>
-                                <p>{{feedback.feedback}}</p>
+                                <p>{{feedback.feedback}}&nbsp;&nbsp;&nbsp;{{feedback.confidence}}</p>
                             </div>
                             <div ng-if="dl.serviceFeedback.length==0">
                                 No feedback ( yet.. )

@@ -110,7 +110,8 @@
                     else if(incMessage.event === 'audioTranscript'){
                         self.serviceFeedback.unshift({
                             service: 'Speech To Text',
-                            feedback : incMessage.payload,
+                            feedback : "Transcript: " + incMessage.payload.transcript,
+                            confidence : "Confidence: " + incMessage.payload.confidence,
                             time : new Date(incMessage.time).toLocaleTimeString()
                         })
                     }
@@ -121,9 +122,8 @@
 
                     self.dronesInformation[getDroneIndex(incMessage.name)].status = incMessage.payload;
 
+                    // If focused drone, carefully update settings
                     if(incMessage.name === self.droneName){
-                        // REVAMP
-                        //self.currentDroneStatus = incMessage.payload;
                         var newSettings = incMessage.payload.droneSettings;
                         self.currentDroneStatus.connection = incMessage.payload.connection;
                         self.currentDroneStatus.mode = incMessage.payload.mode;
@@ -139,9 +139,7 @@
                                 }
                             }
                         }
-
                     }
-
                 } else if(incMessage.event === 'sensors'){
                     mapService.updateDronePosition(incMessage.name, incMessage.payload.location);
                 }
@@ -155,7 +153,12 @@
                 console.log("Connected")
             });
             dataStream.onClose(function(error){
-                console.log(error)
+                if(!error.wasClean){
+                    // Is executed but not showing up..?
+                    console.log(error);
+                    self.addError("Unclean websocket close. Refresh Page.")
+                }
+                console.log("Uncaught websocket error")
             })
 
         }, function (error) {
@@ -166,7 +169,7 @@
 
         function loadDroneImageList() {
             $http.get("../../api/" + self.droneName + "/images").then(function (response){
-                console.log(response);
+                //console.log(response);
                 for( var i=0; i<response.data.length-1; i++){
                     var time = parseInt(response.data[i].id);
                     var string = new Date(time).toLocaleString();
@@ -206,6 +209,44 @@
             return false;            
         };
 
+        self.cancelDroneSettingUpdates = function(){
+          self.currentDroneStatus.beingUpdated = {};
+        };
+
+        self.changeInterval = function(setting, action){
+            if(action === 'edit'){
+                self.currentDroneStatus.beingUpdated[setting] = true;
+            } else if (action === 'save'){
+                var newValue = self.currentDroneStatus.droneSettings[setting];
+                var command = {
+                    command : setting,
+                    args : [newValue]
+                };
+                $http.post('../../api/' + self.droneName + '/command/pi', command).then(function(response){}, function (error) {
+                    delete self.currentDroneStatus.beingUpdated[setting];
+                    self.addError("Failed to send new command");
+                });
+            }
+            
+            
+            // if(self.currentDroneStatus.beingUpdated[setting] === undefined){
+            //     console.log("Preparing to update");
+            //     self.currentDroneStatus.beingUpdated[setting] = true;
+            // } else {
+            //     var newValue = self.currentDroneStatus.droneSettings[setting];
+            //     var command = {
+            //         command : setting,
+            //         args : [newValue]
+            //     };
+            //     console.log(command.args);
+            //     $http.post('../../api/' + self.droneName + '/command/pi', command).then(function(response){}, function (error) {
+            //         delete self.currentDroneStatus.beingUpdated[setting];
+            //         self.addError("Failed to send new command");
+            //     });
+            // }
+
+        };
+
         self.changeDroneSetting = function(setting){
             self.currentDroneStatus.beingUpdated[setting] = true;
             var newValue = self.currentDroneStatus.droneSettings[setting];
@@ -213,7 +254,7 @@
                 command : setting,
                 args : [newValue]
             };
-            $http.post('../../api/' + self.droneName + '/command', command).then(function(response){}, function (error) {
+            $http.post('../../api/' + self.droneName + '/command/pi', command).then(function(response){}, function (error) {
                 delete self.currentDroneStatus.beingUpdated[setting];
                 self.addError("Failed to send new command");
             });

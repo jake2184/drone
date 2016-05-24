@@ -102,6 +102,9 @@
                         label: droneName,
                         visible: true
                     });
+                    markers[droneName].addListener('click', function () {
+                        map.setCenter(markers[droneName].getPosition());
+                    });
                 }
             }
         };

@@ -517,12 +517,19 @@ describe('Routing', function(){
             wsListen.on('error', checkForErr);
 
         });
-        it('should be able to send commands', function(done){
+        it('should be able to send Pi commands', function(done){
             request(server)
-                .post('/api/pixhack/command')
+                .post('/api/pixhack/command/pi')
                 .send( {command: "dummyCommand", args : []} )
                 .set('cookie', cookie)
                 .expect(200, done)                
+        });
+        it('should be able to send Mav commands', function(done){
+            request(server)
+                .post('/api/pixhack/command/mav')
+                .send( {command: "dummyCommand", args : []} )
+                .set('cookie', cookie)
+                .expect(200, done)
         });
     });
 
