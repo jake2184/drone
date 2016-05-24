@@ -3,7 +3,7 @@
     angular
         .module('dashboard')
         .controller('DashboardController', [
-            'mapService', 'liveChartService', 'audioService', '$log', '$interval', '$http', '$mdDialog', '$websocket', '$mdSidenav',
+            'mapService', 'liveChartService', 'audioService', '$scope', '$log', '$interval', '$http', '$mdDialog', '$websocket', '$mdSidenav',
             DashboardController
         ]);
 
@@ -19,7 +19,7 @@
      * @param $mdDialog
      * @param $websocket
      */
-    function DashboardController(mapService, liveChartService, audioService, $log, $interval, $http, $mdDialog, $websocket, $mdSidenav) {
+    function DashboardController(mapService, liveChartService, audioService, $scope, $log, $interval, $http, $mdDialog, $websocket, $mdSidenav) {
         var self = this;
 
 
@@ -76,7 +76,7 @@
             
 
 
-            var dataStream = $websocket('ws://192.168.1.77:8080/api/updates/jake');
+            var dataStream = $websocket('ws://' + window.location.host +'/api/updates/jake');
             
             dataStream.onMessage(function(message){
                 //console.log(JSON.stringify(JSON.parse(message.data)));
@@ -154,11 +154,8 @@
             });
             dataStream.onClose(function(error){
                 if(!error.wasClean){
-                    // Is executed but not showing up..?
-                    console.log(error);
-                    self.addError("Unclean websocket close. Refresh Page.")
+                    self.addError("Unclean websocket close. Refresh Page.");
                 }
-                console.log("Uncaught websocket error")
             })
 
         }, function (error) {
@@ -187,6 +184,7 @@
 
         self.addError = function(errorText){
           self.errorList.unshift({time: new Date().getTime(), text: errorText});
+            $scope.$apply();
         };
 
         self.dataTypes = {
@@ -288,7 +286,7 @@
         var audioStream;
         self.toggleAudioStream = function (){
             if(self.dataTypes.audioStream) {
-                audioStream = $websocket('ws://192.168.1.77:8080/api/' + self.droneName + '/audio/stream/listen');
+                audioStream = $websocket('ws://' + window.location.host +'/api/' + self.droneName + '/audio/stream/listen');
 
                 audioStream.onMessage(function (message) {
                     console.log("Got data");

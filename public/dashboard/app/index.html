@@ -147,7 +147,7 @@
                                 <div layout="column" flex class="md-padding">
                                     <div layout="row">
                                         <md-icon>add_a_photo</md-icon>
-                                        <span style="line-height:24px; padding-left: 10px" flex >Capture Interval (ms)</span>
+                                        <span style="line-height:40px; padding-left: 10px" flex >Capture Interval (ms)</span>
                                         <md-button class="md-icon-button" ng-click="dl.changeInterval('photoInterval', 'save')">
                                             <md-icon>save</md-icon>
                                         </md-button>
@@ -165,9 +165,12 @@
                                     <div layout="row">
                                         <md-icon>mic_none</md-icon>
                                         <span style="line-height:24px; padding-left: 10px" flex >Audio File Duration (ms)</span>
+                                        <md-button class="md-icon-button" ng-click="dl.changeInterval('duration', 'save')">
+                                            <md-icon>save</md-icon>
+                                        </md-button>
                                     </div>
                                     <div layout="row">
-                                        <md-slider ng-change="dl.changeInterval('duration')" md-discrete flex min="0" step="1000" max="10000" ng-model="dl.currentDroneStatus.droneSettings.duration" class></md-slider>
+                                        <md-slider aria-label="Change Audio Duration" ng-change="dl.changeInterval('duration', 'edit')" md-discrete flex min="0" step="1000" max="10000" ng-model="dl.currentDroneStatus.droneSettings.duration" class></md-slider>
                                         <div flex="20" layout layout-align="center center">
                                             <input  flex type="number" ng-model="dl.currentDroneStatus.droneSettings.duration">
                                         </div>
