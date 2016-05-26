@@ -6,7 +6,7 @@
   </component>
   <component name="ChangeListManager">
     <list id="d29ee594-5367-4f8e-8370-d3d13e0b5770" name="Default" comment="" />
-    <list default="true" id="118fcb26-86d6-41e0-9d61-cf5065071d27" name="New changelist" comment="Added testing services and writing profile logs of it">
+    <list default="true" id="118fcb26-86d6-41e0-9d61-cf5065071d27" name="New changelist" comment="missing ()">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/functions.js" afterPath="$PROJECT_DIR$/lib/functions.js" />
     </list>
@@ -34,7 +34,7 @@
           <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="494">
+                <state relative-caret-position="1921">
                   <caret line="113" column="0" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
                   <folding />
                 </state>
@@ -54,7 +54,7 @@
           <file leaf-file-name="app.css" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/public/dashboard/app/assets/app.css">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="400">
+                <state relative-caret-position="2159">
                   <caret line="127" column="26" selection-start-line="127" selection-start-column="26" selection-end-line="127" selection-end-column="26" />
                   <folding />
                 </state>
@@ -151,8 +151,8 @@
           <file leaf-file-name="functions.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/lib/functions.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="629">
-                  <caret line="1306" column="20" selection-start-line="1306" selection-start-column="20" selection-end-line="1306" selection-end-column="20" />
+                <state relative-caret-position="582">
+                  <caret line="1370" column="14" selection-start-line="1370" selection-start-column="14" selection-end-line="1370" selection-end-column="14" />
                   <folding>
                     <element signature="e#972#1064#0" expanded="false" />
                     <element signature="e#1079#1205#0" expanded="false" />
@@ -367,13 +367,13 @@
                     <element signature="n#!!doc;n#convertMP3toWAV#0" expanded="false" />
                     <element signature="n#!!block;n#convertMP3toWAV#0" expanded="false" />
                     <element signature="n#!!block;n#createIndexes#0" expanded="false" />
-                    <element signature="e#48773#48915#0" expanded="false" />
-                    <element signature="e#48869#48909#0" expanded="false" />
-                    <element signature="e#48967#49100#0" expanded="false" />
-                    <element signature="e#48984#49057#0" expanded="false" />
-                    <marker date="1464114418097" expanded="false" signature="25570:26279" ph="{...}" />
-                    <marker date="1464114418097" expanded="false" signature="26626:27138" ph="{...}" />
-                    <marker date="1464114418097" expanded="false" signature="31314:31887" ph="{...}" />
+                    <element signature="e#49184#49326#0" expanded="false" />
+                    <element signature="e#49280#49320#0" expanded="false" />
+                    <element signature="e#49378#49511#0" expanded="false" />
+                    <element signature="e#49395#49468#0" expanded="false" />
+                    <marker date="1464256332725" expanded="false" signature="25570:26279" ph="{...}" />
+                    <marker date="1464256332725" expanded="false" signature="26626:27138" ph="{...}" />
+                    <marker date="1464256332725" expanded="false" signature="31314:31887" ph="{...}" />
                   </folding>
                 </state>
               </provider>
@@ -382,7 +382,7 @@
           <file leaf-file-name="MapService.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/public/dashboard/app/src/dashboard/MapService.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="358">
+                <state relative-caret-position="1275">
                   <caret line="75" column="53" selection-start-line="75" selection-start-column="53" selection-end-line="75" selection-end-column="53" />
                   <folding />
                 </state>
@@ -392,7 +392,7 @@
           <file leaf-file-name="LiveChartService.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/public/dashboard/app/src/dashboard/LiveChartService.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="766">
+                <state relative-caret-position="867">
                   <caret line="51" column="54" selection-start-line="51" selection-start-column="54" selection-end-line="51" selection-end-column="54" />
                   <folding />
                 </state>
@@ -402,7 +402,7 @@
           <file leaf-file-name="DroneCoordinator.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/DroneCoordinator.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="514">
+                <state relative-caret-position="1309">
                   <caret line="77" column="40" selection-start-line="77" selection-start-column="40" selection-end-line="77" selection-end-column="40" />
                   <folding />
                 </state>
@@ -412,7 +412,7 @@
           <file leaf-file-name="DroneHandler.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/DroneHandler.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="714">
+                <state relative-caret-position="2754">
                   <caret line="162" column="45" selection-start-line="162" selection-start-column="45" selection-end-line="162" selection-end-column="45" />
                   <folding />
                 </state>
@@ -436,7 +436,7 @@
           <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/public/dashboard/app/index.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="221">
+                <state relative-caret-position="2363">
                   <caret line="139" column="42" selection-start-line="139" selection-start-column="42" selection-end-line="139" selection-end-column="42" />
                   <folding>
                     <element signature="n#style#0;n#md-icon#0;n#div#0;n#md-menu-item#0;n#md-menu-content#0;n#md-menu#0;n#div#0;n#md-toolbar#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -456,7 +456,7 @@
           <file leaf-file-name="DashboardController.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/public/dashboard/app/src/dashboard/DashboardController.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="833">
+                <state relative-caret-position="2159">
                   <caret line="127" column="51" selection-start-line="127" selection-start-column="51" selection-end-line="127" selection-end-column="51" />
                   <folding>
                     <element signature="e#12486#12506#0" expanded="false" />
@@ -1046,29 +1046,29 @@
     <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12864584" sideWeight="0.493007" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3379092" sideWeight="0.5078125" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49703503" sideWeight="0.506993" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="false" show_stripe_button="true" weight="1.0" sideWeight="0.4921875" order="2" side_tool="false" content_ui="tabs" x="1912" y="-8" width="1936" height="1056" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12864584" sideWeight="0.493007" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946146" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="false" show_stripe_button="true" weight="1.0" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="2034" y="96" width="1936" height="1056" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3284055" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39915523" sideWeight="0.49595687" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="REST Client" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946146" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="false" show_stripe_button="true" weight="1.0" sideWeight="0.4921875" order="2" side_tool="false" content_ui="tabs" x="1912" y="-8" width="1936" height="1056" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32901832" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946146" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="V8 CPU Profiling" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.72228086" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="false" show_stripe_button="true" weight="1.0" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="2034" y="96" width="1936" height="1056" />
     </layout>
     <layout-to-restore>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1112,7 +1112,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Added drone name to the mode constructors, and minor logging changes" />
     <MESSAGE value="Added dashboard for website, based on angular framework" />
     <MESSAGE value="Expanded upon dashboard" />
     <MESSAGE value="Drone Change implemented" />
@@ -1137,7 +1136,8 @@
     <MESSAGE value="made websockets relevant" />
     <MESSAGE value="made websockets relevantLogs are public" />
     <MESSAGE value="Added testing services and writing profile logs of it" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added testing services and writing profile logs of it" />
+    <MESSAGE value="missing ()" />
+    <option name="LAST_COMMIT_MESSAGE" value="missing ()" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="PRESELECT_EXISTING_CHANGELIST" value="false" />
   </component>
@@ -1324,9 +1324,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="417">
           <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="4" />
-          <folding>
-            <marker date="1464001562708" expanded="true" signature="0:1418" ph="{&quot;name&quot;: &quot;DroneControl&quot;...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1334,7 +1331,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="56" selection-start-line="9" selection-start-column="56" selection-end-line="9" selection-end-column="56" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1342,7 +1338,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="18" column="11" selection-start-line="18" selection-start-column="11" selection-end-line="18" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1356,7 +1351,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/dashboard/app/src/dashboard/MapService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
+        <state relative-caret-position="1275">
           <caret line="75" column="53" selection-start-line="75" selection-start-column="53" selection-end-line="75" selection-end-column="53" />
           <folding />
         </state>
@@ -1364,7 +1359,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/DroneHandler.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
+        <state relative-caret-position="2754">
           <caret line="162" column="45" selection-start-line="162" selection-start-column="45" selection-end-line="162" selection-end-column="45" />
           <folding />
         </state>
@@ -1372,7 +1367,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/dashboard/app/src/dashboard/LiveChartService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="766">
+        <state relative-caret-position="867">
           <caret line="51" column="54" selection-start-line="51" selection-start-column="54" selection-end-line="51" selection-end-column="54" />
           <folding />
         </state>
@@ -1388,7 +1383,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/dashboard/app/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
+        <state relative-caret-position="2363">
           <caret line="139" column="42" selection-start-line="139" selection-start-column="42" selection-end-line="139" selection-end-column="42" />
           <folding>
             <element signature="n#style#0;n#md-icon#0;n#div#0;n#md-menu-item#0;n#md-menu-content#0;n#md-menu#0;n#div#0;n#md-toolbar#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -1406,7 +1401,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/DroneCoordinator.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="514">
+        <state relative-caret-position="1309">
           <caret line="77" column="40" selection-start-line="77" selection-start-column="40" selection-end-line="77" selection-end-column="40" />
           <folding />
         </state>
@@ -1414,7 +1409,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/dashboard/app/assets/app.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
+        <state relative-caret-position="2159">
           <caret line="127" column="26" selection-start-line="127" selection-start-column="26" selection-end-line="127" selection-end-column="26" />
           <folding />
         </state>
@@ -1507,7 +1502,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/dashboard/app/src/dashboard/DashboardController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="833">
+        <state relative-caret-position="2159">
           <caret line="127" column="51" selection-start-line="127" selection-start-column="51" selection-end-line="127" selection-end-column="51" />
           <folding>
             <element signature="e#12486#12506#0" expanded="false" />
@@ -1536,7 +1531,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
+        <state relative-caret-position="1921">
           <caret line="113" column="0" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
           <folding />
         </state>
@@ -1544,8 +1539,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/functions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="1306" column="20" selection-start-line="1306" selection-start-column="20" selection-end-line="1306" selection-end-column="20" />
+        <state relative-caret-position="582">
+          <caret line="1370" column="14" selection-start-line="1370" selection-start-column="14" selection-end-line="1370" selection-end-column="14" />
           <folding>
             <element signature="e#972#1064#0" expanded="false" />
             <element signature="e#1079#1205#0" expanded="false" />
@@ -1760,13 +1755,13 @@
             <element signature="n#!!doc;n#convertMP3toWAV#0" expanded="false" />
             <element signature="n#!!block;n#convertMP3toWAV#0" expanded="false" />
             <element signature="n#!!block;n#createIndexes#0" expanded="false" />
-            <element signature="e#48773#48915#0" expanded="false" />
-            <element signature="e#48869#48909#0" expanded="false" />
-            <element signature="e#48967#49100#0" expanded="false" />
-            <element signature="e#48984#49057#0" expanded="false" />
-            <marker date="1464114418097" expanded="false" signature="25570:26279" ph="{...}" />
-            <marker date="1464114418097" expanded="false" signature="26626:27138" ph="{...}" />
-            <marker date="1464114418097" expanded="false" signature="31314:31887" ph="{...}" />
+            <element signature="e#49184#49326#0" expanded="false" />
+            <element signature="e#49280#49320#0" expanded="false" />
+            <element signature="e#49378#49511#0" expanded="false" />
+            <element signature="e#49395#49468#0" expanded="false" />
+            <marker date="1464256332725" expanded="false" signature="25570:26279" ph="{...}" />
+            <marker date="1464256332725" expanded="false" signature="26626:27138" ph="{...}" />
+            <marker date="1464256332725" expanded="false" signature="31314:31887" ph="{...}" />
           </folding>
         </state>
       </provider>
