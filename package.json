@@ -13,6 +13,7 @@
     "cfenv": "1.0.x",
     "client-sessions": "^0.7.0",
     "cloudant": "^1.4.0",
+    "dashboard": "file:public/dashboard",
     "express": "4.12.x",
     "express-ws": "^2.0.0-rc.1",
     "file-type": "^3.8.0",
@@ -27,8 +28,7 @@
     "watson-developer-cloud": "~1.2.3",
     "wav": "^1.0.0",
     "winston": "^2.2.0",
-    "ws": "^1.1.0",
-    "dashboard": "file:public/dashboard"
+    "ws": "^1.1.0"
   },
   "repository": {},
   "engines": {
@@ -50,9 +50,9 @@
     "version": "0.1.0",
     "description": "Documentation of Drone Server Endpoints",
     "title": "Drone Server API",
-    "url" : "https://192.168.1.77:8080/api",
-    "template" : {
-      "withCompare" : false,
+    "url": "https://192.168.1.77:8080/api",
+    "template": {
+      "withCompare": false,
       "withGenerator": false
     }
   }

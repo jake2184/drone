@@ -296,7 +296,8 @@ describe('Routing', function(){
         it('POST /api/audio/:docID should accept valid audio', function (done){
             var req = request(server)
                 .post('/api/pixhack/audio/' + time)
-                .send({time:time, location:[50,50]})
+                .send({time:time, location:[51.5,-0.18]})
+                .field('time', time).field('location', "[51.5,-0.18]")
                 .attach('audio', 'test/sampleFiles/testAudio.mp3')
                 .set('cookie', cookie)
                 .expect(200, done);

@@ -42,7 +42,7 @@ describe('Scenario Testing', function(){
 
         it('should be triggered by images', function(done){
             var fire = [{name:"Wild_Fire", score:0.8}, {name:"Rainbow", score:0.53}];
-            droneCoordinator.processImageLabels(droneName, fire, new Date().getTime(), [10, 10]);
+            droneCoordinator.processImageLabels(droneName, fire, new Date().getTime(), [51.5,-0.19]);
 
             getModeNameWithDelay(function (result) {
                 assert.equal(result, "Fire", "Modes do not match");
@@ -94,7 +94,7 @@ describe('Scenario Testing', function(){
         
         it('should be triggered by image label above single threshold', function(done){
             var person = [{name:"Adult", score:0.8}, {name:"Rainbow", score:0.53}];
-            droneCoordinator.processImageLabels(droneName, person, new Date().getTime(), [10, 10]);
+            droneCoordinator.processImageLabels(droneName, person, new Date().getTime(), [51.8,-0.18]);
 
             getModeNameWithDelay(function (result) {
                 assert.equal(result, "Interact", "Modes do not match");
