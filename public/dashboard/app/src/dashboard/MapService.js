@@ -15,6 +15,7 @@
     function MapService($http, $interval){
         var map;
         var markers = {};
+        var events = [];
         var lastQueried = {};
         var drones = [];
         var loadingFromDatabase;
@@ -42,6 +43,7 @@
                             map: map,
                             title: droneName,
                             label: droneName,
+                            icon: "/dashboard/app/assets/fire.png",
                             visible: true
                         });
 
@@ -57,7 +59,26 @@
             }
         }
 
+        function decideImage(event){
+            var fire = ["Wild_Fire", "Burning", "Smoke", "Explosion"];
+            var person = ["Adult", "Female_Adult", "Male_Adult", "Human", "Child"];
+            var building = ["Building", "Skyscraper"];
 
+            var keywords = event.split(',');
+
+            for(var i=0; i<keywords.length; i++){
+                // Events are already in order of probability (desc)
+                if(person.indexOf(keywords[i]) > -1){
+                    return "/dashboard/app/assets/person.png"
+                } else if(fire.indexOf(keywords[i]) > -1){
+                    return "/dashboard/app/assets/fire.png"
+                } else if(building.indexOf(keywords[i]) > -1){
+                    return "/dashboard/app/assets/building.png"
+                }
+            }
+
+
+        }
 
 
 
@@ -106,6 +127,17 @@
                         map.setCenter(markers[droneName].getPosition());
                     });
                 }
+            }, 
+            addEventMarker(event, location){
+                var latLng = {lat: parseFloat(location.latitude), lng: parseFloat(location.longitude)};
+                var image = decideImage(event);
+                events.push(new google.maps.Marker({
+                    position: latLng,
+                    map: map,
+                    title: event,
+                    icon: image,
+                    visible: true
+                }));            
             }
         };
     }

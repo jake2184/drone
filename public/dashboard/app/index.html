@@ -11,7 +11,8 @@
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
     <link rel="stylesheet" href="../node_modules/angular-material/angular-material.css"/>
     <link rel="stylesheet" href="assets/app.css"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+    <link rel="icon" type="image/png" href="/dashboard/app/assets/drone_icon.png"/>
 
     <style type="text/css">
         /**
@@ -32,7 +33,7 @@
             <span flex></span>
             <md-menu md-position-mode="target-right target" ng-show="dl.errorList.length">
                 <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                    <md-icon id="warningIcon" class="material-icons">warning</md-icon>
+                    <md-icon id="warningIcon" class="material-icons" style="color:red">warning</md-icon>
                 </md-button>
                 <md-menu-content width="8">
                     <md-menu-item ng-repeat="error in dl.errorList">
@@ -209,7 +210,13 @@
 			</div>
         </md-content>
         <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
-            <md-toolbar><h1 class="md-toolbar-tools">Change Drone Focus</h1></md-toolbar>
+            <md-toolbar layout="row">
+                <h1 class="md-toolbar-tools">Change Drone Focus</h1>
+                <md-button style="height:64px" class="md-icon-button">
+                    <md-icon ng-click="dl.showAddDroneDialog()">add_circle</md-icon>
+                </md-button>
+
+            </md-toolbar>
             <md-content>
                 <md-list>
                     <md-list-item ng-repeat="drone in dl.dronesInformation" layout="column">
@@ -218,6 +225,10 @@
                                 <md-icon ng-if="drone.status.connection === 'online'">network_wifi</md-icon>
                                 <md-icon ng-if="drone.status.connection != 'online'">signal_wifi_off</md-icon>
                                 <h2 style="margin-left: 20px">{{drone.name}}</h2>
+                                <span flex></span>
+                                <md-button style="height: 36px" class="md-icon-button">
+                                    <md-icon ng-click="dl.deleteDrone($event, drone.name)">delete</md-icon>
+                                </md-button>
                             </div>
                             <div flex layout="row">
                                 <div flex layout="column">

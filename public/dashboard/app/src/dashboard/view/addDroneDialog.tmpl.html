@@ -1,0 +1,58 @@
+<md-dialog aria-label="Add New Drone"  ng-cloak style="min-width: 800px">
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Add New Drone</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon aria-label="Close dialog">clear</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <form name="addDrone">
+                    <md-input-container class="md-block">
+                        <label>Unique Drone Name</label>
+                        <input md-maxlength="20" required name="droneName" ng-model="droneName">
+                        <div ng-messages="addDrone.droneName.$error" md-auto-hide="droneName.length">
+                            <div ng-message="required">This is required.</div>
+                            <div ng-message="md-maxlength">The name has to be less than 20 characters long.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Drone Model</label>
+                        <input md-maxlength="20" name="droneModel" ng-model="droneModel">
+                        <div ng-messages="addDrone.droneModel.$error">
+                            <div ng-message="md-maxlength">The model has to be less than 20 characters long.</div>
+                        </div>
+                    </md-input-container>
+                </form>
+
+                <h4 style="min-height: 40px"> {{SuccessMessage}}</h4>
+
+
+                <h3>MQTT Details:</h3>
+                <div>
+                    <div layout="row">
+                        <p flex-xs flex-gt-xs="50">org: {{org ? org : 'N/A'}}</p>
+                        <p flex-xs flex-gt-xs="50">type: {{type ? type : 'N/A'}}</p>
+                    </div>
+                    <div layout="row">
+                        <p flex-xs flex-gt-xs="50">deviceId: {{deviceId ? deviceId : 'N/A'}} </p>
+                        <p flex-xs flex-gt-xs="50">auth-token: {{authToken ? authToken : 'N/A'}}</p>
+                    </div>
+                </div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-click="cancel()"  style="margin-right:20px;">
+                Cancel
+            </md-button>
+            <md-button ng-click="accept()" ng-disabled="!droneName.length" style="margin-right:20px;">
+                {{acceptButton}}
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

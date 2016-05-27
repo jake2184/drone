@@ -49,8 +49,8 @@
         self.droneImageList = [];
 
         self.errorList = [];
-
-        // Set up map
+        
+         // Set up map
         mapService.initMap();
         liveChartService.initChart();
         audioService.initService();
@@ -77,10 +77,15 @@
 
 
             var dataStream = $websocket('ws://' + window.location.host +'/api/updates/jake');
-            
+            var got = {};
             dataStream.onMessage(function(message){
                 //console.log(JSON.stringify(JSON.parse(message.data)));
                 var incMessage = JSON.parse(message.data);
+                if(!got.hasOwnProperty(incMessage.event)){
+                    console.log(incMessage.event)
+                    got[incMessage.event]= true
+                }
+
 
                 if(incMessage.name === self.droneName){
                     // Is the currently focused drone
@@ -114,6 +119,8 @@
                             confidence : "Confidence: " + incMessage.payload.confidence,
                             time : new Date(incMessage.time).toLocaleTimeString()
                         })
+                    } else {
+                        //console.log("Unknown type "  + incMessage.event)
                     }
                 }
 
@@ -141,6 +148,8 @@
                     }
                 } else if(incMessage.event === 'sensors'){
                     mapService.updateDronePosition(incMessage.name, incMessage.payload.location);
+                } else if(incMessage.event === 'event'){
+                    mapService.addEventMarker(incMessage.payload.text, incMessage.payload.location);
                 }
 
             });
@@ -224,24 +233,6 @@
                     self.addError("Failed to send new command");
                 });
             }
-            
-            
-            // if(self.currentDroneStatus.beingUpdated[setting] === undefined){
-            //     console.log("Preparing to update");
-            //     self.currentDroneStatus.beingUpdated[setting] = true;
-            // } else {
-            //     var newValue = self.currentDroneStatus.droneSettings[setting];
-            //     var command = {
-            //         command : setting,
-            //         args : [newValue]
-            //     };
-            //     console.log(command.args);
-            //     $http.post('../../api/' + self.droneName + '/command/pi', command).then(function(response){}, function (error) {
-            //         delete self.currentDroneStatus.beingUpdated[setting];
-            //         self.addError("Failed to send new command");
-            //     });
-            // }
-
         };
 
         self.changeDroneSetting = function(setting){
@@ -363,72 +354,96 @@
         };
 
         self.toggleMapsFromDatabase = function(){
-            
             mapService.setLoadingPositionsFromDatabase(self.maps.fromDatabase);
+        };
+
+        self.deleteDrone = function(ev, droneName){
+            var confirm = $mdDialog.confirm()
+                    .parent(angular.element(document.body))
+                    .clickOutsideToClose(true)
+                    .title('Are you sure you want to delete ' + droneName + '?')
+                    .cancel('No')
+                    .ok('Yes')
+                    .targetEvent(ev);
+            $mdDialog.show(confirm).then(function(){
+                $http.delete('../../api/drones/' + droneName).then(
+                    function(){
+                        self.dronesInformation.splice(getDroneIndex(droneName), 1);
+                        self.dronesNameList.splice(self.dronesNameList.indexOf(droneName));
+                        if(self.droneName === droneName){
+                            self.swapDrone(self.dronesNameList[0])
+                        }
+                    }, function (error) {
+                        console.log(error)
+                    }
+                );
+            }, function(){})
 
         };
 
-        /**
-         * Select the current avatars
-         * @param menuId
-         */
-        function selectUser(user) {
-            self.selected = angular.isNumber(user) ? $scope.users[user] : user;
-        }
+        self.showAddDroneDialog = function(ev){
+            $mdDialog.show({
+                controller: AddDroneController,
+                templateUrl: '/dashboard/app/src/dashboard/view/addDroneDialog.tmpl.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: false,
+                fullscreen : true
+            })
+        };
 
-        /**
-         * Show the Contact view in the bottom sheet
-         */
-        function makeContact(selectedUser) {
-
-            $mdBottomSheet.show({
-                controllerAs: "vm",
-                templateUrl: './src/users/view/contactSheet.html',
-                controller: ['$mdBottomSheet', ContactSheetController],
-                parent: angular.element(document.getElementById('content'))
-            }).then(function (clickedItem) {
-                $log.debug(clickedItem.name + ' clicked!');
-            });
-
-            /**
-             * User ContactSheet controller
-             */
-            function ContactSheetController($mdBottomSheet) {
-                this.user = selectedUser;
-                this.items = [
-                    {name: 'Phone', icon: 'phone', icon_url: 'assets/svg/phone.svg'},
-                    {name: 'Twitter', icon: 'twitter', icon_url: 'assets/svg/twitter.svg'},
-                    {name: 'Google+', icon: 'google_plus', icon_url: 'assets/svg/google_plus.svg'},
-                    {name: 'Hangout', icon: 'hangouts', icon_url: 'assets/svg/hangouts.svg'}
-                ];
-                this.contactUser = function (action) {
-                    // The actually contact process has not been implemented...
-                    // so just hide the bottomSheet
-
-                    $mdBottomSheet.hide(action);
-                };
-            }
-        }
-
-
-
-        function DialogController($scope, $mdDialog) {
+        function AddDroneController($scope, $mdDialog, $http) {
             $scope.dronesInformation = self.dronesInformation;
-            $scope.tempDrone = "";
-            $scope.setTmpDrone = function(name){
-                //console.log(name);
-                $scope.tempDrone = name;
-            };
+            $scope.droneName = "";
+            $scope.droneModel = "";
+
+            $scope.acceptButton = "Add Drone";
 
             $scope.hide = function () {
                 $mdDialog.hide();
             };
             $scope.cancel = function () {
                 $mdDialog.cancel();
+                self.toggleDroneNavPanel();
             };
-            $scope.confirmDroneSwap = function () {
-                self.swapDrone($scope.tempDrone);
-                $mdDialog.hide();
+            $scope.accept = function(){
+                if ($scope.acceptButton === 'Add Drone'){
+                    $scope.addNewDrone()
+                } else {
+                    $scope.cancel();
+                }
+            };
+            $scope.addNewDrone = function () {
+                var newDrone = {
+                    name: $scope.droneName,
+                    model: $scope.droneModel
+                };
+                $http.post('../../api/drones', newDrone).then(
+                    function(response){
+                        var MQTTDetails = response.data.MQTT;
+
+                        $scope.org = MQTTDetails.org;
+                        $scope.type = MQTTDetails.type;
+                        $scope.deviceId = MQTTDetails.deviceId;
+                        $scope.authToken = MQTTDetails["auth-token"];
+
+                        $scope.SuccessMessage = "Drone successfully added! Make sure you note the MQTT details. These are needed for the drone to connect and are not reobtainable.";
+                        $scope.acceptButton = "Accept";
+
+                        self.dronesNameList.push($scope.droneName);
+                        self.dronesInformation.push({
+                            'name' : $scope.droneName,
+                            'model' : $scope.droneModel,
+                            'status' : {
+                                'connection' : 'offline'
+                            }
+                        })
+
+
+                    }, function(error){
+                        console.log(error)
+                    }
+                );
             };
         }
     }

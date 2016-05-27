@@ -35,7 +35,7 @@
 	app.use(session({
 		cookieName: 'session',
 		secret: 'JFuqTUOPdRNtYHc0c4YxXQNZ9CHGoP',
-		duration: 30 * 60 * 1000,
+		duration: 24 * 60 * 60 * 1000,
 		activeDuration: 5 * 60 * 1000
 	}));
 
