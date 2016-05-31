@@ -103,6 +103,14 @@
 		}
 	});
 
+	app.get('/logs', function(req, res){
+		if(!req.session.user){
+			res.status(404).send()
+		} else {
+			next();
+		}
+	});
+
 	// Logout functionality
 	app.get('/logout', function(req, res){
 		req.session.reset();
