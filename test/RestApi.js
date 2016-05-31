@@ -574,8 +574,8 @@ describe('Routing', function(){
         });
         it('should be able to test audio latency', function(done){
             request(server)
-                .post('/api/test/audioLatency/1452016798243')
-                .field('time', 1452016798243)
+                .post('/api/test/audioLatency/1452016798245')
+                .field('time', 1452016798245)
                 .attach('audio', 'test/sampleFiles/testAudio.mp3')
                 .set('cookie', cookie)
                 .expect(200, done);        

@@ -6,9 +6,9 @@
   </component>
   <component name="ChangeListManager">
     <list id="d29ee594-5367-4f8e-8370-d3d13e0b5770" name="Default" comment="" />
-    <list default="true" id="118fcb26-86d6-41e0-9d61-cf5065071d27" name="New changelist" comment="Expanded testing">
+    <list default="true" id="118fcb26-86d6-41e0-9d61-cf5065071d27" name="New changelist" comment="Test latest">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/functions.js" afterPath="$PROJECT_DIR$/lib/functions.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/RestApi.js" afterPath="$PROJECT_DIR$/test/RestApi.js" />
     </list>
     <ignored path="drone.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -513,11 +513,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="RestApi.js" pinned="false" current-in-tab="false">
+          <file leaf-file-name="RestApi.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/test/RestApi.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="782">
-                  <caret line="591" column="46" selection-start-line="591" selection-start-column="46" selection-end-line="591" selection-end-column="46" />
+                <state relative-caret-position="340">
+                  <caret line="577" column="45" selection-start-line="577" selection-start-column="45" selection-end-line="577" selection-end-column="45" />
                   <folding />
                 </state>
               </provider>
@@ -533,11 +533,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="base.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="base.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/base.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2023">
-                  <caret line="119" column="31" selection-start-line="119" selection-start-column="31" selection-end-line="119" selection-end-column="31" />
+                <state relative-caret-position="-540">
+                  <caret line="46" column="5" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="5" />
                   <folding />
                 </state>
               </provider>
@@ -635,10 +635,10 @@
         <option value="$PROJECT_DIR$/lib/router.js" />
         <option value="$PROJECT_DIR$/lib/drone_interpret_and_control/DroneHandler.js" />
         <option value="$PROJECT_DIR$/app.js" />
-        <option value="$PROJECT_DIR$/test/RestApi.js" />
         <option value="$PROJECT_DIR$/lib/drone_interpret_and_control/modes/base.js" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/ide/ide-scripting.js" />
         <option value="$PROJECT_DIR$/lib/functions.js" />
+        <option value="$PROJECT_DIR$/test/RestApi.js" />
       </list>
     </option>
   </component>
@@ -912,7 +912,7 @@
       <recent name="$PROJECT_DIR$/lib" />
     </key>
   </component>
-  <component name="RunManager" selected="Node.js.App">
+  <component name="RunManager" selected="Mocha.Test">
     <configuration default="false" name="Routing.Updates and Commands" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -1265,7 +1265,7 @@
     <history-entry file="Routing_Test_Service_Latency - 2016.05.31 at 13h 12m 56s.xml">
       <configuration name="Routing.Test Service Latency" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="Test - 2016.05.31 at 13h 09m 49s.xml">
+    <history-entry file="Test - 2016.05.31 at 17h 16m 26s.xml">
       <configuration name="Test" configurationId="mocha-javascript-test-runner" />
     </history-entry>
   </component>
@@ -1283,7 +1283,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49703503" sideWeight="0.506993" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="false" show_stripe_button="true" weight="1.0" sideWeight="0.4921875" order="2" side_tool="false" content_ui="tabs" x="1912" y="-8" width="1936" height="1056" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="true" show_stripe_button="true" weight="1.0" sideWeight="0.4921875" order="2" side_tool="false" content_ui="tabs" x="-8" y="-19" width="1936" height="1056" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12864584" sideWeight="0.493007" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946146" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1343,7 +1343,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Made own mqtt model with sendUpdates and websockets" />
     <MESSAGE value="Added live chart fragment (with google visualization). This works much better than angular chart for time series" />
     <MESSAGE value="Added npm install to install.sh" />
     <MESSAGE value="instanbul from repo" />
@@ -1368,7 +1367,8 @@
     <MESSAGE value="Added dictionary checking to ensure speech transcripts contain words. Fixed transcript checking to now execute, and added mode change check" />
     <MESSAGE value="Just stuff" />
     <MESSAGE value="Expanded testing" />
-    <option name="LAST_COMMIT_MESSAGE" value="Expanded testing" />
+    <MESSAGE value="Test latest" />
+    <option name="LAST_COMMIT_MESSAGE" value="Test latest" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="PRESELECT_EXISTING_CHANGELIST" value="false" />
   </component>
@@ -1763,30 +1763,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/Scenarios.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="43" column="8" selection-start-line="43" selection-start-column="8" selection-end-line="43" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/RestApi.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="782">
-          <caret line="591" column="46" selection-start-line="591" selection-start-column="46" selection-end-line="591" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/base.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2023">
-          <caret line="119" column="31" selection-start-line="119" selection-start-column="31" selection-end-line="119" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/ide/ide-scripting.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -2117,6 +2093,30 @@
             <marker date="1464708855408" expanded="false" signature="50377:50457" ph="{...}" />
             <marker date="1464708855408" expanded="false" signature="50461:51283" ph="{...}" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/drone_interpret_and_control/modes/base.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-540">
+          <caret line="46" column="5" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/Scenarios.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="43" column="8" selection-start-line="43" selection-start-column="8" selection-end-line="43" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/RestApi.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="577" column="45" selection-start-line="577" selection-start-column="45" selection-end-line="577" selection-end-column="45" />
+          <folding />
         </state>
       </provider>
     </entry>
