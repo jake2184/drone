@@ -82,27 +82,6 @@
 	// 	}
 	// });
 
-	// Legacy login function. Should be deleted soon
-	app.post('/loginLegacy', function(req, res) {
-		var creds = auth(res);
-		if (!creds) {
-			res.status(400).send("Please provide username and password.\n");
-		} else if (creds.name == req.session.user){
-			res.status(200).send("Already logged in");
-		} else {
-			checkUserCredentials(creds, function(response){
-				if (response.valid){
-					req.session.user = response.username;
-					req.session.role = response.role;
-					req.session.drones = response.drones;
-					res.status(200).send("Logged in successfully.\n");
-				} else{
-					res.status(403).send("Invalid username or password\n");
-				}
-			});
-		}
-	});
-
 	// Login details should be posted, not a get
 	app.get('/login', function(req, res){
 		res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
@@ -111,16 +90,6 @@
 
 	// Post command for command-line interface (pi) 	
 	app.post('/login', login);
-
-	// Dashboard login for browser
-	app.get('/loginPage', function(req, res) {
-		if(auth(res)) {
-			dash_login(req, res)
-		} else {
-			res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
-			res.status(401).send("Please provide username and password.\n");
-		}
-	});
 
 	// Ensure that the dashboard restricts access
 	app.use('/dashboard/app', function(req, res, next){

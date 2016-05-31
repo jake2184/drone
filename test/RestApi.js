@@ -10,6 +10,18 @@ var WebSocket = require('nodejs-websocket');
 
 var server = require('../app.js');
 
+var testAdmin = {
+    username:"__testAdmin__",
+    password:"pass",
+    first_name:"Test",
+    last_name:"Admin",
+    role:1
+};
+var testDrone = {
+    "name":"__testDrone__",
+    "model":"px4",
+    "owner":testAdmin.username
+};
 
 describe('Routing', function(){
     before(function (done) {
@@ -27,12 +39,40 @@ describe('Routing', function(){
                 fs.unlinkSync(filePath);
             }
         }
-        done();
-    });
-    function loginAdmin(done){
+        //done();
+
         request(server)
             .post('/login')
             .auth('jake','pass')
+            .expect(200)
+            .end(function(err, res){
+                if(err){
+                    throw err;
+                }
+                cookie = res.headers['set-cookie'].pop().split(';')[0];
+                request(server)
+                    .post('/api/users/' + testAdmin.username)
+                    .set('cookie', cookie)
+                    .send(testAdmin)
+                    .expect(200)
+                    .end(function(err, res){
+                        request(server)
+                            .post('/api/drones')
+                            .send(testDrone)
+                            .set('cookie', cookie)
+                            .expect(200)
+                            .expect('Content-Type', "application/json; charset=utf-8")
+                            .end(function(err, res){
+                                done();
+                            })
+                    });
+            });
+    });
+
+    function loginAdmin(done){
+        request(server)
+            .post('/login')
+            .auth('__testAdmin__','pass')
             .expect(200)
             .end(function(err, res){
                 if(err){
@@ -84,23 +124,6 @@ describe('Routing', function(){
                 callback();
             });
     }
-    var wsListen;
-    function connectToUpdates(){
-        wsListen = WebSocket.connect('ws://localhost:8080/api/updates/jake',
-            {extraHeaders:{"cookie":cookie}});
-
-        wsListen.on('text', function(message){
-            //console.log("Message: " + message);
-        });
-        wsListen.on('close', function(err){throw err});
-        wsListen.on('error', function (err) {throw err;});
-    }
-
-    function disconnectFromUpdates() {
-        try {
-            wsListen.close();
-        } catch(a){}
-    }
 
      function checkForErr(err){
          if(err){
@@ -125,7 +148,18 @@ describe('Routing', function(){
             request(server)
                 .get('/login')
                 .expect(400, done);
-        })
+        });
+        it('should restrict access to the dashboard', function(done){
+           request(server)
+               .get('/dashboard/app')
+               .expect(401, done);
+        });
+        it('should return the dashboard correctly', function(done){
+            request(server)
+                .get('/dashboard/app')
+                .auth('jake', 'pass')
+                .expect(302, done);
+        });
     });
 
     describe("Security", function(){
@@ -156,7 +190,6 @@ describe('Routing', function(){
                     if(err){
                         throw err;
                     }
-                    cookie = res.headers['set-cookie'].pop().split(';')[0];
                     done();
                 });
         });
@@ -453,9 +486,9 @@ describe('Routing', function(){
         beforeEach(loginAdmin);
         it('user can add drone', function(done){
             var newDrone = {
-                "name":"__testDrone__",
+                "name":"__newDrone__",
                 "model":"px4",
-                "owner":"jake"
+                "owner":testAdmin.username
             };
              request(server)
                 .post('/api/drones')
@@ -464,22 +497,18 @@ describe('Routing', function(){
                 .expect(200)
                 .expect('Content-Type', "application/json; charset=utf-8")
                 .end(function(err, res){
-                    if(err) { 
-                        console.log(err)
-                        throw err;
-                    }
+                    if(err) {throw err;}
                     var MQTT = res.body.MQTT;
                     MQTT.should.have.property('auth-token');
                     MQTT.deviceId.should.equal(newDrone.name);
                     MQTT.should.have.property('org');
                     MQTT.should.have.property('type');
-                    //console.log(err);
                     done();
                 })
          });
         it('user can delete drone', function(done){
             request(server)
-                .delete('/api/drones/__testDrone__')
+                .delete('/api/drones/__newDrone__')
                 .set('cookie', cookie)
                 .expect(200, done)
         });
@@ -497,12 +526,12 @@ describe('Routing', function(){
                     res.body[0].should.have.property('model');
                     res.body[0].should.have.property('name');
                     res.body[0].should.have.property('owner');
-                    res.body[0].owner.should.equal("jake");
+                    res.body[0].owner.should.equal(testAdmin.username);
                     done()
                 })
         });
-    
-        
+
+
     });
     describe('Updates and Commands', function(){
         beforeEach(loginAdmin);
@@ -510,8 +539,8 @@ describe('Routing', function(){
             wsListen = WebSocket.connect('ws://localhost:8080/api/updates/jake',
                 {extraHeaders:{"cookie":cookie}});
 
-            wsListen.on('connect', function(){ 
-                wsListen.close(); 
+            wsListen.on('connect', function(){
+                wsListen.close();
                 done();
             });
             wsListen.on('close', checkForErr);
@@ -523,7 +552,7 @@ describe('Routing', function(){
                 .post('/api/pixhack/command/pi')
                 .send( {command: "dummyCommand", args : []} )
                 .set('cookie', cookie)
-                .expect(200, done)                
+                .expect(200, done)
         });
         it('should be able to send Mav commands', function(done){
             request(server)
@@ -531,6 +560,38 @@ describe('Routing', function(){
                 .send( {command: "dummyCommand", args : []} )
                 .set('cookie', cookie)
                 .expect(200, done)
+        });
+    });
+    describe('Test Service Latency', function(){
+       beforeEach(loginAdmin);
+        it('should be able to test image latency', function(done){
+            request(server)
+                .post('/api/test/imageLatency/1452016798243')
+                .field('time', 1452016798243)
+                .attach('image', 'test/sampleFiles/testImage.jpg')
+                .set('cookie', cookie)
+                .expect(200, done);
+        });
+        it('should be able to test audio latency', function(done){
+            request(server)
+                .post('/api/test/audioLatency/1452016798243')
+                .field('time', 1452016798243)
+                .attach('audio', 'test/sampleFiles/testAudio.mp3')
+                .set('cookie', cookie)
+                .expect(200, done);        
+        });
+        it('should be able to log latency file', function(done){
+            request(server)
+                .get('/api/test/writeImageFile')
+                .set('cookie', cookie)
+                .expect(200)
+                .end(function(err, res){
+                    if(err){throw err;}
+                    request(server)
+                        .get('/api/test/writeAudioFile')
+                        .set('cookie', cookie)
+                        .expect(200, done)
+                })
         });
     });
 
@@ -550,12 +611,28 @@ describe('Routing', function(){
                 fs.unlinkSync(filePath);
             }
         }
+        //
+        // request(server)
+        //     .post('/login')
+        //     .auth('jake','pass')
+        //     .expect(200)
+        //     .end(function(err, res) {
+        //         cookie = res.headers['set-cookie'].pop().split(';')[0];
+        //
+        //         request(server)
+        //             .delete('/api/users/' + "__testAdmin__")
+        //             .set('cookie', cookie)
+        //             .expect(200)
+        //             .end(function(){});
+        //     });
+
 
         function Delay(callback){
             setTimeout(function(){
                 callback()
             }, 1100);
         }
+
         Delay(done);
     });
 

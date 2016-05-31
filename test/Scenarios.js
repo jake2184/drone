@@ -23,8 +23,9 @@ describe('Scenario Testing', function(){
             }
         }
     };
+    var sendUpdates = sinon.spy();
     var droneName = "testDrone";
-    var droneCoordinator = new DroneCoordinator(mqttHandler, cloudant, [droneName]);
+    var droneCoordinator = new DroneCoordinator(mqttHandler, cloudant, sendUpdates );
     
     function getModeNameWithDelay(callback){
         setTimeout(function(){
