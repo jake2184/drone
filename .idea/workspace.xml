@@ -8,13 +8,7 @@
     <list id="d29ee594-5367-4f8e-8370-d3d13e0b5770" name="Default" comment="" />
     <list default="true" id="118fcb26-86d6-41e0-9d61-cf5065071d27" name="New changelist" comment="Test latest">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/functions.js" afterPath="$PROJECT_DIR$/lib/functions.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/router.js" afterPath="$PROJECT_DIR$/lib/router.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/dashboard/app/index.html" afterPath="$PROJECT_DIR$/public/dashboard/app/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/dashboard/app/src/dashboard/DashboardController.js" afterPath="$PROJECT_DIR$/public/dashboard/app/src/dashboard/DashboardController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/dashboard/app/src/dashboard/MapService.js" afterPath="$PROJECT_DIR$/public/dashboard/app/src/dashboard/MapService.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/RestApi.js" afterPath="$PROJECT_DIR$/test/RestApi.js" />
     </list>
     <ignored path="drone.iws" />
@@ -531,8 +525,8 @@
       <file leaf-file-name="RestApi.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/RestApi.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="30" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
+            <state relative-caret-position="51">
+              <caret line="3" column="35" selection-start-line="3" selection-start-column="35" selection-end-line="3" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -1257,34 +1251,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Routing_Test_Service_Latency - 2016.05.31 at 13h 10m 41s.xml">
-      <configuration name="Routing.Test Service Latency" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="Routing_Test_Service_Latency - 2016.05.31 at 13h 10m 47s.xml">
-      <configuration name="Routing.Test Service Latency" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="Routing_Test_Service_Latency - 2016.05.31 at 13h 11m 45s.xml">
-      <configuration name="Routing.Test Service Latency" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="Routing_Test_Service_Latency - 2016.05.31 at 13h 11m 54s.xml">
-      <configuration name="Routing.Test Service Latency" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="Routing_Test_Service_Latency - 2016.05.31 at 13h 12m 28s.xml">
-      <configuration name="Routing.Test Service Latency" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="Routing_Test_Service_Latency - 2016.05.31 at 13h 12m 38s.xml">
-      <configuration name="Routing.Test Service Latency" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="Routing_Test_Service_Latency - 2016.05.31 at 13h 12m 56s.xml">
-      <configuration name="Routing.Test Service Latency" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="Test - 2016.05.31 at 17h 16m 26s.xml">
+    <history-entry file="Test - 2016.06.01 at 19h 55m 14s.xml">
       <configuration name="Test" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="Test - 2016.06.01 at 19h 48m 47s.xml">
+    <history-entry file="Test - 2016.06.01 at 19h 55m 27s.xml">
       <configuration name="Test" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="Test - 2016.06.01 at 19h 48m 52s.xml">
+    <history-entry file="Test - 2016.06.01 at 19h 56m 53s.xml">
+      <configuration name="Test" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="Test - 2016.06.01 at 19h 57m 09s.xml">
+      <configuration name="Test" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="Test - 2016.06.01 at 20h 02m 21s.xml">
+      <configuration name="Test" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="Test - 2016.06.01 at 20h 03m 42s.xml">
+      <configuration name="Test" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="Test - 2016.06.01 at 20h 03m 49s.xml">
+      <configuration name="Test" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="Test - 2016.06.01 at 20h 05m 43s.xml">
+      <configuration name="Test" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="Test - 2016.06.01 at 20h 06m 02s.xml">
+      <configuration name="Test" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="Test - 2016.06.01 at 20h 06m 56s.xml">
       <configuration name="Test" configurationId="mocha-javascript-test-runner" />
     </history-entry>
   </component>
@@ -1302,9 +1296,10 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49703503" sideWeight="0.506993" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="false" show_stripe_button="true" weight="0.50158393" sideWeight="0.4921875" order="2" side_tool="false" content_ui="tabs" x="814" y="125" width="1101" height="513" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="false" show_stripe_button="true" weight="0.5417107" sideWeight="0.4921875" order="2" side_tool="false" content_ui="tabs" x="806" y="95" width="1117" height="551" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12864584" sideWeight="0.493007" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -1316,7 +1311,6 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39915523" sideWeight="0.49595687" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="REST Client" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946146" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32901832" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946146" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="V8 CPU Profiling" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.72228086" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1362,7 +1356,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Added live chart fragment (with google visualization). This works much better than angular chart for time series" />
     <MESSAGE value="Added npm install to install.sh" />
     <MESSAGE value="instanbul from repo" />
     <MESSAGE value="Install dashboard" />
@@ -1387,7 +1380,8 @@
     <MESSAGE value="Just stuff" />
     <MESSAGE value="Expanded testing" />
     <MESSAGE value="Test latest" />
-    <option name="LAST_COMMIT_MESSAGE" value="Test latest" />
+    <MESSAGE value="Logout for website" />
+    <option name="LAST_COMMIT_MESSAGE" value="Logout for website" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="PRESELECT_EXISTING_CHANGELIST" value="false" />
   </component>
@@ -1557,6 +1551,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-526">
           <caret line="46" column="5" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2158,8 +2153,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test/RestApi.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="30" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
+        <state relative-caret-position="51">
+          <caret line="3" column="35" selection-start-line="3" selection-start-column="35" selection-end-line="3" selection-end-column="35" />
           <folding />
         </state>
       </provider>
