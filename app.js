@@ -6,6 +6,7 @@
 	var auth = require('basic-auth');
 	var session = require('client-sessions');
 	var https=require('https');
+	var Cookies=require('cookies');
 
 	// Require logging module
 	var logger = require('./lib/logger.js');
@@ -94,6 +95,7 @@
 	// Ensure that the dashboard restricts access
 	app.use('/dashboard/app', function(req, res, next){
 		if(req.session.user){
+			console.log("here " + req.session.user)
 			next();
 		} else if (auth(res)){
 			dash_login(req, res)
@@ -114,6 +116,9 @@
 	// Logout functionality
 	app.get('/logout', function(req, res){
 		req.session.reset();
+		res.header("Access-Control-Allow-Crednetials", true);
+		res.status(200).send();
+		console.log(res.req.session.username)
 	});
 
 	// Serve the files out of ./public as static files

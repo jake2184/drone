@@ -43,7 +43,7 @@
                             map: map,
                             title: droneName,
                             label: droneName,
-                            icon: "/dashboard/app/assets/fire.png",
+                            icon: "/dashboard/app/assets/drone_icon.png",
                             visible: true
                         });
 
@@ -121,6 +121,7 @@
                         map: map,
                         title: droneName,
                         label: droneName,
+                        icon: "/dashboard/app/assets/drone_icon.png",
                         visible: true
                     });
                     markers[droneName].addListener('click', function () {
@@ -130,12 +131,11 @@
             }, 
             addEventMarker(event, location){
                 var latLng = {lat: parseFloat(location.latitude), lng: parseFloat(location.longitude)};
-                var image = decideImage(event);
                 events.push(new google.maps.Marker({
                     position: latLng,
                     map: map,
                     title: event,
-                    icon: image,
+                    icon: decideImage(event),
                     visible: true
                 }));            
             }
