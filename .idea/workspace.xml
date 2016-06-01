@@ -6,9 +6,8 @@
   </component>
   <component name="ChangeListManager">
     <list id="d29ee594-5367-4f8e-8370-d3d13e0b5770" name="Default" comment="" />
-    <list default="true" id="118fcb26-86d6-41e0-9d61-cf5065071d27" name="New changelist" comment="Test latest">
+    <list default="true" id="118fcb26-86d6-41e0-9d61-cf5065071d27" name="New changelist" comment="attempt https">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/RestApi.js" afterPath="$PROJECT_DIR$/test/RestApi.js" />
     </list>
     <ignored path="drone.iws" />
@@ -1356,7 +1355,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Added npm install to install.sh" />
     <MESSAGE value="instanbul from repo" />
     <MESSAGE value="Install dashboard" />
     <MESSAGE value="Remove logging" />
@@ -1381,7 +1379,8 @@
     <MESSAGE value="Expanded testing" />
     <MESSAGE value="Test latest" />
     <MESSAGE value="Logout for website" />
-    <option name="LAST_COMMIT_MESSAGE" value="Logout for website" />
+    <MESSAGE value="attempt https" />
+    <option name="LAST_COMMIT_MESSAGE" value="attempt https" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="PRESELECT_EXISTING_CHANGELIST" value="false" />
   </component>
