@@ -42,7 +42,6 @@ describe('Routing', function(){
                 fs.unlinkSync(filePath);
             }
         }
-        //done();
 
         request(server)
             .post('/login')
@@ -167,7 +166,7 @@ describe('Routing', function(){
 
     describe("Security", function(){
         it('should be prevented from using secure URIs before login', function(done){
-            agent
+            request(server)
                 .get('/api/')
                 .expect('location', '/login')
                 .expect(302, done)
@@ -437,7 +436,7 @@ describe('Routing', function(){
         beforeEach(loginAdmin);
         it('user can query own information', function(done){
            request(server)
-               .get('/api/users/jake')
+               .get('/api/users/' + testAdmin.username)
                .set('cookie', cookie)
                .expect(200)
                .expect('Content-Type', 'application/json; charset=utf-8')
@@ -451,7 +450,7 @@ describe('Routing', function(){
         it('user cannot query other users information', function(done){
             asGuest(function(){
                 request(server)
-                    .get('/api/users/jake')
+                    .get('/api/users/' + testAdmin.username)
                     .set('cookie', cookie)
                     .expect(401, done)
             });
