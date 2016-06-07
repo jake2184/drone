@@ -46,7 +46,6 @@ describe('Scenario Testing', function(){
 
     describe("Fire", function () {
 
-
         it('should trigger fire mode from image labels', function(done){
             var fire = [{name:"Wild_Fire", score:0.8}, {name:"Rainbow", score:0.53}];
             droneCoordinator.processImageLabels(droneName, fire, new Date().getTime(), [51.5,-0.19]);
