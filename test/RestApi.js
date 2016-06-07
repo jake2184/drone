@@ -261,14 +261,14 @@ describe('Routing', function(){
 
         it('GET /api/images should return imageFile list', function(done){
             request(server)
-                .get('/api/pixhack/images')
+                .get('/api/testdrone/images')
                 .set('cookie', cookie)
                 .expect('Content-Type', 'application/json; charset=utf-8')
                 .expect(200, done);
         });
         it('POST /api/images/:docID should accept valid image', function (done){
           request(server)
-               .post('/api/pixhack/images/' + time)
+               .post('/api/testdrone/images/' + time)
                .send({time:time, location:[50,50]})
                .attach('image', 'test/sampleFiles/testImage.jpg')
                .set('cookie', cookie)
@@ -276,27 +276,27 @@ describe('Routing', function(){
         });
         it('GET /api/images/:docID should return image', function(done){
            request(server)
-               .get('/api/pixhack/images/' + time)
+               .get('/api/testdrone/images/' + time)
                .set('cookie', cookie)
                .expect('Content-Type', 'image/jpeg')
                .expect(200, done)
         });
         it('DELETE /api/images should delete image', function(done){
             request(server)
-                .delete('/api/pixhack/images/' + time)
+                .delete('/api/testdrone/images/' + time)
                 .set('cookie', cookie)
                 .expect(200, done)
         });
         it('GET /api/images/latest should return image', function (done) {
             request(server)
-                .get('/api/pixhack/images/latest')
+                .get('/api/testdrone/images/latest')
                 .set('cookie', cookie)
                 .expect('Content-Type', 'image/jpeg')
                 .expect(200 , done)
         });
         it('should cache POST to /api/images', function (done){
             request(server)
-                .get('/api/pixhack/images/latest')
+                .get('/api/testdrone/images/latest')
                 .set('cookie', cookie)
                 .expect(200)
                 .end(function (err, res) {
@@ -311,7 +311,7 @@ describe('Routing', function(){
         });
         it('should reject invalid file upload', function(done){
            request(server)
-               .post('/api/pixhack/images/' + time)
+               .post('/api/testdrone/images/' + time)
                .attach('image', 'test/sampleFiles/testInvalidImage.txt')
                .set('cookie', cookie)
                .expect(400, done);
@@ -330,7 +330,7 @@ describe('Routing', function(){
         });
         it('POST /api/audio/:docID should accept valid audio', function (done){
             var req = request(server)
-                .post('/api/pixhack/audio/' + time)
+                .post('/api/testdrone/audio/' + time)
                 .send({time:time, location:[51.5,-0.18]})
                 .field('time', time).field('location', "[51.5,-0.18]")
                 .attach('audio', 'test/sampleFiles/testAudio.mp3')
@@ -339,27 +339,27 @@ describe('Routing', function(){
         });
         it('GET /api/audio/:docID should return audio', function(done){
             request(server)
-                .get('/api/pixhack/audio/' + time)
+                .get('/api/testdrone/audio/' + time)
                 .set('cookie', cookie)
                 .expect('Content-Type', 'audio/x-wav')
                 .expect(200, done);
         });
         it('DELETE /api/audio should delete audio', function(done){
             request(server)
-                .delete('/api/pixhack/audio/' + time)
+                .delete('/api/testdrone/audio/' + time)
                 .set('cookie', cookie)
                 .expect(200, done);
         });
         it('GET /api/audio/latest should return audio', function (done) {
             request(server)
-                .get('/api/pixhack/audio/latest')
+                .get('/api/testdrone/audio/latest')
                 .set('cookie', cookie)
                 .expect('Content-Type', 'audio/x-wav')
                 .expect(200, done);
         });
         it('should reject invalid file upload', function(done){
             request(server)
-                .post('/api/pixhack/audio/' + time)
+                .post('/api/testdrone/audio/' + time)
                 .attach('audio', 'test/sampleFiles/testInvalidImage.txt')
                 .set('cookie', cookie)
                 .expect(400, done);
@@ -367,14 +367,14 @@ describe('Routing', function(){
         it('user cannot DELETE audio', function(done){
             asGuest(function(){
                 request(server)
-                    .delete('/api/pixhack/audio/' + time)
+                    .delete('/api/testdrone/audio/' + time)
                     .set('cookie', cookie)
                     .expect(401, done)
             });
         });
         it('can connect and listen to drone audio stream', function(done){
             var testString = "Hello world";
-            var wsListen = WebSocket.connect('ws://localhost:8080/api/pixhack/audio/stream/listen',
+            var wsListen = WebSocket.connect('ws://localhost:8080/api/testdrone/audio/stream/listen',
                 {extraHeaders:{"cookie":cookie}});
 
             wsListen.on('text', function(message){
@@ -384,7 +384,7 @@ describe('Routing', function(){
             wsListen.on('close', checkForErr);
             wsListen.on('error', checkForErr);
 
-            var wsSend = WebSocket.connect('ws://localhost:8080/api/pixhack/audio/stream/upload',
+            var wsSend = WebSocket.connect('ws://localhost:8080/api/testdrone/audio/stream/upload',
                 {extraHeaders:{"cookie":cookie}});
 
             wsSend.on('connect', function(){wsSend.send(testString);});
@@ -393,7 +393,7 @@ describe('Routing', function(){
         });
         it('can connect and listen to client audio stream', function(done){
             var testString = "Hello world";
-            var wsListen = WebSocket.connect('ws://localhost:8080/api/pixhack/audio/stream/download',
+            var wsListen = WebSocket.connect('ws://localhost:8080/api/testdrone/audio/stream/download',
                 {extraHeaders:{"cookie":cookie}});
 
             wsListen.on('text', function(message){
@@ -403,7 +403,7 @@ describe('Routing', function(){
             wsListen.on('close', checkForErr);
             wsListen.on('error', checkForErr);
 
-            var wsSend = WebSocket.connect('ws://localhost:8080/api/pixhack/audio/stream/talk',
+            var wsSend = WebSocket.connect('ws://localhost:8080/api/testdrone/audio/stream/talk',
                 {extraHeaders:{"cookie":cookie}});
 
             wsSend.on('connect', function(){wsSend.send(testString);});

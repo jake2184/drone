@@ -32,6 +32,13 @@
         };
         self.dronesInformation = []; //  [{ connection:'', mode:'', status:{}  }]
 
+        self.options = {
+            availablePhotoResolutions: ['854x480', '1280x720', '1600x900', '1920x1080'],
+            availablePhotoQualities : [25, 50, 75, 100],
+            availableAudioFileTypes : ['mp3', 'wav'],
+            availableAudioSamplingFrequencies : [16000, 22500, 32000, 44100]
+        };
+
         // Helper function
         function getDroneIndex(droneName){
             for ( var i = 0; i < self.dronesInformation.length; i++){
@@ -140,7 +147,8 @@
                     if(incMessage.event === 'status'){
 
                         self.dronesInformation[getDroneIndex(incMessage.name)].status = incMessage.payload;
-
+                        console.log(incMessage.payload)
+                        console.log(self.currentDroneStatus.droneSettings.audioSamplingFrequency)
                         // If focused drone, carefully update settings
                         if(incMessage.name === self.droneName){
                             var newSettings = incMessage.payload.droneSettings;
@@ -153,6 +161,9 @@
                                             delete self.currentDroneStatus.beingUpdated[setting];
                                         }
                                     } else{
+                                        if(setting == 'audioSamplingFrequency'){
+                                            console.log("Her " + newSettings[setting]);
+                                        }
                                         self.currentDroneStatus.droneSettings[setting] = newSettings[setting];
                                     }
                                 }
@@ -193,8 +204,8 @@
 
         // Universal function
         self.addError = function(errorText){
-          self.errorList.unshift({time: new Date().getTime(), text: errorText});
-            $scope.$apply();
+            self.errorList.unshift({time: new Date().getTime(), text: errorText});
+            //$scope.$apply();
         };
 
         self.swapDrone = function (droneName) {

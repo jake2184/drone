@@ -62,7 +62,7 @@
         function decideImage(event){
             var fire = ["Wild_Fire", "Burning", "Smoke", "Explosion"];
             var person = ["Adult", "Female_Adult", "Male_Adult", "Human", "Child"];
-            var building = ["Building", "Skyscraper"];
+            var building = ["Building", "Skyscraper", "Public_Building", "Rural_Building", "Urban_Building"];
 
             var keywords = event.split(',');
 
