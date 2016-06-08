@@ -124,12 +124,24 @@
                         </md-card-title-text>
                     </md-card-title>
                     <md-card-content>
-                        <md-list>
-                            <md-list-item>Connected : {{dl.currentDroneStatus.connection}}</md-list-item>
-                            <md-list-item>
-                                Mode : {{dl.currentDroneStatus.mode ? dl.currentDroneStatus.mode : 'n/a'}}
-                            </md-list-item>
-                        </md-list>
+
+                        <div layout="row">
+                            <md-list>
+                                <md-list-item>Connected : {{dl.currentDroneStatus.connection}}</md-list-item>
+                                <md-list-item>
+                                    Mode : {{dl.currentDroneStatus.mode ? dl.currentDroneStatus.mode : 'n/a'}}
+                                </md-list-item>
+                            </md-list>
+                            <span flex></span>
+
+                            <div layout="column">
+                                <md-button class="md-raised md-padding" ng-disabled="!dl.currentDroneStatus.droneSettings.hovering"  ng-click="dl.changeDroneSetting('hovering', true)">
+                                    {{dl.currentDroneStatus.droneSettings.hovering ? 'Hovering' : 'Start Hover'}}
+                                </md-button>
+                                <md-button class="md-raised md-padding" ng-disabled="dl.currentDroneStatus.droneSettings.hovering" ng-click="dl.sendContinue()">Continue</md-button>
+                            </div>
+
+                        </div>
 
                         <md-divider></md-divider>
                         <md-grid-list
@@ -286,7 +298,7 @@
                                 </div>
                                 <md-card-title-media>
                                     <div class="md-media-md card-media md-padding">
-                                        <img style="max-height: 64px; max-width: 64px" ng-src="../../api/{{drone.name}}/images/latest" src="assets/No_image.png" alt="Latest Image">
+                                        <img style="max-height: 64px; max-width: 64px" ng-src="../../api/{{drone.name}}/images/latest" src="assets/No_image.png">
                                     </div>
                                 </md-card-title-media>
                             </div>

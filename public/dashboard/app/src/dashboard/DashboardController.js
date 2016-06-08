@@ -374,16 +374,27 @@
             }
         };
 
-        self.changeDroneSetting = function(setting){
+        self.sendContinue = function(){
+            var command = {
+                command : 'continue',
+                args : []
+            };
+            $http.post('../../api/' + self.droneName + '/command/pi', command).then(function(response){}, function (error) {
+                delete self.currentDroneStatus.beingUpdated[setting];
+                self.addError("Failed to send "+error+" command");
+            });
+        };
+
+        self.changeDroneSetting = function(setting, value){
             self.currentDroneStatus.beingUpdated[setting] = true;
-            var newValue = self.currentDroneStatus.droneSettings[setting];
+            var newValue = value || self.currentDroneStatus.droneSettings[setting];
             var command = {
                 command : setting,
                 args : [newValue]
             };
             $http.post('../../api/' + self.droneName + '/command/pi', command).then(function(response){}, function (error) {
                 delete self.currentDroneStatus.beingUpdated[setting];
-                self.addError("Failed to send new command");
+                self.addError("Failed to send "+error+" command");
             });
         };
 

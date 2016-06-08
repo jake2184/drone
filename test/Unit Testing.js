@@ -5,7 +5,7 @@ var assert = require('assert');
 var sinon = require('sinon');
 require("unit.js");
 var server = require('../app.js');
-var iandc = require('../lib/drone_interpret_and_control/DroneCoordinator.js');
+var dc = require('../lib/drone_interpret_and_control/DroneCoordinator.js');
 
 describe('Unit Testing', function(){
     var url = 'http://localhost:8080';
@@ -29,20 +29,38 @@ describe('Unit Testing', function(){
             }
         };
 
+        var sendUpdates = sinon.spy();
         var droneName = "testDrone";
-        var IandC = new iandc(mqttHandler, cloudant, [droneName]);
+        var DroneCoordinator = new dc(mqttHandler, cloudant, sendUpdates );
+
+
+        beforeEach(function(done){
+            DroneCoordinator.reset(droneName);
+            mqttHandler.sendCommand.reset();
+            mqttHandler.sendEvent.reset();
+            cloudant.db.insert.reset();
+            sendUpdates.reset();
+            done();
+        });
 
         it('should initialise in normal mode and be able to change mode', function(done) {
-            assert.equal(IandC.getModeName(droneName), "Normal");
-            IandC.setMode(droneName, "Fire");
-            assert.equal(IandC.getModeName(droneName), "Fire");
-            IandC.setMode(droneName, "Interact");
-            assert.equal(IandC.getModeName(droneName), "Interact");
-            IandC.setMode(droneName, "Avoidance");
-            assert.equal(IandC.getModeName(droneName), "Avoidance");
+            assert.equal(DroneCoordinator.getModeName(droneName), "Normal");
+            DroneCoordinator.setMode(droneName, "Fire");
+            assert.equal(DroneCoordinator.getModeName(droneName), "Fire");
+            DroneCoordinator.setMode(droneName, "Interact");
+            assert.equal(DroneCoordinator.getModeName(droneName), "Interact");
+            DroneCoordinator.setMode(droneName, "Avoidance");
+            assert.equal(DroneCoordinator.getModeName(droneName), "Avoidance");
 
-            IandC.setMode(droneName, "Normal");
-            assert.equal(IandC.getModeName(droneName), "Normal");
+            DroneCoordinator.setMode(droneName, "Normal");
+            assert.equal(DroneCoordinator.getModeName(droneName), "Normal");
+            done();
+        });
+
+        it('should reset handler when asked', function(done){
+            DroneCoordinator.setMode(droneName, "Fire");
+            DroneCoordinator.reset(droneName);
+            assert(DroneCoordinator.getModeName(droneName, "Normal"), "Cannot reset correctly");
             done();
         });
 
@@ -55,7 +73,7 @@ describe('Unit Testing', function(){
                 altitude: 100,
                 location: [51.485138, -0.18775]
             };
-            IandC.updateSensorReadings(droneName, sensorReadings);
+            DroneCoordinator.updateSensorReadings(droneName, sensorReadings);
 
 
             var position = {
@@ -67,22 +85,19 @@ describe('Unit Testing', function(){
 
             assert(cloudant.db.insert.calledWith(sensorReadings, sensorReadings.time.toString()), "sensorlog failure");
             assert(cloudant.db.insert.calledWith(position, sensorReadings.time.toString()), "positionlog failure");
-
             assert(cloudant.db.insert.calledTwice, "Sensor readings weren't saved correctly");
             done();
         });
         it('should process image labels and send mqtt event messages', function(done){
-            //DroneCoordinator.setMode("Normal");
-            //DroneCoordinator.processImageLabels([ {name:"Fire" , score:0.7 }, {name:"Whut", score:0.6} , {name:"Person", score:0.8}], new Date().getTime(), null);
-            //assert.equal(MqttHandler.sendCommand.callCount, 6);
+            var fire = [{name:"Wild_Fire", score:0.8}, {name:"Rainbow", score:0.53}];
+            DroneCoordinator.processImageLabels(droneName, fire, new Date().getTime(),[51.485138, -0.18775] );
+            assert(mqttHandler.sendEvent.called, "MQTT Not called");
             done();
         });
+
+
     });
-    describe("Modes", function(){
-        it('How extensive do I want to go?', function(done){
-            done();
-        })
-    });
+
 
 
 

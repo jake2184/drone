@@ -85,9 +85,9 @@
 		}
 	});
 
-	app.get('/logs', function(req, res){
+	app.get('/logs/*', function(req, res, next){
 		if(!req.session.user){
-			res.status(404).send()
+			res.status(404).send();
 		} else {
 			next();
 		}
