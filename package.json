@@ -4,7 +4,8 @@
   "description": "Control a drone",
   "scripts": {
     "start": "node app.js",
-    "test": "make test"
+    "test": "mocha",
+    "install": "bash ./install.sh"
   },
   "dependencies": {
     "basic-auth": "~1.0.3",
@@ -12,6 +13,8 @@
     "cfenv": "1.0.x",
     "client-sessions": "^0.7.0",
     "cloudant": "^1.4.0",
+    "cookies": "^0.6.1",
+    "dashboard": "file:public/dashboard",
     "express": "4.12.x",
     "express-ws": "^2.0.0-rc.1",
     "file-type": "^3.8.0",
@@ -35,11 +38,23 @@
   "devDependencies": {
     "buffer-equal": "^1.0.0",
     "mocha": "^2.4.5",
+    "nodejs-websocket": "^1.6.0",
     "object-sizeof": "^1.0.9",
     "should": "^8.2.2",
     "should-http": "0.0.4",
     "sinon": "^1.17.3",
     "sizeof": "^1.0.0",
     "supertest": "^1.2.0"
+  },
+  "apidoc": {
+    "name": "Drone Server API",
+    "version": "0.1.0",
+    "description": "Documentation of Drone Server Endpoints",
+    "title": "Drone Server API",
+    "url": "https://192.168.1.77:8080/api",
+    "template": {
+      "withCompare": false,
+      "withGenerator": false
+    }
   }
 }

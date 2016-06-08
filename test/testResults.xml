@@ -1,1 +1,40 @@
-
+<testsuite name="Mocha Tests" tests="38" failures="0" errors="0" skipped="0" timestamp="Sat, 14 May 2016 20:03:38 GMT" time="18.96">
+<testcase classname="Routing Website" name="should return index.html" time="0.015"/>
+<testcase classname="Routing Website" name="should return /login" time="0.006"/>
+<testcase classname="Routing Security" name="should be prevented from using secure URIs before login" time="0.004"/>
+<testcase classname="Routing Security" name="should not allow empty login" time="0.002"/>
+<testcase classname="Routing Security" name="should not allow invalid login" time="0.042"/>
+<testcase classname="Routing Security" name="should allow valid login" time="0.076"/>
+<testcase classname="Routing Security" name="should allow access to secure URIs post login" time="0.357"/>
+<testcase classname="Routing Path param checking" name="should detect when timeFrom is not a number" time="0.005"/>
+<testcase classname="Routing Path param checking" name="should detect when timeTill is not a number" time="0.008"/>
+<testcase classname="Routing Path param checking" name="should detect when dronename is not valid" time="0.084"/>
+<testcase classname="Routing Sensor Endpoints" name="should return data from a set point" time="0.247"/>
+<testcase classname="Routing Sensor Endpoints" name="should return data between two points" time="0.124"/>
+<testcase classname="Routing Sensor Endpoints" name="should return data between two points with a type" time="0.16"/>
+<testcase classname="Routing Image Endpoints" name="GET /api/images should return imageFile list" time="0.119"/>
+<testcase classname="Routing Image Endpoints" name="POST /api/images/:docID should accept valid image" time="0.831"/>
+<testcase classname="Routing Image Endpoints" name="GET /api/images/:docID should return image" time="0.25"/>
+<testcase classname="Routing Image Endpoints" name="DELETE /api/images should delete image" time="0.578"/>
+<testcase classname="Routing Image Endpoints" name="GET /api/images/latest should return image" time="0.013"/>
+<testcase classname="Routing Image Endpoints" name="should cache POST to /api/images" time="0.017"/>
+<testcase classname="Routing Image Endpoints" name="should reject invalid file upload" time="0.018"/>
+<testcase classname="Routing Audio Endpoints" name="GET /api/audio should return audioFile list" time="0.113"/>
+<testcase classname="Routing Audio Endpoints" name="POST /api/audio/:docID should accept valid audio" time="1.414"/>
+<testcase classname="Routing Audio Endpoints" name="GET /api/audio/:docID should return audio" time="0.364"/>
+<testcase classname="Routing Audio Endpoints" name="DELETE /api/audio should delete audio" time="8.922"/>
+<testcase classname="Routing Audio Endpoints" name="GET /api/audio/latest should return audio" time="0.009"/>
+<testcase classname="Routing Audio Endpoints" name="should reject invalid file upload" time="0.017"/>
+<testcase classname="Routing Audio Endpoints" name="user cannot DELETE audio" time="0.078"/>
+<testcase classname="Routing Audio Endpoints" name="can connect and listen to drone audio stream" time="0.039"/>
+<testcase classname="Routing Audio Endpoints" name="can connect and listen to client audio stream" time="0.013"/>
+<testcase classname="Routing GPS Endpoints" name="should return data from a set point" time="0.119"/>
+<testcase classname="Routing GPS Endpoints" name="should return data between two points" time="0.111"/>
+<testcase classname="Routing User Endpoints" name="user can query own information" time="0.049"/>
+<testcase classname="Routing User Endpoints" name="user cannot query other users information" time="0.077"/>
+<testcase classname="Routing User Endpoints" name="admin can add new user and login" time="0.141"/>
+<testcase classname="Routing User Endpoints" name="admin can delete user" time="0.032"/>
+<testcase classname="Routing Drone Endpoints" name="user can add drone" time="0.042"/>
+<testcase classname="Routing Drone Endpoints" name="user can delete drone" time="0.05"/>
+<testcase classname="Routing Drone Endpoints" name="user can query own drone information" time="0.042"/>
+</testsuite>

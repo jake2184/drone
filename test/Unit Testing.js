@@ -5,13 +5,13 @@ var assert = require('assert');
 var sinon = require('sinon');
 require("unit.js");
 var server = require('../app.js');
-var iandc = require('../lib/drone_interpret_and_control/drone_interpret_and_control.js');
+var iandc = require('../lib/drone_interpret_and_control/DroneCoordinator.js');
 
 describe('Unit Testing', function(){
     var url = 'http://localhost:8080';
     //var url = 'http://drone-nodes.eu-gb.mybluemix.net';
 
-    describe("IandC", function (){
+    describe("DroneCoordinator", function (){
 
         var mqttHandler = {
             sendCommand : sinon.spy(),
@@ -29,19 +29,20 @@ describe('Unit Testing', function(){
             }
         };
 
-        var IandC = new iandc(mqttHandler, cloudant);
+        var droneName = "testDrone";
+        var IandC = new iandc(mqttHandler, cloudant, [droneName]);
 
         it('should initialise in normal mode and be able to change mode', function(done) {
-            assert.equal(IandC.getModeName(), "Normal");
-            IandC.setMode("Fire");
-            assert.equal(IandC.getModeName(), "Fire");
-            IandC.setMode("Interact");
-            assert.equal(IandC.getModeName(), "Interact");
-            IandC.setMode("Avoidance");
-            assert.equal(IandC.getModeName(), "Avoidance");
+            assert.equal(IandC.getModeName(droneName), "Normal");
+            IandC.setMode(droneName, "Fire");
+            assert.equal(IandC.getModeName(droneName), "Fire");
+            IandC.setMode(droneName, "Interact");
+            assert.equal(IandC.getModeName(droneName), "Interact");
+            IandC.setMode(droneName, "Avoidance");
+            assert.equal(IandC.getModeName(droneName), "Avoidance");
 
-            IandC.setMode("Normal");
-            assert.equal(IandC.getModeName(), "Normal");
+            IandC.setMode(droneName, "Normal");
+            assert.equal(IandC.getModeName(droneName), "Normal");
             done();
         });
 
@@ -54,7 +55,7 @@ describe('Unit Testing', function(){
                 altitude: 100,
                 location: [51.485138, -0.18775]
             };
-            IandC.updateSensorReadings(sensorReadings);
+            IandC.updateSensorReadings(droneName, sensorReadings);
 
 
             var position = {
@@ -71,8 +72,8 @@ describe('Unit Testing', function(){
             done();
         });
         it('should process image labels and send mqtt event messages', function(done){
-            //IandC.setMode("Normal");
-            //IandC.processImageLabels([ {name:"Fire" , score:0.7 }, {name:"Whut", score:0.6} , {name:"Person", score:0.8}], new Date().getTime(), null);
+            //DroneCoordinator.setMode("Normal");
+            //DroneCoordinator.processImageLabels([ {name:"Fire" , score:0.7 }, {name:"Whut", score:0.6} , {name:"Person", score:0.8}], new Date().getTime(), null);
             //assert.equal(MqttHandler.sendCommand.callCount, 6);
             done();
         });

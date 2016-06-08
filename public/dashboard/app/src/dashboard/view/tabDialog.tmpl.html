@@ -1,0 +1,44 @@
+<md-dialog aria-label="Drone Choice">
+    <form style="min-width : 800px">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Drone Choice</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content style="width:800px;max-height:800px; ">
+            <md-tabs md-dynamic-height md-dynamic-width md-border-bottom id="tabs">
+                <md-tab  ng-repeat="drone in dronesInformation" label="{{drone.name}}" md-on-select="setTmpDrone(drone.name)" >
+                    <md-content class="md-padding">
+                        <h1 class="md-display-2">{{drone.name}}</h1>
+                        <div flex layout="row">
+                            <div flex-xs flex-gt-xs="50">
+                                <md-list>
+                                    <md-list-item>Connected : {{drone.status.connection}}</md-list-item>
+                                    <md-list-item>Mode : {{drone.status.mode}}</md-list-item>
+                                </md-list>
+                            </div>
+                            <div flex-xs flex-gt-xs="50" layout="column">
+                                <h1 class="md-subheader">Latest Status:</h1>
+                                <div ng-repeat="(key, value) in drone.status.latestStatus">{{key}} : {{value}}</div>
+
+                            </div>
+                        </div>
+                    </md-content>
+                </md-tab>
+               </md-tabs>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-click="cancel()" >
+                Cancel
+            </md-button>
+            <md-button ng-click="confirmDroneSwap()" style="margin-right:20px;" >
+                Select Drone
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

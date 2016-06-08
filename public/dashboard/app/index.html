@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en" >
+  <head>
+    <title>Drone Dashboard</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
+    <link rel="stylesheet" href="../node_modules/angular-material/angular-material.css"/>
+    <link rel="stylesheet" href="assets/app.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+    <link rel="icon" type="image/png" href="/dashboard/app/assets/drone_icon.png"/>
+
+    <style type="text/css">
+        /**
+         * Hide when Angular is not yet loaded and initialized
+         */
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+          display: none !important;
+        }
+    </style>
+
+  </head>
+
+  <body ng-app="starterApp" layout="column" ng-controller="DashboardController as dl" ng-cloak>
+
+    <md-toolbar layout="row">
+        <div class="md-toolbar-tools">
+            <h2>Drone Monitoring Dashboard</h2>
+            <span flex></span>
+            <md-menu md-position-mode="target-right target" ng-show="dl.errorList.length">
+                <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                    <md-icon id="warningIcon" class="material-icons" style="color:red">warning</md-icon>
+                </md-button>
+                <md-menu-content width="8">
+                    <md-menu-item ng-repeat="error in dl.errorList">
+                        <div layout="row">
+                            <p flex>{{error.time | date : 'dd/MM/yy, hh:mm:ss a'}}: {{error.text}}</p>
+                            <md-icon md-menu-align-target style="margin: auto 3px auto 0;" >error</md-icon>
+                        </div>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+            <md-button class="md-raised" ng-click="dl.toggleDroneNavPanel()">
+                Change Drone
+            </md-button>
+            <md-menu md-position-mode="target-right target">
+                <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                    <md-icon class="material-icons">person</md-icon>
+                </md-button>
+                <md-menu-content>
+                    <md-menu-item>
+                        <h3>{{dl.username}}</h3>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ng-click="dl.logout()">
+                            <p>Logout</p>
+                            <span flex></span>
+                            <md-icon class="material-icons">exit_to_app</md-icon>
+                        </md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+        </div>
+    </md-toolbar>
+
+
+    <div flex>
+        <md-content flex id="content" layout="row">
+			<div flex-xs flex-gt-xs="50" layout="column">
+				<md-card>
+					<md-card-title>
+						<md-card-title-text>
+							<span class="md-headline">Map View</span>
+						</md-card-title-text>
+                        <md-checkbox ng-model="dl.maps.fromDatabase" ng-change="dl.toggleMapsFromDatabase()">Load Positions From Database</md-checkbox>
+					</md-card-title>
+					<md-card-content>
+						<div class="angular-google-map">
+							<div id="map-canvas" style="height:450px"></div>
+						</div>
+					</md-card-content>
+				</md-card>
+                <md-card>
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Images from {{dl.droneName}}</span>
+                        </md-card-title-text>
+                        <md-checkbox ng-model="dl.dataTypes.audioStream" ng-change="dl.toggleAudioStream()">Stream Audio</md-checkbox>
+                    </md-card-title>
+                    <md-card-content>
+
+                        <md-tabs md-dynamic-height md-dynamic-width md-border-bottom id="tabs">
+
+                            <md-tab label="Legacy Images">
+                                <md-content class="md-padding">
+                                    <img ng-src="../../api/{{dl.droneName}}/images/{{dl.legacyImage}}" src="assets/No_image.png" class="legacy">
+                                    <md-virtual-repeat-container style="height:200px">
+                                        <div md-virtual-repeat="image in dl.droneImageList" class="md-list-item" ng-click="dl.selectDroneImage(image.time)" flex>
+                                            <h4>{{image.time | date : 'dd/MM/yy, hh:mm:ss a'}}</h4>
+                                        </div>
+                                    </md-virtual-repeat-container>
+                                </md-content>
+                            </md-tab>
+                            <md-tab  label="Latest Image" >
+                                <md-content class="md-padding">
+                                    <img id="drone_image" ng-src="../../api/{{dl.droneName}}/images/latest?cb={{dl.random}}" src="assets/No_image.png" style="margin: auto; max-width: 100%;" alt="Drone Captured Image" >
+                                </md-content>
+                            </md-tab>
+                        </md-tabs>
+
+
+                    </md-card-content>
+                </md-card>
+            </div>
+			<div flex-xs flex-gt-xs="50" layout="column">
+                <md-card>
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Drone Status:  {{dl.droneName}}</span>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-card-content>
+                        <md-list>
+                            <md-list-item>Connected : {{dl.currentDroneStatus.connection}}</md-list-item>
+                            <md-list-item>
+                                Mode : {{dl.currentDroneStatus.mode ? dl.currentDroneStatus.mode : 'n/a'}}
+                            </md-list-item>
+                        </md-list>
+
+                        <md-divider></md-divider>
+                        <md-grid-list
+                            md-cols="4" md-row-height="85px" md-gutter="1px">
+                            <md-grid-tile>
+                                <md-button class="md-primary" ng-click="dl.cancelDroneSettingUpdates()">Cancel Changes</md-button>
+                            </md-grid-tile>
+                            <md-grid-tile>
+                                <div layout="column">
+                                    <md-icon>battery_full</md-icon>
+                                    <p align="center">{{dl.currentDroneStatus.droneSettings ? (dl.currentDroneStatus.droneSettings.battery_remaining + '%'): 'n/a'}}</p>
+                                </div>
+                            </md-grid-tile>
+                            <md-grid-tile>
+                                <md-switch ng-disabled="dl.updatingDroneSetting()" ng-change="dl.changeDroneSetting('uploadingImages')" ng-model="dl.currentDroneStatus.droneSettings.uploadingImages">Uploading Images</md-switch>
+                            </md-grid-tile>
+                            <md-grid-tile>
+                                <md-switch ng-disabled="dl.updatingDroneSetting()" ng-change="dl.changeDroneSetting('uploadingAudio')" ng-model="dl.currentDroneStatus.droneSettings.uploadingAudio">Uploading Audio</md-switch>
+                            </md-grid-tile>
+                            <md-grid-tile>
+                                <md-switch ng-disabled="dl.updatingDroneSetting()" ng-change="dl.changeDroneSetting('uploadingSensors')" ng-model="dl.currentDroneStatus.droneSettings.uploadingSensors">Uploading Sensors</md-switch>
+                            </md-grid-tile>
+                            <md-grid-tile>
+                                <md-switch ng-disabled="dl.updatingDroneSetting()" ng-change="dl.changeDroneSetting('capturingImages')" ng-model="dl.currentDroneStatus.droneSettings.capturingImages">Capturing Images</md-switch>
+                            </md-grid-tile>
+                            <md-grid-tile>
+                                <md-switch ng-disabled="dl.updatingDroneSetting()" ng-change="dl.changeDroneSetting('capturingAudio')" ng-model="dl.currentDroneStatus.droneSettings.capturingAudio">Capturing Audio</md-switch>
+                            </md-grid-tile>
+                            <md-grid-tile>
+                                <md-switch aria-label="Toggle Audio Stream" ng-disabled="dl.updatingDroneSetting()" ng-change="dl.changeDroneSetting('streamingAudio')" ng-model="dl.currentDroneStatus.droneSettings.streamingAudio">Streaming Audio</md-switch>
+                            </md-grid-tile>
+                            <md-grid-tile md-colspan="2">
+                                <div layout="column" flex class="md-padding">
+                                    <div layout="row">
+                                        <md-icon>add_a_photo</md-icon>
+                                        <span style="line-height:40px; padding-left: 10px" flex >Capture Interval (ms)</span>
+                                        <md-button class="md-icon-button" ng-click="dl.changeInterval('photoInterval', 'save')">
+                                            <md-icon>save</md-icon>
+                                        </md-button>
+                                    </div>
+                                    <div layout="row">
+                                        <md-slider aria-label="Change Photo Interval" ng-change="dl.changeInterval('photoInterval', 'edit')" md-discrete flex min="0" step="100" max="5000" ng-model="dl.currentDroneStatus.droneSettings.photoInterval" class></md-slider>
+                                        <div flex="20" layout layout-align="center center">
+                                            <input  flex type="number" ng-model="dl.currentDroneStatus.droneSettings.photoInterval">
+                                        </div>
+                                    </div>
+                                </div>
+                            </md-grid-tile>
+                            <md-grid-tile md-colspan="2">
+                                <div layout="column" flex class="md-padding">
+                                    <div layout="row">
+                                        <md-icon>mic_none</md-icon>
+                                        <span style="line-height:24px; padding-left: 10px" flex >Audio File Duration (ms)</span>
+                                        <md-button class="md-icon-button" ng-click="dl.changeInterval('audioDuration', 'save')">
+                                            <md-icon>save</md-icon>
+                                        </md-button>
+                                    </div>
+                                    <div layout="row">
+                                        <md-slider aria-label="Change Audio Duration" ng-change="dl.changeInterval('audioDuation', 'edit')" md-discrete flex min="0" step="1000" max="10000" ng-model="dl.currentDroneStatus.droneSettings.audioDuration" class></md-slider>
+                                        <div flex="20" layout layout-align="center center">
+                                            <input  flex type="number" ng-model="dl.currentDroneStatus.droneSettings.audioDuration">
+                                        </div>
+                                    </div>
+                                </div>
+                            </md-grid-tile>
+                            <md-grid-tile>
+                                <md-input-container flex class="md-block md-padding">
+                                    <label>Photo Resolution</label>
+                                    <md-select ng-model="dl.currentDroneStatus.droneSettings.photoResolution">
+                                        <md-option ng-repeat="resolution in dl.options.availablePhotoResolutions">{{resolution}}</md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </md-grid-tile>
+                            <md-grid-tile>
+                                <md-input-container flex class="md-block md-padding">
+                                    <label>Photo Quality</label>
+                                <md-select ng-model="dl.currentDroneStatus.droneSettings.photoQuality">
+                                        <md-option ng-repeat="quality in dl.options.availablePhotoQualities">{{quality}}</md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </md-grid-tile>
+                            <md-grid-tile>
+                                <md-input-container flex class="md-block md-padding">
+                                    <label>Audio File Type</label>
+                                    <md-select ng-model="dl.currentDroneStatus.droneSettings.audioFileType">
+                                        <md-option ng-repeat="fileType in dl.options.availableAudioFileTypes">{{fileType}}</md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </md-grid-tile>
+                            <md-grid-tile>
+                                <md-input-container flex class="md-block md-padding">
+                                    <label>Audio Sampling Frequency</label>
+                                    <md-select ng-model="dl.currentDroneStatus.droneSettings.audioSamplingFrequency">
+                                        <md-option ng-repeat="frequency in dl.options.availableAudioSamplingFrequencies" >{{frequency}}</md-option>
+                                    </md-select>
+                                </md-input-container>
+                                <span>Hz</span>
+                            </md-grid-tile>
+                        </md-grid-list>
+
+                        <md-progress-linear ng-hide="!dl.updatingDroneSetting()" md-mode="indeterminate"></md-progress-linear>
+
+                        <md-divider></md-divider>
+
+
+                        <md-subheader class="md-primary">Latest Service Feedback</md-subheader>
+                        <md-virtual-repeat-container style="height:300px" id="vertical-container">
+                            <div md-virtual-repeat="feedback in dl.serviceFeedback" class="md-list-item-text" flex>
+                                <h4>{{feedback.time}} : {{feedback.service}}</h4>
+                                <p>{{feedback.feedback}}&nbsp;&nbsp;&nbsp;{{feedback.confidence}}</p>
+                            </div>
+                            <div ng-if="dl.serviceFeedback.length==0">
+                                No feedback ( yet.. )
+                            </div>
+                        </md-virtual-repeat-container>
+                    </md-card-content>
+                </md-card>
+                <md-card>
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Live Data Chart for {{dl.droneName}}</span>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-card-content>
+                        <div flex id="chart-div" style="height: 500px;"></div>
+                    </md-card-content>
+                </md-card>
+			</div>
+        </md-content>
+        <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
+            <md-toolbar layout="row">
+                <h1 class="md-toolbar-tools">Change Drone Focus</h1>
+                <md-button style="height:64px" class="md-icon-button">
+                    <md-icon ng-click="dl.showAddDroneDialog()">add_circle</md-icon>
+                </md-button>
+
+            </md-toolbar>
+            <md-content>
+                <md-list>
+                    <md-list-item style="width: 100%" ng-repeat="drone in dl.dronesInformation" layout="column">
+                        <md-button ng-click="dl.swapDrone(drone.name); dl.toggleDroneNavPanel()">
+                            <div flex layout="row">
+                                <md-icon ng-if="drone.status.connection === 'online'">network_wifi</md-icon>
+                                <md-icon ng-if="drone.status.connection != 'online'">signal_wifi_off</md-icon>
+                                <h2 style="margin-left: 20px">{{drone.name}}</h2>
+                                <span flex></span>
+                                <md-button style="height: 100%" class="md-icon-button">
+                                    <md-icon ng-click="dl.deleteDrone($event, drone.name)">delete</md-icon>
+                                </md-button>
+                            </div>
+                            <div flex layout="row">
+                                <div flex layout="column">
+                                <p>Last contact: {{drone.status.droneSettings.time ? (drone.status.droneSettings.time | date : 'dd/MM/yy, hh:mm:ss a' ): 'N/A'}}</p>
+                                </div>
+                                <md-card-title-media>
+                                    <div class="md-media-md card-media md-padding">
+                                        <img style="max-height: 64px; max-width: 64px" ng-src="../../api/{{drone.name}}/images/latest" src="assets/No_image.png" alt="Latest Image">
+                                    </div>
+                                </md-card-title-media>
+                            </div>
+                        </md-button>
+                    </md-list-item>
+                </md-list>
+            </md-content>
+        </md-sidenav>
+    </div>
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3wXmZy0MDqra2yXcxwmUQ6TLCxXE6D1o"></script>
+    <script src="../node_modules/angular/angular.js"></script>
+    <script src="../node_modules/angular-animate/angular-animate.js"></script>
+    <script src="../node_modules/angular-aria/angular-aria.js"></script>
+    <script type="text/javascript" src="../node_modules/angular-material/angular-material.js"></script>
+    <script src="../node_modules/angular-websocket/dist/angular-websocket.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+    <script src="./src/dashboard/Dashboard.js"></script>
+    <script src="./src/dashboard/DashboardController.js"></script>
+    <script src="./src/dashboard/MapService.js"></script>
+    <script src="./src/dashboard/LiveChartService.js"></script>
+    <script src="./src/dashboard/AudioService.js"></script>
+
+    <script type="text/javascript">
+        google.load('visualization', '1', {packages:['corechart']});
+    </script>
+    <script type="text/javascript">
+
+        angular
+            .module('starterApp', ['ngMaterial', 'dashboard',  'ngWebSocket'])
+            .config(function($mdThemingProvider, $mdIconProvider){
+
+                $mdIconProvider
+                        .defaultIconSet('img/icons/sets/core-icons.svg', 24);
+
+
+            });
+
+    </script>
+
+  </body>
+</html>

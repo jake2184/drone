@@ -1,7 +1,11 @@
 node_modules
+coverage/
 uploads/*.jpg
 uploads/
 .cfignore
 .project
 .config.json
 .gitignore
+logs/*
+public/documentation/*
+.idea
