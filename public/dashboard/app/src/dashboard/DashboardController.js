@@ -147,8 +147,6 @@
                     if(incMessage.event === 'status'){
 
                         self.dronesInformation[getDroneIndex(incMessage.name)].status = incMessage.payload;
-                        console.log(incMessage.payload)
-                        console.log(self.currentDroneStatus.droneSettings.audioSamplingFrequency)
                         // If focused drone, carefully update settings
                         if(incMessage.name === self.droneName){
                             var newSettings = incMessage.payload.droneSettings;
@@ -161,9 +159,6 @@
                                             delete self.currentDroneStatus.beingUpdated[setting];
                                         }
                                     } else{
-                                        if(setting == 'audioSamplingFrequency'){
-                                            console.log("Her " + newSettings[setting]);
-                                        }
                                         self.currentDroneStatus.droneSettings[setting] = newSettings[setting];
                                     }
                                 }
@@ -403,7 +398,7 @@
                 }
                 self.selectDroneImage(self.droneImageList[0].time);
             }, function(error){
-                self.addError("Failed to load image list");
+                self.addError("Failed to load image list for " + self.droneName);
             });
         }
 
