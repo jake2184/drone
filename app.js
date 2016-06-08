@@ -6,13 +6,11 @@
 	var auth = require('basic-auth');
 	var session = require('client-sessions');
 	var https=require('https');
-	var Cookies=require('cookies');
 
 	// Require logging module
 	var logger = require('./lib/logger.js');
 
 	// Load select login functions
-	var checkUserCredentials = require('./lib/functions.js').sql.checkUserCredentials;
 	var login = require('./lib/functions.js').login;
 	var dash_login = require('./lib/functions.js').dash_login;
 
@@ -66,44 +64,6 @@
 
 
 
-
-
-
-	// Disable cos testing doesn't like it..?
-	// if (process.env.VCAP_SERVICES) {
-	// 	logger.info("Forcing HTTPS");
-	// 	app.use (function (req, res, next) {
-	// 		if (req.secure) {
-	// 			// request was via https, so do no special handling
-	// 			//logger.info("Request for " + req.url);
-	// 			next();
-	// 		} else {
-	// 			// request was via http, so redirect to https
-	// 			var x = 'https://' + req.headers.host + req.url;
-	// 			logger.info("Redirecting to " + x);
-	// 			res.redirect('https://' + req.headers.host + req.url);
-	// 		}
-	// 	});
-	// }
-
-    //
-	// // Add a handler to inspect the req.secure flag (see
-	// // http://expressjs.com/api#req.secure). This allows us
-	// // to know whether the request was via http or https.
-	// */
-	// app.use (function (req, res, next) {
-	// 	if (req.secure) {
-	// 		// request was via https, so do no special handling
-	// 		logger.info("Request for " + req.url);
-	// 		next();
-	// 	} else {
-	// 		// request was via http, so redirect to https
-	// 		var x = 'https://' + req.headers.host + req.url;
-	// 		logger.info("Redirecting to " + x);
-	// 		res.redirect('https://' + req.headers.host + req.url);
-	// 	}
-	// });
-
 	// Login details should be posted, not a get
 	app.get('/login', function(req, res){
 		res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
@@ -143,11 +103,13 @@
 	// Serve the files out of ./public as static files
 	app.use(express.static(__dirname + '/public'));
 
+
 	// Clean up uploads
+	findRemoveSync(__dirname + '/' + uploadDir, {age: {seconds: 30}});
 	setInterval(function() {
 		logger.info("Checking "+ __dirname + '/' + uploadDir);
-		var removed = findRemoveSync(__dirname + '/' + uploadDir, {age: {seconds: 3600}});
-	}, 3600000);
+		findRemoveSync(__dirname + '/' + uploadDir, {age: {seconds: 30}});
+	}, 120000);
 
 
 	module.exports = app;
