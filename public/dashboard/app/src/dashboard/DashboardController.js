@@ -379,6 +379,7 @@
                 command : 'continue',
                 args : []
             };
+            $http.post('../../api/' + self.droneName + '/reset', {}).then(function(){}, function(){});
             $http.post('../../api/' + self.droneName + '/command/pi', command).then(function(response){}, function (error) {
                 delete self.currentDroneStatus.beingUpdated[setting];
                 self.addError("Failed to send "+error+" command");
