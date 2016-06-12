@@ -95,7 +95,7 @@
 
                 self.swapDrone(self.dronesNameList[0]);
 
-                var dataStream = $websocket('ws://' + window.location.host +'/api/updates/' + self.username);
+                var dataStream = $websocket('wss://' + window.location.host +'/api/updates/' + self.username);
                 var got = {};
                 dataStream.onMessage(function(message){
                     //console.log(JSON.stringify(JSON.parse(message.data)));
@@ -421,7 +421,7 @@
         var audioStream;
         self.toggleAudioStream = function (){
             if(self.dataTypes.audioStream) {
-                audioStream = $websocket('ws://' + window.location.host +'/api/' + self.droneName + '/audio/stream/listen');
+                audioStream = $websocket('wss://' + window.location.host +'/api/' + self.droneName + '/audio/stream/listen');
 
                 audioStream.onMessage(function (message) {
                     console.log("Got data");
