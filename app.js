@@ -105,10 +105,14 @@
 
 
 	// Clean up uploads
-	findRemoveSync(__dirname + '/' + uploadDir, {age: {seconds: 30}});
+	function cleanUploads(){
+		try {
+			findRemoveSync(__dirname + '/' + uploadDir, {age: {seconds: 30}});
+		} catch (e){}
+	}
 	setInterval(function() {
 		logger.info("Checking "+ __dirname + '/' + uploadDir);
-		findRemoveSync(__dirname + '/' + uploadDir, {age: {seconds: 30}});
+		cleanUploads();
 	}, 120000);
 
 

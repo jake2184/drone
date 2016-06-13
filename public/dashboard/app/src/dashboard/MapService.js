@@ -138,6 +138,12 @@
                     icon: decideImage(event),
                     visible: true
                 }));            
+            },
+            clearMap(){
+                for(var i=0; i<events.length; i++){
+                    events[i].setMap(null);
+                }
+                events = [];
             }
         };
     }

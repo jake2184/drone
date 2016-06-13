@@ -386,10 +386,26 @@
                 args : []
             };
             $http.post('../../api/' + self.droneName + '/reset', {}).then(function(){}, function(){});
-            $http.post('../../api/' + self.droneName + '/command/pi', command).then(function(response){}, function (error) {
-                delete self.currentDroneStatus.beingUpdated[setting];
+            $http.post('../../api/' + self.droneName + '/command/mav', command).then(function(response){}, function (error) {
                 self.addError("Failed to send "+error+" command");
             });
+        };
+
+        self.sendHover = function(){
+            self.currentDroneStatus.beingUpdated['hovering'] = true;
+            var command = {
+                command : 'hover',
+                args : []
+            };
+            $http.post('../../api/' + self.droneName + '/command/mav', command).then(function(response){}, function (error) {
+                delete self.currentDroneStatus.beingUpdated['hovering'];
+                self.addError("Failed to send "+error+" command");
+            });
+
+        };
+
+        self.clearMap = function(){
+            mapService.clearMap();
         };
 
         self.changeDroneSetting = function(setting, value){
