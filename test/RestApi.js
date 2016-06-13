@@ -27,7 +27,9 @@ var address = process.env.VCAP_SERVICES ? 'https://localhost' : 'http://localhos
 
 
 describe('Routing', function(){
+    this.timeout(5000);
     before(function (done) {
+
         var dirPath = './uploads';
         try {
             var files = fs.readdirSync(dirPath);

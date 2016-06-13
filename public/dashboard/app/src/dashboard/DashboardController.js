@@ -22,6 +22,12 @@
     function DashboardController(mapService, liveChartService, audioService, $scope, $log, $interval, $http, $mdDialog, $websocket, $mdSidenav) {
         var self = this;
 
+        if (window.location.host.indexOf('192') > -1){
+            var protocol = "ws://"
+        } else {
+            protocol = "wss://"
+        }
+
         self.username = "";
 
         // Set up universal settings
@@ -95,7 +101,7 @@
 
                 self.swapDrone(self.dronesNameList[0]);
 
-                var dataStream = $websocket('wss://' + window.location.host +'/api/updates/' + self.username);
+                var dataStream = $websocket(protocol + window.location.host +'/api/updates/' + self.username);
                 var got = {};
                 dataStream.onMessage(function(message){
                     //console.log(JSON.stringify(JSON.parse(message.data)));
@@ -421,7 +427,7 @@
         var audioStream;
         self.toggleAudioStream = function (){
             if(self.dataTypes.audioStream) {
-                audioStream = $websocket('wss://' + window.location.host +'/api/' + self.droneName + '/audio/stream/listen');
+                audioStream = $websocket(protocol + window.location.host +'/api/' + self.droneName + '/audio/stream/listen');
 
                 audioStream.onMessage(function (message) {
                     console.log("Got data");
