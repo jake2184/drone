@@ -115,7 +115,7 @@
                     if(incMessage.name === self.droneName){
                         // Is the currently focused drone
                         if(incMessage.event === 'image') {
-                            self.random = new Date().getTime();
+                            self.random = incMessage.payload.time;
                         }
                         else if(incMessage.event === 'sensors'){
                             //should update chart
@@ -187,6 +187,7 @@
                 dataStream.onClose(function(error){
                     if(!error.wasClean){
                         self.addError("Unclean websocket close. Refresh Page.");
+                        $scope.$apply();
                     }
                 })
 
@@ -410,7 +411,11 @@
 
         self.changeDroneSetting = function(setting, value){
             self.currentDroneStatus.beingUpdated[setting] = true;
-            var newValue = value || self.currentDroneStatus.droneSettings[setting];
+            if(value === undefined){
+                var newValue = self.currentDroneStatus.droneSettings[setting];
+            } else {
+                newValue = value;
+            }
             var command = {
                 command : setting,
                 args : [newValue]

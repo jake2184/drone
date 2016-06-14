@@ -45,7 +45,7 @@
                 </md-menu-content>
             </md-menu>
             <md-button class="md-raised" ng-click="dl.toggleDroneNavPanel()">
-                Change Drone
+                Change Drone Focus
             </md-button>
             <md-menu md-position-mode="target-right target">
                 <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
@@ -76,7 +76,7 @@
 						<md-card-title-text>
 							<span class="md-headline">Map View</span>
 						</md-card-title-text>
-                        <md-button class="md-raised" ng-click="dl.clearMap()">Clear Map</md-button>
+                        <md-button class="md-raised md-primary" ng-click="dl.clearMap()">Clear Map</md-button>
                         <md-checkbox style="height: 100%" ng-model="dl.maps.fromDatabase" ng-change="dl.toggleMapsFromDatabase()">Load Positions From Database</md-checkbox>
 					</md-card-title>
 					<md-card-content>
@@ -90,6 +90,8 @@
                         <md-card-title-text>
                             <span class="md-headline">Images from {{dl.droneName}}</span>
                         </md-card-title-text>
+                        <span style="margin-right: 20px">Current Image: {{dl.random | date : 'hh:mm:ss a'}}</span>
+
                         <md-checkbox ng-model="dl.dataTypes.audioStream" ng-change="dl.toggleAudioStream()">Stream Audio</md-checkbox>
                     </md-card-title>
                     <md-card-content>
@@ -120,26 +122,25 @@
                 <md-card>
                     <md-card-title>
                         <md-card-title-text>
-                            <span class="md-headline">Drone Status:  {{dl.droneName}}</span>
+                            <span style="height: 100%" class="md-headline">Current Drone:  {{dl.droneName}}</span>
                         </md-card-title-text>
+                        <span flex></span>
+                        <md-button class="md-raised md-padding md-primary" ng-click="dl.changeDroneSetting('hovering', (!dl.currentDroneStatus.droneSettings.hovering) )">
+                            {{dl.currentDroneStatus.droneSettings.hovering ? 'Already Hovering' : 'Start Hovering'}}
+                        </md-button>
                     </md-card-title>
                     <md-card-content>
 
                         <div layout="row">
-                            <md-list>
+                            <md-list layout="row">
                                 <md-list-item>Connected : {{dl.currentDroneStatus.connection}}</md-list-item>
-                                <md-list-item>
+                                <md-list-item style="font-weight: bold">
                                     Mode : {{dl.currentDroneStatus.mode ? dl.currentDroneStatus.mode : 'n/a'}}
                                 </md-list-item>
                             </md-list>
                             <span flex></span>
 
-                            <div layout="column">
-                                <md-button class="md-raised md-padding" ng-disabled="dl.currentDroneStatus.droneSettings.hovering"  ng-click="dl.sendHover()">
-                                    {{dl.currentDroneStatus.droneSettings.hovering ? 'Hovering' : 'Start Hover'}}
-                                </md-button>
-                                <md-button class="md-raised md-padding" ng-disabled="!dl.currentDroneStatus.droneSettings.hovering" ng-click="dl.sendContinue()">Continue</md-button>
-                            </div>
+                            <md-button class="md-raised md-padding" ng-disabled="dl.currentDroneStatus.mode == 'Normal'" ng-click="dl.sendContinue()">Reset Mode and Continue</md-button>
 
                         </div>
 
@@ -265,14 +266,14 @@
                         </md-card-title-text>
                     </md-card-title>
                     <md-card-content>
-                        <div flex id="chart-div" style="height: 500px;"></div>
+                        <div flex id="chart-div" style="height: 400px;"></div>
                     </md-card-content>
                 </md-card>
 			</div>
         </md-content>
         <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
             <md-toolbar layout="row">
-                <h1 class="md-toolbar-tools">Change Drone Focus</h1>
+                <h1 class="md-toolbar-tools">Choose or Add Drone</h1>
                 <md-button style="height:64px" class="md-icon-button">
                     <md-icon ng-click="dl.showAddDroneDialog()">add_circle</md-icon>
                 </md-button>
@@ -293,7 +294,7 @@
                             </div>
                             <div flex layout="row">
                                 <div flex layout="column">
-                                <p>Last contact: {{drone.status.droneSettings.time ? (drone.status.droneSettings.time | date : 'dd/MM/yy, hh:mm:ss a' ): 'N/A'}}</p>
+                                <p>Last contact: {{drone.status.droneSettings.time ? (drone.status.droneSettings.time | date : 'hh:mm:ss a' ): 'N/A'}}</p>
                                 </div>
                                 <md-card-title-media>
                                     <div class="md-media-md card-media md-padding">
