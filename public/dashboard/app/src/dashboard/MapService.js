@@ -100,10 +100,13 @@
             },
             setLoadingPositionsFromDatabase(enabled){
                 if(enabled){
-                    if(angular.isDefined(loadingFromDatabase)){ return;}                    
+                    if(angular.isDefined(loadingFromDatabase)){
+                        return;
+                    }
+                    updateMap();
                     loadingFromDatabase = $interval(function(){
                         updateMap();
-                    }, 1000)
+                    }, 3000)
                 } else {
                     if(angular.isDefined(loadingFromDatabase)){
                         $interval.cancel(loadingFromDatabase);
@@ -144,6 +147,13 @@
                     events[i].setMap(null);
                 }
                 events = [];
+                for(var property in markers){
+                    if(markers.hasOwnProperty(property)){
+                        markers[property].setMap(null)
+                        delete markers[property];
+                    }
+                }
+                console.log(markers)
             }
         };
     }

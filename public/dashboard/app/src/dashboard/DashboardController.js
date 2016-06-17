@@ -133,6 +133,7 @@
 
                             self.serviceFeedback.unshift({
                                 service : "Image Recognition",
+                                drone : self.droneName,
                                 feedback : neaterLabels.slice(0, 5),
                                 time : new Date(incMessage.time).toLocaleTimeString()
                             });
@@ -140,6 +141,7 @@
                         else if(incMessage.event === 'audioTranscript'){
                             self.serviceFeedback.unshift({
                                 service: 'Speech To Text',
+                                drone : self.droneName,
                                 feedback : "Transcript: " + incMessage.payload.transcript,
                                 confidence : "Confidence: " + incMessage.payload.confidence,
                                 time : new Date(incMessage.time).toLocaleTimeString()

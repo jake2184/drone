@@ -250,7 +250,7 @@
                         <md-subheader class="md-primary">Latest Service Feedback</md-subheader>
                         <md-virtual-repeat-container style="height:300px" id="vertical-container">
                             <div md-virtual-repeat="feedback in dl.serviceFeedback" class="md-list-item-text" flex>
-                                <h4>{{feedback.time}} : {{feedback.service}}</h4>
+                                <h4>{{feedback.time}} : {{feedback.service}} &nbsp;&nbsp;&nbsp;  ({{feedback.drone}})</h4>
                                 <p>{{feedback.feedback}}&nbsp;&nbsp;&nbsp;{{feedback.confidence}}</p>
                             </div>
                             <div ng-if="dl.serviceFeedback.length==0">
